@@ -46,8 +46,11 @@ switch ($url) {
     case 'logout.php':
         $lcontroller->logout();
         break;
-    case 'registration.php':
+    case 'signin.php':
         $scontroller->form();
+        break;
+    case 'studentform.php':
+        $scontroller->studentform();
         break;
     default:
         $econtroller->index();

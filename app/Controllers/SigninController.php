@@ -37,8 +37,12 @@ class SigninController {
 
     public function form() {
         $error = $_SESSION['error'] ?? null;
-        //unset($_SESSION['error']);
 
         include __DIR__ . '/../Views/events/signinform.php';
+    }
+    public function studentform() {
+        $error = $_SESSION['error'] ?? null;
+
+        include __DIR__ . '/../Views/events/studentform.php';
     }
 }
