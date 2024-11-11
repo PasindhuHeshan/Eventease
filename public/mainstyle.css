@@ -1,0 +1,47 @@
+.mainbody{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: normal;
+    overflow: auto;
+}
+
+html, body {
+    height: 100%; /* Ensure the body can take full height */
+}
+
+.topics{
+    font-size: 25px;
+    font-weight: 300;
+    margin: 20px;
+    padding: auto;
+}
+
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.card-container a{
+    text-decoration: none;
+    color: black;
+}
+
+.card{
+    height: 240px;
+    background-color:white;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 15px;
+    text-align: justify;
+}
+
+.card:hover{
+    border-color: skyblue;
+    border-inline-width: 3px;
+}
+
+ul{
+    list-style-type: none;
+}
