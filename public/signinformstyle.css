@@ -1,0 +1,66 @@
+body{
+    overflow: hidden;
+}
+
+.largebox {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between; /* Ensures space between the elements */
+    padding: 15px; /* Adds padding around the body */
+    height: 100vh; /* Ensures the body takes up the full viewport height */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+.lside, .rside {
+    border-radius: 25px;
+    border-style: solid;
+    height: calc(100vh - 100px);
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+.lside {
+    flex: 1; /* Takes up one part of the available space */
+    margin-right: 20px; /* Adds a fixed margin between the elements */
+    display: flex;
+    flex-direction: column; /* Aligns children vertically */
+}
+
+.rside {
+    flex: 2; /* Takes up two parts of the available space */
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+
+}
+
+.lup {
+    margin: 10px;
+    padding: 20px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.ldown {
+    margin: 10px;
+    padding: 20px;
+    border-style: solid;
+    border-radius: 20px;
+    flex-grow: 1; /* Takes up the remaining space */
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; 
+}
+
+ul li {
+    list-style-position: inside;
+    padding: 5px; 
+}

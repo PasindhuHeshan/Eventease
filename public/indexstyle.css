@@ -1,0 +1,16 @@
+main {
+    width: 73%;
+    height: 89%;
+    float: left;
+}
+
+.rside {
+    width: 27%;
+    float: right;
+    height: 89%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}

@@ -1,0 +1,12 @@
+.form{
+    padding: 15px;
+    width:200px;
+    border-radius: 25px;
+    background-color: white;
+    font-size: large;
+}
+
+.form:hover{
+    background-color: skyblue;
+    color: white;
+}
