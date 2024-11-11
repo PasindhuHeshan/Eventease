@@ -26,7 +26,7 @@
                         </tr>
                     <?php } ?>
                 </table>
-                <p>If you haven't signed yet? <a href="registration.php">sign in</a></p>
+                <p>If you haven't signed yet? <a href="signin.php">sign in</a></p>
             </form>
         </div>
     </div>
