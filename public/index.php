@@ -11,6 +11,7 @@ require __DIR__ . '/../app/Controllers/EventController.php';
 require __DIR__ . '/../app/Controllers/HeaderController.php';
 require __DIR__ . '/../app/Controllers/LoginController.php';
 require __DIR__ . '/../app/Controllers/SigninController.php';
+require __DIR__ . '/../app/Controllers/AdminLoginController.php';
 require __DIR__ . '/../app/Models/Event.php';
 
 use App\Database;
@@ -18,6 +19,7 @@ use App\Controllers\EventController;
 use App\Controllers\HeaderController;
 use App\Controllers\LoginController;
 use App\Controllers\SigninController;
+use App\Controllers\AdminLoginController;
 
 // Initialize the database connection
 $database = new Database();
@@ -28,11 +30,12 @@ $econtroller = new EventController($database);
 $hcontroller = new HeaderController();
 $lcontroller = new LoginController($database);
 $scontroller = new SigninController($database);
+$alcontroller = new AdminLoginController($database); 
 // Get the URL parameter
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
 // Route the request to the appropriate controller method
-$hcontroller->render();
+//$hcontroller->render();
 switch ($url) {
     case 'event.php':
         $econtroller->event();
@@ -52,6 +55,15 @@ switch ($url) {
     case 'studentform.php':
         $scontroller->studentform();
         break;
+    case 'adminlogin.php':
+        $alcontroller->form();
+        break;
+    case 'processadminlogin.php':
+        $alcontroller->processlogin();
+        break;  
+    case 'dashboard.php':
+        $alcontroller->dashboard();
+        break;    
     default:
         $econtroller->index();
         break;

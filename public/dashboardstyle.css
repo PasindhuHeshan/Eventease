@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #e07155;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.logout-button {
+    background-color: #535e94;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.container {
+    display: flex;
+    gap: 20px; 
+    min-height: calc(100vh - 50px);
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #e4eaee;
+    padding-top: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.profile-icon img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none; 
+    cursor: pointer;
+   
+}
+
+
+/* .sidebar ul li a.active, */
+.sidebar ul li a:hover {
+    background-color: #f0f0f0;
+    color: #ff5722;
+    text-decoration: none; 
+}
+
+ .sidebar ul li.active {
+    padding: 15px 20px;
+    background-color: #f0f0f0;
+    color: #ff5722;
+  
+} 
+
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+.card {
+    background-color: #dadbdf;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+    text-align: center;
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+}
+
+.card select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.card p {
+    margin: 10px 0 0 0;
+    font-size: 18px;
+    color: #333;
+}
+
