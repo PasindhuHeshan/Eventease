@@ -13,11 +13,15 @@
     $row = $result->fetch_assoc();
     $count = $result->num_rows;
           
-        if($count == 1){ 
+        if($count == 1 && usertype != 'admin') { 
             $isLoggedIncheck = 1;
             header("location: index.php?isLoggedIncheck=".$isLoggedIncheck."&username=".$username);
             exit();
-        }  
+        }  else if ($count == 1 && usertype == 'admin') {
+            $isLoggedIncheck = 1;
+            header("location: dashboard.php?username=".$username);
+            exit();
+        }
         else{
             ?>
             <style>
