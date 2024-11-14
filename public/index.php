@@ -72,6 +72,36 @@ switch ($url) {
     case 'adminlogout.php':
         $alcontroller->logout();
         break;   
+    case 'manage_users.php':
+        $alcontroller->manageusers();
+        break; 
+    case 'users.php':
+        $alcontroller->users();
+        break; 
+    case 'role_requests.php':
+        $alcontroller->role_requests();
+        break; 
+    case 'useradd.php':
+        $alcontroller->useradd();
+        break;
+    case 'manageevent.php':
+            $alcontroller->manageevent();
+            break;
+    case 'approved_events.php':
+        $alcontroller->approved_events();
+        break;
+    case 'events.php':
+        $alcontroller->events();
+        break;
+    case 'approvedeventview.php':
+        $alcontroller->approvedeventview();
+        break;
+    case 'viewevent.php':
+        $alcontroller->viewevent();
+        break;
+    case 'inventory.php':
+        $alcontroller->inventory();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();

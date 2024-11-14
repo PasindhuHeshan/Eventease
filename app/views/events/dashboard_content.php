@@ -60,9 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <ul>
                 <li class="active">Dashboard</li>
-                <li><a href="../users/manage users.php">Manage Users</a></li>
-                <li><a href="../events/manageevent.php">Approve Events</a></li>
-                <li><a href="../inventory/inventory.php">Manage Inventory</a></li>
+                <li><a href="manage_users.php">Manage Users</a></li>
+                <li><a href="manageevent.php">Approve Events</a></li>
+                <li><a href="inventory.php">Manage Inventory</a></li>
             </ul>
         </aside>
 
