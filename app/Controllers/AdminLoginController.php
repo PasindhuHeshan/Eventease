@@ -43,10 +43,11 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/adminlogin.php';
     }
 
-    public function logout() {
-        session_unset();
+    public function logout(){
+        //session_start();
         session_destroy();
-        header("Location: index.php");
+        header("Location: adminlogin.php");
+        exit();
     }
 
     public function dashboard() {

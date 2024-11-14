@@ -1,17 +1,19 @@
-<?php 
-namespace App\Models; 
-use App\Database; 
+<?php
+namespace App\Models;
 
-class Dashboard { 
-    private $conn; 
-    
-    public function __construct(Database $database) { 
+use App\Database;
+
+class Dashboard {
+    private $conn;
+
+    public function __construct(Database $database) {
         $this->conn = $database->getConnection();
     }
+
     public function getUserCount($user_type) {
         $query = "SELECT COUNT(*) AS count FROM users WHERE usertype = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $usertype);
+        $stmt->bind_param("s", $user_type);
         $stmt->execute();
         $result = $stmt->get_result();
         $data = $result->fetch_assoc();
@@ -44,3 +46,4 @@ class Dashboard {
         return $data['total_quantity'];
     }
 }
+?>
