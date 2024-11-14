@@ -35,24 +35,28 @@ $alcontroller = new AdminLoginController($database);
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
 // Route the request to the appropriate controller method
-//$hcontroller->render();
 switch ($url) {
     case 'event.php':
+        $hcontroller->render();
         $econtroller->event();
         break;
     case 'login.php':
+        $hcontroller->render();
         $lcontroller->form();
         break;
     case 'processlogin':
+        $hcontroller->render();
         $lcontroller->processlogin();
         break;
     case 'logout.php':
         $lcontroller->logout();
         break;
     case 'signin.php':
+        $hcontroller->render();
         $scontroller->form();
         break;
     case 'studentform.php':
+        $hcontroller->render();
         $scontroller->studentform();
         break;
     case 'adminlogin.php':
@@ -61,10 +65,8 @@ switch ($url) {
     case 'processadminlogin.php':
         $alcontroller->processlogin();
         break;  
-    case 'dashboard.php':
-        $alcontroller->dashboard();
-        break;    
     default:
+        $hcontroller->render();
         $econtroller->index();
         break;
 }
