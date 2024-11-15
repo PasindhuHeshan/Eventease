@@ -34,7 +34,6 @@ $alcontroller = new AdminLoginController($database);
 // Get the URL parameter
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
-// Route the request to the appropriate controller method
 switch ($url) {
     case 'event.php':
         $hcontroller->render();
