@@ -8,23 +8,20 @@
 </head>
 <body>
 <header>
-    <p>Hello , admin</p>
+    <p>Hello, admin</p>
 </header>
     <div class="container">
         <div class="sidebar">
             <div class="profile-section">
                 <div class="profile-icon">
                     <img src="http://localhost/w/logos/logo.png" alt="Profile">
-
-
                 </div>
                 <p>Hello, Admin</p>
             </div>
             <ul>
-                
-                <li><a href="../login and dashboard/dashboard_content.php">Dashboard</a></li>
-                <li><a href="../users/manage users.php">Manage Users</a></li>
-                <li><a href="../events/manageevent.php">Approve Events</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="manage_users.php">Manage Users</a></li>
+                <li><a href="manageevent.php">Approve Events</a></li>
                 <li class="active">Manage Inventory</li>
             </ul>
         </div>
@@ -50,24 +47,23 @@
                         <th>Inventory No</th>
                         <th>Quantity</th>
                         <th>Modify</th>
-                     <th>Delete</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                        include 'connection.php';
+
+                        use App\Models\Dashboard;
+                        use App\Database;
+
+                        $database = new Database();
+                        $dashboard = new Dashboard($database);
 
                         // Check if 'inventory_type' is set, otherwise default to 'Appliances'
                         $inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances';
 
-                        // Ensure inventory_type is properly quoted for SQL
-                        $inventory_type = $con->real_escape_string($inventory_type);  // Sanitizes input for security
-
-                        // Correct the SQL query to quote the inventory_type variable
-                        $sql = "SELECT * FROM inventory WHERE inventory_type = '$inventory_type'";
-
-                        // Execute the query
-                        $result = $con->query($sql);
+                        // Fetch inventory data
+                        $result = $dashboard->getInventoryByType($inventory_type);
 
                         // Check if any rows were returned
                         if ($result->num_rows > 0) {
@@ -79,9 +75,13 @@
                                         <td>{$row['item']}</td>
                                         <td>{$row['inventory_no']}</td>
                                         <td>{$row['quantity']}</td>
-                                        <td><a href='modify_item.php?id={$row['id']}'><button type='submit'>Modify</button></a></td>
+                                        <td><form method='POST' action='modify_item.php'>
+                                            <input type='hidden' name='inventory_no' value={$row['inventory_no']}'>
+                                            <button type='submit'>Modify</button>
+                                        </form>
+                                        </td>
                                         <td><form method='POST' action='delete_item.php'>
-                                            <input type='hidden' name='id' value='{$row['id']}'>
+                                            <input type='hidden' name='inventory_no' value='{$row['inventory_no']}'>
                                             <button type='submit'>Delete</button>
                                         </form></td>
                                     </tr>";
@@ -90,18 +90,12 @@
                         } else {
                             echo "<tr><td colspan='6'>No data found</td></tr>";
                         }
-
-                        $con->close();
                         ?>
-
-                       
                 </tbody>
-            
             </table>
             <form method="POST" action="add_item.php">
                 <button type="submit">Add New</button>
             </form>
-          
         </div>
     </div>
 </body>

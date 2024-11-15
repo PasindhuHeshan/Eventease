@@ -97,8 +97,88 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/approvedeventview.php';
     }
 
-    public function inventory(){
+    public function Inventory() {
+
+        $database = new Database();
+        $dashboard = new Dashboard($database);
+
+        // Check if 'inventory_type' is set, otherwise default to 'Appliances'
+        $inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances';
+
+        // Fetch inventory data
+        $result = $dashboard->getInventoryByType($inventory_type);
+
+        // Include the view file
         include __DIR__ . '/../Views/events/inventory.php';
+    }
+
+    public function add_item(){
+        include __DIR__ . '/../views/events/add_item.php';
+    }
+
+    public function save_item() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $item = $_POST['item'] ?? null;
+            $inventory_no = $_POST['inventory_no'] ?? null;
+            $quantity = $_POST['quantity'] ?? null;
+            $inventory_type = $_POST['inventory_type'] ?? null;
+
+            $database = new Database();
+            $dashboard = new Dashboard($database);
+
+            if ($dashboard->save_item($item, $inventory_no, $quantity, $inventory_type)) {
+                include __DIR__ . '/../views/events/inventory.php';
+            } else {
+                echo "Not added.";
+            }
+        }
+    }
+
+    public function delete_item() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inventory_no'])) {
+            $inventory_no = $_POST['inventory_no'];
+            $database = new Database();
+            $dashboard = new Dashboard($database);
+    
+            if ($dashboard->delete_item($inventory_no)) {
+                header("Location: inventory.php");
+                exit();
+            } else {
+                echo "Error deleting item.";
+            }
+        }
+    }
+    
+    public function modify_item() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $inventoryNo = $_POST['inventory_no'];
+            $item = $_POST['item'];
+            $quantity = $_POST['quantity'];
+            $inventoryType = $_POST['inventory_type'];
+    
+            $database = new Database();
+            $dashboard = new Dashboard($database);
+    
+            if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
+                header("Location: inventory.php");
+                exit();
+            } else {
+                echo "Error modifying item.";
+            }
+        } else {
+            $inventoryNo = $_GET['inventory_no'];
+    
+            $database = new Database();
+            $dashboard = new Dashboard($database);
+    
+            $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
+    
+            if ($itemData) {
+                include __DIR__ . '/../views/events/inventory.php';
+            } else {
+                echo "Item not found.";
+            }
+        }
     }
 }
 ?>
