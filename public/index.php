@@ -102,6 +102,18 @@ switch ($url) {
     case 'inventory.php':
         $alcontroller->inventory();
         break;
+    case 'add_item.php':
+        $alcontroller->add_item();
+        break;
+    case 'save_item.php':
+        $alcontroller->save_item();
+        break;
+    case 'delete_item.php':
+        $alcontroller->delete_item();
+        break;
+    case 'modify_item.php':
+        $alcontroller->modify_item();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();

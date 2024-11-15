@@ -45,5 +45,85 @@ class Dashboard {
 
         return $data['total_quantity'];
     }
+
+    public function getInventoryByType($inventory_type) {
+        $query = "SELECT * FROM inventory WHERE inventory_type = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $inventory_type);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function save_item($item, $inventory_no, $quantity, $inventory_type) {
+        $sql = "INSERT INTO inventory (item, inventory_no, quantity, inventory_type) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("ssis", $item, $inventory_no, $quantity, $inventory_type);
+
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
+            $stmt->close();
+        } else {
+            return false;
+        }
+    }
+
+    public function delete_item($inventory_no) {
+        $query = "DELETE FROM inventory WHERE inventory_no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $inventory_no);
+        $result = $stmt->execute();
+        $stmt->close();
+    
+        return $result;
+    }
+    
+    
+    public function getItemByInventoryNo($inventoryNo) {
+        $sql = "SELECT * FROM inventory WHERE inventory_no = ?";
+        $stmt = $this->database->prepare($sql);
+    
+        if ($stmt) {
+            $stmt->bind_param("s", $inventoryNo);
+    
+            if ($stmt->execute()) {
+                $result = $stmt->get_result();
+                return $result->fetch_assoc();
+            } else {
+                return false; // Error fetching item
+            }
+    
+            $stmt->close();
+        } else {
+            return false; // Error preparing statement
+        }
+    }
+    
+    public function modify_item($inventoryNo, $item, $quantity, $inventoryType) {
+        $sql = "UPDATE inventory SET item = ?, quantity = ?, inventory_type = ? WHERE inventory_no = ?";
+        $stmt = $this->database->prepare($sql);
+    
+        if ($stmt) {
+            $stmt->bind_param("sisi", $item, $quantity, $inventoryType, $inventoryNo);
+    
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    
+            $stmt->close();
+        } else {
+            return false;
+        }
+    }
 }
 ?>
