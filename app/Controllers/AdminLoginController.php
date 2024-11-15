@@ -43,10 +43,11 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/adminlogin.php';
     }
 
-    public function logout() {
-        session_unset();
+    public function logout(){
+        //session_start();
         session_destroy();
-        header("Location: index.php");
+        header("Location: adminlogin.php");
+        exit();
     }
 
     public function dashboard() {
@@ -58,6 +59,46 @@ class AdminLoginController {
         $inventory_count = $dashboard->getInventoryCount('inventory_type');
 
         include __DIR__ . '/../Views/events/dashboard_content.php';
+    }
+
+    public function manageusers(){
+        include __DIR__ . '/../Views/events/manage_users.php';
+    }
+
+    public function users(){
+        include __DIR__ . '/../Views/events/users.php';
+    }
+
+    public function role_requests(){
+        include __DIR__ . '/../Views/events/role_requests.php';
+    }
+
+    public function useradd(){
+        include __DIR__ . '/../Views/events/useradd.php';
+    }
+
+    public function manageevent(){
+        include __DIR__ . '/../Views/events/manageevent.php';
+    }
+
+    public function approved_events(){
+        include __DIR__ . '/../Views/events/approved_events.php';
+    }
+
+    public function events(){
+        include __DIR__ . '/../Views/events/events.php';
+    }
+
+    public function viewevent(){
+        include __DIR__ . '/../Views/events/viewevent.php';
+    }
+
+    public function approvedeventview(){
+        include __DIR__ . '/../Views/events/approvedeventview.php';
+    }
+
+    public function inventory(){
+        include __DIR__ . '/../Views/events/inventory.php';
     }
 }
 ?>
