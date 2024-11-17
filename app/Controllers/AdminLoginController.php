@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controllers;
+namespace app\Controllers;
 
-use App\Models\UserModel;
-use App\Models\Dashboard;
-use App\Database;
+use app\models\UserModel;
+use app\models\Dashboard;
+use app\Database;
 
-require_once __DIR__ . '/../Models/Dashboard.php';
+require_once __DIR__ . '/../models/Dashboard.php';
 
 class AdminLoginController {
     public function processLogin() {
