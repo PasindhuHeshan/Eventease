@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link rel="stylesheet" href="mngeventstyles.css">
+
+</head>
+<body>
+  
+    <h2>Events</h2>
+  
+        <label for="event_type">Event type</label>
+        <select name="event_type" id="event_type">
+            <option value="1">event1</option>
+            <option value="2">event2</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form><br>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Event Name</th>
+                <th>View</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Event A</td>
+                <td>
+                    <form action="approvedeventview.php".html>
+                        <button type="submit">View</button>
+                    </form>
+                </td>
+                <td><button>approve</button> <button>delete</button></td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Event B</td>
+               <td>
+                <form action="eventview.php".html>
+                    <button type="submit">View</button>
+                </form>
+
+               </td>
+                <td><button>approve</button> <button>delete</button></td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>Event C</td>
+                <td>
+                    <form action="eventview.php".html>
+                        <button type="submit">View</button>
+                    </form>
+                </td>
+                
+                
+                <td><button>approve</button> <button>delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

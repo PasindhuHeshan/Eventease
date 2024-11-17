@@ -11,6 +11,7 @@ require __DIR__ . '/../app/Controllers/EventController.php';
 require __DIR__ . '/../app/Controllers/HeaderController.php';
 require __DIR__ . '/../app/Controllers/LoginController.php';
 require __DIR__ . '/../app/Controllers/SigninController.php';
+require __DIR__ . '/../app/Controllers/AdminLoginController.php';
 require __DIR__ . '/../app/Models/Event.php';
 
 use App\Database;
@@ -18,6 +19,7 @@ use App\Controllers\EventController;
 use App\Controllers\HeaderController;
 use App\Controllers\LoginController;
 use App\Controllers\SigninController;
+use App\Controllers\AdminLoginController;
 
 // Initialize the database connection
 $database = new Database();
@@ -28,31 +30,98 @@ $econtroller = new EventController($database);
 $hcontroller = new HeaderController();
 $lcontroller = new LoginController($database);
 $scontroller = new SigninController($database);
+$alcontroller = new AdminLoginController($database); 
 // Get the URL parameter
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
-// Route the request to the appropriate controller method
-$hcontroller->render();
 switch ($url) {
     case 'event.php':
+        $hcontroller->render();
         $econtroller->event();
         break;
     case 'login.php':
+        $hcontroller->render();
         $lcontroller->form();
         break;
     case 'processlogin':
+        $hcontroller->render();
         $lcontroller->processlogin();
         break;
     case 'logout.php':
         $lcontroller->logout();
         break;
     case 'signin.php':
+        $hcontroller->render();
         $scontroller->form();
         break;
     case 'studentform.php':
+        $hcontroller->render();
         $scontroller->studentform();
         break;
+    case 'enroll.php':
+        $hcontroller->render();
+        $econtroller->eventenroll();
+        break;
+    case 'removeEnrollment.php':
+        $hcontroller->render();
+        $econtroller->removeEnrollment(); 
+        break;
+    case 'adminlogin.php':
+        $alcontroller->form();
+        break;
+    case 'processadminlogin.php':
+        $alcontroller->processlogin();
+        break;  
+    case 'dashboard.php':
+        $alcontroller->dashboard();
+        break;    
+    case 'adminlogout.php':
+        $alcontroller->logout();
+        break;   
+    case 'manage_users.php':
+        $alcontroller->manageusers();
+        break; 
+    case 'users.php':
+        $alcontroller->users();
+        break; 
+    case 'role_requests.php':
+        $alcontroller->role_requests();
+        break; 
+    case 'useradd.php':
+        $alcontroller->useradd();
+        break;
+    case 'manageevent.php':
+            $alcontroller->manageevent();
+            break;
+    case 'approved_events.php':
+        $alcontroller->approved_events();
+        break;
+    case 'events.php':
+        $alcontroller->events();
+        break;
+    case 'approvedeventview.php':
+        $alcontroller->approvedeventview();
+        break;
+    case 'viewevent.php':
+        $alcontroller->viewevent();
+        break;
+    case 'inventory.php':
+        $alcontroller->inventory();
+        break;
+    case 'add_item.php':
+        $alcontroller->add_item();
+        break;
+    case 'save_item.php':
+        $alcontroller->save_item();
+        break;
+    case 'delete_item.php':
+        $alcontroller->delete_item();
+        break;
+    case 'modify_item.php':
+        $alcontroller->modify_item();
+        break;
     default:
+        $hcontroller->render();
         $econtroller->index();
         break;
 }
