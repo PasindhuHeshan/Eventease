@@ -58,6 +58,14 @@ switch ($url) {
         $hcontroller->render();
         $scontroller->studentform();
         break;
+    case 'enroll.php':
+        $hcontroller->render();
+        $econtroller->eventenroll();
+        break;
+    case 'removeEnrollment.php':
+        $hcontroller->render();
+        $econtroller->removeEnrollment(); 
+        break;
     case 'adminlogin.php':
         $alcontroller->form();
         break;
