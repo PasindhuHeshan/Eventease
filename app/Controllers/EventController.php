@@ -10,6 +10,7 @@ class EventController
 {
     private $eventModel;
     private $UserModel;
+    private $username;
 
     public function __construct(Database $database)
     {
@@ -19,8 +20,9 @@ class EventController
 
     public function index()
     {
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
         $events = $this->eventModel->getAllEvents();
-        $upevents = $this->eventModel->getAllupcomingEvents();
+        $upevents = $this->eventModel->getAllupcomingEvents($username);
         include __DIR__ . '/../Views/events/index.php';
     }
 

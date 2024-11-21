@@ -54,6 +54,23 @@ switch ($url) {
         $hcontroller->render();
         $scontroller->form();
         break;
+    case 'forgetpassword.php':
+        $hcontroller->render();
+        $lcontroller->forgetpassword();
+        break;
+    case 'fpcheck':
+        $hcontroller->render();
+        $lcontroller->checkdetails();
+        break;
+    case 'fpchange':
+        $hcontroller->render();
+        $lcontroller->updatepassword();
+        break;
+    case 'changepassword.php': 
+        $username = isset($_GET['username']) ? $_GET['username'] : '';
+        $hcontroller->render(); 
+        include __DIR__ . '/../app/Views/events/changepassword.php'; 
+        break;
     case 'studentform.php':
         $hcontroller->render();
         $scontroller->studentform();
