@@ -59,10 +59,12 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getAllupcomingEvents() {
-        $query = "SELECT * FROM events WHERE date >= CURDATE()";
-        $result = $this->conn->query($query);
-
+    public function getAllUpcomingEvents($username) {
+        $query = "SELECT * FROM events INNER JOIN enroll ON events.no = enroll.eventno WHERE enroll.username = ? order by date asc";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 }

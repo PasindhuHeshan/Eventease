@@ -24,6 +24,7 @@
                     if($username!=='Guest'){
                     ?>
                         <li>Hi <?php echo $username ?></li>
+                        <li><a href="userprofile.php" target="rside">Profile</a></li>
                         <li><a href="logout.php" target="_self">Logout</a></li>
                     <?php
                     }else{
