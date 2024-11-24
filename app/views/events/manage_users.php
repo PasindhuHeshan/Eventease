@@ -7,9 +7,13 @@
     <link rel="stylesheet" href="mngusrstyle.css">
 </head>
 <body>
-    <header>
-        <p>Hello , admin</p>
-            
+<header>
+        <p>Hello</p>
+        <div class="header-right">
+            <span>, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+            <form method="POST" action="adminlogout.php" class="form">
+                <button type="submit" class="logout-button">Log out</button>
+            </form>
         </div>
     </header>
     <div class="container">
@@ -19,7 +23,7 @@
                 <div class="profile-icon">
                     <img src="http://localhost/w/logos/logo.png" alt="Profile">
                 </div>
-                <p>Hello, Admin</p>
+                <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
             </div>
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>

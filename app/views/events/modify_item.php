@@ -29,10 +29,10 @@ if ($itemData) {
 
         <label for="inventory_type">Inventory Type</label>
         <select name="inventory_type" id="inventory_type">
-            <option value="Appliances" <?php echo $row['inventory_type'] == 'Appliances' ? 'selected' : ''; ?>>Appliances</option>
-            <option value="Stationery" <?php echo $row['inventory_type'] == 'Stationery' ? 'selected' : ''; ?>>Stationery</option>
-            <option value="Furniture" <?php echo $row['inventory_type'] == 'Furniture' ? 'selected' : ''; ?>>Furniture</option>
-            <option value="Electronics" <?php echo $row['inventory_type'] == 'Electronics' ? 'selected' : ''; ?>>Electronics</option>
+            <option value="Appliances" <?php echo htmlspecialchars($itemData['inventory_type']) == 'Appliances' ? 'selected' : ''; ?>>Appliances</option>
+            <option value="Stationery" <?php echo htmlspecialchars($itemData['inventory_type']) == 'Stationery' ? 'selected' : ''; ?>>Stationery</option>
+            <option value="Furniture" <?php echo htmlspecialchars($itemData['inventory_type']) == 'Furniture' ? 'selected' : ''; ?>>Furniture</option>
+            <option value="Electronics" <?php echo htmlspecialchars($itemData['inventory_type']) == 'Electronics' ? 'selected' : ''; ?>>Electronics</option>
         </select>
         <button type="submit">Update</button>
     </form>

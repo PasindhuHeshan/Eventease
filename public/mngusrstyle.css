@@ -9,10 +9,28 @@ header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 5px 10px;
+    padding: 10px 20px;
     background-color: #e07155;
     border-bottom: 1px solid #ddd;
-   
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.logout-button {
+    background-color: #535e94;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.form{
+    margin-bottom: 0px;
 }
 
 

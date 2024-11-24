@@ -140,6 +140,7 @@ class AdminLoginController {
             $database = new Database();
             $dashboard = new Dashboard($database);
     
+            //check if the Selected inventory have assigned to any event (at least one event)
             if ($dashboard->delete_item($inventory_no)) {
                 header("Location: inventory.php");
                 exit();
@@ -238,20 +239,18 @@ class AdminLoginController {
     
 
     public function get_item() {
-        $database = new Database();
-        $dashboard = new Dashboard($database);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inventory_no'])) {
+            $inventory_no = $_POST['inventory_no'];
+            $database = new Database();
+            $dashboard = new Dashboard($database);
     
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Use the null coalescing operator to safely access $_POST['inventory_no']
-            $inventoryNo = $_POST['inventory_no'] ?? null; // If 'inventory_no' is not set, it will return null.
-    
-            if ($inventoryNo) {
-                $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
+            if ($inventory_no) {
+                $itemData = $dashboard->getItemByInventoryNo($inventory_no);
     
                 if ($itemData) {
                     // Redirect to the edit item view, passing the item data
                     $_SESSION['itemData'] = $itemData;
-                    header("Location: modify_item.php");
+                    include __DIR__ . '/../Views/events/modify_item.php';
                     exit;
                 } else {
                     echo "Item not found.";
