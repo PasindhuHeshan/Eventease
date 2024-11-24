@@ -135,21 +135,28 @@ class AdminLoginController {
     }
 
     public function delete_item() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inventory_no'])) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inventory_no']) && isset($_POST['inventory_type'])) {
             $inventory_no = $_POST['inventory_no'];
+            $inventory_type = $_POST['inventory_type'] ?? 'Appliances';
             $database = new Database();
             $dashboard = new Dashboard($database);
     
-            //check if the Selected inventory have assigned to any event (at least one event)
-            if ($dashboard->delete_item($inventory_no)) {
-                header("Location: inventory.php");
+            if($dashboard->check_item_usage($inventory_no)){
+                //check if the Selected inventory have assigned to any event (at least one event)
+                if ($dashboard->delete_item($inventory_no)) {
+                    //header("Location: inventory.php");
+                    include __DIR__ . '/../views/events/inventory.php';
+                    exit();
+                } else {
+                    echo "Error deleting item.";
+                }
+            }else{
+                //echo "Item is in use. Cannot delete.";
+                include __DIR__ . '/../views/events/inventory.php';
                 exit();
-            } else {
-                echo "Error deleting item.";
             }
         }
     }
-    
     // public function modify_item() {
     //     $database = new Database();
     //     $dashboard = new Dashboard($database);
@@ -203,20 +210,24 @@ class AdminLoginController {
             $item = $_POST['item'] ?? null;
             $quantity = $_POST['quantity'] ?? null;
             $inventoryType = $_POST['inventory_type'] ?? null;
-    
-            if ($inventoryNo && $item && $quantity && $inventoryType) {
-                try {
-                    if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
-                        header("Location: inventory.php");
-                        exit();
-                    } else {
-                        echo "Error modifying item.";
+            
+            if($dashboard->before_modify($inventoryNo,$quantity)){
+                if ($inventoryNo && $item && $quantity && $inventoryType) {
+                    try {
+                        if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
+                            header("Location: inventory.php");
+                            exit();
+                        } else {
+                            echo "Error modifying item.";
+                        }
+                    } catch (Exception $e) {
+                        echo "An error occurred: " . $e->getMessage();
                     }
-                } catch (Exception $e) {
-                    echo "An error occurred: " . $e->getMessage();
+                } else {
+                    echo "Missing data for modification.";
                 }
-            } else {
-                echo "Missing data for modification.";
+            }else{
+                echo "Enter the Modified Quantity below the available Quantity";
             }
         } else {
             // Check if inventory_no is provided via GET
