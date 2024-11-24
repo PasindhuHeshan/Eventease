@@ -6,12 +6,12 @@ use App\Database;
 
 class UserModel {
 
-    private $database;
-    private $conn;
+    // private $database;
+    // private $conn;
 
-    public function __construct(Database $database) {
-        $this->conn = $database->getConnection();
-    }
+    // public function __construct(Database $database) {
+    //     $this->conn = $database->getConnection();
+    // }
 
     public function validateUser($username, $password, Database $database) {
         $conn = $database->getConnection();
