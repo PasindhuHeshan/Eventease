@@ -75,8 +75,11 @@
                                         <td>{$row['item']}</td>
                                         <td>{$row['inventory_no']}</td>
                                         <td>{$row['quantity']}</td>
-                                        <td><form method='POST' action='modify_item.php'>
-                                            <input type='hidden' name='inventory_no' value={$row['inventory_no']}'>
+                                        <td><form method='POST' action='get_item.php'>
+                                            <input type='hidden' name='inventory_no' value='{$row['inventory_no']}'>
+                                            <input type='hidden' name='item' value='{$row['item']}'>
+                                            <input type='hidden' name='quantity' value='{$row['quantity']}'>
+                                            <input type='hidden' name='inventory_type' value='{$row['inventory_type']}'>
                                             <button type='submit'>Modify</button>
                                         </form>
                                         </td>

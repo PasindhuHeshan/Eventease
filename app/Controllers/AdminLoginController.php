@@ -149,36 +149,119 @@ class AdminLoginController {
         }
     }
     
+    // public function modify_item() {
+    //     $database = new Database();
+    //     $dashboard = new Dashboard($database);
+    
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $inventoryNo = $_POST['inventory_no'] ?? null;
+    //         $item = $_POST['item'] ?? null;
+    //         $quantity = $_POST['quantity'] ?? null;
+    //         $inventoryType = $_POST['inventory_type'] ?? null;
+    
+    //         if ($inventoryNo && $item && $quantity && $inventoryType) {
+    //             try {
+    //                 if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
+    //                     header("Location: inventory.php");
+    //                     exit();
+    //                 } else {
+    //                     echo "Error modifying item.";
+    //                 }
+    //             } catch (Exception $e) {
+    //                 echo "An error occurred: " . $e->getMessage();
+    //             }
+    //         } else {
+    //             echo "Missing data for modification.";
+    //         }
+    //     } else {
+    //         // Check if inventory_no is provided via GET
+    //         $inventoryNo = $_GET['inventory_no'] ?? null;
+    
+    //         if ($inventoryNo) {
+    //             $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
+    
+    //             if ($itemData) {
+    //                 include __DIR__ . '/../views/events/inventory.php';
+    //             } else {
+    //                 echo "Item not found.";
+    //             }
+    //         } else {
+    //             echo "Inventory number is missing.";
+    //         }
+    //     }
+    // }
+   
+    
     public function modify_item() {
+        $database = new Database();
+        $dashboard = new Dashboard($database);
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $inventoryNo = $_POST['inventory_no'];
-            $item = $_POST['item'];
-            $quantity = $_POST['quantity'];
-            $inventoryType = $_POST['inventory_type'];
+            // Handle POST data here
+            $inventoryNo = $_POST['inventory_no'] ?? null;
+            $item = $_POST['item'] ?? null;
+            $quantity = $_POST['quantity'] ?? null;
+            $inventoryType = $_POST['inventory_type'] ?? null;
     
-            $database = new Database();
-            $dashboard = new Dashboard($database);
-    
-            if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
-                header("Location: inventory.php");
-                exit();
+            if ($inventoryNo && $item && $quantity && $inventoryType) {
+                try {
+                    if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
+                        header("Location: inventory.php");
+                        exit();
+                    } else {
+                        echo "Error modifying item.";
+                    }
+                } catch (Exception $e) {
+                    echo "An error occurred: " . $e->getMessage();
+                }
             } else {
-                echo "Error modifying item.";
+                echo "Missing data for modification.";
             }
         } else {
-            $inventoryNo = $_GET['inventory_no'];
+            // Check if inventory_no is provided via GET
+            $inventoryNo = $_GET['inventory_no'] ?? null;
     
-            $database = new Database();
-            $dashboard = new Dashboard($database);
+            if ($inventoryNo) {
+                $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
     
-            $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
-    
-            if ($itemData) {
-                include __DIR__ . '/../views/events/inventory.php';
+                if ($itemData) {
+                    // Pass item data to the view
+                    include __DIR__ . '/../views/events/modify_item.php';
+                } else {
+                    echo "Item not found.";
+                }
             } else {
-                echo "Item not found.";
+                echo "Inventory number is missing.";
             }
         }
     }
+    
+
+    public function get_item() {
+        $database = new Database();
+        $dashboard = new Dashboard($database);
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Use the null coalescing operator to safely access $_POST['inventory_no']
+            $inventoryNo = $_POST['inventory_no'] ?? null; // If 'inventory_no' is not set, it will return null.
+    
+            if ($inventoryNo) {
+                $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
+    
+                if ($itemData) {
+                    // Redirect to the edit item view, passing the item data
+                    $_SESSION['itemData'] = $itemData;
+                    header("Location: modify_item.php");
+                    exit;
+                } else {
+                    echo "Item not found.";
+                }
+            } else {
+                echo "Inventory number is missing.";
+            }
+        }
+    }
+    
+    
 }
 ?>
