@@ -140,6 +140,7 @@ class AdminLoginController {
             $database = new Database();
             $dashboard = new Dashboard($database);
     
+            //check if the Selected inventory have assigned to any event (at least one event)
             if ($dashboard->delete_item($inventory_no)) {
                 header("Location: inventory.php");
                 exit();

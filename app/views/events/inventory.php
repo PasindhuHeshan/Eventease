@@ -7,16 +7,22 @@
     <link rel="stylesheet" href="inventorystyles.css">
 </head>
 <body>
-<header>
-    <p>Hello, admin</p>
-</header>
+    <header>
+        <p>Hello</p>
+        <div class="header-right">
+            <span>, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+            <form method="POST" action="adminlogout.php" class="form">
+                <button type="submit" class="logout-button">Log out</button>
+            </form>
+        </div>
+    </header>
     <div class="container">
         <div class="sidebar">
             <div class="profile-section">
                 <div class="profile-icon">
                     <img src="http://localhost/w/logos/logo.png" alt="Profile">
                 </div>
-                <p>Hello, Admin</p>
+                <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
             </div>
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>
@@ -77,7 +83,7 @@
                                         <td>{$row['quantity']}</td>
                                         <td><form method='POST' action='get_item.php'>
                                             <input type='hidden' name='inventory_no' value='{$row['inventory_no']}'>
-                                            <button type='submit'>Update</button>
+                                            <button type='submit'>Modify</button>
                                         </form>
                                         </td>
                                         <td><form method='POST' action='delete_item.php'>

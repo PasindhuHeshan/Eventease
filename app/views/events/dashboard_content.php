@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="profile-icon">
                     <img src="./images/adminlogo.png" alt="Profile">
                 </div>
-                <span>Hello, Admin</span>
+                <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>
             </div>
             <ul>
                 <li class="active">Dashboard</li>

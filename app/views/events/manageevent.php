@@ -7,19 +7,22 @@
     <link rel="stylesheet" href="mngeventstyles.css">
 </head>
 <body>
-    <header>
-        <p>Hello , admin</p>
-            
+<header>
+        <p>Hello</p>
+        <div class="header-right">
+            <span>, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+            <form method="POST" action="adminlogout.php" class="form">
+                <button type="submit" class="logout-button">Log out</button>
+            </form>
         </div>
     </header>
     <div class="container">
         <div class="sidebar">
             <div class="profile-section">
                 <div class="profile-icon">
-          
                     <img src="http://localhost/w/logos/logo.png" alt="Profile">
                 </div>
-                <span>Hello, Admin</span>
+                <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>
             </div>
             <ul>
                 
