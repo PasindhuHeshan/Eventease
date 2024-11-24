@@ -2,10 +2,11 @@
 
 class Controller
 {
-    public function view($name)
+    public function view($name, $data = [])
     {
         $filename = "../App/Views/".$name.".view.php";
         if(file_exists($filename)){
+            extract($data);
             require $filename;
         } else {
             $filename = "../App/Views/404.view.php";

@@ -1,0 +1,286 @@
+// Global Variables
+$primary-color: #007bff;
+$secondary-color: #032e55;
+$success-color: #28a745;
+$info-color: #17a2b8;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+$white-color: #fff;
+$background-color: #f0f0f0;
+$text-color: #333;
+
+$header-height: 65px;
+
+// Global Styles
+body{
+    background-color: $background-color;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    color: $text-color;
+}
+
+a{
+    color: $primary-color;
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.container{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.col{
+    padding: 0 15px;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+// Header Styles
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, $primary-color, $secondary-color);
+    color: $white-color;
+    padding: 20px 30px;
+    text-align: center;
+    height: $header-height;
+
+    .logo{
+        width: 200px;
+        overflow: hidden;
+        img{
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .header-controls{
+        display: flex;
+        gap: 15px;
+    }
+
+    h1{
+        margin: 0;
+    }
+}
+
+.content-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    min-height: calc(100vh - #{$header-height + 40px});
+}
+
+// Sidebar Styles
+.sidebar{
+    background-image: linear-gradient(to bottom right, $primary-color, $secondary-color);
+    color: $white-color;
+    padding: 40px 0px;
+
+
+    .sidebar-menu{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .nav{
+            background-image: linear-gradient(to bottom right, #051f3b, #00498b);
+            color: $white-color;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.2s ease-out;
+            line-height: 30px;
+            text-decoration: none;
+            
+            &:hover{
+                background-image: linear-gradient(to bottom right, #00498b, #051f3b);
+                transform: translateY(-2px);
+                transition: all 0.3s ease-out;
+            }
+            &.active{
+                background-image: linear-gradient(to bottom right, #00498b, #051f3b);
+            }
+        }
+    }
+}
+
+// Footer Styles
+
+
+// Page Styles
+.page{
+    padding: 40px 30px;
+    background-color: $white-color;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    // min-height: calc(100vh - #{$header-height + 140px});
+
+    .events{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+
+        .event{
+            background-color: $white-color;
+            border: $primary-color 1px solid;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 3px 5px 5px #00000020;
+            transition: transform 0.2s ease-out;
+            cursor: pointer;
+
+            &:hover{
+                transform: translateY(-10px);
+                transition: all 0.3s ease-out;
+            }
+
+            .event-image{
+                width: 100%;
+                height: 150px;
+                overflow: hidden;
+                border-radius: 11px;
+                background-color: $dark-color;
+
+                img{
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .event-details{
+                margin: 15px 0px;
+                padding: 0 5px;
+
+                .event-title{
+                    font-size: 20px;
+                    font-weight: 700;
+                    margin: 7px 0px;
+                }
+
+                .event-date, .event-time{
+                    font-size: 14px;
+                    font-weight: 700;
+                    margin: 0px;
+                }
+
+                .event-location{
+                    font-size: 14px;
+                    font-weight: 700;
+                    margin: 0px;
+                }
+
+                .event-description{
+                    font-size: 14px;
+                    font-weight: 500;
+                    margin: 7px 0px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 6;
+                    line-clamp: 6;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}
+
+//Button Styles
+.btn{
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    color: $white-color;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+
+    &.primary{
+        background-color: $primary-color;
+        &:hover{
+            background-color: darken($primary-color, 10%);
+        }
+    }
+
+    &.secondary{
+        background-color: $secondary-color;
+        &:hover{
+            background-color: darken($secondary-color, 10%);
+        }
+    }
+
+    &.success{
+        background-color: $success-color;
+        &:hover{
+            background-color: darken($success-color, 10%);
+        }
+    }
+
+    &.info{
+        background-color: $info-color;
+        &:hover{
+            background-color: darken($info-color, 10%);
+        }
+    }
+
+    &.warning{
+        background-color: $warning-color;
+        &:hover{
+            background-color: darken($warning-color, 10%);
+        }
+    }
+
+    &.danger{
+        background-color: $danger-color;
+        &:hover{
+            background-color: darken($danger-color, 10%);
+        }
+    }
+
+    &.light{
+        background-color: $light-color;
+        color: $text-color;
+        &:hover{
+            background-color: darken($light-color, 10%);
+        }
+    }
+
+    &.dark{
+        background-color: $dark-color;
+        &:hover{
+            background-color: darken($dark-color, 10%);
+        }
+    }
+
+    &.ctrl{
+        background-color: transparent;
+        color: $white-color;
+        border: 1px solid $white-color;
+        &:hover{
+            background-color: $white-color;
+            color: $dark-color;
+        }
+    }
+}
