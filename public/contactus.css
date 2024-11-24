@@ -1,0 +1,78 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main{
+    text-align: center;
+    display: flex;
+    overflow: hidden;
+    height: 89%;
+}
+.main_box{
+    border-radius: 25px;
+    text-align: center;
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 2px;
+    border-style:solid;
+}
+
+td select {
+    appearance: none;
+    border: none;
+    background-color: #fff;
+    padding: 5px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    border-style: solid;
+    border-width: 2px;
+}
+.myTextarea {
+    width: 100%;
+    resize: none; /* Prevent manual resizing */
+    border: 2px solid black;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+table{
+    background-color: whitesmoke;
+    margin: auto;
+    padding: 20px;
+    border-radius: 25px;
+}
+.button{
+    text-align: center;
+}
+
+button{
+    background-color: white;
+    border-style:solid;
+    border-radius: 15px;
+    font-size: large;
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+
+
+button:hover{
+    color:skyblue;
+    box-shadow:2px 2px 5px gray;
+}
+label{
+    font-size: large;
+    margin-right: 20px;
+}
+
+input{
+    width: 300px;
+    border-radius: 10px;
+    font-size: small;
+    padding: 20px;
+
+}

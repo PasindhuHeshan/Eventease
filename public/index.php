@@ -12,6 +12,9 @@ require __DIR__ . '/../app/Controllers/HeaderController.php';
 require __DIR__ . '/../app/Controllers/LoginController.php';
 require __DIR__ . '/../app/Controllers/SigninController.php';
 require __DIR__ . '/../app/Controllers/AdminLoginController.php';
+require __DIR__ . '/../app/Controllers/ContactusController.php';
+require __DIR__ . '/../app/Controllers/UserProfileController.php';
+require __DIR__ . '/../app/Controllers/ReqController.php';
 require __DIR__ . '/../app/Models/Event.php';
 
 use App\Database;
@@ -20,6 +23,9 @@ use App\Controllers\HeaderController;
 use App\Controllers\LoginController;
 use App\Controllers\SigninController;
 use App\Controllers\AdminLoginController;
+use App\Controllers\ContactusController;
+use App\Controllers\UserProfileController;
+use App\Controllers\ReqController;
 
 // Initialize the database connection
 $database = new Database();
@@ -31,11 +37,12 @@ $hcontroller = new HeaderController();
 $lcontroller = new LoginController($database);
 $scontroller = new SigninController($database);
 $alcontroller = new AdminLoginController($database); 
+$cucontroller = new ContactusController($database);
+$upcontroller = new UserProfileController($database); 
+$reqcontroller = new ReqController($database);
 // Get the URL parameter
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
-// Route the request to the appropriate controller method
-//$hcontroller->render();
 switch ($url) {
     case 'event.php':
         $hcontroller->render();
@@ -52,13 +59,50 @@ switch ($url) {
     case 'logout.php':
         $lcontroller->logout();
         break;
+    case 'contactus.php':
+        $hcontroller->render();
+        $cucontroller->index();
+        break;
+    case 'userprofile.php':
+        $hcontroller->render();
+        $upcontroller->index();
+        break;
+    case 'uploadProfilePicture':
+        $hcontroller->render();
+        $upcontroller->uploadProfilePicture();
+        break;
     case 'signin.php':
         $hcontroller->render();
         $scontroller->form();
         break;
+    case 'forgetpassword.php':
+        $hcontroller->render();
+        $lcontroller->forgetpassword();
+        break;
+    case 'fpcheck':
+        $hcontroller->render();
+        $lcontroller->checkdetails();
+        break;
+    case 'fpchange':
+        $hcontroller->render();
+        $lcontroller->updatepassword();
+        break;
+    case 'changepassword.php': 
+        $username = isset($_GET['username']) ? $_GET['username'] : '';
+        $hcontroller->render(); 
+        include __DIR__ . '/../app/Views/events/changepassword.php'; 
+        break;
     case 'studentform.php':
         $hcontroller->render();
         $scontroller->studentform();
+        break;
+    case 'enroll.php':
+        $hcontroller->render();
+        $econtroller->eventenroll();
+        break;
+    case 'removeEnrollment.php':
+        $hcontroller->render();
+        $econtroller->removeEnrollment(); 
         break;
     case 'adminlogin.php':
         $alcontroller->form();
@@ -115,14 +159,17 @@ switch ($url) {
         $inventory_no = isset($_GET['$inventory_no']) ? $_GET['$inventory_no'] : '';
         include __DIR__ . '/../app/Views/events/modify_item.php';
         break;
-  
-
-    
     case 'modify_item.php':
         $alcontroller->modify_item();
         break;
-   
-    
+    case 'RoleRequest.php':
+        $hcontroller->render();
+        $reqcontroller->req();
+        break;
+    case 'processreq':
+        $hcontroller->render();
+        $reqcontroller->processreq();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();

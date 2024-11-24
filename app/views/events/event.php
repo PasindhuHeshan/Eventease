@@ -16,6 +16,17 @@
                         <br>
                         Location: <?php echo $event['location']; ?>
                     </b></p>
+                    <?php if (!$isEnrolled):?>
+                    <form action="enroll.php" method="POST"> 
+                        <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
+                        <button type="submit" id="enroll">Enroll</button> 
+                    </form>
+                    <?php else: ?>
+                    <form action="removeEnrollment.php" method="POST"> 
+                        <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
+                        <button type="submit" id="removeenroll">Remove Enroll</button> 
+                    </form>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
         </div>

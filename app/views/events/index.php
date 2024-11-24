@@ -11,8 +11,16 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
     <main>
         <?php include 'main.php'; ?>
     </main>
+    <?php if($username!="Guest"){?>
     <aside class="rside" id="rside">
         <?php include 'upcoming.php'; ?>
     </aside>
+    <?php } else { ?>
+        <style>
+            main {
+                width: 100%;
+            }
+        </style>
+    <?php }?>
 </body>
 </html>
