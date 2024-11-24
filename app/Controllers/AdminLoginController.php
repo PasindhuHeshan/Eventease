@@ -46,7 +46,7 @@ class AdminLoginController {
     public function logout(){
         //session_start();
         session_destroy();
-        header("Location: adminlogin.php");
+        header("Location: index.php");
         exit();
     }
 

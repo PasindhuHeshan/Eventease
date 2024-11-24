@@ -6,19 +6,20 @@
 <body>
     <div class="main">
         <div class="main_box">
-            <h2>Login</h2>
-            <form name="login" action="index.php?url=processlogin" method="post">
+            <h2>Forget Password</h2>
+            <form name="fp" action="index.php?url=fpcheck" method="post">
                 <table>
+                <input type="hidden" name="username" value="<?php echo htmlspecialchars($username); ?>">
                     <tr>
-                        <td><label for="name">Username:</label></td>
-                        <td><input type="text" id="name" name="name" placeholder="Enter your UserName"></td>
+                        <td><label for="username">Username:</label></td>
+                        <td><input type="text" id="username" name="username" placeholder="Enter your UserName"></td>
                     </tr>
                     <tr>
-                        <td><label for="password">Password:</label></td>
-                        <td><input type="password" id="password" name="password" placeholder="Enter your password"></td>
+                        <td><label for="email">Email:</label></td>
+                        <td><input type="email" id="email" name="email" placeholder="Enter your Email"></td>
                     </tr>
                     <tr class="button">
-                        <td colspan="2"><button type="submit">Login</button></td>
+                        <td colspan="2"><button type="submit">Check Account Details</button></td>
                     </tr>
                     <?php if (isset($_SESSION['error'])) { ?>
                         <tr>
@@ -26,8 +27,6 @@
                         </tr>
                     <?php } ?>
                 </table>
-                <p>If you haven't signed yet? <a href="signin.php">sign in</a></p>
-                <p><a href="forgetpassword.php">Forget Password</a></p>
             </form>
         </div>
     </div>
