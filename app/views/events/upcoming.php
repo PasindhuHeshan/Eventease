@@ -22,7 +22,7 @@
                 <br>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>No results found.</p>
+            <p>No Registed Events found.</p>
         <?php endif; ?>
     </div>
 </body>

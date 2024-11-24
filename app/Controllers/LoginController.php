@@ -15,15 +15,27 @@ class LoginController {
 
             if ($username && $password) {
                 $database = new Database(); // Ensure the database connection is created here
-                $userModel = new UserModel();
+                $userModel = new UserModel($database);
+                $isValidUsername = $userModel->CheckUser($username, $password, $database);
                 $isValidUser = $userModel->validateUser($username, $password, $database);
+                $userData = $userModel->getUserData($username,$database);
 
-                if ($isValidUser) {
-                    $_SESSION['username'] = $username;
-                    header("Location: ../public/index.php");
+                if ($isValidUsername && $isValidUser) {
+                    if($userData['usertype']=='student'){
+                        $_SESSION['username'] = $username;
+                        header("Location: ../public/index.php");
+                        exit();
+                    }else{
+                        $_SESSION['username'] = $username;
+                        header("Location: ../public/dashboard.php");
+                        exit();
+                    }
+                } else if($isValidUsername){
+                    $_SESSION['error'] = 'Incorrect Password!';
+                    header("Location: ../public/index.php?url=login.php");
                     exit();
                 } else {
-                    $_SESSION['error'] = 'Incorrect Username or Password!';
+                    $_SESSION['error'] = 'Incorrect Username!';
                     header("Location: ../public/index.php?url=login.php");
                     exit();
                 }
