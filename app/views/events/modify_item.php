@@ -22,11 +22,12 @@ if ($itemData) {
         <input type="text" id="item" name="item" value="<?php echo htmlspecialchars($itemData['item']); ?>" required>
 
         <label for="inventory_no">Inventory No</label>
-        <input type="text" id="inventory_no" name="inventory_no" value="<?php echo htmlspecialchars($itemData['inventory_no']); ?>" required>
-
+        <input type="text" id="inventory_no" name="inventory_no" value="<?php echo htmlspecialchars($itemData['inventory_no']); ?>" readonly>
+        
         <label for="quantity">Quantity</label>
         <input type="number" id="quantity" name="quantity" value="<?php echo htmlspecialchars($itemData['quantity']); ?>" required>
-
+        <h6 style="margin: 0px;"><?php echo $itemData['in_use']; ?> items in use.</h6>
+        <br>
         <label for="inventory_type">Inventory Type</label>
         <select name="inventory_type" id="inventory_type">
             <option value="Appliances" <?php echo htmlspecialchars($itemData['inventory_type']) == 'Appliances' ? 'selected' : ''; ?>>Appliances</option>

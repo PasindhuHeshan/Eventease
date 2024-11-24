@@ -85,6 +85,24 @@ class Dashboard {
     
         return $result;
     }
+
+    public function check_item_usage($inventory_no){
+        $query = "SELECT * FROM inventory WHERE inventory_no = ? AND quantity = avl_inventory";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $inventory_no);
+    
+        if($stmt->execute()){
+            $result = $stmt->get_result(); // Get the result set from the query
+            if($result->num_rows > 0) { // Check if there are any rows returned
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    
     
     
     public function getItemByInventoryNo($inventoryNo) {
@@ -148,6 +166,23 @@ class Dashboard {
             return false;
         }
     }
+
+    public function before_modify($inventory_no, $quantity) {
+        $query = "SELECT in_use FROM inventory WHERE inventory_no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $inventory_no);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($in_use);
+        $stmt->fetch();
+    
+        if ($quantity >= $in_use) {
+            return true; 
+        } else {
+            return false;
+        }
+    }
+    
 }
 
 ?>

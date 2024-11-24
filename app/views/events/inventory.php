@@ -1,3 +1,8 @@
+<?php
+$inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances';  // Default to 'Appliances'
+$result = $dashboard->getInventoryByType($inventory_type);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,12 +40,12 @@
         <div class="content">
             <h2>Manage Inventory</h2>
             <form method="POST" action="inventory.php">
-                <label for="inventory_type">Inventory type</label>
+                <label for="inventory_type">Inventory Type</label>
                 <select name="inventory_type" id="inventory_type">
-                    <option value="Appliances">Appliances</option>
-                    <option value="Stationery">Stationery</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="Electronics">Electronics</option>
+                    <option value="Appliances" <?php echo $inventory_type == 'Appliances' ? 'selected' : ''; ?>>Appliances</option>
+                    <option value="Stationery" <?php echo $inventory_type == 'Stationery' ? 'selected' : ''; ?>>Stationery</option>
+                    <option value="Furniture" <?php echo $inventory_type == 'Furniture' ? 'selected' : ''; ?>>Furniture</option>
+                    <option value="Electronics" <?php echo $inventory_type == 'Electronics' ? 'selected' : ''; ?>>Electronics</option>
                 </select>
                 <button type="submit">Filter</button>
             </form>
@@ -86,8 +91,9 @@
                                             <button type='submit'>Modify</button>
                                         </form>
                                         </td>
-                                        <td><form method='POST' action='delete_item.php'>
+                                        <td><form method='POST' action='delete_item.php' onsubmit='return confirmDelete()'>
                                             <input type='hidden' name='inventory_no' value='{$row['inventory_no']}'>
+                                            <input type='hidden' name='inventory_type' value='{$row['inventory_type']}'>
                                             <button type='submit'>Delete</button>
                                         </form></td>
                                     </tr>";
@@ -106,3 +112,18 @@
     </div>
 </body>
 </html>
+<script>
+    function confirmDelete() {
+        // Display a confirmation dialog
+        var result = confirm("Are you sure you want to delete this item?");
+        
+        // If the user clicks 'OK', return true to allow the form submission
+        if (result) {
+            return true;
+        }
+        // If the user clicks 'Cancel', prevent the form submission
+        else {
+            return false;
+        }
+    }
+</script>
