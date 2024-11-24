@@ -5,9 +5,9 @@
     $username = $_POST['name'];  
     $password = $_POST['password'];  
     
-    // Prepare the SQL statement
+ 
     $stmt = $con->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-    $stmt->bind_param("ss", $username, $password); // "ss" means two string parameters
+    $stmt->bind_param("ss", $username, $password); 
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();

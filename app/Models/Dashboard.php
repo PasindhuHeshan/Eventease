@@ -89,7 +89,7 @@ class Dashboard {
     
     public function getItemByInventoryNo($inventoryNo) {
         $sql = "SELECT * FROM inventory WHERE inventory_no = ?";
-        $stmt = $this->database->prepare($sql);
+        $stmt = $this->conn->prepare($sql);
     
         if ($stmt) {
             $stmt->bind_param("s", $inventoryNo);
@@ -107,23 +107,47 @@ class Dashboard {
         }
     }
     
-    public function modify_item($inventoryNo, $item, $quantity, $inventoryType) {
-        $sql = "UPDATE inventory SET item = ?, quantity = ?, inventory_type = ? WHERE inventory_no = ?";
-        $stmt = $this->database->prepare($sql);
+    
+    
+    
+    public function retrieve_item_data($inventoryNo) {
+        $sql = "SELECT * FROM inventory WHERE inventory_no = ?";
+        $stmt = $this->conn->prepare($sql);
     
         if ($stmt) {
-            $stmt->bind_param("sisi", $item, $quantity, $inventoryType, $inventoryNo);
+            $stmt->bind_param("s", $inventoryNo);
     
+            if ($stmt->execute()) {
+                $result = $stmt->get_result();
+                return $result->fetch_assoc();
+            } else {
+                return false; // Error fetching item
+            }
+    
+            $stmt->close();
+        } else {
+            return false; // Error preparing statement
+        }
+    }
+
+    public function modify_item($inventoryNo, $item, $quantity, $inventoryType) {
+        $sql = "UPDATE inventory SET item = ?, quantity = ?, inventory_type = ? WHERE inventory_no = ?";
+        $stmt = $this->conn->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("siss", $item, $quantity, $inventoryType, $inventoryNo);
+
             if ($stmt->execute()) {
                 return true;
             } else {
                 return false;
             }
-    
+
             $stmt->close();
         } else {
             return false;
         }
     }
 }
+
 ?>

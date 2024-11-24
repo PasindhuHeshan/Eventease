@@ -129,8 +129,8 @@ switch ($url) {
         $alcontroller->useradd();
         break;
     case 'manageevent.php':
-            $alcontroller->manageevent();
-            break;
+        $alcontroller->manageevent();
+        break;
     case 'approved_events.php':
         $alcontroller->approved_events();
         break;
@@ -154,6 +154,10 @@ switch ($url) {
         break;
     case 'delete_item.php':
         $alcontroller->delete_item();
+        break;
+    case 'get_item.php':
+        $inventory_no = isset($_GET['$inventory_no']) ? $_GET['$inventory_no'] : '';
+        include __DIR__ . '/../app/Views/events/modify_item.php';
         break;
     case 'modify_item.php':
         $alcontroller->modify_item();
