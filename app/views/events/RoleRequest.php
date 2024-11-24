@@ -1,0 +1,103 @@
+<?php
+namespace App\Views\Events;
+
+use App\Models\UserModel;
+use App\Database;
+
+    if(isset($userData['username']) ){
+        $username = $userData['username'];
+
+        $database = new Database();
+
+        $userModel = new UserModel();
+        $roleData = $userModel->getRoleRequest($database, $username);
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Request Form</title>
+    <style>
+        /* Add your custom styles here */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .form-container input,
+        .form-container textarea,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .form-container input[type="submit"],
+        .form-container input[type="button"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover,
+        .form-container input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Role Request Form</h2>
+        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ?'type=update':'?type=create') ?>" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="name" value="<?php echo isset($userData['username']) ? $userData['username'] : ''; ?>">
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo isset($userData['email']) ? $userData['email'] : ''; ?>">
+
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+                <option value="Event Organizer" <?php if($roleData && $roleData['role'] == "Event Organizer") echo "selected"?>>Event Organizer</option>
+                <option value="Support staff" <?php if($roleData && $roleData['role'] == "Support staff") echo "selected"?>>Support staff</option>
+            </select>
+
+            <label for="reason">Reason for Request:</label>
+            <textarea id="reason" name="reason" rows="4" placeholder="Reason goes here"><?php
+                    if($roleData){echo $roleData['reason'];}
+                ?></textarea>
+
+            <label for="status">Status:</label>
+            <div type="text" id="status" name="status" readonly>
+                <?php
+                    if($roleData){echo $roleData['status']? 'Approved' : 'Pending';}
+                ?>
+    </div>
+
+
+            <button type="submit" name="submit">Submit</button>
+            <button type="submit" name="cancel">Cancel</button>
+        </form>
+    </div>
+</body>
+</html>

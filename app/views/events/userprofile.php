@@ -50,11 +50,16 @@
                 <!-- Buttons Section -->
                 <div class="buttons">
                     <button class="save-btn">Save</button>
-                    <button class="request-btn">Request Event Organizer Privileges</button>
+                    <button class="request-btn" onclick="redirectToRoleRequest()">Request Event Organizer Privileges</button>
+
                 </div>
             </div>
         </div>
     </div>
-
+    <script>
+        function redirectToRoleRequest() {
+            window.location.href = "RoleRequest.php";
+        }
+    </script>
 </body>
 </html>

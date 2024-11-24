@@ -14,6 +14,7 @@ require __DIR__ . '/../app/Controllers/SigninController.php';
 require __DIR__ . '/../app/Controllers/AdminLoginController.php';
 require __DIR__ . '/../app/Controllers/ContactusController.php';
 require __DIR__ . '/../app/Controllers/UserProfileController.php';
+require __DIR__ . '/../app/Controllers/ReqController.php';
 require __DIR__ . '/../app/Models/Event.php';
 
 use App\Database;
@@ -24,6 +25,7 @@ use App\Controllers\SigninController;
 use App\Controllers\AdminLoginController;
 use App\Controllers\ContactusController;
 use App\Controllers\UserProfileController;
+use App\Controllers\ReqController;
 
 // Initialize the database connection
 $database = new Database();
@@ -37,6 +39,7 @@ $scontroller = new SigninController($database);
 $alcontroller = new AdminLoginController($database); 
 $cucontroller = new ContactusController($database);
 $upcontroller = new UserProfileController($database); 
+$reqcontroller = new ReqController($database);
 // Get the URL parameter
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
@@ -154,6 +157,14 @@ switch ($url) {
         break;
     case 'modify_item.php':
         $alcontroller->modify_item();
+        break;
+    case 'RoleRequest.php':
+        $hcontroller->render();
+        $reqcontroller->req();
+        break;
+    case 'processreq':
+        $hcontroller->render();
+        $reqcontroller->processreq();
         break;
     default:
         $hcontroller->render();
