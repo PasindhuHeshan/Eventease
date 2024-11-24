@@ -5,6 +5,14 @@ namespace App\Models;
 use App\Database;
 
 class UserModel {
+
+    private $database;
+    private $conn;
+
+    public function __construct(Database $database) {
+        $this->conn = $database->getConnection();
+    }
+
     public function validateUser($username, $password, Database $database) {
         $conn = $database->getConnection();
 
@@ -138,6 +146,13 @@ class UserModel {
         $stmt->close();
         return true;
     }
-    
+
+    public function updateProfilePicture($username, $profilePicturePath) { 
+        $sql = "UPDATE users SET profile_picture = ? WHERE username = ?"; 
+        $stmt = $this->conn->prepare($sql); 
+        $stmt->bind_param("ss", $profilePicturePath, $username); 
+        $stmt->execute(); 
+        $stmt->close();
+    }
 }
 ?>

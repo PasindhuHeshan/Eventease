@@ -24,7 +24,7 @@
                     if($username!=='Guest'){
                     ?>
                         <li>Hi <?php echo $username ?></li>
-                        <li><a href="userprofile.php" target="rside">Profile</a></li>
+                        <li><a href="userprofile.php" target="_self">Profile</a></li>
                         <li><a href="logout.php" target="_self">Logout</a></li>
                     <?php
                     }else{
@@ -34,7 +34,7 @@
                     <?php
                     }
                     ?>
-                    <li><a href="contactus.html" target="rside">Contact us</a></li>
+                    <li><a href="contactus.php" target="rside">Contact us</a></li>
                 </ul>
             </div>
         </div>

@@ -15,7 +15,7 @@ class LoginController {
 
             if ($username && $password) {
                 $database = new Database(); // Ensure the database connection is created here
-                $userModel = new UserModel();
+                $userModel = new UserModel($database);
                 $isValidUsername = $userModel->CheckUser($username, $password, $database);
                 $isValidUser = $userModel->validateUser($username, $password, $database);
                 $userData = $userModel->getUserData($username,$database);

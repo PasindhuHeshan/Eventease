@@ -9,13 +9,23 @@
 
         <center><h2>Profile Details</h2></center>
         <div class="profile">
-            <!-- Profile Image Section -->
             <div class="profile-image">
                 <div class="image">
-                    <img src="default-avatar.png" alt="Profile Picture">
+                    <img src="<?php if ($userData && $userData['profile_picture']) echo $userData['profile_picture']; else echo 'default-avatar.png'; ?>" alt="Profile Picture">
                 </div>
-                
-                <button>Change</button>
+                <form action="user_controller.php?url=uploadProfilePicture" method="post" enctype="multipart/form-data"> 
+                    <button type="button" class="upload-btn" onclick="document.getElementById('profile_picture').click();">Add Image</button> 
+                    <input type="file" id="profile_picture" name="profile_picture" style="display: none;" onchange="showFileName()"> 
+                    <span id="file-name" class="file-name"></span> 
+                    <button type="submit">Upload</button> 
+                </form>
+                <script> 
+                function showFileName() { 
+                    const input = document.getElementById('profile_picture'); 
+                    const fileNameDisplay = document.getElementById('file-name'); 
+                    fileNameDisplay.textContent = input.files[0].name; 
+                }
+                </script>
             </div>
     
             <!-- Profile Details Section -->
@@ -41,16 +51,15 @@
                 <div class="buttons">
                     <button class="save-btn">Save</button>
                     <button class="request-btn" onclick="redirectToRoleRequest()">Request Event Organizer Privileges</button>
+
                 </div>
             </div>
         </div>
     </div>
-
     <script>
         function redirectToRoleRequest() {
             window.location.href = "RoleRequest.php";
         }
     </script>
-
 </body>
 </html>

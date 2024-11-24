@@ -67,6 +67,10 @@ switch ($url) {
         $hcontroller->render();
         $upcontroller->index();
         break;
+    case 'uploadProfilePicture':
+        $hcontroller->render();
+        $upcontroller->uploadProfilePicture();
+        break;
     case 'signin.php':
         $hcontroller->render();
         $scontroller->form();
