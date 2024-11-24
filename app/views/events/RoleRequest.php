@@ -4,14 +4,14 @@ namespace App\Views\Events;
 use App\Models\UserModel;
 use App\Database;
 
-    if(isset($userData['username']) ){
-        $username = $userData['username'];
+if(isset($userData['username']) ){
+    $username = $userData['username'];
 
-        $database = new Database();
+    $database = new Database();
 
-        $userModel = new UserModel();
-        $roleData = $userModel->getRoleRequest($database, $username);
-    }
+    $userModel = new UserModel();
+    $roleData = $userModel->getRoleRequest($database, $username);
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +23,7 @@ use App\Database;
     <style>
         /* Add your custom styles here */
         .form-container {
+            background-color:#d8f2f2;
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
@@ -52,29 +53,37 @@ use App\Database;
             box-sizing: border-box;
             margin-bottom: 10px;
         }
+        
 
-        .form-container input[type="submit"],
-        .form-container input[type="button"] {
-            background-color: #007bff;
+        
+        .form-container [type="submit"], .form-container [type="button"] {
+            background-color: #008CBA;
             color: white;
             cursor: pointer;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            transition: background-color 0.4s ease, transform 0.4s ease; /* Smooth transition */
         }
 
-        .form-container input[type="submit"]:hover,
-        .form-container input[type="button"]:hover {
-            background-color: #0056b3;
+        .form-container [type="submit"]:hover,.form-container [type="button"]:hover {
+            background-color: #005f8b; /* Darker shade for hover effect */
+            transform: scale(1.05); /* Slight zoom effect */
         }
+
+
+       
     </style>
 </head>
 <body>
     <div class="form-container">
         <h2>Role Request Form</h2>
-        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ?'type=update':'?type=create') ?>" method="POST">
+        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" method="POST">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="name" value="<?php echo isset($userData['username']) ? $userData['username'] : ''; ?>">
+            <input type="text" id="username" name="name" value="<?php echo isset($userData['username']) ? $userData['username'] : ''; ?>" readonly>
             
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo isset($userData['email']) ? $userData['email'] : ''; ?>">
+            <input type="email" id="email" name="email" value="<?php echo isset($userData['email']) ? $userData['email'] : ''; ?>" readonly>
 
             <label for="role">Role:</label>
             <select id="role" name="role" required>
@@ -84,19 +93,19 @@ use App\Database;
 
             <label for="reason">Reason for Request:</label>
             <textarea id="reason" name="reason" rows="4" placeholder="Reason goes here"><?php
-                    if($roleData){echo $roleData['reason'];}
-                ?></textarea>
+                if($roleData){echo $roleData['reason'];}
+            ?></textarea>
 
             <label for="status">Status:</label>
             <div type="text" id="status" name="status" readonly>
                 <?php
-                    if($roleData){echo $roleData['status']? 'Approved' : 'Pending';}
+                    if($roleData){echo $roleData['status'] ? 'Approved' : 'Pending';}
                 ?>
-    </div>
-
-
-            <button type="submit" name="submit">Submit</button>
-            <button type="submit" name="cancel">Cancel</button>
+            </div><br><br>
+            <center>
+            <button type="submit" name="submit"><?php echo $roleData ? 'Update' : 'Submit'; ?></button>
+            <button type="button" name="cancel">Cancel</button>
+            </center>
         </form>
     </div>
 </body>
