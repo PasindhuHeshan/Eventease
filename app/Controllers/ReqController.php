@@ -70,6 +70,13 @@ class ReqController{
                 // Redirect or load a confirmation page
                 $userData = $this->usermodel->getUserData($username, $database);
                 //require __DIR__ . '/../Views/events/userprofile.php';
+            }else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])){
+                $username = $_POST['name'];
+                $database = new Database();
+                $userModel = new UserModel();
+                $userModel->deleteRoleRequest($username, $database);
+                header('Location: userprofile.php');
+                exit();
             } else {
                 // Redirect or load the form again
                 require __DIR__ . '/../Views/events/RoleRequest.php';

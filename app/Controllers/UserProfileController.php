@@ -38,7 +38,7 @@ class UserProfileController
         } else {
             if (move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_file)) {
                 // Update the user's profile picture path in the database
-                $userModel->updateProfilePicture($_SESSION['username'], $target_file);
+                $userModel->updateProfilePicture($_SESSION['username'], $target_file, $database);
                 // Redirect to the profile page or display a success message
                 header("Location: userprofile.php");
                 exit;
