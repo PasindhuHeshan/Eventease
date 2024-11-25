@@ -64,3 +64,16 @@
     </script>
 </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('.inputs input');
+        const saveButton = document.querySelector('.save-btn');
+        saveButton.style.display = 'none';
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                saveButton.style.display = 'block';
+            });
+        });
+    });
+</script>
