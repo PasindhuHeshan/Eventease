@@ -50,7 +50,8 @@
                 <!-- Buttons Section -->
                 <div class="buttons">
                     <button class="save-btn">Save</button>
-                    <button class="request-btn" onclick="redirectToRoleRequest()">Request Event Organizer Privileges</button>
+                    <p class="request-para">Do you want to Request Event Organizer Privilage?</p>
+                    <button class="request-btn" onclick="redirectToRoleRequest()">Request</button>
 
                 </div>
             </div>
