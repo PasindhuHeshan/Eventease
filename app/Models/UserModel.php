@@ -147,12 +147,26 @@ class UserModel {
         return true;
     }
 
-    public function updateProfilePicture($username, $profilePicturePath) { 
+    public function updateProfilePicture($username, $profilePicturePath, Database $database) { 
+        $conn = $database->getConnection();
+        
         $sql = "UPDATE users SET profile_picture = ? WHERE username = ?"; 
-        $stmt = $this->conn->prepare($sql); 
+        $stmt = $conn->prepare($sql); 
         $stmt->bind_param("ss", $profilePicturePath, $username); 
         $stmt->execute(); 
         $stmt->close();
     }
+
+    //create a function delete user request from the database
+    public function deleteRoleRequest($username, Database $database) {
+        $conn = $database->getConnection();
+        $sql = "DELETE FROM rolereq WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
 }
 ?>

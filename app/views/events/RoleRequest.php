@@ -71,6 +71,14 @@ if(isset($userData['username']) ){
             transform: scale(1.05); /* Slight zoom effect */
         }
 
+        .delete-btn{
+            margin-top: 20px;
+        }
+
+        a{
+            color: white;
+        }
+
 
        
     </style>
@@ -78,7 +86,7 @@ if(isset($userData['username']) ){
 <body>
     <div class="form-container">
         <h2>Role Request Form</h2>
-        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" method="POST">
+        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" <?php echo ($roleData ? 'onsubmit="return confirmDelete()"' : '') ?> method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="name" value="<?php echo isset($userData['username']) ? $userData['username'] : ''; ?>" readonly>
             
@@ -102,11 +110,43 @@ if(isset($userData['username']) ){
                     if($roleData){echo $roleData['status'] ? 'Approved' : 'Pending';}
                 ?>
             </div><br><br>
+            <?php
+                if(!$roleData){
+            ?>
             <center>
-            <button type="submit" name="submit"><?php echo $roleData ? 'Update' : 'Submit'; ?></button>
-            <button type="button" name="cancel">Cancel</button>
+            <button type="submit" name="submit">Submit</button>
+            <button type="button" name="cancel"><a href="userprofile.php" target="_self">Cancel</a></button>
             </center>
+            <?php
+                }else{
+            ?>
+            <center>
+            <button type="submit" name="submit">Update</button>
+            <button type="button" name="cancel"><a href="userprofile.php" target="_self">Cancel</a></button>
+            </center>
+            <center class="delete-btn">
+            <button type="submit" name="delete"><a>Delete</a></button>
+            </center>
+            <?php
+                }
+            ?>
         </form>
     </div>
 </body>
 </html>
+
+<script>
+    function confirmDelete() {
+        // Display a confirmation dialog
+        var result = confirm("Are you sure you want to delete this Request?");
+        
+        // If the user clicks 'OK', return true to allow the form submission
+        if (result) {
+            return true;
+        }
+        // If the user clicks 'Cancel', prevent the form submission
+        else {
+            return false;
+        }
+    }
+</script>
