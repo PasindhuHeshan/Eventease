@@ -29,32 +29,31 @@
             </div>
     
             <!-- Profile Details Section -->
-            <div class="profile-details">
-                <!--Changed the divs-->
-                <div class="details">
-                    <div class="labels">
-                        <label for="name">Name:</label>
-                        <label for="email">Email:</label>
-                        <label for="phone">Phone:</label>
-                        <label for="address">Address:</label>
-                        <label for="city">City:</label>
+            <form action="index.php?url=updateProfile" method="post">
+                <div class="profile-details">
+                    <div class="details">
+                        <div class="labels">
+                            <label for="name">Name:</label>
+                            <label for="email">Email:</label>
+                            <label for="phone">Phone:</label>
+                            <label for="address">Address:</label>
+                            <label for="city">City:</label>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" id="name" name="name" value="<?php if ($userData) echo $userData['username']; ?>">
+                            <input type="email" id="email" name="email" value="<?php if ($userData) echo $userData['email']; ?>">
+                            <input type="text" id="phone" name="phone" value="<?php if ($userData) echo $userData['phone']; ?>">
+                            <input type="text" id="address" name="address" value="<?php if ($userData) echo $userData['address']; ?>">
+                            <input type="text" id="city" name="city" value="<?php if ($userData) echo $userData['city']; ?>">
+                        </div>
                     </div>
-                    <div class="inputs">
-                        <input type="text" id="name" value="<?php if ($userData) echo $userData['username']; ?>">
-                        <input type="email" id="email" value="<?php if ($userData) echo $userData['email']; ?>">
-                        <input type="text" id="phone" value="<?php if ($userData) echo $userData['phone']; ?>">
-                        <input type="text" id="address" value="<?php if ($userData) echo $userData['address']; ?>">
-                        <input type="text" id="city" value="<?php if ($userData) echo $userData['city']; ?>">
+                    <div class="buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                        <p class="request-para">Do you want to Request Event Organizer Privilage?</p>
+                        <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request</button>
                     </div>
-                </div>  
-                <!-- Buttons Section -->
-                <div class="buttons">
-                    <button class="save-btn">Save</button>
-                    <p class="request-para">Do you want to Request Event Organizer Privilage?</p>
-                    <button class="request-btn" onclick="redirectToRoleRequest()">Request</button>
-
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <script>
