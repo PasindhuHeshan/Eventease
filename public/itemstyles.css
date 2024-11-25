@@ -66,3 +66,17 @@ form select:focus {
     outline: none;
 }
 
+.error{
+    margin-top: 0;
+    font-size: small;
+    color: red;
+    margin-left: 6px;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adjust the gap as needed */
+    width: 100%; /* Ensure the container takes full width */
+}

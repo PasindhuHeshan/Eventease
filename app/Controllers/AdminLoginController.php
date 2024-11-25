@@ -117,7 +117,7 @@ class AdminLoginController {
     }
 
     public function save_item() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             $item = $_POST['item'] ?? null;
             $inventory_no = $_POST['inventory_no'] ?? null;
             $quantity = $_POST['quantity'] ?? null;
@@ -126,11 +126,27 @@ class AdminLoginController {
             $database = new Database();
             $dashboard = new Dashboard($database);
 
+            if($dashboard->check_item($inventory_no)){
+                $_SESSION['error'] = $inventory_no." Inventory Number already exists!";
+                include __DIR__ . '/../views/events/add_item.php';
+                exit();
+            }
+
             if ($dashboard->save_item($item, $inventory_no, $quantity, $inventory_type)) {
                 include __DIR__ . '/../views/events/inventory.php';
             } else {
                 echo "Not added.";
             }
+        } else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['back'])){
+            $item = $_POST['item'] ?? null;
+            $inventory_no = $_POST['inventory_no'] ?? null;
+            $quantity = $_POST['quantity'] ?? null;
+            $inventory_type = $_POST['inventory_type'] ?? null;
+
+            $database = new Database();
+            $dashboard = new Dashboard($database);
+            
+            include __DIR__ . '/../views/events/inventory.php';
         }
     }
 
@@ -140,18 +156,15 @@ class AdminLoginController {
             $inventory_type = $_POST['inventory_type'] ?? 'Appliances';
             $database = new Database();
             $dashboard = new Dashboard($database);
-    
-            if($dashboard->check_item_usage($inventory_no)){
-                //check if the Selected inventory have assigned to any event (at least one event)
-                if ($dashboard->delete_item($inventory_no)) {
-                    //header("Location: inventory.php");
-                    include __DIR__ . '/../views/events/inventory.php';
-                    exit();
-                } else {
-                    echo "Error deleting item.";
-                }
+            
+            if($dashboard->delete_item($inventory_no)){
+                //header("Location: inventory.php");
+                include __DIR__ . '/../views/events/inventory.php';
+                exit();
             }else{
                 //echo "Item is in use. Cannot delete.";
+                $_SESSION['delete_error'] = "Item Cannot Delete!";
+                    //header("Location: ../public/index.php?url=login.php")
                 include __DIR__ . '/../views/events/inventory.php';
                 exit();
             }
@@ -175,7 +188,8 @@ class AdminLoginController {
                 if ($inventoryNo && $item && $quantity && $inventoryType) {
                     try {
                         if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
-                            header("Location: inventory.php");
+                            
+                            include __DIR__ . '/../views/events/inventory.php';
                             exit();
                         } else {
                             echo "Error modifying item.";

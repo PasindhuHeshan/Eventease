@@ -39,15 +39,14 @@ $result = $dashboard->getInventoryByType($inventory_type);
 
         <div class="content">
             <h2>Manage Inventory</h2>
-            <form method="POST" action="inventory.php">
+            <form method="POST" action="inventory.php" id="inventoryForm">
                 <label for="inventory_type">Inventory Type</label>
-                <select name="inventory_type" id="inventory_type">
+                <select name="inventory_type" class="inventory_type" onchange="document.getElementById('inventoryForm').submit();">
                     <option value="Appliances" <?php echo $inventory_type == 'Appliances' ? 'selected' : ''; ?>>Appliances</option>
                     <option value="Stationery" <?php echo $inventory_type == 'Stationery' ? 'selected' : ''; ?>>Stationery</option>
                     <option value="Furniture" <?php echo $inventory_type == 'Furniture' ? 'selected' : ''; ?>>Furniture</option>
                     <option value="Electronics" <?php echo $inventory_type == 'Electronics' ? 'selected' : ''; ?>>Electronics</option>
                 </select>
-                <button type="submit">Filter</button>
             </form>
 
             <table>
@@ -88,15 +87,20 @@ $result = $dashboard->getInventoryByType($inventory_type);
                                         <td>{$row['quantity']}</td>
                                         <td><form method='POST' action='get_item.php'>
                                             <input type='hidden' name='inventory_no' value='{$row['inventory_no']}'>
+                                            <input type='hidden' name='inventory_type' value='{$row['inventory_type']}'>
                                             <button type='submit'>Modify</button>
                                         </form>
-                                        </td>
-                                        <td><form method='POST' action='delete_item.php' onsubmit='return confirmDelete()'>
+                                        </td>";
+                                if ($row['in_use'] == 0) {
+                                    echo "<td><form method='POST' action='delete_item.php' onsubmit='return confirmDelete()'>
                                             <input type='hidden' name='inventory_no' value='{$row['inventory_no']}'>
                                             <input type='hidden' name='inventory_type' value='{$row['inventory_type']}'>
                                             <button type='submit'>Delete</button>
-                                        </form></td>
-                                    </tr>";
+                                        </form></td>";
+                                } else {
+                                    echo "<td>Item is in use!</td>";
+                                }
+                                echo "</tr>";
                                 $no++;
                             }
                         } else {
