@@ -24,11 +24,11 @@
                     </tr>
                     <tr>
                         <td><label for="contactno">Contact Number</label></td>
-                        <td><input type="number" id="contactno1" name="contactno1"></td>
-                        <td><input type="number" id="contactno2" name="contactno2"></td>
+                        <td><input type="number" id="contactno1" name="contactno1" placeholder="Primary" inputmode="numeric"></td>
+                        <td><input type="number" id="contactno2" name="contactno2" placeholder="Secondary" inputmode="numeric"></td>
                     </tr>
                     <tr class="button">
-                        <td colspan="3"><button type="submit">Login</button></td>
+                        <td colspan="3"><button type="submit">Register</button></td>
                     </tr>
                     <?php if (isset($_SESSION['error'])) { ?>
                         <tr>
@@ -36,9 +36,27 @@
                         </tr>
                     <?php } ?>
                 </table>
-                <p>If you haven't signed yet? <a href="signin.php">sign in</a></p>
             </form>
         </div>
     </div>
 </body>
 </html>
+<style>
+    .main_box table input[type="text"],
+    .main_box table input[type="email"],
+    .main_box table input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 5px; /* Add space between inputs */
+        margin-top: 5px;
+    }
+    /* Hide the number input scrolls */
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
