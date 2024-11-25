@@ -157,47 +157,7 @@ class AdminLoginController {
             }
         }
     }
-    // public function modify_item() {
-    //     $database = new Database();
-    //     $dashboard = new Dashboard($database);
-    
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $inventoryNo = $_POST['inventory_no'] ?? null;
-    //         $item = $_POST['item'] ?? null;
-    //         $quantity = $_POST['quantity'] ?? null;
-    //         $inventoryType = $_POST['inventory_type'] ?? null;
-    
-    //         if ($inventoryNo && $item && $quantity && $inventoryType) {
-    //             try {
-    //                 if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
-    //                     header("Location: inventory.php");
-    //                     exit();
-    //                 } else {
-    //                     echo "Error modifying item.";
-    //                 }
-    //             } catch (Exception $e) {
-    //                 echo "An error occurred: " . $e->getMessage();
-    //             }
-    //         } else {
-    //             echo "Missing data for modification.";
-    //         }
-    //     } else {
-    //         // Check if inventory_no is provided via GET
-    //         $inventoryNo = $_GET['inventory_no'] ?? null;
-    
-    //         if ($inventoryNo) {
-    //             $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
-    
-    //             if ($itemData) {
-    //                 include __DIR__ . '/../views/events/inventory.php';
-    //             } else {
-    //                 echo "Item not found.";
-    //             }
-    //         } else {
-    //             echo "Inventory number is missing.";
-    //         }
-    //     }
-    // }
+   
    
     
     public function modify_item() {
