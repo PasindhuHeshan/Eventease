@@ -14,10 +14,10 @@ body{
     width: auto;
     padding: 20px 100px 40px 100px;
     border-radius: 8px;
-    margin: 30px 200px 0px 200px;
+    margin: 30px 20px 0px 20px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-width: 600px;
+    width: 80%;
 }
 .profile {
     display: flex;
@@ -57,6 +57,7 @@ button {
 }
 .profile-details {
     flex:1;
+    justify-items: center;
 }
 .profile-details h2 {
     display: flex;
@@ -80,6 +81,7 @@ button {
     margin-right: 10px;
     display: flex;
     flex-direction: column;
+    width: 235px;
 }
     
 .inputs{
@@ -94,14 +96,20 @@ button {
     width: 100%;
     gap: 10px;
     font-weight: bold;
+    font-size: small;
+}
+
+.box{
+    justify-items: center;
 }
 
 .profile-details input {
     padding: 10px;
-    margin-bottom: 17px;
+    margin: 2 2 2 40px;
     gap: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width : 240px;
 }
 .buttons{
     display: flex;
@@ -120,16 +128,3 @@ button {
 .request-para{
     margin-top: 50px;
 }
-
-/* 
-.profile-image button {
-    margin-top: 10px;
-    background-color: #6af358;
-}
-.request-btn {
-    background-color: #007bff;
-}
-.save-btn {
-    background-color: #6af358;
-} 
-*/

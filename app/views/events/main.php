@@ -36,7 +36,6 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
                             <br>
                             Location: <?php echo $data['location']; ?>
                         </p>
-                        <div style="text-align:left"><p>Read More ></p></div>
                     </div>
                 </a>
             <?php endforeach; ?>

@@ -56,6 +56,10 @@ switch ($url) {
         $hcontroller->render();
         $lcontroller->processlogin();
         break;
+    case 'processsignin':
+        $hcontroller->render();
+        $scontroller->processsignin();
+        break;
     case 'logout.php':
         $lcontroller->logout();
         break;
@@ -66,6 +70,10 @@ switch ($url) {
     case 'userprofile.php':
         $hcontroller->render();
         $upcontroller->index();
+        break;
+    case 'updateProfile.php':
+        $hcontroller->render();
+        $upcontroller->updateProfile();
         break;
     case 'uploadProfilePicture':
         $hcontroller->render();
