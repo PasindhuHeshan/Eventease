@@ -1,14 +1,25 @@
-.main{
+.main {
     padding: 20px;
-    margin: auto;
+    margin: 0 20 20 20px;
+}
+.cover{
+    width: 100%;
+    justify-items: center;
+}
+.cover-img {
+    width: 60%;
+    border-radius: 20px;
+    height: auto;
+    display: block;
+    margin: 20px 0; /* Space around the image */
 }
 
-.details{
+.details {
     text-align: justify;
     font-size: large;
 }
 
-button{
+button {
     padding: 6px;
     color: rgba(0, 0, 0, 0.726);
     background-color: white;

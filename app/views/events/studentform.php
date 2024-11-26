@@ -2,41 +2,102 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="loginformstyle.css">
+    <script>
+        function showNextStep(currentStep, nextStep) {
+            document.getElementById(currentStep).style.display = 'none';
+            document.getElementById(nextStep).style.display = 'block';
+
+            if (nextStep === 'step3') {
+                document.getElementById('register').action = "index.php?url=processsignin";
+            }
+        }
+
+        function validatePasswords(event) {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm_password').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match. Please try again.");
+                event.preventDefault(); // Prevent form submission
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="main">
         <div class="main_box">
             <h2>Registration Form</h2>
             <h4>For University Student</h4>
-            <form name="register" action="index.php?url=processsignin" method="post">
-                <table>
-                    <tr>
-                        <td><label for="fname">First Name</label></td>
-                        <td colspan="2"><input type="text" id="fname" name="fname"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="lname">Last Name</label></td>
-                        <td colspan="2"><input type="text" id="lname" name="lname"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="email">Email Address</label></td>
-                        <td colspan="2"><input type="email" id="email" name="email"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="contactno">Contact Number</label></td>
-                        <td><input type="number" id="contactno1" name="contactno1"></td>
-                        <td><input type="number" id="contactno2" name="contactno2"></td>
-                    </tr>
-                    <tr class="button">
-                        <td colspan="3"><button type="submit">Login</button></td>
-                    </tr>
-                    <?php if (isset($_SESSION['error'])) { ?>
+            <form id="register" name="register" action="index.php?url=processsignin" method="post" onsubmit="validatePasswords(event)">
+                <!-- Step 1: Basic Information -->
+                <div id="step1">
+                    <table>
                         <tr>
-                            <td colspan="3"><p style="color: red; text-align: center"><?php echo $_SESSION['error']; ?></p></td>
+                            <td><label for="fname">First Name</label></td>
+                            <td colspan="2"><input type="text" id="fname" name="fname" placeholder="eg. Navindu" required></td>
                         </tr>
-                    <?php } ?>
-                </table>
-                <p>If you haven't signed yet? <a href="signin.php">sign in</a></p>
+                        <tr>
+                            <td><label for="lname">Last Name</label></td>
+                            <td colspan="2"><input type="text" id="lname" name="lname" placeholder="eg. Perera" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">Email Address</label></td>
+                            <td colspan="2"><input type="email" id="email" name="email" placeholder="eg. navindu.perera@example.com" required></td>
+                        </tr>
+                    </table>
+                    <div class="button-container"> 
+                        <button type="reset">Clear</button>
+                        <button type="button" onclick="showNextStep('step1', 'step2')">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Additional Information -->
+                <div id="step2" style="display: none;">
+                    <table>
+                        <tr>
+                            <td><label for="contactno1">Primary Contact Number</label></td>
+                            <td colspan="2"><input type="number" id="contactno1" name="contactno1" placeholder="eg. 1234567890" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="contactno2">Secondary Contact Number</label></td>
+                            <td colspan="2"><input type="number" id="contactno2" name="contactno2" placeholder="Optional secondary number"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="address">Address</label></td>
+                            <td colspan="2"><input type="text" id="address" name="address" placeholder="eg. 123 Main St" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="city">City</label></td>
+                            <td colspan="2"><input type="text" id="city" name="city" placeholder="eg. Colombo" required></td>
+                        </tr>
+                    </table>
+                    <div class="button-container"> 
+                        <button type="button" onclick="showNextStep('step2', 'step1')">Back</button>
+                        <button type="button" onclick="showNextStep('step2', 'step3')">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Account Information -->
+                <div id="step3" style="display: none;">
+                    <table>
+                        <tr>
+                            <td><label for="username">Username</label></td>
+                            <td colspan="2"><input type="text" id="username" name="username" placeholder="eg. navindup" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="password">Password</label></td>
+                            <td colspan="2"><input type="password" id="password" name="password" placeholder="eg. ********" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="confirm_password">Confirm Password</label></td>
+                            <td colspan="2"><input type="password" id="confirm_password" name="confirm_password" placeholder="eg. ********" required></td>
+                        </tr>
+                    </table>
+                    <input type="text" id="usertype" name="usertype" value="student">
+                    <div class="button-container"> 
+                        <button type="button" onclick="showNextStep('step3', 'step2')">Back</button>
+                        <button type="submit">Submit</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

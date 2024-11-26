@@ -29,6 +29,37 @@ class UserModel {
         }
     }
 
+    public function createUser(
+        $username, $hashedPassword, $fname, $lname, $email, 
+        $usertype, $universityid, $universityregno, $address, $city,
+        $contactno1, $contactno2, $profile_picture, 
+        $database
+    ) {
+        // Insert user data into the database
+        $conn = $database->getConnection();
+        $sql = "INSERT INTO users (
+                    username, password, fname, lname, email,
+                    usertype, universityid, universityregno, address, city,
+                    contactno1, contactno2, profile_picture, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([
+            $username, $hashedPassword, $fname, $lname, $email, 
+            $usertype, $universityid, $universityregno, $address, $city,
+            $contactno1, $contactno2, $profile_picture
+        ]);
+    }
+
+    public function updateUserProfile($username, $fname, $lname, $email, $address, $city, $contactno1, $contactno2, $database) 
+    {
+        $conn = $database->getConnection();
+        $sql = "UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, city = ?, contactno1 = ?, contactno2 = ? WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([$fname, $lname, $email, $address, $city, $contactno1, $contactno2, $username]);
+    }
+
+
+
     public function checkUser($username, $password, Database $database) {
         $conn = $database->getConnection();
 
