@@ -37,7 +37,7 @@
             <br><br><br><br><h3>Who are you?</h3>
                 <ul style="text-align: center;">
                     <li><a style="color: lightskyblue;" href="studentform.php" target="_self">Student</a></li>
-                    <li><a style="color: lightskyblue;" href="guest.php" target="_self">Guest</a></li>
+                    <li><a style="color: lightskyblue;" href="guestform.php" target="_self">Guest</a></li>
                 </ul>
             <br><br><br><br><br><br>
             <p style="margin:20px;">Please note that 'Guest' refers to non-internal university student and individuals who are interested in participating in out selected university events.</p>
