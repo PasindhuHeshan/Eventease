@@ -90,14 +90,44 @@
         <div class="main_box">
             <h2>Registration Form</h2>
             <h4>For University Student</h4>
+<<<<<<< HEAD
+            <form name="register" action="index.php?url=processsignin" method="post">
+                <table>
+                    <tr>
+                        <td><label for="fname">First Name</label></td>
+                        <td colspan="2"><input type="text" id="fname" name="fname"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="lname">Last Name</label></td>
+                        <td colspan="2"><input type="text" id="lname" name="lname"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email Address</label></td>
+                        <td colspan="2"><input type="email" id="email" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="contactno">Contact Number</label></td>
+                        <td><input type="number" id="contactno1" name="contactno1" placeholder="Primary" inputmode="numeric"></td>
+                        <td><input type="number" id="contactno2" name="contactno2" placeholder="Secondary" inputmode="numeric"></td>
+                    </tr>
+                    <tr class="button">
+                        <td colspan="3"><button type="submit">Register</button></td>
+                    </tr>
+                    <?php if (isset($_SESSION['error'])) { ?>
+=======
             <form id="register" name="register" action="index.php?url=processsignin" method="post" onsubmit="validatePasswords(event)">
                 <!-- Step 1: Basic Information -->
                 <div id="step1">
                     <table>
+>>>>>>> 42c2f9add4b27a9c2949bde9578f5f1d9d2f1ec1
                         <tr>
                             <td><label for="fname">First Name</label></td>
                             <td colspan="2"><input type="text" id="fname" name="fname" placeholder="eg. Navindu" required></td>
                         </tr>
+<<<<<<< HEAD
+                    <?php } ?>
+                </table>
+=======
                         <tr>
                             <td colspan="3"><div id="fname_error" class="error"></div></td>
                         </tr>
@@ -206,8 +236,28 @@
                         <button type="submit">Submit</button>
                     </div>
                 </div>
+>>>>>>> 42c2f9add4b27a9c2949bde9578f5f1d9d2f1ec1
             </form>
         </div>
     </div>
 </body>
 </html>
+<style>
+    .main_box table input[type="text"],
+    .main_box table input[type="email"],
+    .main_box table input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 5px; /* Add space between inputs */
+        margin-top: 5px;
+    }
+    /* Hide the number input scrolls */
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>

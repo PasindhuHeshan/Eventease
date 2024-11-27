@@ -86,7 +86,7 @@ if(isset($userData['username']) ){
 <body>
     <div class="form-container">
         <h2>Role Request Form</h2>
-        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" <?php echo ($roleData ? 'onsubmit="return confirmDelete()"' : '') ?> method="POST">
+        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" <?php echo (($roleData) ? 'onsubmit="return confirmDelete(event)"' : '') ?> method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="name" value="<?php echo isset($userData['username']) ? $userData['username'] : ''; ?>" readonly>
             
@@ -136,17 +136,11 @@ if(isset($userData['username']) ){
 </html>
 
 <script>
-    function confirmDelete() {
-        // Display a confirmation dialog
-        var result = confirm("Are you sure you want to delete this Request?");
-        
-        // If the user clicks 'OK', return true to allow the form submission
-        if (result) {
-            return true;
+    function confirmDelete(event) {
+        // Show confirmation only if Delete button is clicked
+        if (event.submitter.name === "delete") {
+            return confirm("Are you sure you want to delete this Request?");
         }
-        // If the user clicks 'Cancel', prevent the form submission
-        else {
-            return false;
-        }
+        return true; // Allow other buttons to proceed without confirmation
     }
 </script>

@@ -20,7 +20,7 @@ class ReqController{
             $database = new Database();
             $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
             $userData = $this->usermodel->getUserData($username,$database);
-            require __DIR__ . '/../Views/events/RoleRequest.php';
+            require __DIR__ . '/../views/events/RoleRequest.php';
         }
         /*public function processreq(){
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
@@ -79,8 +79,9 @@ class ReqController{
                 exit();
             } else {
                 // Redirect or load the form again
-                require __DIR__ . '/../Views/events/RoleRequest.php';
+                require __DIR__ . '/../views/events/RoleRequest.php';
             }
         }
+        
         
 }

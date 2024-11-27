@@ -40,6 +40,47 @@
                     }
                     </script>
                 </div>
+<<<<<<< HEAD
+                <form action="user_controller.php?url=uploadProfilePicture" method="post" enctype="multipart/form-data"> 
+                    <button type="button" class="upload-btn" onclick="document.getElementById('profile_picture').click();">Add Image</button> 
+                    <input type="file" id="profile_picture" name="profile_picture" style="display: none;" onchange="showFileName()"> 
+                    <span id="file-name" class="file-name"></span> 
+                    <button type="submit">Upload</button> 
+                </form>
+                <script> 
+                function showFileName() { 
+                    const input = document.getElementById('profile_picture'); 
+                    const fileNameDisplay = document.getElementById('file-name'); 
+                    fileNameDisplay.textContent = input.files[0].name; 
+                }
+                </script>
+            </div>
+    
+            <!-- Profile Details Section -->
+            <form action="index.php?url=updateProfile" method="post">
+                <div class="profile-details">
+                    <div class="details">
+                        <div class="labels">
+                            <label for="name">Name:</label>
+                            <label for="email">Email:</label>
+                            <label for="phone">Phone:</label>
+                            <label for="address">Address:</label>
+                            <label for="city">City:</label>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" id="name" name="name" value="<?php if ($userData) echo $userData['username']; ?>">
+                            <input type="email" id="email" name="email" value="<?php if ($userData) echo $userData['email']; ?>">
+                            <input type="text" id="phone" name="phone" value="<?php if ($userData) echo $userData['phone']; ?>">
+                            <input type="text" id="address" name="address" value="<?php if ($userData) echo $userData['address']; ?>">
+                            <input type="text" id="city" name="city" value="<?php if ($userData) echo $userData['city']; ?>">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                        <p class="request-para">Do you want to Request Event Organizer Privilage?</p>
+                        <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request</button>
+                    </div>
+=======
 
                 <!-- Profile Details Section -->
                 <div class="profile-details">
@@ -108,8 +149,9 @@
                             <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request</button>
                         </div>
                     </form>
+>>>>>>> 42c2f9add4b27a9c2949bde9578f5f1d9d2f1ec1
                 </div>
-            </div>
+            </form>
         </div>
         <script>
             function showSaveButton() {
@@ -136,3 +178,19 @@
     </div>
 </body>
 </html>
+<<<<<<< HEAD
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('.inputs input');
+        const saveButton = document.querySelector('.save-btn');
+        saveButton.style.display = 'none';
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                saveButton.style.display = 'block';
+            });
+        });
+    });
+</script>
+=======
+>>>>>>> 42c2f9add4b27a9c2949bde9578f5f1d9d2f1ec1
