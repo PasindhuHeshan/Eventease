@@ -64,3 +64,9 @@ ul li {
     list-style-position: inside;
     padding: 5px; 
 }
+
+label{
+    font-size:medium;
+    padding-right: 20px;
+    margin: 0 20 0 20px;
+}

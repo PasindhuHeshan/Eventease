@@ -44,10 +44,27 @@ body{
     margin: 40px;
 }
 button {
-    padding: 5px;
+    padding: 10px;
+    background-color: aliceblue;
     border-radius: 10px;
+    font-weight: bold;
+    border-width: 1px;
+}
+
+.button-div{
+    display: flex;
+    flex-direction: row;
+    column-gap: inherit;
 }
 /*added*/
+
+.delete-btn{
+    color: red;
+}
+
+.imgbuttons{
+    column-gap: inherit;
+}
 
 .profile-image img {
     width: 100%;
@@ -127,4 +144,14 @@ button {
 
 .request-para{
     margin-top: 50px;
+}
+
+th, td { 
+    padding: 10px; 
+    text-align: left; 
+    border-bottom: 1px solid #ddd;
+}
+
+td{
+    padding-right: 40px;
 }

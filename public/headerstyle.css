@@ -59,9 +59,6 @@ li a:not(.nothing){
 .nothing img{
     border-radius: 50%;
 }
-.nothing img:hover{
-    box-shadow:2px 2px 5px gray;
-}
 
 ul li a:hover:not(.nothing){
     color: lightskyblue;
