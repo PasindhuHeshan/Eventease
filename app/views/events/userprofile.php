@@ -74,12 +74,24 @@
                                 <td><input type="number" id="contactno2" name="contactno2" value="<?php if ($userData && $userData['contactno2']) echo $userData['contactno2']; ?>" oninput="showSaveButton()"></td>
                             </tr>
                             <tr>
-                                <td><label for="universityid">University ID</label></td>
-                                <td><input type="text" id="universityid" name="universityid" value="<?php if ($userData) echo $userData['universityid']; ?>" readonly></td>
+                                <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest') ? 'table-cell' : 'none'; ?>">
+                                    <label for="universityid">University ID</label>
+                                </td>
+                                <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest') ? 'table-cell' : 'none'; ?>">
+                                    <?php if ($userData && $userData['usertype'] !== 'guest') : ?>
+                                        <input type="text" id="universityid" name="universityid" value="<?php echo $userData['universityid']; ?>" readonly>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <tr>
-                                <td><label for="universityregno">University Registration No</label></td>
-                                <td><input type="text" id="universityregno" name="universityregno" value="<?php if ($userData) echo $userData['universityregno']; ?>" readonly></td>
+                                <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest') ? 'table-cell' : 'none'; ?>">
+                                    <label for="universityregno">University Registration No</label>
+                                </td>
+                                <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest') ? 'table-cell' : 'none'; ?>">
+                                    <?php if ($userData && $userData['usertype'] !== 'guest') : ?>
+                                        <input type="text" id="universityregno" name="universityregno" value="<?php echo $userData['universityregno']; ?>" readonly>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label for="usertype">User Type</label></td>

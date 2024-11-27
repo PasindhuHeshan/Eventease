@@ -65,4 +65,10 @@ class SigninController {
 
         include __DIR__ . '/../Views/events/studentform.php';
     }
+
+    public function guestform() {
+        $error = $_SESSION['error'] ?? null;
+
+        include __DIR__ . '/../Views/events/guestform.php';
+    }
 }

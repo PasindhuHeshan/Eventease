@@ -104,6 +104,10 @@ switch ($url) {
         $hcontroller->render();
         $scontroller->studentform();
         break;
+    case 'guestform.php':
+        $hcontroller->render();
+        $scontroller->guestform();
+        break;
     case 'enroll.php':
         $hcontroller->render();
         $econtroller->eventenroll();

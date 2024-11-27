@@ -22,6 +22,11 @@ class LoginController {
                         $_SESSION['username'] = $username;
                         header("Location: ../public/index.php");
                         exit();
+                    }else if ($userData['usertype'] == 'guest') {
+                        $_SESSION['username'] = $username;
+                        $_SESSION['usertype'] = $userData['usertype'];
+                        header("Location: ../public/index.php");
+                        exit();
                     } else {
                         $_SESSION['username'] = $username;
                         header("Location: ../public/dashboard.php");
