@@ -6,28 +6,48 @@ use App\Models\UserModel;
 use App\Database;
 
 class SigninController {
-    public function processSignup(){
+    public function processsignin() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['name'] ?? null;
+            $fname = $_POST['fname'] ?? null;
+            $lname = $_POST['lname'] ?? null;
+            $email = $_POST['email'] ?? null;
+            $contactno1 = $_POST['contactno1'] ?? null;
+            $contactno2 = $_POST['contactno2'] ?? null;
+            $address = $_POST['address'] ?? null;
+            $city = $_POST['city'] ?? null;
+            $universityid = $_POST['universityid'] ?? '00';
+            $universityregno = $_POST['universityregno'] ?? '00';
+            $username = $_POST['username'] ?? null;
             $password = $_POST['password'] ?? null;
+            $confirm_password = $_POST['confirm_password'] ?? null;
+            $usertype = $_POST['usertype'] ?? null;
+            $profile_picture = null;
 
-            if ($username && $password) {
-                $database = new Database(); // Ensure the database connection is created here
+            if ($username && $password && $confirm_password && $password === $confirm_password) {
+                $database = new Database();
                 $userModel = new UserModel();
-                $isValidUser = $userModel->validateUser($username, $password, $database);
-
-                if ($isValidUser) {
+    
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $isUserCreated = $userModel->createUser(
+                    $username, $hashedPassword, $fname, $lname, $email, 
+                    $usertype, $universityid, $universityregno, $address, $city,
+                    $contactno1, $contactno2,  $profile_picture, 
+                    $database
+                );
+                
+    
+                if ($isUserCreated) {
                     $_SESSION['username'] = $username;
                     header("Location: ../public/index.php");
                     exit();
                 } else {
-                    $_SESSION['error'] = 'Incorrect Username or Password!';
-                    header("Location: ../public/index.php?url=login.php");
+                    $_SESSION['error'] = 'User creation failed!';
+                    header("Location: ../public/index.php?url=signin.php");
                     exit();
                 }
             } else {
-                $_SESSION['error'] = 'Please enter both username and password!';
-                header("Location: ../public/index.php?url=login.php");
+                $_SESSION['error'] = 'Passwords do not match or missing required fields!';
+                header("Location: ../public/index.php?url=signin.php");
                 exit();
             }
         } else {
@@ -44,5 +64,11 @@ class SigninController {
         $error = $_SESSION['error'] ?? null;
 
         include __DIR__ . '/../Views/events/studentform.php';
+    }
+
+    public function guestform() {
+        $error = $_SESSION['error'] ?? null;
+
+        include __DIR__ . '/../Views/events/guestform.php';
     }
 }

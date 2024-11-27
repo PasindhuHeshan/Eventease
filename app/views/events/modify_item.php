@@ -1,4 +1,3 @@
-
 <?php
 
 $itemData = $_SESSION['itemData'];
@@ -11,21 +10,21 @@ if ($itemData) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modify Item</title>
-    <link rel="stylesheet" href="modify_item.css">
+    <link rel="stylesheet" href="itemstyles.css">
 </head>
 <body>
     <h2>Modify Item</h2>
-    <form method="POST" action="modify_item.php">
+    <form method="POST" action="modify_item.php" id="modifyItemForm">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($itemData['id']); ?>">
 
         <label for="item">Item</label>
-        <input type="text" id="item" name="item" value="<?php echo htmlspecialchars($itemData['item']); ?>" required>
+        <input type="text" id="item" name="item" value="<?php echo htmlspecialchars($itemData['item']); ?>" placeholder="Desk"><br>
 
         <label for="inventory_no">Inventory No</label>
-        <input type="text" id="inventory_no" name="inventory_no" value="<?php echo htmlspecialchars($itemData['inventory_no']); ?>" readonly>
+        <input type="text" id="inventory_no" name="inventory_no" value="<?php echo htmlspecialchars($itemData['inventory_no']); ?>" readonly><br>
         
         <label for="quantity">Quantity</label>
-        <input type="number" id="quantity" name="quantity" value="<?php echo htmlspecialchars($itemData['quantity']); ?>" required>
+        <input type="number" id="quantity" name="quantity" value="<?php echo htmlspecialchars($itemData['quantity']); ?>" placeholder="25"><br>
         <h6 style="margin: 0px;"><?php echo $itemData['in_use']; ?> items in use.</h6>
         <br>
         <label for="inventory_type">Inventory Type</label>
@@ -34,9 +33,34 @@ if ($itemData) {
             <option value="Stationery" <?php echo htmlspecialchars($itemData['inventory_type']) == 'Stationery' ? 'selected' : ''; ?>>Stationery</option>
             <option value="Furniture" <?php echo htmlspecialchars($itemData['inventory_type']) == 'Furniture' ? 'selected' : ''; ?>>Furniture</option>
             <option value="Electronics" <?php echo htmlspecialchars($itemData['inventory_type']) == 'Electronics' ? 'selected' : ''; ?>>Electronics</option>
-        </select>
-        <button type="submit">Update</button>
+        </select><br>
+
+        <div class="button-container">
+            <button type="submit" name="submit">Update</button>
+            <button type="submit" name="back">Back</button>
+        </div>
     </form>
+
+    <script>
+        document.getElementById('modifyItemForm').addEventListener('input', function() {
+            var inputs = this.querySelectorAll('input, select');
+            var hasValue = false;
+
+            inputs.forEach(function(input) {
+                if (input.value.trim() !== '') {
+                    hasValue = true;
+                }
+            });
+
+            inputs.forEach(function(input) {
+                if (hasValue) {
+                    input.setAttribute('required', 'required');
+                } else {
+                    input.removeAttribute('required');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 <?php

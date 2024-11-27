@@ -22,7 +22,7 @@
                 <td>1</td>
                 <td>Event X</td>
                 <td>
-                    <form action="viewevent.php".html>
+                    <form action="viewevent.php">
                         <button type="submit">View</button>
                     </form>
     
@@ -35,7 +35,7 @@
                 <td>2</td>
                 <td>Event Y</td>
                 <td>
-                    <form action="1.php">
+                    <form action="viewevent.php">
                         <button type="submit">View</button>
                     </form>
                 </td>

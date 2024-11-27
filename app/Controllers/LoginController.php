@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\UserModel;
@@ -16,21 +15,24 @@ class LoginController {
             if ($username && $password) {
                 $database = new Database(); // Ensure the database connection is created here
                 $userModel = new UserModel($database);
-                $isValidUsername = $userModel->CheckUser($username, $password, $database);
-                $isValidUser = $userModel->validateUser($username, $password, $database);
-                $userData = $userModel->getUserData($username,$database);
+                $userData = $userModel->getUserData($username, $database);
 
-                if ($isValidUsername && $isValidUser) {
-                    if($userData['usertype']=='student'){
+                if ($userData && password_verify($password, $userData['password'])) {
+                    if ($userData['usertype'] == 'student') {
                         $_SESSION['username'] = $username;
                         header("Location: ../public/index.php");
                         exit();
-                    }else{
+                    }else if ($userData['usertype'] == 'guest') {
+                        $_SESSION['username'] = $username;
+                        $_SESSION['usertype'] = $userData['usertype'];
+                        header("Location: ../public/index.php");
+                        exit();
+                    } else {
                         $_SESSION['username'] = $username;
                         header("Location: ../public/dashboard.php");
                         exit();
                     }
-                } else if($isValidUsername){
+                } else if ($userData) {
                     $_SESSION['error'] = 'Incorrect Password!';
                     header("Location: ../public/index.php?url=login.php");
                     exit();
@@ -56,7 +58,7 @@ class LoginController {
         include __DIR__ . '/../Views/events/loginform.php';
     }
 
-    public function forgetpassword(){
+    public function forgetpassword() {
         include __DIR__ . '/../Views/events/forgetpassword.php';
     }
 
@@ -65,25 +67,23 @@ class LoginController {
             $username = $_POST['username'] ?? null;
             $email = $_POST['email'] ?? null;
 
-        if ($username && $email) {
-            $database = new Database();
-            $userModel = new UserModel();
-            $isValidUser = $userModel->fpcheck($username, $email, $database);
-            if($isValidUser){
-                //$_SESSION['username'] = $username;
-                //include __DIR__ . '/../Views/events/changepassword.php';
-                header("Location: ../public/index.php?url=changepassword.php&username=" . urlencode($username));
-            }else{
-                $_SESSION['error'] = 'Incorrect Username or Email!';
+            if ($username && $email) {
+                $database = new Database();
+                $userModel = new UserModel();
+                $isValidUser = $userModel->fpcheck($username, $email, $database);
+                if ($isValidUser) {
+                    header("Location: ../public/index.php?url=changepassword.php&username=" . urlencode($username));
+                } else {
+                    $_SESSION['error'] = 'Incorrect Username or Email!';
+                    header("Location: ../public/index.php?url=forgetpassword.php");
+                    exit();
+                }
+            } else {
+                $_SESSION['error'] = 'Please enter both username and email!';
                 header("Location: ../public/index.php?url=forgetpassword.php");
                 exit();
             }
-        } else {
-            $_SESSION['error'] = 'Please enter both username and email!';
-            header("Location: ../public/index.php?url=forgetpassword.php");
-            exit();
         }
-    }
     }
 
     public function updatepassword() {
@@ -91,23 +91,19 @@ class LoginController {
             $username = $_POST['username'] ?? null;
             $password = $_POST['password'] ?? null;
             $password2 = $_POST['password2'] ?? null;
-    
-            // Debugging statements to check variable values
-            error_log("Username: " . $username);
-            error_log("Password: " . $password);
-            error_log("Password2: " . $password2);
-    
+
             if ($username && $password && $password2) {
                 $database = new Database();
                 $userModel = new UserModel();
-    
+
                 if ($password != $password2) {
                     $_SESSION['error'] = 'New passwords mismatch';
                     header("Location: ../public/index.php?url=changepassword.php&username=" . urlencode($username));
                     exit();
                 }
-    
-                $status = $userModel->fpchange($username, $password, $database);
+
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $status = $userModel->fpchange($username, $hashedPassword, $database);
                 if ($status) {
                     header("Location: ../public/index.php?url=login.php");
                     exit();
@@ -123,7 +119,6 @@ class LoginController {
             }
         }
     }
-    
 
     public function logout() {
         session_unset();

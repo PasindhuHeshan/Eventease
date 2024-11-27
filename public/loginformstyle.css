@@ -7,6 +7,7 @@ body{
     display: flex;
     overflow: hidden;
     height: 100%;
+    margin-top: 80px;
 }
 .main_box{
     border-radius: 25px;
@@ -34,9 +35,10 @@ button{
     border-style:solid;
     border-radius: 15px;
     font-size: large;
-    padding: 10px;
+    padding: 8px;
     margin-top: 10px;
     width: 100%;
+    justify-items: center;
 }
 
 button:hover{
@@ -44,13 +46,28 @@ button:hover{
     box-shadow:2px 2px 5px gray;
 }
 label{
-    font-size: large;
-    margin-right: 20px;
+    font-size:medium;
+    margin: 0 20 0 20px;
 }
 
 input{
     border-radius: 10px;
     font-size: small;
-    padding: 15px;
-
+    padding: 10px;
+    margin: 5 0 5 0px;
+    border-width: thin;
 }
+
+.flex{
+    display: flex;
+}
+
+.button-container { 
+    display: flex; 
+    justify-content: space-around; 
+    gap: 10px; 
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+     -webkit-appearance: none; margin: 0; 
+} 
