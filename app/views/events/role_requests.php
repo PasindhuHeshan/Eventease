@@ -12,9 +12,16 @@
             background-color: #f4f4f4;
         }
              table {
-            width: 100%;
+            /* width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            margin-bottom: 20px; */
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
         }
 
         table, th, td {
@@ -67,6 +74,16 @@
             <td><button>Accept</button></td>
             <td><button>Delete</button></td>
         </tr>
+        <tr>
+            <td>3</td>
+            <td>user3</td>
+            <td>user3@example.com</td>
+            <td>Event organizer</td>
+            <td><button>Accept</button></td>
+            <td><button>Delete</button></td>
+        </tr>
+        
+        
     </table>
 </body>
 </html>

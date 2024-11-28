@@ -12,7 +12,7 @@ header {
     justify-content: flex-end;
     align-items: center;
     padding: 10px 20px;
-    background-color: #e07155;
+    background-color: skyblue;
     border-bottom: 1px solid #ddd;
 }
 
@@ -34,8 +34,11 @@ header {
 .container {
     display: flex;
     gap: 20px; 
+    
     min-height: calc(100vh - 50px);
 }
+
+
 
 .sidebar {
     width: 200px;
@@ -81,19 +84,29 @@ header {
 }
 
 
-/* .sidebar ul li a.active, */
+
 .sidebar ul li a:hover {
-    background-color: #f0f0f0;
-    color: #ff5722;
+    /* background-color: #f0f0f0; */
+    
+    background-color: rgb(156, 199, 215);
+    color: #535e94;
     text-decoration: none; 
+    border-radius: 10px; /* Added border-radius */
 }
 
  .sidebar ul li.active {
     padding: 15px 20px;
-    background-color: #f0f0f0;
-    color: #ff5722;
-  
+    color: #535e94;
+
 } 
+.sidebar ul li.active:hover {
+    /* background-color: #f0f0f0; */
+    
+    background-color: rgb(156, 199, 215);
+    color: #535e94;
+    text-decoration: none; 
+    border-radius: 10px; /* Added border-radius */
+}
 
 
 .main-content {
@@ -105,29 +118,41 @@ header {
 }
 
 .card {
-    background-color: #dadbdf;
-    border-radius: 10px;
+   
+    background-color: rgb(156, 199, 215);
+
+    border-radius: 15px;
     padding: 20px;
-    width: 250px;
+    width: 280px;
     height: 250px;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #ddd;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card h3 {
     margin: 0 0 10px 0;
+    font-size: 24px;
+    color: #333;
 }
 
 .card select {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-size: 16px;
 }
 
 .card p {
     margin: 10px 0 0 0;
     font-size: 18px;
-    color: #333;
+    color: #100f0fc6;
 }
-
