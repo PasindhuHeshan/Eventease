@@ -9,9 +9,9 @@
             <?php if ($event): ?>
                 <div>
                     <h1><?php echo $event['name']; ?></h1>
-                    <?php if($event['flag']==0){ ?>
-                        <p style="font-weight: bold; font-size: smaller;">*This Event is Only Available for <u>University Students</u></p>
-                    <?php } ?>
+                    <?php if ($event['flag'] == 0 && $userdata['usertype'] == "guest"): ?>
+                        <p style="font-weight: bold; font-size: smaller; color:red;">*This Event is Only Available for <u>University Students</u></p>
+                    <?php endif; ?>
                     <hr>
                     <p class="details"><?php echo $event['long_dis']; ?></p>
                     <p><b>
@@ -19,19 +19,22 @@
                         <br>
                         Date: <?php echo $event['date']; ?>
                         <br>
-                        <br>
                         Location: <?php echo $event['location']; ?>
                     </b></p>
-                    <?php if (!$isEnrolled):?>
-                    <form action="enroll.php" method="POST"> 
-                        <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
-                        <button type="submit" id="enroll">Enroll</button> 
-                    </form>
+                    <?php if (!$isEnrolled): ?>
+                        <?php if ($event['flag'] == 0 && $userdata['usertype'] == "guest"): ?>
+                            <!-- Do not show enroll button for guests if flag is 0 -->
+                        <?php else: ?>
+                            <form action="enroll.php" method="POST"> 
+                                <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
+                                <button type="submit" id="enroll">Enroll</button> 
+                            </form>
+                        <?php endif; ?>
                     <?php else: ?>
-                    <form action="removeEnrollment.php" method="POST"> 
-                        <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
-                        <button type="submit" id="removeenroll">Remove Enroll</button> 
-                    </form>
+                        <form action="removeEnrollment.php" method="POST"> 
+                            <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
+                            <button type="submit" id="removeenroll">Remove Enroll</button> 
+                        </form>
                     <?php endif; ?>
                     <div class="cover">
                         <img src="images/events/event.png" alt="Event Cover" class="cover-img">

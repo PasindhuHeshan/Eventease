@@ -21,7 +21,7 @@
         <div class="sidebar">
             <div class="profile-section">
                 <div class="profile-icon">
-                    <img src="http://localhost/w/logos/logo.png" alt="Profile">
+                <img src="./images/adminlogo.png" alt="Profile">
                 </div>
                 <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
             </div>

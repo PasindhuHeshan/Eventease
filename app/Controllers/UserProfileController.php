@@ -18,6 +18,7 @@ class UserProfileController
         $database = new Database();
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
         $userData = $this->usermodel->getUserData($username, $database);
+        $roleData = $this->usermodel->getRoleRequest($database, $username);
         require __DIR__ . '/../Views/events/userprofile.php';
     }
 

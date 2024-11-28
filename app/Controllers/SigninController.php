@@ -28,6 +28,7 @@ class SigninController {
                 $userModel = new UserModel();
     
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                
                 $isUserCreated = $userModel->createUser(
                     $username, $hashedPassword, $fname, $lname, $email, 
                     $usertype, $universityid, $universityregno, $address, $city,
