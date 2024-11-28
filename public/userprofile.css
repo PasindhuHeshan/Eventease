@@ -71,6 +71,7 @@ button {
     height: 100%;
     border-radius: 10px;
     object-fit: cover;
+    margin:0px;
 }
 .profile-details {
     flex:1;
@@ -92,6 +93,9 @@ button {
     display: flex;
 }
 
+label{
+    font-weight: bold;
+}
 /*added*/
 .labels{
     margin-left: 20px;

@@ -22,7 +22,7 @@
             <div class="profile">
                 <div class="profile-image">
                     <div class="image">
-                        <img src="<?php if ($userData && $userData['profile_picture']) echo $userData['profile_picture']; else echo 'adminlogo.png'; ?>" alt="Profile Picture">
+                        <img src="<?php if ($userData && $userData['profile_picture']) echo $userData['profile_picture']; else echo './images/profiles/adminlogo.png'; ?>" alt="Profile Picture">
                     </div>
                     <div class="imgbuttons">
                         <form action="user_controller.php?url=uploadProfilePicture" method="post" enctype="multipart/form-data">
@@ -40,47 +40,6 @@
                     }
                     </script>
                 </div>
-<<<<<<< HEAD
-                <form action="user_controller.php?url=uploadProfilePicture" method="post" enctype="multipart/form-data"> 
-                    <button type="button" class="upload-btn" onclick="document.getElementById('profile_picture').click();">Add Image</button> 
-                    <input type="file" id="profile_picture" name="profile_picture" style="display: none;" onchange="showFileName()"> 
-                    <span id="file-name" class="file-name"></span> 
-                    <button type="submit">Upload</button> 
-                </form>
-                <script> 
-                function showFileName() { 
-                    const input = document.getElementById('profile_picture'); 
-                    const fileNameDisplay = document.getElementById('file-name'); 
-                    fileNameDisplay.textContent = input.files[0].name; 
-                }
-                </script>
-            </div>
-    
-            <!-- Profile Details Section -->
-            <form action="index.php?url=updateProfile" method="post">
-                <div class="profile-details">
-                    <div class="details">
-                        <div class="labels">
-                            <label for="name">Name:</label>
-                            <label for="email">Email:</label>
-                            <label for="phone">Phone:</label>
-                            <label for="address">Address:</label>
-                            <label for="city">City:</label>
-                        </div>
-                        <div class="inputs">
-                            <input type="text" id="name" name="name" value="<?php if ($userData) echo $userData['username']; ?>">
-                            <input type="email" id="email" name="email" value="<?php if ($userData) echo $userData['email']; ?>">
-                            <input type="text" id="phone" name="phone" value="<?php if ($userData) echo $userData['phone']; ?>">
-                            <input type="text" id="address" name="address" value="<?php if ($userData) echo $userData['address']; ?>">
-                            <input type="text" id="city" name="city" value="<?php if ($userData) echo $userData['city']; ?>">
-                        </div>
-                    </div>
-                    <div class="buttons">
-                        <button type="submit" class="save-btn">Save</button>
-                        <p class="request-para">Do you want to Request Event Organizer Privilage?</p>
-                        <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request</button>
-                    </div>
-=======
 
                 <!-- Profile Details Section -->
                 <div class="profile-details">
@@ -145,11 +104,19 @@
                                 <button type="submit" class="save-btn" id="save-button" style="display: none;">Save</button>
                                 <button type="submit" class="delete-btn" id="delete-button" onclick="confirmDelete()">Delete Account</button>
                             </div>
-                            <p class="request-para">Do you want to Request Event Organizer Privilege?</p>
-                            <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request</button>
+                            <?php if ($userData && $userData['usertype'] !== 'guest') : ?>
+                                <?php
+                                    if(!$roleData){
+                                ?>
+                                    <p class="request-para">Do you want to Request Event Organizer Privilege?</p>
+                                    <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request</button>
+                                <?php } else { ?>
+                                    <p class="request-para">You have created a Role Request. Need to update it?</p>
+                                    <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Update</button>
+                                <?php }; ?>
+                            <?php endif; ?>
                         </div>
                     </form>
->>>>>>> 42c2f9add4b27a9c2949bde9578f5f1d9d2f1ec1
                 </div>
             </form>
         </div>
@@ -178,7 +145,6 @@
     </div>
 </body>
 </html>
-<<<<<<< HEAD
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const inputs = document.querySelectorAll('.inputs input');
@@ -192,5 +158,3 @@
         });
     });
 </script>
-=======
->>>>>>> 42c2f9add4b27a9c2949bde9578f5f1d9d2f1ec1

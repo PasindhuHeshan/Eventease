@@ -27,17 +27,27 @@ class EventController
     }
 
     public function event()
-    {
-        $no = isset($_GET['no']) ? $_GET['no'] : null;
-        $username = isset($_SESSION['username']) ? $_SESSION['username'] : null; 
-        $isEnrolled = $this->eventModel->isUserEnrolled($username, $no);
+{
+    $database = new Database();
+    $no = isset($_GET['no']) ? $_GET['no'] : null;
+    $username = isset($_SESSION['username']) ? $_SESSION['username'] : null; 
 
-        if ($event = $this->eventModel->getEvent($no)) {
-            include __DIR__ . '/../Views/events/event.php';
-        } else {
-            echo "Event not found.";
-        }
+    $isEnrolled = false; // Default value when no user is logged in
+    $userdata = ['usertype' => '']; // Default value when no user is logged in
+
+    if ($username) {
+        $isEnrolled = $this->eventModel->isUserEnrolled($username, $no);
+        $userdata = $this->UserModel->getUserData($username, $database);
     }
+
+    if ($event = $this->eventModel->getEvent($no)) {
+        include __DIR__ . '/../Views/events/event.php';
+    } else {
+        echo "Event not found.";
+    }
+}
+
+
 
     public function eventenroll()
     { 

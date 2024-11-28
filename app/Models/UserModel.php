@@ -197,5 +197,18 @@ class UserModel {
         $stmt->close();
         return true;
     }
+
+    public function usernameExists($username, Database $database) {
+        $conn = $database->getConnection();
+    
+        $sql = "SELECT COUNT(*) AS count FROM users WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+    
+        return $row['count'] > 0;
+    }
 }
 ?>
