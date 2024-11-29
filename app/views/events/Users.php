@@ -85,14 +85,14 @@
         </tr>
         <tr>
             <td>1</td>
-            <td>user1</td>
-            <td>user1@example.com</td>
+            <td>Seniru</td>
+            <td>se@stu.ucsc.cmb.lk </td>
             <td><button>Delete</button></td>
         </tr>
         <tr>
             <td>2</td>
-            <td>user2</td>
-            <td>user2@example.com</td>
+            <td>Sanduni</td>
+            <td>sandu0@gmail.com</td>
             <td><button>Delete</button></td>
         </tr>
         

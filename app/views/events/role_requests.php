@@ -81,15 +81,15 @@
         </tr>
         <tr>
             <td>1</td>
-            <td>user1</td>
-            <td>user1@example.com</td>
+            <td>Seniru</td>
+            <td>se@stu.ucsc.cmb.lk</td>
             <td>Event Organizer</td>
             <td><button>Accept</button></td>
             <td><button>Delete</button></td>
         </tr>
         <tr>
             <td>2</td>
-            <td>user2</td>
+            <td>Sanduni</td>
             <td>user2@example.com</td>
             <td>Event organizer</td>
             <td><button>Accept</button></td>
@@ -97,8 +97,8 @@
         </tr>
         <tr>
             <td>3</td>
-            <td>user3</td>
-            <td>user3@example.com</td>
+            <td>Navindu</td>
+            <td>Ne@stu.ucsc.cmb.lk</td>
             <td>Event organizer</td>
             <td><button>Accept</button></td>
             <td><button>Delete</button></td>

@@ -11,14 +11,14 @@
         <h2>Approved Events</h2>
         <div class="event-details">
             <label class="event-label">Event name:</label>
-            <p class="event-name">Approved Event Example</p>
+            <p class="event-name">Science Fair</p>
         </div>
         <div class="event-details">
             <label class="event-label">Event description:</label>
             <div class="event-description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
+                <p>Interactive science and technology fair.</p>
+                <p>encourage students to explore and showcase their understanding of scientific concepts through experiments and innovative projects.</p>
+                <p>Display of student projects, interactive demonstrations, and live experiments..</p>
             </div>
         </div>
         <div class="event-buttons">
