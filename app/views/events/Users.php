@@ -11,34 +11,34 @@
     padding: 0;
     background-color: #f4f4f4;
 }
-        table {
-            /* width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-            margin-bottom: 20px; */
-    border-collapse: separate;
-    border-spacing: 0;
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-        }
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
+    table th, table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
+    table th {
+        background-color: #f2f2f2;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
 
         button {
-            /* padding: 5px 10px;
-            background-color: #ff5722;
-            color: #fff;
-            border: none;
-            cursor: pointer; */
             
             padding: 5px 10px;
             width:80px;
@@ -53,16 +53,28 @@
             background-color: skyblue;
             color: white;
         }
+        .inventory_type {
+    padding: 8px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+.inventory_type:focus {
+    outline: none;
+    border-color: #007bff;
+}
     </style>
 </head>
 <body>
   <form>
         <label for="user_type">User type</label>
-        <select name="user_type" id="user_type">
+        <select name="user_type" id="user_type" class=inventory_type>
             <option value="1">staff member</option>
             <option value="2">event organizer</option>
         </select>
-        <button type="submit">Filter</button>
+     
     </form><br>
     <table>
         <tr>
