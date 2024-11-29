@@ -21,7 +21,7 @@ if(isset($userData['username']) ){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role Request Form</title>
     <style>
-        /* Add your custom styles here */
+        
         .form-container {
             background-color:#d8f2f2;
             max-width: 600px;
@@ -86,7 +86,7 @@ if(isset($userData['username']) ){
 <body>
     <div class="form-container">
         <h2>Role Request Form</h2>
-        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" <?php echo (($roleData) ? 'onsubmit="return confirmDelete(event)"' : '') ?> method="POST">
+        <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" onsubmit="return confirmAction(event)" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="name" value="<?php echo isset($userData['username']) ? $userData['username'] : ''; ?>" readonly>
             
@@ -121,7 +121,7 @@ if(isset($userData['username']) ){
                 }else{
             ?>
             <center>
-            <button type="submit" name="submit">Update</button>
+            <button type="submit" name="update">Update</button>
             <button type="button" name="cancel"><a href="userprofile.php" target="_self">Cancel</a></button>
             </center>
             <center class="delete-btn">
@@ -136,11 +136,16 @@ if(isset($userData['username']) ){
 </html>
 
 <script>
-    function confirmDelete(event) {
-        // Show confirmation only if Delete button is clicked
+    function confirmAction(event) {
         if (event.submitter.name === "delete") {
             return confirm("Are you sure you want to delete this Request?");
+        } else if (event.submitter.name === "submit") {
+            return confirm("Are you sure you want to submit this Request?");
+        }
+        else if (event.submitter.name === "update") {
+            return confirm("Are you sure you want to update this Request?");
         }
         return true; // Allow other buttons to proceed without confirmation
+
     }
 </script>
