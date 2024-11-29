@@ -38,10 +38,10 @@
           
             <h2>Users</h2>
           
-            <iframe src="users.php" class="iframe-content"></iframe>
+            <iframe src="users.php" class="iframe-section"></iframe>
            
             <h2>User role requests</h2>
-            <iframe src="role_requests.php" class="iframe-content"></iframe>
+            <iframe src="role_requests.php" class="iframe-section"></iframe>
         </div>
     </div>
 </body>

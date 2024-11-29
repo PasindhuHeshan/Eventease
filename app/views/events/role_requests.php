@@ -11,28 +11,49 @@
             padding: 0;
             background-color: #f4f4f4;
         }
-             table {
-            /* width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            margin-bottom: 20px; */
-    border-collapse: separate;
-    border-spacing: 0;
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-        }
+    /* table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
+    th, td {
+        padding: 10px;
+        text-align: left;
+    } */
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
 
+    table th, table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+
+    table th {
+        background-color: #f2f2f2;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
         button {
             padding: 5px 10px;
             width:80px;

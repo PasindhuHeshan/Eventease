@@ -12,11 +12,10 @@
     <h2>Events</h2>
   
         <label for="event_type">Event type</label>
-        <select name="event_type" id="event_type">
+        <select name="event_type" id="event_type" class=inventory_type>
             <option value="1">event1</option>
             <option value="2">event2</option>
         </select>
-        <button type="submit">Filter</button>
     </form><br>
     <table>
         <thead>
