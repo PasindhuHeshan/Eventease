@@ -9,6 +9,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
 </head>
 
 <body class="mainbody">
+    
     <div class="topics">
         Events
         <div class="icons">

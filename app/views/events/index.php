@@ -15,6 +15,54 @@ if ($upevents === null) {
     <title>EMS System</title>
 </head>
 <body>
+    <div class="box">
+    <div class="sliding-panel">
+        <div class="panel-content">
+            <div class="event">
+                <img src="./images/events/event.png" alt="Image 1">
+                <div class="event-details">
+                    <h3>Event Title 1</h3>
+                    <p>Event Date: 2024-11-29</p>
+                    <p>Location: Nambuluwa</p>
+                </div>
+            </div>
+            <div class="event">
+                <img src="./images/events/event.png" alt="Image 2">
+                <div class="event-details">
+                    <h3>Event Title 2</h3>
+                    <p>Event Date: 2024-12-01</p>
+                    <p>Location: Colombo</p>
+                </div>
+            </div>
+            <div class="event">
+                <img src="./images/events/event.png" alt="Image 2">
+                <div class="event-details">
+                    <h3>Event Title 2</h3>
+                    <p>Event Date: 2024-12-01</p>
+                    <p>Location: Colombo</p>
+                </div>
+            </div>
+            <div class="event">
+                <img src="./images/events/event.png" alt="Image 2">
+                <div class="event-details">
+                    <h3>Event Title 2</h3>
+                    <p>Event Date: 2024-12-01</p>
+                    <p>Location: Colombo</p>
+                </div>
+            </div>
+            <div class="event">
+                <img src="./images/events/event.png" alt="Image 2">
+                <div class="event-details">
+                    <h3>Event Title 2</h3>
+                    <p>Event Date: 2024-12-01</p>
+                    <p>Location: Colombo</p>
+                </div>
+            </div>
+            <!-- Repeat for other events -->
+        </div>
+    </div>
+</div>
+
     <main>
         <?php include 'main.php'; ?>
     </main>
@@ -31,3 +79,112 @@ if ($upevents === null) {
     <?php }?>
 </body>
 </html>
+<!-- <script>
+    const panelContent = document.querySelector('.panel-content');
+    let autoSlideInterval;
+
+    function slidePanel() {
+        panelContent.classList.toggle('slide-right');
+    }
+
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+            slidePanel();
+        }, 10000); // 10 seconds
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+
+    function showTooltip(event) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.innerHTML = `
+            <p>Event Name: ${event.target.alt}</p>
+            <p>Time: 10:00 AM</p>
+            <p>Date: 2024-01-15</p>
+            <p>Location: Art Gallery</p>
+        `;
+        document.body.appendChild(tooltip);
+        tooltip.style.left = `${event.pageX}px`;
+        tooltip.style.top = `${event.pageY}px`;
+    }
+
+    function hideTooltip() {
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+            tooltip.remove();
+        }
+    }
+
+
+    panelContent.addEventListener('mouseenter', stopAutoSlide);
+    panelContent.addEventListener('mouseleave', startAutoSlide);
+    panelContent.addEventListener('mouseover', showTooltip);
+    panelContent.addEventListener('mouseout', hideTooltip);
+
+    // Start the auto slide when the page loads
+    startAutoSlide();
+
+</script> -->
+<script>
+    const panelContent = document.querySelector('.panel-content');
+    let autoSlideInterval;
+
+    function slidePanel() {
+        panelContent.classList.toggle('slide-right');
+    }
+
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+            slidePanel();
+        }, 10000); // 10 seconds
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+
+    function cloneEvents() {
+    const events = panelContent.querySelectorAll('.event');
+    events.forEach(event => {
+        const clone = event.cloneNode(true);
+        panelContent.appendChild(clone);
+    });
+    }
+
+
+    function showTooltip(event) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.innerHTML = `
+            <p>Event Name: ${event.target.alt}</p>
+            <p>Time: 10:00 AM</p>
+            <p>Date: 2024-01-15</p>
+            <p>Location: Art Gallery</p>
+        `;
+        document.body.appendChild(tooltip);
+        tooltip.style.left = `${event.pageX}px`;
+        tooltip.style.top = `${event.pageY}px`;
+    }
+
+    function hideTooltip() {
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+            tooltip.remove();
+        }
+    }
+
+    panelContent.addEventListener('mouseenter', stopAutoSlide);
+    panelContent.addEventListener('mouseleave', startAutoSlide);
+    panelContent.addEventListener('mouseover', showTooltip);
+    panelContent.addEventListener('mouseout', hideTooltip);
+
+    // Clone images to create an infinite loop
+    cloneEvents();
+
+    // Start the auto slide when the page loads
+    startAutoSlide();
+
+</script>

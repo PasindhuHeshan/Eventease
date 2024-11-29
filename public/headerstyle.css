@@ -33,7 +33,7 @@ div ul:not(.nothingul){
 
 .nothingul{
     display: inline-block;
-    margin-top: 8px;
+    margin-top: 4px;
     margin-right: 5px;
 }
 
@@ -63,4 +63,37 @@ li a:not(.nothing){
 ul li a:hover:not(.nothing){
     color: lightskyblue;
     box-shadow:2px 2px 5px gray;
+}
+
+.headerbody {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    top: 43px;
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+    padding: 10px 10px 10px 10px;
+    border-radius: 20px;
+    background-color: lightskyblue;
+}
+.dropdown-content a {
+    color: black;
+    padding-bottom: 2px;
+    text-decoration: none;
+    display: block;
+    background-color: lightskyblue;
+    margin-bottom: 10px; /* Add space between dropdown items */
+}
+.dropdown:hover .dropdown-content {
+    display: block;
 }

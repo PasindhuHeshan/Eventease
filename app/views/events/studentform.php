@@ -36,7 +36,7 @@
 
         function validateEmail(email) {
             var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            var domainPattern = /@stu\.ucsc\.cmb\.lk$/;
+            var domainPattern = /@stu\.ucsc\.cmb\.ac\.lk$/;
             return emailPattern.test(email) && domainPattern.test(email);
         }
 
@@ -66,6 +66,15 @@
                 valid = false;
             } else {
                 document.getElementById('confirm_password_error').textContent = "";
+            }
+
+            function validatePhoneNumber(phoneNumber) { 
+                var phonePattern = /^07\d{8}$/; // Adjust this pattern based on your requirements 
+                return phonePattern.test(phoneNumber); 
+            } 
+            
+            function validateAddress(address) {
+                 return address.length >= 10; // Adjust the minimum length as needed 
             }
 
             if (!valid) {
@@ -110,7 +119,7 @@
                         </tr>
                         <tr>
                             <td><label for="email">Email Address</label></td>
-                            <td colspan="2"><input type="email" id="email" name="email" placeholder="eg. navindu.perera@stu.ucsc.cmb.lk" required></td>
+                            <td colspan="2"><input type="email" id="email" name="email" placeholder="eg. @stu.ucsc.cmb.ac.lk" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="email_error" class="error"></div></td>
@@ -118,14 +127,14 @@
                         <!-- New rows for University ID and University Registration No -->
                         <tr>
                             <td><label for="universityid">University ID</label></td>
-                            <td colspan="2"><input type="text" id="universityid" name="universityid" placeholder="eg. UCSC12345" required></td>
+                            <td colspan="2"><input type="text" id="universityid" name="universityid" placeholder="eg. 2202XXXX" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="universityid_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="universityregno">University Registration No</label></td>
-                            <td colspan="2"><input type="text" id="universityregno" name="universityregno" placeholder="eg. 20210001" required></td>
+                            <td colspan="2"><input type="text" id="universityregno" name="universityregno" placeholder="eg. 2022/IS/XXX" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="universityregno_error" class="error"></div></td>
@@ -142,14 +151,14 @@
                     <table>
                         <tr>
                             <td><label for="contactno1">Primary Contact Number</label></td>
-                            <td colspan="2"><input type="number" id="contactno1" name="contactno1" placeholder="eg. 1234567890" required></td>
+                            <td colspan="2"><input type="number" id="contactno1" name="contactno1" placeholder="eg. 07XXXXXXXX" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="contactno1_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="contactno2">Secondary Contact Number</label></td>
-                            <td colspan="2"><input type="number" id="contactno2" name="contactno2" placeholder="Optional secondary number"></td>
+                            <td colspan="2"><input type="number" id="contactno2" name="contactno2" placeholder="07XXXXXXXX(Optional)"></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="contactno2_error" class="error"></div></td>
@@ -180,7 +189,7 @@
                     <table>
                         <tr>
                             <td><label for="username">Username</label></td>
-                            <td colspan="2"><input type="text" id="username" name="username" placeholder="eg. navindup" required></td>
+                            <td colspan="2"><input type="text" id="username" name="username" placeholder="eg. Pasindu" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="username_error" class="error"></div></td>
