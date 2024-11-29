@@ -65,7 +65,13 @@ class EventModel {
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
+    
+        if ($result->num_rows === 0) {
+            return null;
+        }
+    
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    
 }
 ?>

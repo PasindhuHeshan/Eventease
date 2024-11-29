@@ -1,5 +1,12 @@
 <?php
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
+$upevent = isset($_SESSION['upevent']) ? $_SESSION['upevent'] : 'NO';
+
+if ($upevents === null) {
+    $_SESSION['upevent'] = 'NO'; 
+} else { 
+    $_SESSION['upevent'] = 'YES'; 
+}
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +18,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
     <main>
         <?php include 'main.php'; ?>
     </main>
-    <?php if($username!="Guest"){?>
+    <?php if($username!="Guest" && $upevent!="NO"){?>
     <aside class="rside" id="rside">
         <?php include 'upcoming.php'; ?>
     </aside>

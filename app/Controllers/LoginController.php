@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\EventModel;
 use App\Database;
 
 session_start();
@@ -15,16 +16,19 @@ class LoginController {
             if ($username && $password) {
                 $database = new Database(); // Ensure the database connection is created here
                 $userModel = new UserModel($database);
+                $eventModel = new EventModel($database);
                 $userData = $userModel->getUserData($username, $database);
+                $upevents = $eventModel->getAllupcomingEvents($username);
 
                 if ($userData && password_verify($password, $userData['password'])) {
                     if ($userData['usertype'] == 'student') {
                         $_SESSION['username'] = $username;
+                        $_SESSION['upevent'] = $upevents;
                         header("Location: ../public/index.php");
                         exit();
                     }else if ($userData['usertype'] == 'guest') {
                         $_SESSION['username'] = $username;
-                        $_SESSION['usertype'] = $userData['usertype'];
+                        $_SESSION['upevent'] = $upevents;
                         header("Location: ../public/index.php");
                         exit();
                     } else {
