@@ -35,6 +35,7 @@ div > div{
     padding: 5px 20px;
     border-radius: 10px;
     cursor: pointer;
+    margin-bottom: 6px;
   }
 
 .topics{
@@ -74,3 +75,64 @@ div > div{
 ul{
     list-style-type: none;
 }
+
+.sliding-panel {
+    position: relative;
+    overflow: hidden;
+    width: 200%;
+    height: 50%; /* Adjust height as needed */
+
+}
+
+.panel-content {
+    display: flex;
+    column-gap: 10px;
+    animation: scroll 100s linear infinite; /* Adjust the duration as needed */
+}
+
+.event {
+    position: relative;
+    display: inline-block;
+    width: 25%; /* Adjust width to show multiple images at a time */
+    height: auto;
+    justify-items: center;
+}
+
+.event img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+}
+
+.event-details {
+    position: absolute;
+    bottom: 10px;
+    top: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+}
+
+.event:hover .event-details {
+    opacity: 1;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(50%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.box{
+    margin:20px;
+}
+

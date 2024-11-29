@@ -55,7 +55,7 @@
                             </tr>
                             <tr>
                                 <td><label for="email">Email</label></td>
-                                <td><input type="email" id="email" name="email" value="<?php if ($userData) echo $userData['email']; ?>" oninput="showSaveButton()"></td>
+                                <td><input type="email" id="email" name="email" value="<?php if ($userData) echo $userData['email']; ?>" oninput="showSaveButton()" readonly></td>
                             </tr>
                             <tr>
                                 <td><label for="address">Address</label></td>

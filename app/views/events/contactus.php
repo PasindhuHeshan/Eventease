@@ -10,7 +10,7 @@
             <form name="contactsupport" action="" method="post">
                 <table>
                     <tr>
-                        <td><label for="name">Type:</label></td>
+                        <td><label for="name">Type</label></td>
                         <td>
                             <select>
                                 <option default value="Choose option">Choose Option</option>
@@ -20,22 +20,22 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="email">Email:</label></td>
+                        <td><label for="email">Email</label></td>
                         <td><input type="email" id="email" name="email" placeholder="Enter your Email"></td>
                     </tr>
                     <tr>
-                        <td><label for="contact">Contact number:</label></td>
+                        <td><label for="contact">Contact number</label></td>
                         <td><input type="contact" id="contact" name="contact" placeholder="Enter your Contact Number"></td>
                     </tr>
                     <tr>
-                        <td><label for="feedback">Feedback:</label></td>
-                        <td><textarea class="myTextarea" rows="6" placeholder="Enter your feedback"></textarea></td>
+                        <td><label for="feedback">Feedback</label></td>
+                        <td><textarea class="myTextarea" rows="4" placeholder="Enter your feedback"></textarea></td>
                     </tr>
                     <tr class="button">
                         <td colspan="2"><button type="submit">Send</button></td>
                     </tr>
                 </table>
-                <p>For the Questions, our contact support will get in touch with you as soon as possible</p>
+                <p>For the Questions,<br>our contact support will get in touch with you as soon as possible</p>
             </form>
         </div>
     </div>
