@@ -46,11 +46,12 @@ class UserModel {
                     contactno1, contactno2, profile_picture, created_at, updated_at
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         $stmt = $conn->prepare($sql);
-        return $stmt->execute([
+        $stmt->bind_param("sssssssssssss", 
             $username, $hashedPassword, $fname, $lname, $email, 
             $usertype, $universityid, $universityregno, $address, $city,
             $contactno1, $contactno2, $profile_picture
-        ]);
+        );
+        return $stmt->execute();
     }
     
 
