@@ -20,7 +20,7 @@
         <tbody>
             <tr>
                 <td>1</td>
-                <td>Event X</td>
+                <td>Science Fair</td>
                 <td>
                     <form action="viewevent.php">
                         <button type="submit">View</button>
@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td>2</td>
-                <td>Event Y</td>
+                <td>Film Festival</td>
                 <td>
                     <form action="viewevent.php">
                         <button type="submit">View</button>

@@ -11,14 +11,14 @@
         <h2>Events</h2>
         <div class="event-details">
             <label class="event-label">Event name:</label>
-            <p class="event-name">Event Example</p>
+            <p class="event-name">Art Exhibition</p>
         </div>
         <div class="event-details">
             <label class="event-label">Event description:</label>
             <div class="event-description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
+                <p>Futuristic art showcase from renowned artists.</p>
+                <p>Step into a world where imagination meets reality.</p>
+                <p>Display of various art forms, including paintings, sculptures, photography, digital art, and mixed media.</p>
             </div>
         </div>
         <div class="event-buttons">

@@ -29,7 +29,7 @@
         <tbody>
             <tr>
                 <td>1</td>
-                <td>Event A</td>
+                <td>Art Exhibition</td>
                 <td>
                     <form action="approvedeventview.php".html>
                         <button type="submit">View</button>
@@ -40,7 +40,7 @@
 
             <tr>
                 <td>2</td>
-                <td>Event B</td>
+                <td>Music Festival</td>
                <td>
                 <form action="approvedeventview.php".html>
                     <button type="submit">View</button>
@@ -52,7 +52,7 @@
 
             <tr>
                 <td>3</td>
-                <td>Event C</td>
+                <td>Tech Conference</td>
                 <td>
                     <form action="approvedeventview.php".html>
                         <button type="submit">View</button>
