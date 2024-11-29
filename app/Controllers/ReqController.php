@@ -63,14 +63,26 @@ class ReqController{
                     header('Location: userprofile.php'); 
                     exit();
                 }
-                
-                // Insert data into the database
-                
-                
+               
                 // Redirect or load a confirmation page
                 $userData = $this->usermodel->getUserData($username, $database);
                 //require __DIR__ . '/../Views/events/userprofile.php';
-            }else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])){
+            
+            }
+            else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
+                $username = $_POST['name'];
+                $email = $_POST['email'];
+                $role = $_POST['role'];
+                $reason = $_POST['reason'];
+                $status = isset($_POST['status']) ? $_POST['status'] : 'Pending'; // Default status if not provided
+                $database = new Database(); // Ensure the database connection is created here
+                $userModel = new UserModel(); 
+                $userModel->updateRoleRequest($username, $email, $role, $reason, $status, $database); 
+                header('Location: userprofile.php'); 
+                exit();    
+                    
+            } 
+            else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])){
                 $username = $_POST['name'];
                 $database = new Database();
                 $userModel = new UserModel();
