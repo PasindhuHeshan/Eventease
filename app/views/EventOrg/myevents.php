@@ -9,7 +9,18 @@
     <div class="events">
         <?php if (!empty($events)): ?>
             <?php foreach ($events as $event): ?>
-                <a href="createform?no=<?php echo $event['no']; ?>">
+                <?php
+                    $userType = $userData['usertype']; // Assuming userData contains the user type
+                    $eventLink = '';
+
+                    if ($userType == 'event organizer') {
+                        $eventLink = 'createform?no=' . $event['no'];
+                    } else {
+                        $eventLink = 'enrollmentform';
+                    }
+                ?>
+                <!-- <a href="<?php echo $eventLink; ?>"> -->
+
                 <div class="event">
                     <div class="event-image">
                         <img src="<?php echo $event['event_banner']; ?>" alt="Event Banner">
@@ -20,15 +31,22 @@
                         <p class="event-time">Time: <?php echo $event['time']; ?></p>
                         <p class="event-location">Location: <?php echo $event['location']; ?></p>
                         <p class="event-description"><?php echo $event['short_dis']; ?></p>
+                        <hr>
+                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="report">Report</a>';} ?></p>
+                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="review">Review</a>';} ?></p>
+                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="statistics">Statistics</a>';} ?></p>
+                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="inquiry">Enquries</a>';} ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
             <p>No events found.</p>
         <?php endif; ?>
+        <?php if ($userType == 'organizer'){?>
         <div class="create-event">
             <a href="createform"><button type="button" class="btn primary">Create Event</button></a>
         </div>
+        <?php } ?>
     </div>
 </div>
 </body>

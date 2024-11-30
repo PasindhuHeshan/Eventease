@@ -81,4 +81,28 @@ class UserProfileController
             }
         }
     }
+
+    public function assignedevents(){
+        require __DIR__ . '/../Views/EventSup/inquiry.php';
+    }
+
+    public function enrollstd(){
+        require __DIR__ . '/../Views/EventSup/enrollment.php';
+    }
+
+    public function report(){
+        require __DIR__ . '/../Views/EventSup/report.php';
+    }
+
+    public function review(){
+        require __DIR__ . '/../Views/EventSup/review.php';
+    }
+
+    public function stat(){
+        require __DIR__ . '/../Views/EventSup/statistics.php';
+    }
+
+    public function inquiry(){
+        require __DIR__ . '/../Views/EventSup/inquiry.php';
+    }
 }
