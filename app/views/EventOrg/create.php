@@ -69,6 +69,7 @@
             <?php if (isset($eventData)) { ?>
             <div class="downbuttons">
                 <button type="submit" name="update" class="btn primary">Update Event</button>
+                <button class="btn primary"><a href="addmore" style="color:white">Add More Setting</a></button>
                 <button type="submit" name="delete" class="btn danger">Delete Event</button>
             </div>
             <?php } else { ?>

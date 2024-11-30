@@ -8,17 +8,26 @@ use App\Models\UserModel;
 
 class EventsController {
     private $eventModel;
+    private $userModel;
 
     public function __construct() {
         $database = new Database();
         $this->eventModel = new EventModel($database);
+        $this->userModel = new UserModel($database); // Initialize UserModel
     }
 
     public function index() {
-        $username = $_SESSION['username']; 
-        $events = $this->eventModel->getEventsByOrganizer($username); 
+        $database = new Database();
+        $username = $_SESSION['username'];
+        $events = $this->eventModel->getEventsByOrganizer($username);
+        $userData = $this->userModel->getUserData($username,$database);
         include __DIR__ . '/../Views/EventOrg/myevents.php';
     }
+
+    public function addmore() {
+        include __DIR__ . '/../Views/EventOrg/edit.php';
+    }
+
 
     public function createform() {
         $eventno = isset($_GET['no']) ? htmlspecialchars($_GET['no']) : null;

@@ -32,6 +32,11 @@
                     <?php if($userData['usertype']==='event organizer'){?>
                         <li><a href="myevents" target="_self">My events</a></li>
                     <?php } ?>
+                    <?php if($userData['usertype']==='support'){?>
+                        <li>
+                            <a href="myevents" target="_self">Assigned Events</a>
+                        </li>
+                    <?php } ?>
                     <li><a href="logout.php" target="_self">Logout</a></li>
                     <li><a href="contactus.php" target="rside">Contact us</a></li>
                 </ul>

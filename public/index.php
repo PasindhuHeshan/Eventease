@@ -207,6 +207,34 @@ switch ($url) {
         $hcontroller->render();
         $eocontroller->processEvent();
         break;
+    case 'addmore':
+        $hcontroller->render();
+        $eocontroller->addmore();
+        break;
+    case 'supportEvents':
+        $hcontroller->render();
+        $upcontroller->assignedevents();
+        break;
+    case 'enrollmentform':
+        $hcontroller->render();
+        $upcontroller->enrollstd();
+        break;
+    case 'report':
+        $hcontroller->render();
+        $upcontroller->report();
+        break;
+    case 'review':
+        $hcontroller->render();
+        $upcontroller->review();
+        break;
+    case 'inquiry':
+        $hcontroller->render();
+        $upcontroller->inquiry();
+        break;
+    case 'statistics':
+        $hcontroller->render();
+        $upcontroller->stat();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();
