@@ -29,6 +29,9 @@
                     <?php if($userData['usertype']==='staff'){?>
                         <li><a href="approve_events" target="_self">Approve Events</a></li>
                     <?php } ?>
+                    <?php if($userData['usertype']==='event organizer'){?>
+                        <li><a href="myevents" target="_self">My events</a></li>
+                    <?php } ?>
                     <li><a href="logout.php" target="_self">Logout</a></li>
                     <li><a href="contactus.php" target="rside">Contact us</a></li>
                 </ul>

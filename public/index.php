@@ -17,6 +17,7 @@ require __DIR__ . '/../app/Controllers/UserProfileController.php';
 require __DIR__ . '/../app/Controllers/ReqController.php';
 require __DIR__ . '/../app/Controllers/staffController.php';
 require __DIR__ . '/../app/Models/Event.php';
+require __DIR__ . '/../app/Controllers/EventsController.php';
 
 use App\Database;
 use App\Controllers\EventController;
@@ -28,6 +29,7 @@ use App\Controllers\ContactusController;
 use App\Controllers\UserProfileController;
 use App\Controllers\ReqController;
 use App\Controllers\staffController;
+use App\Controllers\EventsController;
 
 // Initialize the database connection
 $database = new Database();
@@ -43,6 +45,7 @@ $cucontroller = new ContactusController($database);
 $upcontroller = new UserProfileController($database); 
 $reqcontroller = new ReqController($database);
 $stfcontroller = new staffController($database);
+$eocontroller = new EventsController($database);
 // Get the URL parameter
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
@@ -187,6 +190,22 @@ switch ($url) {
     case 'approve_events':
         $hcontroller->render();
         $stfcontroller->index();
+        break;
+    case 'myevents':
+        $hcontroller->render();
+        $eocontroller->index();
+        break;
+    case 'createform':
+        $hcontroller->render();
+        $eocontroller->createform();
+        break;
+    case 'createevent':
+        $hcontroller->render();
+        $eocontroller->createevent();
+        break;
+    case 'processEvent':
+        $hcontroller->render();
+        $eocontroller->processEvent();
         break;
     default:
         $hcontroller->render();

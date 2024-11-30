@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use App\Database;
@@ -72,6 +73,45 @@ class EventModel {
     
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function createEvent($name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
+        $query = "INSERT INTO events (name, short_dis, long_dis, flag, time, date, location, people_limit, event_type, approvedstatus, supervisor, event_banner, organizer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+        $stmt = $this->conn->prepare($query); 
+        $stmt->bind_param("sssisssisisss", $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer);
+        $result = $stmt->execute(); 
+        $stmt->close(); 
+        return $result; 
+    }
+
+    public function updateEvent($eventno, $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
+        $query = "UPDATE events SET name = ?, short_dis = ?, long_dis = ?, flag = ?, time = ?, date = ?, location = ?, people_limit = ?, event_type = ?, approvedstatus = ?, supervisor = ?, event_banner = ?, organizer = ? WHERE no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("sssisssisisssi", $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer, $eventno);
+        $result = $stmt->execute();
+        $stmt->close();
     
+        return $result;
+    }
+    
+    
+
+    public function deleteEvent($eventno, $database) {
+        $query = "DELETE FROM events WHERE no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventno);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function getEventsByOrganizer($organizer) { 
+        $query = "SELECT * FROM events WHERE organizer = ?"; 
+        $stmt = $this->conn->prepare($query); 
+        $stmt->bind_param("s", $organizer); 
+        $stmt->execute(); 
+        $result = $stmt->get_result(); 
+        $stmt->close(); 
+        return $result->fetch_all(MYSQLI_ASSOC); 
+    }
 }
-?>
