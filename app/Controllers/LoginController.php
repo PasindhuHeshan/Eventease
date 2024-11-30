@@ -36,6 +36,11 @@ class LoginController {
                         $_SESSION['upevent'] = $upevents;
                         header("Location: ../public/index.php");
                         exit();
+                    }else if ($userData['usertype'] == 'event organizer') {
+                        $_SESSION['username'] = $username;
+                        $_SESSION['upevent'] = $upevents;
+                        header("Location: ../public/index.php");
+                        exit();
                     } else {
                         $_SESSION['username'] = $username;
                         header("Location: ../public/dashboard.php");
