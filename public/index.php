@@ -15,6 +15,7 @@ require __DIR__ . '/../app/Controllers/AdminLoginController.php';
 require __DIR__ . '/../app/Controllers/ContactusController.php';
 require __DIR__ . '/../app/Controllers/UserProfileController.php';
 require __DIR__ . '/../app/Controllers/ReqController.php';
+require __DIR__ . '/../app/Controllers/staffController.php';
 require __DIR__ . '/../app/Models/Event.php';
 
 use App\Database;
@@ -26,6 +27,7 @@ use App\Controllers\AdminLoginController;
 use App\Controllers\ContactusController;
 use App\Controllers\UserProfileController;
 use App\Controllers\ReqController;
+use App\Controllers\staffController;
 
 // Initialize the database connection
 $database = new Database();
@@ -40,6 +42,7 @@ $alcontroller = new AdminLoginController($database);
 $cucontroller = new ContactusController($database);
 $upcontroller = new UserProfileController($database); 
 $reqcontroller = new ReqController($database);
+$stfcontroller = new staffController($database);
 // Get the URL parameter
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
@@ -180,6 +183,10 @@ switch ($url) {
     case 'processreq':
         $hcontroller->render();
         $reqcontroller->processreq();
+        break;
+    case 'approve_events':
+        $hcontroller->render();
+        $stfcontroller->index();
         break;
     default:
         $hcontroller->render();

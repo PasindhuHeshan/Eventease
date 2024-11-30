@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="staffstyles.css"> 
 </head>
 <body>
-    <center>
+    <div class="main">
+    <div class="topic">
     <h2>Event Requests</h2>
-    </center>
+    </div>
     <div class="tb">
         <div class="table-header">
             <table>
@@ -26,7 +27,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Vani Vizha</td>
+                        <td><a href="#">Vani Vizha</a></td>
                         <td>Vanitha</td>
                         <td>UCSC Auditorium</td>
                         <td>2024-09-30</td>
@@ -40,7 +41,7 @@
                         
                     </tr> 
                     <tr>
-                        <td>Reid handawa</td>
+                        <td><a href="#">Reid handawa</a></td>
                         <td>Sandun</td>
                         <td>UCSC Auditorium</td>
                         <td>2024-09-03</td>
@@ -54,7 +55,7 @@
                         
                     </tr>
                     <tr>
-                        <td>Padura</td>
+                        <td><a href="#">Padura</a></td>
                         <td>Naveen</td>
                         <td>UCSC Auditorium</td>
                         <td>2024-05-07</td>
@@ -71,6 +72,6 @@
             </table>
         </div>  
     </div>
-    
+</div>
 </body>
 </html>
