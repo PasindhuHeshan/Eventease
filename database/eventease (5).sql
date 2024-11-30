@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2024 at 11:47 AM
+-- Generation Time: Nov 30, 2024 at 11:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,8 +39,10 @@ CREATE TABLE `enroll` (
 INSERT INTO `enroll` (`username`, `eventno`) VALUES
 ('Seniru', 26),
 ('Seniru', 27),
-('seniru', 3),
-('ssss', 2);
+('ssss', 2),
+('seniru2', 3),
+('seniru1', 3),
+('seniru0', 3);
 
 -- --------------------------------------------------------
 
@@ -60,24 +62,48 @@ CREATE TABLE `events` (
   `people_limit` int(11) NOT NULL,
   `event_type` varchar(50) NOT NULL,
   `approvedstatus` int(11) NOT NULL,
-  `supervisor` varchar(100) NOT NULL
+  `supervisor` varchar(100) NOT NULL,
+  `event_banner` varchar(200) NOT NULL,
+  `organizer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `date`, `location`, `people_limit`, `event_type`, `approvedstatus`, `supervisor`) VALUES
-(1, 'Art Exhibition', 'Futuristic art showcase from renowned artists.', 'Step into a world where imagination meets reality in this cutting-edge art exhibition. Featuring over 50 renowned contemporary artists, \"Visions of the Future\" explores the infinite possibilities of tomorrow through various mediums including paintings, sculptures, digital art, and installations. Each piece challenges conventional perceptions and invites viewers to ponder the future of technology, society, and the environment. Special guided tours and interactive sessions with the artists will provide deeper insights into their visionary creations.', 0, '09:00:00', '2024-01-15', 'Art Gallery', 150, 'Exhibition', 1, 'Mr. Adams'),
-(2, 'Music Festival', 'Relaxing music in a picturesque park.', 'Experience the perfect blend of music and nature at the \"Sounds of Serenity\" music festival. Set in a picturesque park, this event features acoustic performances, ambient soundscapes, and nature-inspired compositions from world-class musicians. Guests can participate in guided meditation sessions, yoga classes, and mindfulness workshops, all designed to enhance the healing power of music and nature. Enjoy evening bonfires, storytelling sessions, and serene boat rides on the park’s tranquil lake.', 1, '10:00:00', '2024-02-20', 'City Park', 200, 'Festival', 1, 'Ms. Davis'),
-(3, 'Tech Conference', 'Premier event for tech enthusiasts.', 'Join industry leaders and innovators at \"Innovate 2024,\" the foremost tech conference of the year. This three-day event includes keynote speeches from top tech CEOs, panel discussions on emerging trends, hands-on workshops, and a showcase of the latest gadgets and technologies. Attendees will have the opportunity to network with experts, learn about the future of AI, blockchain, cybersecurity, and more. The conference will also feature innovation challenges, hackathons, and startup pitches, providing a platform for the next generation of tech entrepreneurs.', 1, '08:00:00', '2024-03-05', 'Convention Center', 300, 'Conference', 1, 'Mr. Brown'),
-(4, 'Film Festival', 'Celebration of international films.', 'Embark on a cinematic journey at \"Cinema Paradiso,\" a festival dedicated to the art of filmmaking. Featuring screenings of over 100 films from around the globe, this event highlights the diversity of storytelling through cinema. Meet acclaimed directors, participate in Q&A sessions, and enjoy special premieres of groundbreaking films. Workshops and masterclasses on screenwriting, directing, and editing are also available for aspiring filmmakers. The festival will also include a special section for independent films and documentaries, providing a platform for emerging voices in cinema.', 1, '11:00:00', '2024-04-10', 'Film Theater', 250, 'Festival', 1, 'Ms. Clark'),
-(5, 'Culinary Event', 'Global culinary experience.', 'Indulge in a gastronomic adventure at \"Flavors of the World,\" where chefs from around the globe come together to showcase their culinary artistry. Taste exotic dishes, attend cooking demonstrations, and learn about the cultural significance of various cuisines. This event also features food-related workshops, such as wine pairing, chocolate making, and sustainable cooking practices. A must-attend for food lovers and culinary professionals alike, the event will also host a special farm-to-table dinner under the stars.', 1, '12:00:00', '2024-05-18', 'Gourmet Hall', 180, 'Event', 1, 'Chef Blanc'),
-(6, 'Literary Festival', 'World of literature and storytelling.', 'Dive into the world of words at the \"Books and Beyond\" literary festival. Featuring renowned authors, poets, and storytellers, this event offers a variety of literary activities including book readings, signings, and panel discussions. Explore the world of publishing, participate in writing workshops, and discover new literary talents. With a dedicated area for children’s literature, the festival is a family-friendly event promoting the joy of reading. Special sessions on digital publishing, e-books, and interactive storytelling will also be part of the festival.', 1, '13:00:00', '2024-06-22', 'Library Plaza', 200, 'Festival', 1, 'Mr. Johnson'),
-(7, 'Wellness Expo', 'Health and wellness expo.', 'Transform your lifestyle at the \"Live Well\" Health and Wellness Expo. This comprehensive event focuses on physical, mental, and emotional well-being, featuring health screenings, fitness classes, and nutrition seminars. Connect with wellness experts, participate in mindfulness sessions, and explore holistic health products. Workshops on stress management, mental health awareness, and alternative therapies provide valuable insights for a balanced life. Additionally, the expo will offer personalized wellness plans and one-on-one consultations with health professionals.', 1, '09:30:00', '2024-07-15', 'Health Center', 220, 'Expo', 1, 'Dr. Green'),
-(8, 'Environmental Summit', 'Addressing environmental challenges.', 'Join environmental activists, scientists, and policymakers at the \"Green Future\" summit to tackle pressing ecological issues. This event includes keynote speeches on climate change, biodiversity, and sustainable practices. Participate in roundtable discussions, attend green technology exhibitions, and network with like-minded individuals committed to environmental preservation. Workshops on renewable energy, conservation strategies, and eco-friendly living offer practical solutions for a sustainable future. The summit will also host a special youth forum to engage the next generation in environmental activism.', 1, '14:00:00', '2024-08-09', 'Eco Center', 300, 'Summit', 1, 'Ms. Taylor'),
-(9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '2024-09-12', 'Fashion Avenue', 150, 'Show', 1, 'Ms. Lee'),
-(10, 'Science Fair', 'Interactive science and technology fair.', 'Ignite your curiosity at \"Discover 2024,\" an interactive science fair designed for all ages. Explore hands-on exhibits, demonstrations, and experiments covering topics like robotics, space exploration, and environmental science. Meet scientists, engineers, and educators who share their passion for discovery and innovation. Participate in science workshops, competitions, and STEM activities that inspire the next generation of innovators. The fair will also feature special guest lectures and presentations on cutting-edge scientific research and breakthroughs.', 1, '10:00:00', '2024-10-05', 'Science Center', 250, 'Fair', 1, 'Dr. Williams');
+INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `date`, `location`, `people_limit`, `event_type`, `approvedstatus`, `supervisor`, `event_banner`, `organizer`) VALUES
+(1, 'Art Exhibition', 'Futuristic art showcase from renowned artists.', 'Step into a world where imagination meets reality in this cutting-edge art exhibition. Featuring over 50 renowned contemporary artists, \"Visions of the Future\" explores the infinite possibilities of tomorrow through various mediums including paintings, sculptures, digital art, and installations. Each piece challenges conventional perceptions and invites viewers to ponder the future of technology, society, and the environment. Special guided tours and interactive sessions with the artists will provide deeper insights into their visionary creations.', 0, '09:00:00', '2024-01-15', 'Art Gallery', 150, 'Exhibition', 1, 'Mr. Adams', '0', ''),
+(2, 'Music Festival', 'Relaxing music in a picturesque park.', 'Experience the perfect blend of music and nature at the \"Sounds of Serenity\" music festival. Set in a picturesque park, this event features acoustic performances, ambient soundscapes, and nature-inspired compositions from world-class musicians. Guests can participate in guided meditation sessions, yoga classes, and mindfulness workshops, all designed to enhance the healing power of music and nature. Enjoy evening bonfires, storytelling sessions, and serene boat rides on the park’s tranquil lake.', 1, '10:00:00', '2024-02-20', 'City Park', 200, 'Festival', 1, 'Ms. Davis', '0', ''),
+(3, 'Tech Conference', 'Premier event for tech enthusiasts.', 'Join industry leaders and innovators at \"Innovate 2024,\" the foremost tech conference of the year. This three-day event includes keynote speeches from top tech CEOs, panel discussions on emerging trends, hands-on workshops, and a showcase of the latest gadgets and technologies. Attendees will have the opportunity to network with experts, learn about the future of AI, blockchain, cybersecurity, and more. The conference will also feature innovation challenges, hackathons, and startup pitches, providing a platform for the next generation of tech entrepreneurs.', 1, '08:00:00', '2024-03-05', 'Convention Center', 300, 'Conference', 1, 'Mr. Brown', '0', ''),
+(4, 'Film Festival', 'Celebration of international films.', 'Embark on a cinematic journey at \"Cinema Paradiso,\" a festival dedicated to the art of filmmaking. Featuring screenings of over 100 films from around the globe, this event highlights the diversity of storytelling through cinema. Meet acclaimed directors, participate in Q&A sessions, and enjoy special premieres of groundbreaking films. Workshops and masterclasses on screenwriting, directing, and editing are also available for aspiring filmmakers. The festival will also include a special section for independent films and documentaries, providing a platform for emerging voices in cinema.', 1, '11:00:00', '2024-04-10', 'Film Theater', 250, 'Festival', 1, 'Ms. Clark', '0', ''),
+(5, 'Culinary Event', 'Global culinary experience.', 'Indulge in a gastronomic adventure at \"Flavors of the World,\" where chefs from around the globe come together to showcase their culinary artistry. Taste exotic dishes, attend cooking demonstrations, and learn about the cultural significance of various cuisines. This event also features food-related workshops, such as wine pairing, chocolate making, and sustainable cooking practices. A must-attend for food lovers and culinary professionals alike, the event will also host a special farm-to-table dinner under the stars.', 1, '12:00:00', '2024-05-18', 'Gourmet Hall', 180, 'Event', 1, 'Chef Blanc', '0', ''),
+(6, 'Literary Festival', 'World of literature and storytelling.', 'Dive into the world of words at the \"Books and Beyond\" literary festival. Featuring renowned authors, poets, and storytellers, this event offers a variety of literary activities including book readings, signings, and panel discussions. Explore the world of publishing, participate in writing workshops, and discover new literary talents. With a dedicated area for children’s literature, the festival is a family-friendly event promoting the joy of reading. Special sessions on digital publishing, e-books, and interactive storytelling will also be part of the festival.', 1, '13:00:00', '2024-06-22', 'Library Plaza', 200, 'Festival', 1, 'Mr. Johnson', '0', ''),
+(7, 'Wellness Expo', 'Health and wellness expo.', 'Transform your lifestyle at the \"Live Well\" Health and Wellness Expo. This comprehensive event focuses on physical, mental, and emotional well-being, featuring health screenings, fitness classes, and nutrition seminars. Connect with wellness experts, participate in mindfulness sessions, and explore holistic health products. Workshops on stress management, mental health awareness, and alternative therapies provide valuable insights for a balanced life. Additionally, the expo will offer personalized wellness plans and one-on-one consultations with health professionals.', 1, '09:30:00', '2024-07-15', 'Health Center', 220, 'Expo', 1, 'Dr. Green', '0', ''),
+(8, 'Environmental Summit', 'Addressing environmental challenges.', 'Join environmental activists, scientists, and policymakers at the \"Green Future\" summit to tackle pressing ecological issues. This event includes keynote speeches on climate change, biodiversity, and sustainable practices. Participate in roundtable discussions, attend green technology exhibitions, and network with like-minded individuals committed to environmental preservation. Workshops on renewable energy, conservation strategies, and eco-friendly living offer practical solutions for a sustainable future. The summit will also host a special youth forum to engage the next generation in environmental activism.', 1, '14:00:00', '2024-08-09', 'Eco Center', 300, 'Summit', 1, 'Ms. Taylor', '0', ''),
+(9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '2024-09-12', 'Fashion Avenue', 150, 'Charity', 0, 'Ms. Lee', 'images/events/HD wallpaper_ Greenmapple17, Darling in the FranXX, Zero Two (Darling in the FranXX).jpg', 'seniru');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_inventory`
+--
+
+CREATE TABLE `event_inventory` (
+  `eventno` int(11) NOT NULL,
+  `inventory_requested` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `eventno` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `feedback` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -99,18 +125,16 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `item`, `inventory_no`, `quantity`, `inventory_type`, `in_use`) VALUES
-(1, 'Laptop', 'INV-001', 5, 'Electronics', 5),
-(2, 'Projector', 'INV-002', 20, 'Electronics', 0),
+(1, 'Laptop', 'INV-001', 8, 'Electronics', 5),
 (3, 'Whiteboard Marker', 'INV-003', 200, 'Stationery', 0),
 (4, 'Desk Chair', 'INV-004', 35, 'Furniture', 0),
-(5, 'Air Conditioner', 'INV-005', 10, 'Appliances', 0),
-(6, 'Printer', 'INV-006', 15, 'Electronics', 0),
+(5, 'Air Conditioner', 'INV-005', 100, 'Appliances', 0),
 (7, 'Lecture Notes', 'INV-007', 500, 'Stationery', 0),
 (8, 'Projector Screen', 'INV-008', 10, 'Furniture', 0),
 (9, 'Microscope', 'INV-009', 10, 'Electronics', 0),
 (10, 'First Aid Kit', 'INV-010', 5, 'Appliances', 0),
 (11, 'Washing Machine', 'INV-011', 8, 'Appliances', 0),
-(12, 'Stapler', 'INV-012', 100, 'Stationery', 0),
+(12, 'Stapler', 'INV-012', 1000, 'Stationery', 0),
 (13, 'Office Chair', 'INV-013', 25, 'Furniture', 0),
 (14, 'Projector Lamp', 'INV-014', 18, 'Electronics', 0),
 (15, 'Dryer', 'INV-015', 5, 'Appliances', 0),
@@ -119,7 +143,8 @@ INSERT INTO `inventory` (`id`, `item`, `inventory_no`, `quantity`, `inventory_ty
 (18, 'Tablet', 'INV-018', 32, 'Electronics', 0),
 (19, 'Refrigerator', 'INV-019', 5, 'Appliances', 0),
 (20, 'Notebook', 'INV-020', 300, 'Stationery', 0),
-(21, 'Tablet', 'INV-19', 10, 'Electronics', 0);
+(21, 'Tablet', 'INV-19', 10, 'Electronics', 0),
+(22, 'Desk', 'INV-051', 25, 'Furniture', 0);
 
 -- --------------------------------------------------------
 
@@ -166,9 +191,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`No`, `username`, `password`, `fname`, `lname`, `email`, `usertype`, `universityid`, `universityregno`, `address`, `city`, `contactno1`, `contactno2`, `profile_picture`, `created_at`, `updated_at`) VALUES
-(7, 'seniru', '$2y$10$u4Wd/.AuTokIUCCyTrkRn.t0SYTO821j4tUFIQPhw41qfhv0JnovO', 'Seniru', 'Ranasinghe', 'se@stu.ucsc.cmb.lk', 'student', '2202', '2020', '20', '20', '20', 20, 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', '2024-11-27 09:54:38', '2024-11-27 09:55:18'),
-(8, '1234', '$2y$10$ncMIDa9shsIkLM34mqXCpeHbblH8df4IXgw09.87d4/4vnSuWG95i', 's', 's', 's@stu.ucsc.cmb.lk', 'student', '213', '123', '123', '123', '123', 123, NULL, '2024-11-27 10:21:32', '2024-11-27 10:21:32'),
-(9, '1235', '$2y$10$snaAQSQ2p.lAU5nix229pOFX/Tw1699izuZDDA76EeD89JVh0/o1a', '123', '123', 'se@gmail.com', 'guest', '0', '0', '123', '1234', '123', 123, 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', '2024-11-27 10:24:28', '2024-11-27 10:44:12');
+(10, 'admin', '$2y$10$QMPoAeTOMUZKfEl9zWOKd.wUxLmrzHpr/lOmIHmZlWcQaJ2c.DNy.', 'Seniru', 're', 's4@stu.ucsc.cmb.lk', 'admin', 'ucsc', 'ucsc', '2', '2', '2', 2, NULL, '2024-11-28 13:00:52', '2024-11-28 13:01:11'),
+(11, 'seniru2', '$2y$10$gLOWumpp8eS6JnsCrLrK.uJP4y9hr/wNfQ5tM/TlkSnh9ScaPFfGq', 'seniru2', 'Rana', 'se@gmail.com', 'guest', '0', '0', '2', '2', '2', 2, NULL, '2024-11-28 13:27:11', '2024-11-28 13:27:11'),
+(14, 'seniru3', '$2y$10$M1sZCzANCqKX9ENJ5Svjce6QUCrpRFe9zq24PMkPzOOG0pq1YcHbC', 'sa', 'sa', 'sa@stu.ucsc.cmb.lk', 'student', '20', '20', '2', '2', '2', 2, NULL, '2024-11-28 14:26:32', '2024-11-28 14:26:32'),
+(16, 'seniru', '$2y$10$.6eQk7X78Q.s2vhu3IG77uPC9YH5/3JKzVZ.mutH0Z0EkGP6z3YUa', 'Seniru', 'Ran', 'seniru@stu.ucsc.cmb.lk', 'event organizer', '22020782', '2002is078', 'Sama Mawatha', 'Kottawa2', '0715286999', 0, 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', '2024-11-28 14:55:07', '2024-11-30 05:55:24'),
+(17, 'seniru0', '$2y$10$VB/Zi7XXE/gFY.64z8o7a.jric8faY3mLJwBCXynOtpP1SNSIgGBq', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.lk', 'student', '22020782', '2002is078', 'Sama Mawatha', 'Kottawa', '0718596320', 0, 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', '2024-11-28 15:02:04', '2024-11-29 06:54:37'),
+(18, 'guest', '$2y$10$veazP8pDyno9QAvd7ttWVuoBSw/tiQqwxCe5zUYmvSCEDb.t5W/Uu', 'guest', 'guest', 'guest@gmail.com', 'guest', '0', '0', 'Sama Mawatha', 'Kottawa', '0718596321', 0, NULL, '2024-11-28 15:07:48', '2024-11-28 15:07:48'),
+(19, 'sanduni', '$2y$10$tYxF4J6sEY6EYZdwf6RodOSSFmOkyaym3FgHLN51xaDqyJoevdm/O', 'aa', 'aa', 'aa@gmail.com', 'guest', '0', '0', '12', '`12', '12', 21, NULL, '2024-11-29 04:55:05', '2024-11-29 04:55:05'),
+(20, 'seniru1', '$2y$10$tyZ0/xUexSm8mGn8WT9WHe9AaHcjrmusKBLLV6soRYc/UQ0ZY446C', 'seniru', 'seniru', 'se@gmail.com', 'guest', '0', '0', '12', '12', '12', 12, NULL, '2024-11-29 05:01:30', '2024-11-29 05:01:30');
 
 --
 -- Indexes for dumped tables
@@ -207,25 +237,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `rolereq`
 --
 ALTER TABLE `rolereq`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
