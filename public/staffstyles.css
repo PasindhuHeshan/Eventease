@@ -7,7 +7,9 @@ table {
     margin: 20px 0;
     border: 1px solid #ddd;
 }
-
+.main{
+    padding: 20px;
+}
 thead th {
     position: sticky;
     top: 0;
@@ -62,3 +64,4 @@ h2{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
+

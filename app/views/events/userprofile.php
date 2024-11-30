@@ -84,14 +84,15 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest') ? 'table-cell' : 'none'; ?>">
-                                    <label for="universityregno">University Registration No</label>
-                                </td>
-                                <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest') ? 'table-cell' : 'none'; ?>">
-                                    <?php if ($userData && $userData['usertype'] !== 'guest') : ?>
-                                        <input type="text" id="universityregno" name="universityregno" value="<?php echo $userData['universityregno']; ?>" readonly>
-                                    <?php endif; ?>
-                                </td>
+                            <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') ? 'table-cell' : 'none'; ?>">
+                                <label for="universityregno">University Registration No</label>
+                            </td>
+                            <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') ? 'table-cell' : 'none'; ?>">
+                                <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') : ?>
+                                    <input type="text" id="universityregno" name="universityregno" value="<?php echo $userData['universityregno']; ?>" readonly>
+                                <?php endif; ?>
+                            </td>
+
                             </tr>
                             <tr>
                                 <td><label for="usertype">User Type</label></td>
@@ -104,7 +105,7 @@
                                 <button type="submit" class="save-btn" id="save-button" style="display: none;">Save</button>
                                 <button type="submit" class="delete-btn" id="delete-button" onclick="confirmDelete()">Delete Account</button>
                             </div>
-                            <?php if ($userData && $userData['usertype'] !== 'guest') : ?>
+                            <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') : ?>
                                 <?php
                                     if(!$roleData){
                                 ?>

@@ -26,6 +26,9 @@
                             <a href="#">Music Festival on 2024-02-20</a>
                         </div>
                     </li>
+                    <?php if($userData['usertype']==='staff'){?>
+                        <li><a href="approve_events" target="_self">Approve Events</a></li>
+                    <?php } ?>
                     <li><a href="logout.php" target="_self">Logout</a></li>
                     <li><a href="contactus.php" target="rside">Contact us</a></li>
                 </ul>
