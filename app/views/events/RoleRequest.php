@@ -89,11 +89,11 @@ if (isset($userData['username'])) {
             <label for="role">Role:</label>
             <select id="role" name="role" required>
                 <option value="Event Organizer" <?php if ($roleData && $roleData['role'] == "Event Organizer") echo "selected"; ?>>Event Organizer</option>
-                <option value="Support staff" <?php if ($roleData && $roleData['role'] == "Support staff") echo "selected"; ?>>Support staff</option>
+                
             </select>
 
             <label for="reason">Reason for Request:</label>
-            <textarea id="reason" name="reason" rows="4" placeholder="Reason goes here"><?php
+            <textarea id="reason" name="reason" rows="4" placeholder="Reason goes here" required><?php
                 if ($roleData) {
                     echo $roleData['reason'];
                 }
