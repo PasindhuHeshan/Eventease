@@ -133,6 +133,11 @@ h3 p {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-left: 100px;
+}
+
+.report h3{
+  margin-left: 0;
 }
 .page .report .actions {
   display: flex;
