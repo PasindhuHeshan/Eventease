@@ -11,7 +11,7 @@ if ($upevents === null) {
 
 <!DOCTYPE html>
 <head>
-<link rel="stylesheet" type="text/css" href="indexstyle.css">
+<link rel="stylesheet" type="text/css" href="./css/indexstyle.css">
     <title>EMS System</title>
 </head>
 <body>

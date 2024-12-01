@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="loginformstyle.css">
+    <link rel="stylesheet" type="text/css" href="./css/loginformstyle.css">
     <script>
         function showNextStep(currentStep, nextStep) {
             if (validateStep(currentStep)) {
