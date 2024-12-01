@@ -31,7 +31,7 @@
                             </form>
                         <?php endif; ?>
                     <?php else: ?>
-                        <form action="removeEnrollment.php" method="POST"> 
+                        <form action="removeEnrollment.php" method="POST" onsubmit="confirmUnenroll()"> 
                             <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
                             <button type="submit" id="removeenroll">Remove Enroll</button> 
                         </form>
@@ -45,3 +45,8 @@
     </main>
 </body>
 </html>
+<script type="text/javascript"> 
+    function confirmUnenroll() { 
+        return confirm("Are you sure you want to unenroll from this event?"); 
+    }
+</script>

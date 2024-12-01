@@ -27,7 +27,7 @@
                 }
 
                 if (inputs[i].type === 'email' && !validateEmail(inputs[i].value)) {
-                    errorDiv.textContent = "Please enter a valid email address ending with @stu.ucsc.cmb.lk.";
+                    errorDiv.textContent = "Please enter a valid email address ending with @stu.ucsc.cmb.ac.lk.";
                     valid = false;
                 }
             }
@@ -104,37 +104,37 @@
                 <div id="step1">
                     <table>
                         <tr>
-                            <td><label for="fname">First Name</label></td>
-                            <td colspan="2"><input type="text" id="fname" name="fname" placeholder="eg. Navindu" required></td>
+                            <td><label for="fname">First Name <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="fname" name="fname" placeholder="Navindu" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="fname_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="lname">Last Name</label></td>
-                            <td colspan="2"><input type="text" id="lname" name="lname" placeholder="eg. Perera" required></td>
+                            <td><label for="lname">Last Name <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="lname" name="lname" placeholder="Perera" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="lname_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="email">Email Address</label></td>
-                            <td colspan="2"><input type="email" id="email" name="email" placeholder="eg. @stu.ucsc.cmb.ac.lk" required></td>
+                            <td><label for="email">Email Address <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="email" id="email" name="email" placeholder="navindu@stu.ucsc.cmb.ac.lk" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="email_error" class="error"></div></td>
                         </tr>
                         <!-- New rows for University ID and University Registration No -->
                         <tr>
-                            <td><label for="universityid">University ID</label></td>
-                            <td colspan="2"><input type="text" id="universityid" name="universityid" placeholder="eg. 2202XXXX" required></td>
+                            <td><label for="universityid">University ID <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="universityid" name="universityid" placeholder="2202XXXX" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="universityid_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="universityregno">University Registration No</label></td>
-                            <td colspan="2"><input type="text" id="universityregno" name="universityregno" placeholder="eg. 2022/IS/XXX" required></td>
+                            <td><label for="universityregno">University Registration No <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="universityregno" name="universityregno" placeholder="2022/IS/XXX" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="universityregno_error" class="error"></div></td>
@@ -150,8 +150,8 @@
                 <div id="step2" style="display: none;">
                     <table>
                         <tr>
-                            <td><label for="contactno1">Primary Contact Number</label></td>
-                            <td colspan="2"><input type="number" id="contactno1" name="contactno1" placeholder="eg. 07XXXXXXXX" required></td>
+                            <td><label for="contactno1">Primary Contact Number <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="number" id="contactno1" name="contactno1" placeholder="07XXXXXXXX" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="contactno1_error" class="error"></div></td>
@@ -164,15 +164,15 @@
                             <td colspan="3"><div id="contactno2_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="address">Address</label></td>
-                            <td colspan="2"><input type="text" id="address" name="address" placeholder="eg. 123 Main St" required></td>
+                            <td><label for="address">Address <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="address" name="address" placeholder="123 Main St" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="address_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="city">City</label></td>
-                            <td colspan="2"><input type="text" id="city" name="city" placeholder="eg. Colombo" required></td>
+                            <td><label for="city">City <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="city" name="city" placeholder="Colombo" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="city_error" class="error"></div></td>
@@ -188,22 +188,22 @@
                 <div id="step3" style="display: none;">
                     <table>
                         <tr>
-                            <td><label for="username">Username</label></td>
-                            <td colspan="2"><input type="text" id="username" name="username" placeholder="eg. Pasindu" required></td>
+                            <td><label for="username">Username <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="username" name="username" placeholder="pasindu" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="username_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="password">Password</label></td>
-                            <td colspan="2"><input type="password" id="password" name="password" placeholder="eg. ********" required></td>
+                            <td><label for="password">Password <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="password" id="password" name="password" placeholder="********" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="password_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="confirm_password">Confirm Password</label></td>
-                            <td colspan="2"><input type="password" id="confirm_password" name="confirm_password" placeholder="eg. ********" required></td>
+                            <td><label for="confirm_password">Confirm Password <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="password" id="confirm_password" name="confirm_password" placeholder="********" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="confirm_password_error" class="error"></div></td>

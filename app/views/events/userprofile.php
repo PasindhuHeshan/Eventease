@@ -105,7 +105,7 @@
                                 <button type="submit" class="save-btn" id="save-button" style="display: none;">Save</button>
                                 <button type="submit" class="delete-btn" id="delete-button" onclick="confirmDelete()">Delete Account</button>
                             </div>
-                            <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') : ?>
+                            <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff' && $userData['usertype'] !== 'organizer') : ?>
                                 <?php
                                     if(!$roleData){
                                 ?>

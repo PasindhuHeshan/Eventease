@@ -100,22 +100,22 @@
                 <div id="step1">
                     <table>
                         <tr>
-                            <td><label for="fname">First Name</label></td>
-                            <td colspan="2"><input type="text" id="fname" name="fname" placeholder="eg. Navindu" value="<?php echo isset($_POST['fname']) ? htmlspecialchars($_POST['fname']) : ''; ?>" required></td>
+                            <td><label for="fname">First Name <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="fname" name="fname" placeholder="Navindu" value="<?php echo isset($_POST['fname']) ? htmlspecialchars($_POST['fname']) : ''; ?>" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="fname_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="lname">Last Name</label></td>
-                            <td colspan="2"><input type="text" id="lname" name="lname" placeholder="eg. Perera" value="<?php echo isset($_POST['lname']) ? htmlspecialchars($_POST['lname']) : ''; ?>" required></td>
+                            <td><label for="lname">Last Name <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="lname" name="lname" placeholder="Perera" value="<?php echo isset($_POST['lname']) ? htmlspecialchars($_POST['lname']) : ''; ?>" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="lname_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="email">Email Address</label></td>
-                            <td colspan="2"><input type="email" id="email" name="email" placeholder="eg. navindu.perera@gmail.com" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required></td>
+                            <td><label for="email">Email Address <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="email" id="email" name="email" placeholder="navindu.perera@gmail.com" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="email_error" class="error"></div></td>
@@ -131,29 +131,29 @@
                 <div id="step2" style="display: none;">
                     <table>
                         <tr>
-                            <td><label for="contactno1">Primary Contact Number</label></td>
-                            <td colspan="2"><input type="number" id="contactno1" name="contactno1" placeholder="eg. 1234567890" value="<?php echo isset($_POST['contactno1']) ? htmlspecialchars($_POST['contactno1']) : ''; ?>" required></td>
+                            <td><label for="contactno1">Primary Contact Number <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="number" id="contactno1" name="contactno1" placeholder="07152XXXXX" value="<?php echo isset($_POST['contactno1']) ? htmlspecialchars($_POST['contactno1']) : ''; ?>" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="contactno1_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="contactno2">Secondary Contact Number</label></td>
-                            <td colspan="2"><input type="number" id="contactno2" name="contactno2" placeholder="Optional secondary number" value="<?php echo isset($_POST['contactno2']) ? htmlspecialchars($_POST['contactno2']) : ''; ?>"></td>
+                            <td colspan="2"><input type="number" id="contactno2" name="contactno2" placeholder="Optional" value="<?php echo isset($_POST['contactno2']) ? htmlspecialchars($_POST['contactno2']) : ''; ?>"></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="contactno2_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="address">Address</label></td>
-                            <td colspan="2"><input type="text" id="address" name="address" placeholder="eg. 123 Main St" value="<?php echo isset($_POST['address']) ? htmlspecialchars($_POST['address']) : ''; ?>" required></td>
+                            <td><label for="address">Address <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="address" name="address" placeholder="123 Main St" value="<?php echo isset($_POST['address']) ? htmlspecialchars($_POST['address']) : ''; ?>" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="address_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="city">City</label></td>
-                            <td colspan="2"><input type="text" id="city" name="city" placeholder="eg. Colombo" value="<?php echo isset($_POST['city']) ? htmlspecialchars($_POST['city']) : ''; ?>" required></td>
+                            <td><label for="city">City <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="city" name="city" placeholder="Colombo" value="<?php echo isset($_POST['city']) ? htmlspecialchars($_POST['city']) : ''; ?>" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="city_error" class="error"></div></td>
@@ -169,22 +169,22 @@
                 <div id="step3" style="display: none;">
                     <table>
                         <tr>
-                            <td><label for="username">Username</label></td>
-                            <td colspan="2"><input type="text" id="username" name="username" placeholder="eg. navindup" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required></td>
+                            <td><label for="username">Username <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="username" name="username" placeholder="navindup" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="username_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="password">Password</label></td>
-                            <td colspan="2"><input type="password" id="password" name="password" placeholder="eg. ********" required></td>
+                            <td><label for="password">Password <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="password" id="password" name="password" placeholder="********" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="password_error" class="error"></div></td>
                         </tr>
                         <tr>
-                            <td><label for="confirm_password">Confirm Password</label></td>
-                            <td colspan="2"><input type="password" id="confirm_password" name="confirm_password" placeholder="eg. ********" required></td>
+                            <td><label for="confirm_password">Confirm Password <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="password" id="confirm_password" name="confirm_password" placeholder="********" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="confirm_password_error" class="error"></div></td>
