@@ -19,7 +19,7 @@ if ($upevents === null) {
     <div class="sliding-panel">
         <div class="panel-content">
             <div class="event">
-                <img src="./images/events/event.png" alt="Image 1">
+                <img src="./images/events/banner1.jpeg" alt="Image 1">
                 <div class="event-details">
                     <h3>Event Title 1</h3>
                     <p>Event Date: 2024-11-29</p>
@@ -27,7 +27,7 @@ if ($upevents === null) {
                 </div>
             </div>
             <div class="event">
-                <img src="./images/events/event.png" alt="Image 2">
+                <img src="./images/events/banner2.jpeg" alt="Image 2">
                 <div class="event-details">
                     <h3>Event Title 2</h3>
                     <p>Event Date: 2024-12-01</p>
@@ -35,7 +35,7 @@ if ($upevents === null) {
                 </div>
             </div>
             <div class="event">
-                <img src="./images/events/event.png" alt="Image 2">
+                <img src="./images/events/banner3.jpeg" alt="Image 2">
                 <div class="event-details">
                     <h3>Event Title 2</h3>
                     <p>Event Date: 2024-12-01</p>
@@ -43,7 +43,7 @@ if ($upevents === null) {
                 </div>
             </div>
             <div class="event">
-                <img src="./images/events/event.png" alt="Image 2">
+                <img src="./images/events/banner4.jpeg" alt="Image 2">
                 <div class="event-details">
                     <h3>Event Title 2</h3>
                     <p>Event Date: 2024-12-01</p>
@@ -51,7 +51,7 @@ if ($upevents === null) {
                 </div>
             </div>
             <div class="event">
-                <img src="./images/events/event.png" alt="Image 2">
+                <img src="./images/events/banner5.jpeg" alt="Image 2">
                 <div class="event-details">
                     <h3>Event Title 2</h3>
                     <p>Event Date: 2024-12-01</p>
