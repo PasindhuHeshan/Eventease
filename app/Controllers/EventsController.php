@@ -47,6 +47,10 @@ class EventsController {
     }
 
     public function createEvent() {
+
+        $database = new Database();
+        $username = $_SESSION['username'];
+        $userData = $this->userModel->getUserData($username,$database);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate input data (optional but recommended)
             // ... (implement validation logic based on your requirements)
@@ -95,6 +99,7 @@ class EventsController {
 
                         if ($result) {
                             echo "Event created successfully!";
+                            $events = $this->eventModel->getEventsByOrganizer($username);
                             include __DIR__ . '/../Views/EventOrg/myevents.php';
                         } else {
                             echo "Error creating event: " . $this->eventModel->conn->error;
@@ -115,6 +120,9 @@ class EventsController {
     }
 
     public function processEvent() {
+        $database = new Database();
+        $username = $_SESSION['username'];
+        $userData = $this->userModel->getUserData($username,$database);
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             $eventno = $_POST['eventno'];
             $name = $_POST['name'];
@@ -166,6 +174,7 @@ class EventsController {
             }
     
             $this->eventModel->updateEvent($eventno, $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $event_banner, $organizer); 
+            $events = $this->eventModel->getEventsByOrganizer($username);
             include __DIR__ . '/../Views/EventOrg/myevents.php';
             exit();    
                 
@@ -173,7 +182,8 @@ class EventsController {
             $eventno = $_POST['eventno'];
             $database = new Database();
             $this->eventModel->deleteEvent($eventno, $database);
-            header('Location: eventprofile.php');
+            $events = $this->eventModel->getEventsByOrganizer($username);
+            include __DIR__ . '/../Views/EventOrg/myevents.php';
             exit();
         } else {
             // Redirect or load the form again

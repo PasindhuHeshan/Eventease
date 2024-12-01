@@ -45,7 +45,9 @@
         <?php else: ?>
             <p>No events found.</p>
         <?php endif; ?>
-        <?php if ($userType == 'organizer'){?>
+        <?php 
+        $userType = $userData['usertype'];
+        if ($userType == 'organizer'){?>
         <div class="create-event">
             <a href="createform"><button type="button" class="btn primary">Create Event</button></a>
         </div>
