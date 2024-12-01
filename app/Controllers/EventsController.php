@@ -64,7 +64,7 @@ class EventsController {
             $location = $_POST['location'];
             $people_limit = (int)$_POST['people_limit'];
             $event_type = $_POST['event_type'];
-            $approvedstatus = 0; // Set initial approval status as pending
+            $approvedstatus = 1; // Set initial approval status as pending
             $supervisor = $_POST['supervisor'];
             $organizer = $_POST['organizer'];
 
@@ -134,7 +134,7 @@ class EventsController {
             $location = $_POST['location'];
             $people_limit = (int)$_POST['people_limit'];
             $event_type = $_POST['event_type'];
-            $approvedstatus = 0;
+            $approvedstatus = 1;
             $supervisor = $_POST['supervisor'];
             $organizer = $_POST['organizer'];
             $database = new Database(); // Ensure the database connection is created here
