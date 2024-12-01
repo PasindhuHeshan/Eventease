@@ -54,7 +54,7 @@ class EventModel {
     }
 
     public function getAllEvents() {
-        $query = "SELECT * FROM events";
+        $query = "SELECT * FROM events where approvedstatus = 0";
         $result = $this->conn->query($query);
 
         return $result->fetch_all(MYSQLI_ASSOC);
