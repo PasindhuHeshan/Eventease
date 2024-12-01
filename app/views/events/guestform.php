@@ -190,6 +190,50 @@
                             <td colspan="3"><div id="confirm_password_error" class="error"></div></td>
                         </tr>
                     </table>
+                    <div class="button-container"> 
+                        <button type="button" onclick="showNextStep('step3', 'step2')">Back</button>
+                        <button type="button" onclick="showNextStep('step3', 'step4')">Next</button>
+                    </div>
+                </div>
+                    <div id="step4" style="display: none;">
+                    <table>
+                        <tr>
+                            <td><label for="cardtype">Type <span class="star">*</span></label></td>
+                            <td colspan="2">
+                                <input type="radio" name="cardtype" value="visa"> Visa
+                                <input type="radio" name="cardtype" value="master"> Master
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td colspan="3"><div id="username_error" class="error"></div></td>
+                        </tr> -->
+                        <tr>
+                            <td><label for="cardno">Card Number <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="number" id="cardno" name="cardno" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="cardholder">Card Holder Name <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="cardholder" name="cardholder" required></td>
+                        </tr>
+                        <!-- <tr>
+                            <td colspan="3"><div id="password_error" class="error"></div></td>
+                        </tr> -->
+                        <tr>
+                            <td><label for="cvv">CVV <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="password" id="cvv" name="cvv"required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="exp">Expire Date <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="date" id="exp" name="exp"required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="amount">Amount</label></td>
+                            <td colspan="2"><input type="text" value="Rs.500"readonly></td>
+                        </tr>
+                        <!-- <tr>
+                            <td colspan="3"><div id="confirm_password_error" class="error"></div></td>
+                        </tr> -->
+                    </table>
                     <input type="text" id="universityid" name="universityid" value="X" hidden>
                     <input type="text" id="universityregno" name="universityregno" value="X" hidden>
                     <input type="text id="usertype" name="usertype" value="guest" hidden>
