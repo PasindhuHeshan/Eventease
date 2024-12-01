@@ -60,6 +60,20 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getApprovedEvents() {
+        $query = "SELECT * FROM events WHERE approvedstatus = 1";
+        $result = $this->conn->query($query);
+    
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function acceptEvent($no) {
+        $query = "UPDATE events set approvedstatus = 0 where no = $no";
+        $result = $this->conn->query($query);
+    
+        return true;
+    }
+
     public function getAllUpcomingEvents($username) {
         $query = "SELECT * FROM events INNER JOIN enroll ON events.no = enroll.eventno WHERE enroll.username = ? order by date asc";
         $stmt = $this->conn->prepare($query);

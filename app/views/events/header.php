@@ -27,7 +27,7 @@
                         </div>
                     </li>
                     <?php if($userData['usertype']==='staff'){?>
-                        <li><a href="approve_events" target="_self">Approve Events</a></li>
+                        <li><a href="getApprovedEvents" target="_self">Approve Events</a></li>
                     <?php } ?>
                     <?php if($userData['usertype']==='organizer'){?>
                         <li><a href="myevents" target="_self">My events</a></li>

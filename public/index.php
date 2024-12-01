@@ -187,13 +187,21 @@ switch ($url) {
         $hcontroller->render();
         $reqcontroller->processreq();
         break;
-    case 'approve_events':
-        $hcontroller->render();
-        $stfcontroller->index();
-        break;
+    // case 'approve_events':
+    //     $hcontroller->render();
+    //     $stfcontroller->index();
+    //     break;
     case 'myevents':
         $hcontroller->render();
         $eocontroller->index();
+        break;
+    case 'getApprovedEvents':
+        $hcontroller->render();
+        $econtroller->getApprovedEvents();
+        break;
+    case 'acceptevent':
+        $hcontroller->render();
+        $econtroller->acceptevent();
         break;
     case 'createform':
         $hcontroller->render();

@@ -27,6 +27,33 @@ class EventController
         include __DIR__ . '/../Views/events/index.php';
     }
 
+    public function getApprovedEvents() {
+        $events = $this->eventModel->getApprovedEvents();
+        include __DIR__ . '/../Views/events/staff.php';
+    }
+
+    public function acceptevent() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $no = $_POST['no'] ?? null;
+    
+            if ($no==null) {
+                // Handle error: invalid event ID
+                echo "Invalid event ID";
+                exit();
+            }
+    
+            if ($this->eventModel->acceptEvent($no)) {
+                // Event approved successfully
+                $events = $this->eventModel->getApprovedEvents();
+                include __DIR__ . '/../Views/events/staff.php';
+                exit();
+            } else {
+                // Handle error: failed to approve event
+                echo "Error approving event";
+            }
+        }
+    }
+
     public function event()
 {
     $database = new Database();
