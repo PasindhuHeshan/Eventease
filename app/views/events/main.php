@@ -5,7 +5,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="mainstyle.css">
+    <link rel="stylesheet" type="text/css" href="./css/mainstyle.css">
 </head>
 
 <body class="mainbody">

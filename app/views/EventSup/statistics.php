@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="global.css">
+<link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
     <?php 
     $data['enrolled'] = 100;

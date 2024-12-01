@@ -28,7 +28,7 @@ $statistics = [
 
 $remarks = 'The event was a great success with high participation and positive feedback.';
 ?>
-<link rel="stylesheet" type="text/css" href="global.css">
+<link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
     <h2>Event Report: <?= htmlspecialchars($event->name) ?></h2>
     <div class="report">

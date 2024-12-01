@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="global.css">
+<link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
     <div class="event">
         <h2><?php echo isset($eventData) ? 'Edit Event' : 'Create Event'; ?></h2>

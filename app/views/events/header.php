@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="headerstyle.css">
+    <link rel="stylesheet" type="text/css" href="./css/headerstyle.css">
     <title>EMS System</title>
 </head>
 <body>

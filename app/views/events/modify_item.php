@@ -10,7 +10,7 @@ if ($itemData) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modify Item</title>
-    <link rel="stylesheet" href="itemstyles.css">
+    <link rel="stylesheet" href="./css/itemstyles.css">
 </head>
 <body>
     <h2>Modify Item</h2>
