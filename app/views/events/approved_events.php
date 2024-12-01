@@ -29,7 +29,7 @@
                    </td>
              
                
-                <td><button>Cancel</button></td>
+                <td><button>Reject</button></td>
             </tr>
             <tr>
                 <td>2</td>
@@ -41,7 +41,7 @@
                 </td>
                 
                 
-                <td><button>Cancel</button></td>
+                <td><button>Reject</button></td>
             </tr>
         </tbody>
     </table>

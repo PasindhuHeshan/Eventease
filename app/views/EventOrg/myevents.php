@@ -13,7 +13,7 @@
                     $userType = $userData['usertype']; // Assuming userData contains the user type
                     $eventLink = '';
 
-                    if ($userType == 'event organizer') {
+                    if ($userType == 'organizer') {
                         $eventLink = 'createform?no=' . $event['no'];
                     } else {
                         $eventLink = 'enrollmentform';
@@ -32,6 +32,9 @@
                         <p class="event-location">Location: <?php echo $event['location']; ?></p>
                         <p class="event-description"><?php echo $event['short_dis']; ?></p>
                         <hr>
+                        <p class="event-description">
+                            <?php if($userType=='organizer'){ echo '<a href="createform?no=' . $event['no'] . '">Edit Event</a>';} ?>
+                        </p>
                         <p class="event-description"><?php if($userType=='support'){ echo '<a href="report">Report</a>';} ?></p>
                         <p class="event-description"><?php if($userType=='support'){ echo '<a href="review">Review</a>';} ?></p>
                         <p class="event-description"><?php if($userType=='support'){ echo '<a href="statistics">Statistics</a>';} ?></p>
