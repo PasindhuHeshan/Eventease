@@ -47,6 +47,7 @@ class LoginController {
                         header("Location: ../public/index.php");
                         exit();
                     } else {
+                        $_SESSION['error'] = null;
                         $_SESSION['username'] = $username;
                         header("Location: ../public/dashboard.php");
                         exit();
