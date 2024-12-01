@@ -187,7 +187,7 @@ class EventsController {
             exit();
         } else {
             // Redirect or load the form again
-            require __DIR__ . '/../views/events/EventForm.php';
+            include __DIR__ . '/../Views/EventOrg/edit.php';
         }
     }
     
