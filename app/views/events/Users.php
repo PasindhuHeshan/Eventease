@@ -81,18 +81,21 @@
             <th>No</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Approve</th>
             <th>Delete</th>
         </tr>
         <tr>
             <td>1</td>
             <td>Seniru</td>
-            <td>se@stu.ucsc.cmb.lk </td>
+            <td>se@ucsc.cmb.ac.lk </td>
+            <td><button>Approve</button></td>
             <td><button>Delete</button></td>
         </tr>
         <tr>
             <td>2</td>
             <td>Sanduni</td>
-            <td>sandu0@gmail.com</td>
+            <td>sandu0@ucsc.cmb.ac.lk</td>
+            <td><button>Approve</button></td>
             <td><button>Delete</button></td>
         </tr>
         

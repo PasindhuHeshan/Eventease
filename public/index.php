@@ -223,7 +223,7 @@ switch ($url) {
         $hcontroller->render();
         $upcontroller->assignedevents();
         break;
-    case 'enrollmentform':
+    case 'enrollment':
         $hcontroller->render();
         $upcontroller->enrollstd();
         break;
@@ -242,6 +242,10 @@ switch ($url) {
     case 'statistics':
         $hcontroller->render();
         $upcontroller->stat();
+        break;
+    case 'acaform':
+        $hcontroller->render();
+        $stfcontroller->aca();
         break;
     default:
         $hcontroller->render();
