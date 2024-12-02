@@ -223,7 +223,7 @@ switch ($url) {
         $hcontroller->render();
         $upcontroller->assignedevents();
         break;
-    case 'enrollmentform':
+    case 'enrollment':
         $hcontroller->render();
         $upcontroller->enrollstd();
         break;

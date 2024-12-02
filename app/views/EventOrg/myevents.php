@@ -36,10 +36,11 @@
                         <p class="event-description">
                             <?php if($userType=='organizer'){ echo '<a href="createform?no=' . $event['no'] . '">Edit Event</a>';} ?>
                         </p>
-                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="report">Report</a>';} ?></p>
+                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="inquiry">Inquries</a>';} ?></p>
+                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="enrollment">Enrollment</a>';} ?></p>
                         <p class="event-description"><?php if($userType=='support'){ echo '<a href="review">Review</a>';} ?></p>
                         <p class="event-description"><?php if($userType=='support'){ echo '<a href="statistics">Statistics</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="inquiry">Enquries</a>';} ?></p>
+                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="report">Report</a>';} ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>

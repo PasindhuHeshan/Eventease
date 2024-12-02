@@ -40,7 +40,7 @@
                     <li><a style="color: lightskyblue;" href="guestform.php" target="_self">Guest</a></li>
                 </ul>
             <br><br><br><br><br><br>
-            <p style="margin:20px;">Please note that 'Guest' refers to non-internal university student and individuals who are interested in participating in out selected university events.</p>
+            <p style="margin:20px;">Please note that 'Guest' refers to non-internal university student and individuals who are interested in participating in 'guest' allowed university events.</p>
         </div>
     </div>
 </body>
