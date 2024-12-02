@@ -243,6 +243,10 @@ switch ($url) {
         $hcontroller->render();
         $upcontroller->stat();
         break;
+    case 'acaform':
+        $hcontroller->render();
+        $stfcontroller->aca();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();
