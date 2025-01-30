@@ -22,8 +22,16 @@
                         <div class="dropdown-content">
                             <p style="text-align: center;">Upcoming Events</p>
                             <hr>
-                            <a href="#">Art Exhibition on 2024-01-05</a>
-                            <a href="#">Music Festival on 2024-02-20</a>
+                            <?php if (!empty($events)): ?>
+                                <?php foreach (array_slice($events, 0, 2) as $data): ?> <!--to show next 2 weeks events -->
+                                    <a href="event.php?no=<?php echo isset($data['no']) ? $data['no'] : ''; ?>">
+                                        <?php echo isset($data['name']) ? htmlspecialchars($data['name']) : ' '; ?> 
+                                        on <?php echo isset($data['date']) ? $data['date'] : 'Unknown Date'; ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No upcoming events</p>
+                            <?php endif; ?>
                         </div>
                     </li>
                     <?php if($userData['usertype']==='staff'){?>
