@@ -1,3 +1,23 @@
+
+<?php
+// Database connection details
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "eventease"; 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query to fetch role requests from the 'rolereq' table
+$sql = "SELECT no, username, email, role FROM rolereq"; 
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,62 +25,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role Requests</title>
     <style>
-            body {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
-    /* table {
-        border-collapse: separate;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        overflow: hidden;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-    table, th, td {
-        border: 1px solid #ddd;
-    }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
 
-    th, td {
-        padding: 10px;
-        text-align: left;
-    } */
-    table {
-        border-collapse: separate;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 20px;
-    }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
 
-    table th, table td {
-        border: 1px solid #ddd;
-        padding: 12px;
-    }
-
-    table th {
-        background-color: #f2f2f2;
-    }
-
-    table tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    table tr:hover {
-        background-color: #f1f1f1;
-    }
         button {
             padding: 5px 10px;
-            width:80px;
+            width: 80px;
             border-radius: 10px;
             background-color: white;
             cursor: pointer;
-  
         }
 
         button:hover {
@@ -79,32 +70,46 @@
             <th>Approve</th>
             <th>Delete</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>Seniru</td>
-            <td>se@stu.ucsc.cmb.lk</td>
-            <td>Event Organizer</td>
-            <td><button>Accept</button></td>
-            <td><button>Delete</button></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Sanduni</td>
-            <td>user2@example.com</td>
-            <td>Event organizer</td>
-            <td><button>Accept</button></td>
-            <td><button>Delete</button></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Navindu</td>
-            <td>Ne@stu.ucsc.cmb.lk</td>
-            <td>Event organizer</td>
-            <td><button>Accept</button></td>
-            <td><button>Delete</button></td>
-        </tr>
-        
-        
+
+        <?php
+        if ($result->num_rows > 0) {
+            // Output each row
+            $no = 1;
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>
+                        <td>" . $row["no"] . "</td> <!-- Displaying the 'no' as the ID -->
+                        <td>" . $row["username"] . "</td>
+                        <td>" . $row["email"] . "</td>
+                         <td>" . $row["role"] . "</td>
+
+                        <td><button onclick='approveRequest(" . $row["no"] . ")'>Approve</button></td>
+                        <td><button onclick='deleteRequest(" . $row["no"] . ")'>Delete</button></td>
+                      </tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>No role requests found.</td></tr>";
+        }
+        ?>
+
     </table>
+
+    <script>
+        function approveRequest(no) {
+            if (confirm("Are you sure you want to approve this request?")) {
+                window.location.href = "approve.php?no=" + no; // Redirect to PHP script to handle approval
+            }
+        }
+
+        function deleteRequest(no) {
+            if (confirm("Are you sure you want to delete this request?")) {
+                window.location.href = "delete.php?no=" + no; // Redirect to PHP script to handle deletion
+            }
+        }
+    </script>
 </body>
 </html>
+
+<?php
+// Close the database connection
+$conn->close();
+?>
