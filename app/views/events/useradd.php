@@ -1,3 +1,42 @@
+
+ <?php
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Database connection settings
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "eventease";
+
+    // Create a connection to the MySQL database
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check the connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Get the form data
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $userType = $_POST['usertype'];
+
+    // Prepare an SQL query to insert the new user into the `users` table
+    $sql = "INSERT INTO users (username, email, usertype) VALUES ('$username', '$email', '$userType')";
+
+    if ($conn->query($sql) === TRUE) {
+        // Redirect to user table page after successful insertion
+        header("Location: /groupproject/Eventease2/app/views/events/Users.php"); 
+        exit();  // Ensure no further code is executed after redirection
+    } else {
+        echo "<p>Error: " . $sql . "<br>" . $conn->error . "</p>";
+    }
+
+    // Close the database connection
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +47,7 @@
 </head>
 <body>
     <div class="container">
-        <form action="#" method="post">
+        <form action="" method="post">
             <h2>New User</h2>
             <div class="form-group">
                 <label for="username">Username</label>
@@ -19,12 +58,11 @@
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="user-type">User Type</label>
-                <select id="user-type" name="user-type" required>
+                <label for="usertype">User Type</label>
+                <select id="usertype" name="usertype" required>
                     <option value="">Select User Type</option>
                     <option value="staff">Staff member</option>
                     <option value="organizer">Event Organizer</option>
-                    
                 </select>
             </div>
             <div class="form-group">

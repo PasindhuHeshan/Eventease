@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,32 +12,23 @@
     padding: 0;
     background-color: #f4f4f4;
 }
-    table {
-        border-collapse: separate;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 20px;
-    }
+        table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+        }
 
-    table th, table td {
-        border: 1px solid #ddd;
-        padding: 12px;
-    }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
 
-    table th {
-        background-color: #f2f2f2;
-    }
-
-    table tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    table tr:hover {
-        background-color: #f1f1f1;
-    }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
 
         button {
             
@@ -49,61 +41,82 @@
         }
 
         button:hover {
-            /* background-color: #e64a19; */
+           
             background-color: skyblue;
             color: white;
         }
-        .inventory_type {
-    padding: 8px 20px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    cursor: pointer;
-}
-.inventory_type:focus {
-    outline: none;
-    border-color: #007bff;
-}
     </style>
 </head>
 <body>
-  <form>
+   
+    <form method="GET" action="">
         <label for="user_type">User type</label>
-        <select name="user_type" id="user_type" class=inventory_type>
-            <option value="1">staff member</option>
-            <option value="2">event organizer</option>
+        <select name="usertype" id="user_type" onchange="this.form.submit()">
+            <option value="staff" <?php if (isset($_GET['usertype']) && $_GET['usertype'] == 'staff') echo 'selected'; ?>>staff</option>
+            <option value="organizer" <?php if (isset($_GET['usertype']) && $_GET['usertype'] == 'organizer') echo 'selected'; ?>>organizer</option>
         </select>
-     
     </form><br>
+
     <table>
         <tr>
             <th>No</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Approve</th>
             <th>Delete</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>Seniru</td>
-            <td>se@ucsc.cmb.ac.lk </td>
-            <td><button>Approve</button></td>
-            <td><button>Delete</button></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Sanduni</td>
-            <td>sandu0@ucsc.cmb.ac.lk</td>
-            <td><button>Approve</button></td>
-            <td><button>Delete</button></td>
-        </tr>
-        
+        <?php
+        // Database connection
+        $conn = new mysqli('localhost', 'root', '', 'eventease');
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Get user type from the form (default to 'support' if not set)
+        $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : 'staff'; 
+
+        $usertype = trim($usertype);
+
+        // Make sure we use the right format for string comparison
+        $sql = "SELECT No, username, email FROM users WHERE TRIM(usertype) = ?";
+        $stmt = $conn->prepare($sql); // Use prepared statement to avoid SQL injection
+        $stmt->bind_param("s", $usertype); // Bind the parameter as a string
+
+        // Execute query and check for results
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // Output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row['No'] . "</td>";
+                echo "<td>" . $row['username'] . "</td>";
+                echo "<td>" . $row['email'] . "</td>";
+                echo "<td><button type='button' onclick='deleteUser(" . $row['No'] . ")'>Delete</button></td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='4'>No records found</td></tr>";
+        }
+
+        // Close connection
+        $stmt->close();
+        $conn->close();
+        ?>
     </table>
 
     <a href="useradd.php">
-      <button type="submit">Add New</button>
-  
+        <button type="button">Add New</button>
     </a>
+
+    <script>
+        function deleteUser(id) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                window.location.href = "delete_user.php?No=" + id;
+            }
+        }
+    </script>
 </body>
 </html>
