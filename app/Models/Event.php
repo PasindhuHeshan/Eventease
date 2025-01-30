@@ -20,7 +20,7 @@ class Event {
 
     public function getUpcomingEvents($username) {
         $query = "
-            SELECT e.name, e.date, e.time 
+            SELECT e.name, e.date, e.time, e.no 
             FROM enroll en
             JOIN events e ON en.eventno = e.no
             WHERE en.username = ? AND e.date >= CURDATE()
