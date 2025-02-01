@@ -9,9 +9,9 @@ use App\Models\Dashboard;
 $database = new Database();
 $dashboard = new Dashboard($database);
 
-$user_count = 0;
-$event_count = 0;
-$inventory_count = 0;
+$user_count = $dashboard->getUserCount('admin');
+$event_count =  $dashboard->getEventCount('social');
+$inventory_count =  $dashboard->getInventoryCount('Appliances');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['user_type'])) {
@@ -73,9 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="card">
                     <h3>User Type</h3>
                     <select name="user_type" onchange="this.form.submit()">
+                        <option value="admin" <?php if(isset($user_type) && $user_type == 'admin') echo 'selected'; ?>>Admin</option>
                         <option value="staff" <?php if(isset($user_type) && $user_type == 'staff') echo 'selected'; ?>>Staff Member</option>
-                        <option value="organizers" <?php if(isset($user_type) && $user_type == 'organizers') echo 'selected'; ?>>Event Organizers</option>
+                        <option value="guest" <?php if(isset($user_type) && $user_type == 'guest') echo 'selected'; ?>>Guest</option>
+                        <option value="organizer" <?php if(isset($user_type) && $user_type == 'organizer') echo 'selected'; ?>>Event Organizer</option>
                         <option value="student" <?php if(isset($user_type) && $user_type == 'student') echo 'selected'; ?>>Student</option>
+                        <option value="support" <?php if(isset($user_type) && $user_type == 'support') echo 'selected'; ?>>SupportStaff </option>
                     </select>
                     <p>Users: <?php echo $user_count; ?></p>
                 </div>
@@ -91,7 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Entertainment" <?php if(isset($event_type) && $event_type == 'Entertainment') echo 'selected'; ?>>Entertainment</option>
                         <option value="Culture" <?php if(isset($event_type) && $event_type == 'Culture') echo 'selected'; ?>>Culture</option>
                         <option value="Charity" <?php if(isset($event_type) && $event_type == 'Charity') echo 'selected'; ?>>Charity</option>
-                        <option value="Music" <?php if(isset($event_type) && $event_type == 'Music') echo 'selected'; ?>>Music</option>
+                        <option value="Exhibition" <?php if(isset($event_type) && $event_type == 'Exhibition') echo 'selected'; ?>>Exhibition</option>
+                        <option value="Festival" <?php if(isset($event_type) && $event_type == 'Festival') echo 'selected'; ?>>Festival</option>
+                        <option value="Conference" <?php if(isset($event_type) && $event_type == 'Conference') echo 'selected'; ?>>Conference</option>
+                        <option value="Event" <?php if(isset($event_type) && $event_type == 'Event') echo 'selected'; ?>>Event</option>
+                        <option value="Expo" <?php if(isset($event_type) && $event_type == 'Expo') echo 'selected'; ?>>Expo</option>
+                        <option value="Summit" <?php if(isset($event_type) && $event_type == 'Summit') echo 'selected'; ?>>Summit</option>
                     </select>
                     <p>Events: <?php echo $event_count; ?></p>
                 </div>

@@ -85,7 +85,7 @@ $conn->close();
 
                     <td>
                         <button>Approve</button> 
-                        <button>Delete</button>
+                        <button>Reject</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
