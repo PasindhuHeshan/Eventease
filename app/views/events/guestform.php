@@ -26,6 +26,21 @@
                     errorDiv.textContent = "Please enter a valid email address.";
                     valid = false;
                 }
+
+                if (inputs[i].id === 'contactno1' && !validatePhoneNumber(inputs[i].value)) {
+                    errorDiv.textContent = "Please enter a valid phone number.";
+                    valid = false;
+                }
+
+                if (inputs[i].id === 'cardno' && !validateCardNumber(inputs[i].value)) {
+                    errorDiv.textContent = "Please enter a valid card number.";
+                    valid = false;
+                }
+
+                if (inputs[i].id === 'cvv' && !validateCVV(inputs[i].value)) {
+                    errorDiv.textContent = "Please enter a valid CVV.";
+                    valid = false;
+                }
             }
             return valid;
         }
@@ -33,6 +48,21 @@
         function validateEmail(email) {
             var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailPattern.test(email);
+        }
+
+        function validatePhoneNumber(phone) {
+            var phonePattern = /^\d{10}$/;
+            return phonePattern.test(phone);
+        }
+
+        function validateCardNumber(cardNumber) {
+            var cardPattern = /^\d{16}$/;
+            return cardPattern.test(cardNumber);
+        }
+
+        function validateCVV(cvv) {
+            var cvvPattern = /^\d{3,4}$/;
+            return cvvPattern.test(cvv);
         }
 
         function validatePasswords(event) {
@@ -195,50 +225,57 @@
                         <button type="button" onclick="showNextStep('step3', 'step4')">Next</button>
                     </div>
                 </div>
-                    <div id="step4" style="display: none;">
+                <!-- Step 4: Payment Information -->
+                <div id="step4" style="display: none;">
                     <table>
                         <tr>
                             <td><label for="cardtype">Type <span class="star">*</span></label></td>
                             <td colspan="2">
-                                <input type="radio" name="cardtype" value="visa"> Visa
-                                <input type="radio" name="cardtype" value="master"> Master
+                                <input type="radio" name="cardtype" value="visa" required> Visa
+                                <input type="radio" name="cardtype" value="master" required> Master
                             </td>
                         </tr>
-                        <!-- <tr>
-                            <td colspan="3"><div id="username_error" class="error"></div></td>
-                        </tr> -->
+                        <tr>
+                            <td colspan="3"><div id="cardtype_error" class="error"></div></td>
+                        </tr>
                         <tr>
                             <td><label for="cardno">Card Number <span class="star">*</span></label></td>
                             <td colspan="2"><input type="number" id="cardno" name="cardno" required></td>
                         </tr>
                         <tr>
+                            <td colspan="3"><div id="cardno_error" class="error"></div></td>
+                        </tr>
+                        <tr>
                             <td><label for="cardholder">Card Holder Name <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="cardholder" name="cardholder" required></td>
                         </tr>
-                        <!-- <tr>
-                            <td colspan="3"><div id="password_error" class="error"></div></td>
-                        </tr> -->
+                        <tr>
+                            <td colspan="3"><div id="cardholder_error" class="error"></div></td>
+                        </tr>
                         <tr>
                             <td><label for="cvv">CVV <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="password" id="cvv" name="cvv"required></td>
+                            <td colspan="2"><input type="password" id="cvv" name="cvv" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><div id="cvv_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="exp">Expire Date <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="date" id="exp" name="exp"required></td>
+                            <td colspan="2"><input type="date" id="exp" name="exp" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><div id="exp_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="amount">Amount</label></td>
-                            <td colspan="2"><input type="text" value="Rs.500"readonly></td>
+                            <td colspan="2"><input type="text" value="Rs.500" readonly></td>
                         </tr>
-                        <!-- <tr>
-                            <td colspan="3"><div id="confirm_password_error" class="error"></div></td>
-                        </tr> -->
                     </table>
                     <input type="text" id="universityid" name="universityid" value="X" hidden>
                     <input type="text" id="universityregno" name="universityregno" value="X" hidden>
-                    <input type="text id="usertype" name="usertype" value="guest" hidden>
+                    <input type="text" id="usertype" name="usertype" value="guest" hidden>
                     <div class="button-container"> 
-                        <button type="button" onclick="showNextStep('step3', 'step2')">Back</button>
+                        <button type="button" onclick="showNextStep('step4', 'step3')">Back</button>
                         <button type="submit">Submit</button>
                     </div>
                 </div>
