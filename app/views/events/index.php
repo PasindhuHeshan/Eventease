@@ -18,50 +18,23 @@ if ($upevents === null) {
     <div class="box">
     <div class="sliding-panel">
         <div class="panel-content">
-            <div class="event">
-                <img src="./images/events/banner1.jpeg" alt="Image 1">
-                <div class="event-details">
-                    <h3>Event Title 1</h3>
-                    <p>Event Date: 2024-11-29</p>
-                    <p>Location: Nambuluwa</p>
-                </div>
-            </div>
-            <div class="event">
-                <img src="./images/events/banner2.jpeg" alt="Image 2">
-                <div class="event-details">
-                    <h3>Event Title 2</h3>
-                    <p>Event Date: 2024-12-01</p>
-                    <p>Location: Colombo</p>
-                </div>
-            </div>
-            <div class="event">
-                <img src="./images/events/banner3.jpeg" alt="Image 2">
-                <div class="event-details">
-                    <h3>Event Title 2</h3>
-                    <p>Event Date: 2024-12-01</p>
-                    <p>Location: Colombo</p>
-                </div>
-            </div>
-            <div class="event">
-                <img src="./images/events/banner4.jpeg" alt="Image 2">
-                <div class="event-details">
-                    <h3>Event Title 2</h3>
-                    <p>Event Date: 2024-12-01</p>
-                    <p>Location: Colombo</p>
-                </div>
-            </div>
-            <div class="event">
-                <img src="./images/events/banner5.jpeg" alt="Image 2">
-                <div class="event-details">
-                    <h3>Event Title 2</h3>
-                    <p>Event Date: 2024-12-01</p>
-                    <p>Location: Colombo</p>
-                </div>
-            </div>
-            <!-- Repeat for other events -->
+            <?php
+            $latestEvents = array_slice($events, 0, 8);
+
+            foreach ($latestEvents as $event) {
+                echo '<div class="event">';
+                echo '<img src="' . $event['event_banner'] . '" alt="Event Image">';
+                echo '<div class="event-details">';
+                echo '<h3>' . $event['name'] . '</h3>';
+                echo '<p>Event Date: ' . $event['date'] . '</p>';
+                echo '<p>Location: ' . $event['location'] . '</p>';
+                echo '</div>';
+                echo '</div>';
+            }
+            ?>
         </div>
     </div>
-</div>
+    </div>
 
     <main>
         <?php include 'main.php'; ?>

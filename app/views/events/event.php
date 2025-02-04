@@ -37,7 +37,9 @@
                         </form>
                     <?php endif; ?>
                     <div class="cover">
-                        <img src="images/events/event.png" alt="Event Cover" class="cover-img">
+                        <?php if (!empty($event['event_banner'])): ?>
+                            <img src="<?php echo $event['event_banner']; ?>" alt="Event Cover" class="cover-img">
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endif; ?>

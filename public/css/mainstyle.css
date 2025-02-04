@@ -108,14 +108,14 @@ ul {
 .event {
     position: relative;
     display: inline-block;
-    width: 25%; /* Adjust width to show multiple images at a time */
+    width: 200px; 
     height: auto;
     justify-items: center;
 }
 
 .event img {
-    width: 100%;
-    height: auto;
+    width: 200px;
+    height: 200px;
     display: block;
     border-radius: 20px;
 }
