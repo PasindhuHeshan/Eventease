@@ -1,4 +1,3 @@
-
  <?php
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($conn->query($sql) === TRUE) {
         // Redirect to user table page after successful insertion
-        header("Location: /groupproject/Eventease2/app/views/events/Users.php"); 
+        header("Location: ../public/index.php?url=users.php");  // Change "user-table.php" to your page showing the users
         exit();  // Ensure no further code is executed after redirection
     } else {
         echo "<p>Error: " . $sql . "<br>" . $conn->error . "</p>";
@@ -48,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <form action="" method="post">
-            <h2>New User</h2>
+            <h2>New Staff Member</h2>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -59,14 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="form-group">
                 <label for="usertype">User Type</label>
-                <select id="usertype" name="usertype" required>
-                    <option value="">Select User Type</option>
-                    <option value="staff">Staff member</option>
-                    <option value="organizer">Event Organizer</option>
-                </select>
+                <input type="usertype" id="usertype" name="usertype" value="staff" readonly required>
             </div>
             <div class="form-group">
-                <button type="submit">Save</button>
+                <button type="submit">create</button>
             </div>
         </form>
     </div>

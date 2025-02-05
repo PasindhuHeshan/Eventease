@@ -1,4 +1,4 @@
-* {
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -58,6 +58,7 @@ label {
 
 input[type="text"],
 input[type="email"],
+input[type="usertype"],
 select {
     padding: 8px;
     border: 1px solid #ccc;

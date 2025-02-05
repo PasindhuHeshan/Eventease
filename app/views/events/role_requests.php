@@ -68,7 +68,7 @@ $result = $conn->query($sql);
             <th>Email</th>
             <th>Requested Role</th>
             <th>Approve</th>
-            <th>Delete</th>
+            <th>Reject</th>
         </tr>
 
         <?php
@@ -83,7 +83,7 @@ $result = $conn->query($sql);
                          <td>" . $row["role"] . "</td>
 
                         <td><button onclick='approveRequest(" . $row["no"] . ")'>Approve</button></td>
-                        <td><button onclick='deleteRequest(" . $row["no"] . ")'>Delete</button></td>
+                        <td><button onclick='deleteRequest(" . $row["no"] . ")'>Reject</button></td>
                       </tr>";
             }
         } else {
