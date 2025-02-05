@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($conn->query($sql) === TRUE) {
         // Redirect to user table page after successful insertion
-        header("Location: /Eventease2/app/views/events/Users.php");  // Change "user-table.php" to your page showing the users
+        header("Location: ../public/index.php?url=users.php");  // Change "user-table.php" to your page showing the users
         exit();  // Ensure no further code is executed after redirection
     } else {
         echo "<p>Error: " . $sql . "<br>" . $conn->error . "</p>";
