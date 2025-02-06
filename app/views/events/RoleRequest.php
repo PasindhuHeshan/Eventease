@@ -88,7 +88,7 @@ if (isset($userData['username'])) {
 
             <label for="role">Role:</label>
             <select id="role" name="role" required>
-                <option value="Event Organizer" <?php if ($roleData && $roleData['role'] == "Event Organizer") echo "selected"; ?>>Event Organizer</option>
+                <option value="organizer">Event Organizer</option>
                 
             </select>
 
