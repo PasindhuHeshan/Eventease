@@ -1,6 +1,27 @@
 <link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
     <h2>Event Enrollment and Attendance</h2>
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="Search for names..." onkeyup="filterNames()">
+    </div>
+    <script>
+        function filterNames() {
+            var input, filter, ol, li, label, i, txtValue;
+            input = document.getElementById('search');
+            filter = input.value.toUpperCase();
+            ol = document.querySelector('.form-group ol');
+            li = ol.getElementsByTagName('li');
+            for (i = 0; i < li.length; i++) {
+                label = li[i].getElementsByTagName("label")[0];
+                txtValue = label.textContent || label.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
     <div class="enrollment">
         <form action="" method="post">
             <div class="form-group">

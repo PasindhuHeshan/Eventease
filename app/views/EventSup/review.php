@@ -1,17 +1,16 @@
 <link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
     <h2>Event Reviews</h2>
+    <form action="" method="get" class="search-form">
+        <div class="form-group">
+            <label for="search">Search Event</label>
+            <input type="text" name="search" id="search" class="form-control" placeholder="Enter event name" onkeyup="filterNames()">
+        </div>
+        <button type="submit" class="btn primary">Search</button>
+    </form>
     <div class="events">
         <div class="event">
             <form action="" method="post">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" required value="Alice">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required value="alice@example.com">
-                </div>
                 <div class="form-group">
                     <label for="event">Event</label>
                     <input type="text" name="event" id="event" class="form-control" required value="Wellness Expo">
@@ -30,14 +29,6 @@
         <div class="event">
             <form action="" method="post">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" required value="Bob">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required value="bob@example.com">
-                </div>
-                <div class="form-group">
                     <label for="event">Event</label>
                     <input type="text" name="event" id="event" class="form-control" required value="Environmental Summit">
                 </div>
@@ -54,14 +45,6 @@
         </div>
         <div class="event">
             <form action="" method="post">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" required value="Charlie">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required value="charlie@example.com">
-                </div>
                 <div class="form-group">
                     <label for="event">Event</label>
                     <input type="text" name="event" id="event" class="form-control" required value="Fashion Show">
@@ -80,14 +63,6 @@
         <div class="event">
             <form action="" method="post">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" required value="Daisy">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required value="daisy@example.com">
-                </div>
-                <div class="form-group">
                     <label for="event">Event</label>
                     <input type="text" name="event" id="event" class="form-control" required value="Spring Concert">
                 </div>
@@ -104,3 +79,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    function filterNames() {
+        var input, filter, events, event, label, i, txtValue;
+        input = document.getElementById('search');
+        filter = input.value.toUpperCase();
+        events = document.getElementsByClassName('event');
+        for (i = 0; i < events.length; i++) {
+            event = events[i];
+            label = event.querySelector('input[name="event"]');
+            txtValue = label.value || label.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                event.style.display = "";
+            } else {
+                event.style.display = "none";
+            }
+        }
+    }
+</script>
