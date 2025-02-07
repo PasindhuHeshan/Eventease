@@ -1,10 +1,10 @@
-
 <?php
 // Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "eventease"; 
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -13,8 +13,54 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query to fetch role requests from the 'rolereq' table
-$sql = "SELECT no, username, email, role FROM rolereq"; 
+// Handle approval or rejection
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['approve'])) {
+        $no = $_POST['no'];
+        
+        // Fetch the requested role details from the 'rolereq' table
+        $sql = "SELECT username, role FROM rolereq WHERE no = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $no);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $username = $row['username'];
+            $role = $row['role'];
+
+            // Update the status of the role request to 1 (approved)
+            $updateRolereq = "UPDATE rolereq SET status = 1 WHERE no = ?";
+            $stmt2 = $conn->prepare($updateRolereq);
+            $stmt2->bind_param("i", $no);
+            $stmt2->execute();
+
+            // Update the user's role in the 'users' table
+            $updateUser = "UPDATE users SET usertype = ? WHERE username = ?";
+            $stmt3 = $conn->prepare($updateUser);
+            $stmt3->bind_param("ss", $role, $username);
+            $stmt3->execute();
+        }
+    }
+
+    if (isset($_POST['reject'])) {
+        $no = $_POST['no'];
+
+        // Update the status to -1 (rejected) instead of deleting the row
+        $updateRolereq = "UPDATE rolereq SET status = -1 WHERE no = ?";
+        $stmt2 = $conn->prepare($updateRolereq);
+        $stmt2->bind_param("i", $no);
+        $stmt2->execute();
+    }
+
+    // Redirect to the same page after approval or rejection
+    header("Location: role_requests.php");
+    exit();
+}
+
+// Query to fetch role requests from the 'rolereq' table, filtering out the approved (status = 1) and rejected (status = -1) ones
+$sql = "SELECT no, username, email, role FROM rolereq WHERE status = 0"; 
 $result = $conn->query($sql);
 ?>
 
@@ -58,6 +104,10 @@ $result = $conn->query($sql);
             background-color: skyblue;
             color: white;
         }
+
+        form {
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -74,38 +124,31 @@ $result = $conn->query($sql);
         <?php
         if ($result->num_rows > 0) {
             // Output each row
-            $no = 1;
             while($row = $result->fetch_assoc()) {
                 echo "<tr>
-                        <td>" . $row["no"] . "</td> <!-- Displaying the 'no' as the ID -->
+                        <td>" . $row["no"] . "</td>
                         <td>" . $row["username"] . "</td>
                         <td>" . $row["email"] . "</td>
-                         <td>" . $row["role"] . "</td>
-
-                        <td><button onclick='approveRequest(" . $row["no"] . ")'>Approve</button></td>
-                        <td><button onclick='deleteRequest(" . $row["no"] . ")'>Reject</button></td>
-                      </tr>";
+                        <td>" . $row["role"] . "</td>
+                        <td>
+                            <form method='POST'>
+                                <input type='hidden' name='no' value='" . $row["no"] . "'>
+                                <button type='submit' name='approve'>Approve</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method='POST'>
+                                <input type='hidden' name='no' value='" . $row["no"] . "'>
+                                <button type='submit' name='reject'>Reject</button>
+                            </form>
+                        </td>
+                    </tr>";
             }
         } else {
-            echo "<tr><td colspan='5'>No role requests found.</td></tr>";
+            echo "<tr><td colspan='6'>No role requests found.</td></tr>";
         }
         ?>
-
     </table>
-
-    <script>
-        function approveRequest(no) {
-            if (confirm("Are you sure you want to approve this request?")) {
-                window.location.href = "approve.php?no=" + no; // Redirect to PHP script to handle approval
-            }
-        }
-
-        function deleteRequest(no) {
-            if (confirm("Are you sure you want to delete this request?")) {
-                window.location.href = "delete.php?no=" + no; // Redirect to PHP script to handle deletion
-            }
-        }
-    </script>
 </body>
 </html>
 
