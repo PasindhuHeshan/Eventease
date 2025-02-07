@@ -54,6 +54,10 @@ switch ($url) {
         $hcontroller->render();
         $econtroller->event();
         break;
+    case 'eventd.php':
+        $hcontroller->render();
+        $econtroller->eventd();
+        break;
     case 'login.php':
         $hcontroller->render();
         $lcontroller->form();
@@ -202,6 +206,14 @@ switch ($url) {
     case 'acceptevent':
         $hcontroller->render();
         $econtroller->acceptevent();
+        break;
+    case 'rejectevent':
+        $hcontroller->render();
+        $econtroller->rejectevent();
+        break;
+    case 'contactus':
+        $hcontroller->render();
+        $econtroller->contactus();
         break;
     case 'createform':
         $hcontroller->render();
