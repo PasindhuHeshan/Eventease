@@ -22,3 +22,11 @@ body {
 .panel-content p{
     font-size: small;
 }
+
+.box .sliding-panel{
+    float:none;
+}
+
+.sliding-panel .panel-content{
+    float: none;
+}

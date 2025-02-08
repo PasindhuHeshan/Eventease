@@ -1,6 +1,8 @@
 <link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
     <h2>Event Reviews</h2>
+    <img src="images/searchicon.png" alt="search" style="width:20px">
+    <input type="text" id="searchBar" class="searchbar" placeholder="Search events...">
     <div class="events">
         <div class="event">
             <form action="" method="post">

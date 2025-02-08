@@ -43,13 +43,13 @@ class UserModel {
         $sql = "INSERT INTO users (
                     username, password, fname, lname, email,
                     usertype, universityid, universityregno, address, city,
-                    contactno1, contactno2, profile_picture, created_at, updated_at
+                    contactno1, contactno2, profile_picture, status, created_at, updated_at
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssssssssssss", 
             $username, $hashedPassword, $fname, $lname, $email, 
             $usertype, $universityid, $universityregno, $address, $city,
-            $contactno1, $contactno2, $profile_picture
+            $contactno1, $contactno2, $profile_picture, $status
         );
         return $stmt->execute();
     }
