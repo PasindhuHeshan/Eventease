@@ -106,6 +106,8 @@
                             <option value="guest">Guest</option>
                             <option value="student">Student</option>
                         </select>
+                        <label for="nameSearch">Search by Name:</label>
+                        <input type="text" id="nameSearch" onkeyup="filterUsers()" placeholder="Search for names..">
                     </div>
                     <table id="usersTable">
                         <tr>
@@ -122,7 +124,7 @@
                                 // Determine the button text based on user status
                                 $buttonText = $row['status'] == 1 ? 'Disable' : 'Enable';
                                 $status = $row['status']; // Save current status for the toggle action
-                                echo "<tr data-user-type='" . htmlspecialchars($row['usertype']) . "'>";
+                                echo "<tr data-user-type='" . htmlspecialchars($row['usertype']) . "' data-name='" . htmlspecialchars($row['fname'] . ' ' . $row['lname']) . "'>";
                                 echo "<td>" . htmlspecialchars($row['fname']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['lname']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['email']) . "</td>";
@@ -147,9 +149,12 @@
                     <script>
                         function filterUsers() {
                             var filter = document.getElementById('userTypeFilter').value;
+                            var search = document.getElementById('nameSearch').value.toLowerCase();
                             var rows = document.querySelectorAll('#usersTable tr[data-user-type]');
                             rows.forEach(function(row) {
-                                if (filter === 'all' || row.getAttribute('data-user-type') === filter) {
+                                var userType = row.getAttribute('data-user-type');
+                                var name = row.getAttribute('data-name').toLowerCase();
+                                if ((filter === 'all' || userType === filter) && (name.includes(search))) {
                                     row.style.display = '';
                                 } else {
                                     row.style.display = 'none';
@@ -166,15 +171,21 @@
 
                         function saveFilterState() {
                             var filter = document.getElementById('userTypeFilter').value;
+                            var search = document.getElementById('nameSearch').value;
                             localStorage.setItem('userTypeFilter', filter);
+                            localStorage.setItem('nameSearch', search);
                         }
 
                         function loadFilterState() {
                             var filter = localStorage.getItem('userTypeFilter');
+                            var search = localStorage.getItem('nameSearch');
                             if (filter) {
                                 document.getElementById('userTypeFilter').value = filter;
-                                filterUsers();
                             }
+                            if (search) {
+                                document.getElementById('nameSearch').value = search;
+                            }
+                            filterUsers();
                         }
 
                         window.onload = loadFilterState;
