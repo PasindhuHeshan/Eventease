@@ -55,6 +55,7 @@ class HeaderController {
             $address = $_POST['address'];
             $city = $_POST['city'];
             $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            $status = $_POST['status'];
     
             // Define usertype, universityid, universityregno, and profile_picture
             $usertype = isset($_POST['usertype']) ? $_POST['usertype'] : 'guest';
@@ -72,7 +73,7 @@ class HeaderController {
             $this->usermodel->createUser(
                 $username, $password, $fname, $lname, $email, 
                 $usertype, $universityid, $universityregno, $address, $city,
-                $contactno1, $contactno2, $profile_picture, 
+                $contactno1, $contactno2, $profile_picture,$status, 
                 new Database()
             );
     
