@@ -1,9 +1,10 @@
-body{
+body {
     margin: -1px;
     padding: -1px;
     font-family: Arial, Helvetica, sans-serif;
 }
-.headerbody{
+
+.headerbody {
     background-color: lightskyblue;
     border-radius: 5px;
     margin: 0px;
@@ -11,89 +12,110 @@ body{
     padding: 10 0 10 0px;
 }
 
-div img{
-    margin:10px;
+div img {
+    margin: 10px;
 }
 
-li a img{
+li a img {
     width: 34px;
     margin-bottom: -12px;
 }
 
-.headerbody > div{
+.headerbody > div {
     float: right;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
-div ul:not(.nothingul){
+
+div ul:not(.nothingul) {
     display: inline-block;
     margin-top: 23px;
     margin-right: 5px;
 }
 
-.nothingul{
+.nothingul {
     display: inline-block;
     margin-top: 4px;
     margin-right: 5px;
 }
 
-div ul li{
+div ul li {
     display: inline;
     margin: 5px;
-    
 }
 
-a{
+a {
     text-decoration: none;
     font-family: sans-serif;
     font-weight: bold;
 }
 
-li a:not(.nothing){
+li a:not(.nothing) {
     padding: 8px;
     color: rgba(0, 0, 0, 0.726);
     background-color: white;
     border-radius: 8px;
 }
 
-.nothing img{
+.nothing img {
     border-radius: 50%;
 }
 
-ul li a:hover:not(.nothing){
+ul li a:hover:not(.nothing) {
     color: lightskyblue;
-    box-shadow:2px 2px 5px gray;
+    box-shadow: 2px 2px 5px gray;
 }
 
 .headerbody {
     position: sticky;
     top: 0;
     width: 100%;
-    z-index: 1; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
+
 .dropdown-content {
-    top: 43px;
     display: none;
     position: absolute;
-    min-width: 160px;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    padding: 10px 10px 10px 10px;
-    border-radius: 20px;
-    background-color: lightskyblue;
+    border-radius: 5px;
+    padding: 10px;
 }
-.dropdown-content a {
-    color: black;
-    padding-bottom: 2px;
-    text-decoration: none;
-    display: block;
-    background-color: lightskyblue;
-    margin-bottom: 10px; /* Add space between dropdown items */
-}
+
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-content p {
+    margin: 0;
+    padding: 8px 12px;
+    font-weight: bold;
+}
+
+.dropdown-content hr {
+    margin: 10px 0;
 }

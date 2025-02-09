@@ -54,7 +54,7 @@ class EventModel {
     }
 
     public function getAllEvents() {
-        $query = "SELECT * FROM events where approvedstatus = 0";
+        $query = "SELECT * FROM events WHERE approvedstatus = 0 AND date >= CURDATE()";
         $result = $this->conn->query($query);
 
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -94,7 +94,7 @@ class EventModel {
     
 
     public function getAllUpcomingEvents($username) {
-        $query = "SELECT * FROM events INNER JOIN enroll ON events.no = enroll.eventno WHERE enroll.username = ? order by date asc";
+        $query = "SELECT * FROM events INNER JOIN enroll ON events.no = enroll.eventno WHERE enroll.username = ? AND date >= CURDATE() order by date asc";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
