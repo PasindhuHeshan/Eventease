@@ -195,6 +195,79 @@ class Dashboard {
             return false;
         }
     }
+
+
+    public function checkemail($email){
+        $query = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function addUser($fname, $lname, $email, $userType) {
+        $sql = "INSERT INTO users (username, fname, lname, email, usertype) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("sssss",$email, $fname, $lname, $email, $userType);
+
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                echo $stmt->error;
+                return false;
+            }
+
+            $stmt->close();
+        } else {
+            return false;
+        }
+    }
+
+    public function updatestatus($No,$status){
+        $sql = "UPDATE users SET status = ? WHERE No = ?";
+        $stmt = $this->conn->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("is", $status, $No);
+
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
+            $stmt->close();
+        } else {
+            return false;
+        }
+    }
+
+    public function getUsers() {
+        $sql = "SELECT No, fname, lname, email,usertype, status FROM users";
+        $stmt = $this->conn->prepare($sql);
+
+        if ($stmt) {
+
+            if ($stmt->execute()) {
+                $result = $stmt->get_result();
+                $users = $result->fetch_all(MYSQLI_ASSOC);
+                $stmt->close();
+                return $users;
+            } else {
+                $stmt->close();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
     
 }
 

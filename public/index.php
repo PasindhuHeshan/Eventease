@@ -259,6 +259,10 @@ switch ($url) {
         $hcontroller->render();
         $stfcontroller->aca();
         break;
+
+    case 'changestatus':
+        $alcontroller->changestatus();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();
