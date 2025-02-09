@@ -14,3 +14,19 @@ body {
     margin: 0;
     overflow: hidden;
 }
+
+.event img{
+    margin: 10px 0px;
+}
+
+.panel-content p{
+    font-size: small;
+}
+
+.box .sliding-panel{
+    float:none;
+}
+
+.sliding-panel .panel-content{
+    float: none;
+}
