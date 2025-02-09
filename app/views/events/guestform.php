@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="./css/loginformstyle.css">
+    <script src="./js/payment.js"></script>
     <script>
         function showNextStep(currentStep, nextStep) {
             if (validateStep(currentStep)) {
@@ -227,56 +228,15 @@
                 </div>
                 <!-- Step 4: Payment Information -->
                 <div id="step4" style="display: none;">
-                    <table>
-                        <tr>
-                            <td><label for="cardtype">Type <span class="star">*</span></label></td>
-                            <td colspan="2">
-                                <input type="radio" name="cardtype" value="visa" required> Visa
-                                <input type="radio" name="cardtype" value="master" required> Master
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><div id="cardtype_error" class="error"></div></td>
-                        </tr>
-                        <tr>
-                            <td><label for="cardno">Card Number <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="number" id="cardno" name="cardno" required></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><div id="cardno_error" class="error"></div></td>
-                        </tr>
-                        <tr>
-                            <td><label for="cardholder">Card Holder Name <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="text" id="cardholder" name="cardholder" required></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><div id="cardholder_error" class="error"></div></td>
-                        </tr>
-                        <tr>
-                            <td><label for="cvv">CVV <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="password" id="cvv" name="cvv" required></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><div id="cvv_error" class="error"></div></td>
-                        </tr>
-                        <tr>
-                            <td><label for="exp">Expire Date <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="date" id="exp" name="exp" required></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><div id="exp_error" class="error"></div></td>
-                        </tr>
-                        <tr>
-                            <td><label for="amount">Amount</label></td>
-                            <td colspan="2"><input type="text" value="Rs.500" readonly></td>
-                        </tr>
-                    </table>
+                    <p>You are about to pay Rs. 500 for the registration.</p>
+                    <button onclick="paymentGateWay();">Pay Now</button>
+                    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
                     <input type="text" id="universityid" name="universityid" value="X" hidden>
                     <input type="text" id="universityregno" name="universityregno" value="X" hidden>
                     <input type="text" id="usertype" name="usertype" value="guest" hidden>
+                    <input type="int" id="status" name="status" value="1" hidden>
                     <div class="button-container"> 
                         <button type="button" onclick="showNextStep('step4', 'step3')">Back</button>
-                        <button type="submit">Submit</button>
                     </div>
                 </div>
             </form>

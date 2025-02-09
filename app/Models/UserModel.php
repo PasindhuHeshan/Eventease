@@ -30,7 +30,7 @@ class UserModel {
     public function createUser(
         $username, $hashedPassword, $fname, $lname, $email, 
         $usertype, $universityid, $universityregno, $address, $city,
-        $contactno1, $contactno2, $profile_picture, 
+        $contactno1, $contactno2, $profile_picture, $status,
         $database
     ) {
         $conn = $database->getConnection();
@@ -44,9 +44,9 @@ class UserModel {
                     username, password, fname, lname, email,
                     usertype, universityid, universityregno, address, city,
                     contactno1, contactno2, profile_picture, status, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssssssss", 
+        $stmt->bind_param("ssssssssssssss", 
             $username, $hashedPassword, $fname, $lname, $email, 
             $usertype, $universityid, $universityregno, $address, $city,
             $contactno1, $contactno2, $profile_picture, $status
