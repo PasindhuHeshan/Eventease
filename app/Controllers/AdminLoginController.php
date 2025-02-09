@@ -62,6 +62,10 @@ class AdminLoginController {
     }
 
     public function manageusers(){
+        $database = new Database();
+        $dashboard = new Dashboard($database);
+
+        $result = $dashboard->getUsers();
         include __DIR__ . '/../Views/events/manage_users.php';
     }
 
@@ -73,9 +77,62 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/role_requests.php';
     }
 
-    public function useradd(){
-        include __DIR__ . '/../Views/events/useradd.php';
+    public function useradd() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $fname = $_POST['fname'] ?? null;
+            $lname = $_POST['lname'] ?? null;
+            $email = $_POST['email'] ?? null;
+            $userType = 'staff'; // Set user type to 'staff'
+
+            if ($fname && $lname && $email) {
+                $database = new Database();
+                $dashboard = new Dashboard($database);
+
+                if ($dashboard->checkemail($email)) {
+                    $_SESSION['error'] = 'Email already exists!';
+                    include __DIR__ . '/../Views/events/manage_users.php';
+                    exit();
+                }
+
+                if ($dashboard->addUser($fname, $lname, $email, $userType)) {
+                    header("Location: ../public/index.php?url=manage_users.php");
+                    exit();
+                } else {
+                    $_SESSION['error'] = 'Error adding user!';
+                    include __DIR__ . '/../Views/events/manage_users.php';
+                }
+            } else {
+                $_SESSION['error'] = 'Please fill all fields!';
+                include __DIR__ . '/../Views/events/manage_users.php';
+            }
+        } else {
+            include __DIR__ . '/../Views/events/manage_users.php';
+        }
     }
+
+    public function changestatus() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['No']) && isset($_POST['status'])) {
+            $No = $_POST['No'];
+            $status = $_POST['status'];
+            $database = new Database();
+            $dashboard = new Dashboard($database);
+
+            if ($dashboard->updateStatus($No, $status)) {
+                $_SESSION['success'] = 'Status updated successfully!';
+                include __DIR__ . '/../Views/events/manage_users.php';
+                exit();
+            } else {
+                $_SESSION['error'] = 'Error updating status!';
+                include __DIR__ . '/../Views/events/manage_users.php';
+                exit();
+            }
+        } else {
+            $_SESSION['error'] = 'Invalid request!';
+            include __DIR__ . '/../Views/events/manage_users.php';
+            exit();
+        }
+    }
+    
 
     public function manageevent(){
         include __DIR__ . '/../Views/events/manageevent.php';

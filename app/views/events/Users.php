@@ -25,7 +25,7 @@ $usertype = isset($_GET['usertype']) ? $_GET['usertype'] : 'staff'; // Default t
 $usertype = trim($usertype);
 
 // Make sure we use the right format for string comparison
-$sql = "SELECT No, username, email, status FROM users WHERE TRIM(usertype) = ?";
+$sql = "SELECT No, fname, lname, email, status FROM users WHERE TRIM(usertype) = ?";
 $stmt = $conn->prepare($sql); // Use prepared statement to avoid SQL injection
 $stmt->bind_param("s", $usertype); // Bind the parameter as a string
 
@@ -106,8 +106,8 @@ $result = $stmt->get_result();
 
     <table>
         <tr>
-            <th>No</th>
-            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Email</th>
             <th>Action(Enable/Disable)</th>
         </tr>
@@ -119,8 +119,8 @@ $result = $stmt->get_result();
                 $buttonText = $row['status'] == 1 ? 'Disable' : 'Enable';
                 $status = $row['status']; // Save current status for the toggle action
                 echo "<tr>";
-                echo "<td>" . $row['No'] . "</td>";
-                echo "<td>" . $row['username'] . "</td>";
+                echo "<td>" . $row['fname'] . "</td>";
+                echo "<td>" . $row['lname'] . "</td>";
                 echo "<td>" . $row['email'] . "</td>";
                 echo "<td>
                     <form method='GET' action=''>
