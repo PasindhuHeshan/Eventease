@@ -109,7 +109,7 @@ $result = $stmt->get_result();
             <th>No</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Status</th>
+            <th>Action(Enable/Disable)</th>
         </tr>
         <?php
         if ($result->num_rows > 0) {

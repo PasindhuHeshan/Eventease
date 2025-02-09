@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Query to fetch role requests from the 'rolereq' table, filtering out the approved (status = 1) and rejected (status = -1) ones
-$sql = "SELECT no, username, email, role FROM rolereq WHERE status = 0"; 
+$sql = "SELECT no, username, email, reason, role FROM rolereq WHERE status = 0"; 
 $result = $conn->query($sql);
 ?>
 
@@ -117,6 +117,7 @@ $result = $conn->query($sql);
             <th>Username</th>
             <th>Email</th>
             <th>Requested Role</th>
+            <th>Reason</th>
             <th>Approve</th>
             <th>Reject</th>
         </tr>
@@ -130,6 +131,7 @@ $result = $conn->query($sql);
                         <td>" . $row["username"] . "</td>
                         <td>" . $row["email"] . "</td>
                         <td>" . $row["role"] . "</td>
+                         <td>" . $row["reason"] . "</td>
                         <td>
                             <form method='POST'>
                                 <input type='hidden' name='no' value='" . $row["no"] . "'>

@@ -23,7 +23,8 @@ $statistics = [
     'participation_percentage' => 88.89,
     'total_rating' => 4.5,
     'reached_audience' => 300,
-    'reach_percentage' => 60.00
+    'reach_percentage' => 60.00,
+    'reviews_count' => 83.0
 ];
 
 $remarks = 'The event was a great success with high participation and positive feedback.';
@@ -56,7 +57,7 @@ $remarks = 'The event was a great success with high participation and positive f
             <p><strong>Total Enrolled:</strong> <?= $statistics['enrolled'] ?></p>
             <p><strong>Total Participated:</strong> <?= $statistics['participated'] ?></p>
             <p><strong>Participation Percentage:</strong> <?= number_format($statistics['participation_percentage'], 2) ?>%</p>
-            <p><strong>Total Rating:</strong> <?= number_format($statistics['total_rating'], 1) ?>/5</p>
+            <p><strong>Total Rating:</strong> <?= number_format($statistics['total_rating'], 1) ?>/5 (from <?= $statistics['reviews_count'] ?> reviews)</p>
             <p><strong>Reached Audience:</strong> <?= $statistics['reached_audience'] ?></p>
             <p><strong>Total Reach Percentage:</strong> <?= number_format($statistics['reach_percentage'], 2) ?>%</p>
         </div>

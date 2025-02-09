@@ -33,17 +33,22 @@
                     <option value="Music" <?php echo (isset($eventData['event_type']) && $eventData['event_type'] == 'Music') ? 'selected' : ''; ?>>Music</option>
                 </select>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="short_dis">Short Description</label>
                 <textarea name="short_dis" id="short_dis" class="form-control" required><?php echo isset($eventData['short_dis']) ? $eventData['short_dis'] : ''; ?></textarea>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="long_dis">Long Description</label>
                 <textarea name="long_dis" id="long_dis" class="form-control" required><?php echo isset($eventData['long_dis']) ? $eventData['long_dis'] : ''; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="supervisor">Supervisor</label>
-                <input type="text" name="supervisor" id="supervisor" class="form-control" value="<?php echo isset($eventData['supervisor']) ? $eventData['supervisor'] : ''; ?>" required>
+                <select name="supervisor" id="supervisor" class="form-control" required>
+                    <option value="">Select Supervisor</option>
+                    <option value="Supervisor1" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor1') ? 'selected' : ''; ?>>Supervisor1</option>
+                    <option value="Supervisor2" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor2') ? 'selected' : ''; ?>>Supervisor2</option>
+                    <option value="Supervisor3" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor3') ? 'selected' : ''; ?>>Supervisor3</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="participant_cap">Participant Cap</label>
