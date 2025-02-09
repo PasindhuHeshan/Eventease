@@ -124,5 +124,75 @@ class EventController
             }
         }
     }
+    
+    public function rejectevent() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $no = $_POST['no'] ?? null;
+            $reason = $_POST['reason'] ?? null;
+    
+            if ($no === null) {
+                // Handle error: invalid event ID
+                echo "Invalid event ID";
+                exit();
+            }
+            if ($reason === null) {
+                // Handle error: missing rejection reason
+                echo "Missing rejection reason";
+                exit();
+            }
+    
+            if ($this->eventModel->rejectEvent($no, $reason)) {
+                // Event rejected successfully
+                $events = $this->eventModel->getApprovedEvents();
+                include __DIR__ . '/../Views/events/staff.php';
+                exit();
+            } else {
+                // Handle error: failed to reject event
+                echo "Error rejecting event";
+            }
+        }
+    }
+    
+    public function eventd()
+    {
+        $database = new Database();
+        $no = isset($_GET['no']) ? $_GET['no'] : null;
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : null; 
+    
+        $isEnrolled = false; // Default value when no user is logged in
+        $userdata = ['usertype' => '']; // Default value when no user is logged in
+    
+        if ($username) {
+            $isEnrolled = $this->eventModel->isUserEnrolled($username, $no);
+            $userdata = $this->UserModel->getUserData($username, $database);
+        }
+    
+        if ($event = $this->eventModel->getEvent($no)) {
+            include __DIR__ . '/../Views/events/eventd.php';
+        } else {
+            echo "Event not found.";
+        }
+    }
+
+    //write a fuction to insert contact us form data into the database
+    public function contactus()
+    {
+        $type = isset($_POST['type']) ? $_POST['type'] : null;
+        $email = isset($_POST['email']) ? $_POST['email'] : null;
+        $contact_no = isset($_POST['contact_no']) ? $_POST['contact_no'] : null;
+        $feedback = isset($_POST['feedback']) ? $_POST['feedback'] : null;
+
+        if ($type === null || $email === null || $contact_no === null || $feedback === null) {
+            echo "Error: Missing required fields";
+            exit();
+        }
+
+        if ($this->eventModel->insertContactUs($type, $email, $contact_no, $feedback)) {
+            include __DIR__ . '/../Views/events/contactus.php';
+        } else {
+            echo "Error submitting feedback";
+        }
+    }
+    
 }
 ?>

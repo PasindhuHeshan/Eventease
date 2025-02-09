@@ -20,42 +20,35 @@ class LoginController {
                 $userData = $userModel->getUserData($username, $database);
                 $upevents = $eventModel->getAllupcomingEvents($username);
 
-                if ($userData && password_verify($password, $userData['password'])) {
-                    if ($userData['usertype'] == 'student') {
-                        $_SESSION['username'] = $username;
-                        $_SESSION['upevent'] = $upevents;
-                        header("Location: ../public/index.php");
-                        exit();
-                    }else if ($userData['usertype'] == 'guest') {
-                        $_SESSION['username'] = $username;
-                        $_SESSION['upevent'] = $upevents;
-                        header("Location: ../public/index.php");
-                        exit();
-                    }else if ($userData['usertype'] == 'staff') {
-                        $_SESSION['username'] = $username;
-                        $_SESSION['upevent'] = $upevents;
-                        header("Location: ../public/index.php");
-                        exit();
-                    }else if ($userData['usertype'] == 'organizer') {
-                        $_SESSION['username'] = $username;
-                        $_SESSION['upevent'] = $upevents;
-                        header("Location: ../public/index.php");
-                        exit();
-                    }else if ($userData['usertype'] == 'support') {
-                        $_SESSION['username'] = $username;
-                        $_SESSION['upevent'] = $upevents;
-                        header("Location: ../public/index.php");
-                        exit();
-                    } else {
-                        $_SESSION['error'] = null;
-                        $_SESSION['username'] = $username;
-                        header("Location: ../public/dashboard.php");
+                if ($userData) {
+                    if ($userData['status'] == 0) {
+                        $_SESSION['error'] = 'Account blocked!<br>Contact administration!';
+                        header("Location: ../public/index.php?url=login.php");
                         exit();
                     }
-                } else if ($userData) {
-                    $_SESSION['error'] = 'Incorrect Password!';
-                    header("Location: ../public/index.php?url=login.php");
-                    exit();
+
+                    if (password_verify($password, $userData['password'])) {
+                        $_SESSION['username'] = $username;
+                        $_SESSION['upevent'] = $upevents;
+
+                        switch ($userData['usertype']) {
+                            case 'student':
+                            case 'guest':
+                            case 'staff':
+                            case 'organizer':
+                            case 'support':
+                                header("Location: ../public/index.php");
+                                break;
+                            default:
+                                header("Location: ../public/dashboard.php");
+                                break;
+                        }
+                        exit();
+                    } else {
+                        $_SESSION['error'] = 'Incorrect Password!';
+                        header("Location: ../public/index.php?url=login.php");
+                        exit();
+                    }
                 } else {
                     $_SESSION['error'] = 'Incorrect Username!';
                     header("Location: ../public/index.php?url=login.php");
