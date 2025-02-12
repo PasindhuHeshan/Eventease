@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li class="active">Dashboard</li>
                 <!-- <li><a>Dashboard</a></li> -->
                 <li><a href="manage_users.php">Manage Users</a></li>
+                <li><a href="role_requests.php">User Privilage Requests</a></li>
                 <li><a href="manageevent.php">Approve Events</a></li>
                 <li><a href="inventory.php">Manage Inventory</a></li>
             </ul>

@@ -32,6 +32,7 @@ $result = $dashboard->getInventoryByType($inventory_type);
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="manage_users.php">Manage Users</a></li>
+                <li><a href="role_requests.php">User Privilage Requests</a></li>
                 <li><a href="manageevent.php">Approve Events</a></li>
                 <li class="active">Manage Inventory</li>
             </ul>

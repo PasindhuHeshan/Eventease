@@ -169,6 +169,75 @@ class UserModel {
         }
     }
 
+    //admin function
+    public function getRoleRequests(Database $database){
+        $conn = $database->getConnection();
+        $sql = "SELECT * FROM rolereq";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return [];
+        }
+    }
+
+    //admin function
+    public function admin_updateRoleRequests($no,$new_role,$reply, Database $database) {
+        $conn = $database->getConnection();
+        
+        // Fetch the requested role details from the 'rolereq' table
+        $sql = "SELECT username, email,role FROM rolereq WHERE no = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $no);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $username = $row['username'];
+            $role = $row['role'];
+            $email = $row['email'];
+
+            if ($new_role === 'rejected') {
+                // Update the status of the role request to -1 (rejected)
+                $updateRolereq = "UPDATE rolereq SET status = -1, reply = ? WHERE no = ?";
+                $stmt2 = $conn->prepare($updateRolereq);
+                $stmt2->bind_param("si", $reply, $no);
+                $stmt2->execute();
+
+                // Update the user's role in the 'users' table to 'student'
+                $updateUser = "UPDATE users SET usertype = 'student' WHERE email = ?";
+                $stmt3 = $conn->prepare($updateUser);
+                $stmt3->bind_param("s", $email);
+                $stmt3->execute();
+            } else {
+                // Update the status of the role request to 1 (approved)
+                $updateRolereq = "UPDATE rolereq SET status = 1 WHERE no = ?";
+                $stmt2 = $conn->prepare($updateRolereq);
+                $stmt2->bind_param("i", $no);
+                $stmt2->execute();
+
+                // Update the user's role in the 'users' table
+                $updateUser = "UPDATE users SET usertype = ? WHERE username = ?";
+                $stmt3 = $conn->prepare($updateUser);
+                $stmt3->bind_param("ss", $role, $username);
+                $stmt3->execute();
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //normal user function
     public function updateRoleRequest($username, $email, $role, $reason, $status, Database $database) {
         $conn = $database->getConnection();
         $sql = "UPDATE rolereq set email=?, role=?, reason=?, status=? where username=?";

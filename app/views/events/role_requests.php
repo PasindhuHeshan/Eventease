@@ -1,160 +1,139 @@
-<?php
-// Database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "eventease"; 
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Handle approval or rejection
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['approve'])) {
-        $no = $_POST['no'];
-        
-        // Fetch the requested role details from the 'rolereq' table
-        $sql = "SELECT username, role FROM rolereq WHERE no = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $no);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $username = $row['username'];
-            $role = $row['role'];
-
-            // Update the status of the role request to 1 (approved)
-            $updateRolereq = "UPDATE rolereq SET status = 1 WHERE no = ?";
-            $stmt2 = $conn->prepare($updateRolereq);
-            $stmt2->bind_param("i", $no);
-            $stmt2->execute();
-
-            // Update the user's role in the 'users' table
-            $updateUser = "UPDATE users SET usertype = ? WHERE username = ?";
-            $stmt3 = $conn->prepare($updateUser);
-            $stmt3->bind_param("ss", $role, $username);
-            $stmt3->execute();
-        }
-    }
-
-    if (isset($_POST['reject'])) {
-        $no = $_POST['no'];
-
-        // Update the status to -1 (rejected) instead of deleting the row
-        $updateRolereq = "UPDATE rolereq SET status = -1 WHERE no = ?";
-        $stmt2 = $conn->prepare($updateRolereq);
-        $stmt2->bind_param("i", $no);
-        $stmt2->execute();
-    }
-
-    // Redirect to the same page after approval or rejection
-    header("Location: role_requests.php");
-    exit();
-}
-
-// Query to fetch role requests from the 'rolereq' table, filtering out the approved (status = 1) and rejected (status = -1) ones
-$sql = "SELECT no, username, email, reason, role FROM rolereq WHERE status = 0"; 
-$result = $conn->query($sql);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Role Requests</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        table {
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="./css/mngusrstyle.css">
+    <link rel="stylesheet" href="./css/useraddstyles.css">
+    <!-- <style>
+        .popup-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
         }
-
-        table, th, td {
-            border: 1px solid #ddd;
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
         }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        button {
-            padding: 5px 10px;
-            width: 80px;
-            border-radius: 10px;
-            background-color: white;
+        .close {
+            float: right;
             cursor: pointer;
         }
-
-        button:hover {
-            background-color: skyblue;
-            color: white;
-        }
-
-        form {
-            display: inline;
-        }
-    </style>
+    </style> -->
 </head>
 <body>
-    <table>
-        <tr>
-            <th>No</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Requested Role</th>
-            <th>Reason</th>
-            <th>Approve</th>
-            <th>Reject</th>
-        </tr>
+<header>
+    <p>Hello</p>
+    <div class="header-right">
+        <span>, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+        <form method="POST" action="adminlogout.php" class="form">
+            <button type="submit" class="logout-button">Log out</button>
+        </form>
+    </div>
+</header>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-icon">
+                <img src="./images/adminlogo.png" alt="Profile">
+            </div>
+            <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
+        </div>
+        <ul>
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="manage_users.php">Manage Users</a></li>
+            <li class="active">User Privilege Requests</li>
+            <li><a href="manageevent.php">Approve Events</a></li>
+            <li><a href="inventory.php">Manage Inventory</a></li>
+        </ul>
+    </div>
 
-        <?php
-        if ($result->num_rows > 0) {
-            // Output each row
-            while($row = $result->fetch_assoc()) {
-                echo "<tr>
-                        <td>" . $row["no"] . "</td>
-                        <td>" . $row["username"] . "</td>
-                        <td>" . $row["email"] . "</td>
-                        <td>" . $row["role"] . "</td>
-                         <td>" . $row["reason"] . "</td>
+    <!-- Content -->
+    <div class="content">
+        <h2>User Role Requests for Event Organizer</h2>
+        <p>This page allows the admin to review and manage user role requests. Admins can approve or reject requests based on the provided information.</p>
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Email</th>
+                <th>Reason</th>
+                <th>Reply (last reply when rejected)</th>
+                <th>Approve</th>
+                <th>Reject</th>
+            </tr>
+
+            <?php
+            if (!empty($roleRequests)) {
+                $rowNumber = 1; // Initialize row number
+                // Output each row
+                foreach ($roleRequests as $row) {
+                    echo "<tr>
+                        <td>" . $rowNumber++ . "</td>
+                        <td>" . htmlspecialchars($row["email"]) . "</td>
+                        <td>" . htmlspecialchars($row["reason"]) . "</td>
+                        <td>" . (!empty($row["reply"]) ? htmlspecialchars($row["reply"]) : "") . "</td>
                         <td>
-                            <form method='POST'>
-                                <input type='hidden' name='no' value='" . $row["no"] . "'>
-                                <button type='submit' name='approve'>Approve</button>
+                            <form method='POST' action='role_requests.php'>
+                                <input type='hidden' name='no' value='" . htmlspecialchars($row["no"]) . "'>
+                                <button type='submit' name='approve' " . ($row["status"] == 1 ? "disabled" : "") . ">Approve</button>
                             </form>
                         </td>
                         <td>
-                            <form method='POST'>
-                                <input type='hidden' name='no' value='" . $row["no"] . "'>
-                                <button type='submit' name='reject'>Reject</button>
-                            </form>
+                            <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")' " . ($row["status"] == -1 ? "disabled" : "") . ">Reject</button>
                         </td>
                     </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='7'>No role requests found.</td></tr>";
             }
-        } else {
-            echo "<tr><td colspan='6'>No role requests found.</td></tr>";
-        }
-        ?>
-    </table>
+            ?>
+        </table>
+    </div>
+</div>
+
+<!-- Popup Form -->
+<div id="popupForm" class="popup-form">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <div class="container">
+            <form action="role_requests.php" method="post">
+                <h2>Reject Role Request</h2>
+                <input type="hidden" id="rejectNo" name="no">
+                <div class="form-group">
+                    <label for="fname">Email</label>
+                    <input type="text" value="<?php echo htmlspecialchars($row['email']); ?>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="reply">Reply</label>
+                    <textarea id="reply" name="reply" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" name="reject">Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openPopup(no) {
+        document.getElementById('rejectNo').value = no;
+        document.getElementById('popupForm').style.display = 'flex';
+    }
+
+    function closePopup() {
+        document.getElementById('popupForm').style.display = 'none';
+    }
+</script>
 </body>
 </html>
-
-<?php
-// Close the database connection
-$conn->close();
-?>
