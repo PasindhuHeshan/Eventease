@@ -73,7 +73,28 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/users.php';
     }
 
-    public function role_requests(){
+    public function role_requests() {
+        $database = new Database();
+        $usermodel = new UserModel();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['no'])) {
+            $no = $_POST['no'];
+            $reply = $_POST['reply'] ?? '';
+
+            if (isset($_POST['approve'])) {
+                $new_role = 'approved';
+            } else {
+                $new_role = 'rejected';
+            }
+
+            if ($usermodel->admin_updateRoleRequests($no, $new_role, $reply, $database)) {
+                $_SESSION['success'] = 'Role request updated successfully!';
+            } else {
+                $_SESSION['error'] = 'Error updating role request!';
+            }
+        }
+
+        $roleRequests = $usermodel->getRoleRequests($database);
         include __DIR__ . '/../Views/events/role_requests.php';
     }
 
@@ -89,7 +110,7 @@ class AdminLoginController {
                 $dashboard = new Dashboard($database);
 
                 if ($dashboard->checkemail($email)) {
-                    $_SESSION['error'] = 'Email already exists!';
+                    $_SESSION['ac_createerror'] = 'Email already exists!';
                     include __DIR__ . '/../Views/events/manage_users.php';
                     exit();
                 }
@@ -98,11 +119,11 @@ class AdminLoginController {
                     header("Location: ../public/index.php?url=manage_users.php");
                     exit();
                 } else {
-                    $_SESSION['error'] = 'Error adding user!';
+                    $_SESSION['ac_createerror'] = 'Error adding user!';
                     include __DIR__ . '/../Views/events/manage_users.php';
                 }
             } else {
-                $_SESSION['error'] = 'Please fill all fields!';
+                $_SESSION['ac_createerror'] = 'Please fill all fields!';
                 include __DIR__ . '/../Views/events/manage_users.php';
             }
         } else {
