@@ -176,23 +176,41 @@ class EventController
 
     //write a fuction to insert contact us form data into the database
     public function contactus()
-    {
-        $type = isset($_POST['type']) ? $_POST['type'] : null;
-        $email = isset($_POST['email']) ? $_POST['email'] : null;
-        $contact_no = isset($_POST['contact_no']) ? $_POST['contact_no'] : null;
-        $feedback = isset($_POST['feedback']) ? $_POST['feedback'] : null;
+{
+    
+    $type = isset($_POST['type']) ? $_POST['type'] : null;
+    $email = isset($_POST['email']) ? $_POST['email'] : null;
+    $contact_no = isset($_POST['contact_no']) ? $_POST['contact_no'] : null;
+    $feedback = isset($_POST['feedback']) ? $_POST['feedback'] : null;
 
-        if ($type === null || $email === null || $contact_no === null || $feedback === null) {
-            echo "Error: Missing required fields";
-            exit();
-        }
+    $errors = [];
 
-        if ($this->eventModel->insertContactUs($type, $email, $contact_no, $feedback)) {
-            include __DIR__ . '/../Views/events/contactus.php';
-        } else {
-            echo "Error submitting feedback";
-        }
+    if ($type === null || $email === null || $contact_no === null || $feedback === null) {
+        $errors[] = "Error: Missing required fields";
     }
+
+    if (strlen($contact_no) != 10 || !ctype_digit($contact_no)) {
+        $errors['contact_no'] = "Error: Contact number must be exactly 10 digits.";
+    }
+
+    if (strpos($email, '@gmail.com') === false) {
+        $errors['email'] = "Error: Email must be a valid Gmail address";
+    }
+
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        include __DIR__ . '/../Views/events/contactus.php';
+        exit();
+    }
+
+    if ($this->eventModel->insertContactUs($type, $email, $contact_no, $feedback)) {
+        unset($_SESSION['errors']); // Clear errors on successful submission
+        include __DIR__ . '/../Views/events/contactus.php';
+    } else {
+        echo "Error submitting feedback";
+    }
+}
+    
     
 }
 ?>
