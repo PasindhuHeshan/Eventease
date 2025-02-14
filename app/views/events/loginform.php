@@ -7,6 +7,9 @@
     <div class="main">
         <div class="main_box">
             <h2>Login</h2>
+            <?php if (isset($_GET['payment']) && $_GET['payment'] === 'success'): ?>
+                <div class="success">Payment Successful and Account Created! <br/>You need to log in to the system.<br/><br/></div>
+            <?php endif; ?>
             <form name="login" action="index.php?url=processlogin" method="post">
                 <table>
                     <tr>

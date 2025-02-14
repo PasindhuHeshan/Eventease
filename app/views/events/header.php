@@ -30,7 +30,7 @@
                                     </a>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <p>No upcoming events</p>
+                                <p>No upcoming events for next 2 weeks</p>
                             <?php endif; ?>
                         </div>
                     </li>

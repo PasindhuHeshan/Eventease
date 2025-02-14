@@ -29,16 +29,50 @@
                             <button type="button" class="upload-btn" onclick="document.getElementById('profile_picture').click();">Add Image</button>
                             <input type="file" id="profile_picture" name="profile_picture" style="display: none;" onchange="showFileName()">
                             <span id="file-name" class="file-name"></span>
-                            <button type="submit">Upload</button>
+                            <button type="submit" id="upload-button" style="display: none;">Upload</button>
                         </form>
+                        <script>
+                            document.getElementById('profile_picture').addEventListener('change', function(event) {
+                                const file = event.target.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        const img = new Image();
+                                        img.src = e.target.result;
+                                        img.onload = function() {
+                                            const canvas = document.createElement('canvas');
+                                            const ctx = canvas.getContext('2d');
+                                            const size = Math.min(img.width, img.height);
+                                            canvas.width = size;
+                                            canvas.height = size;
+                                            ctx.drawImage(img, (img.width - size) / 2, (img.height - size) / 2, size, size, 0, 0, size, size);
+                                            canvas.toBlob(function(blob) {
+                                                const newFile = new File([blob], file.name, { type: file.type });
+                                                const dataTransfer = new DataTransfer();
+                                                dataTransfer.items.add(newFile);
+                                                document.getElementById('profile_picture').files = dataTransfer.files;
+                                                showFileName();
+                                            }, file.type);
+                                        };
+                                    };
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+
+                            function showFileName() {
+                                const input = document.getElementById('profile_picture');
+                                const fileNameDisplay = document.getElementById('file-name');
+                                const uploadButton = document.getElementById('upload-button');
+                                if (input.files.length > 0) {
+                                    fileNameDisplay.textContent = input.files[0].name;
+                                    uploadButton.style.display = 'block';
+                                } else {
+                                    fileNameDisplay.textContent = '';
+                                    uploadButton.style.display = 'none';
+                                }
+                            }
+                        </script>
                     </div>
-                    <script>
-                    function showFileName() {
-                        const input = document.getElementById('profile_picture');
-                        const fileNameDisplay = document.getElementById('file-name');
-                        fileNameDisplay.textContent = input.files[0].name;
-                    }
-                    </script>
                 </div>
 
                 <!-- Profile Details Section -->
