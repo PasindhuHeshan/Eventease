@@ -89,5 +89,10 @@ input{
     border-radius: 10px;
     font-size: small;
     padding: 20px;
+}
 
+.error{
+    color: red;
+    font-size: 16px;
+    margin-top: 5px;
 }

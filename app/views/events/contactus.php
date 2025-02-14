@@ -25,15 +25,25 @@
                     </tr>
                     <tr>
                         <td><label for="email">Email</label></td>
-                        <td><input type="email" id="email" name="email" placeholder="Enter your Email"></td>
+                        <td>
+                            <input type="email" id="email" name="email" placeholder="Enter your Email">
+                            <?php if (isset($_SESSION['errors']['email'])): ?>
+                                <div class="error"><?php echo $_SESSION['errors']['email']; ?></div>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="contact">Contact number</label></td>
-                        <td><input type="contact" id="contact" name="contact_no" placeholder="Enter your Contact Number"></td>
+                        <td>
+                            <input type="contact" id="contact" name="contact_no" placeholder="Enter your Contact Number">
+                            <?php if (isset($_SESSION['errors']['contact_no'])): ?>
+                                <div class="error"><?php echo $_SESSION['errors']['contact_no']; ?></div>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="feedback">Feedback</label></td>
-                        <td><textarea name="feedback" rows="4" placeholder="Enter your feedback"></textarea></td>
+                        <td><textarea class="myTextarea" name="feedback" rows="4" placeholder="Enter your feedback"></textarea></td>
                     </tr>
                     <tr class="button">
                         <td colspan="2"><button type="submit">Send</button></td>
