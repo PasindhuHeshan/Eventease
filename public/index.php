@@ -70,6 +70,10 @@ switch ($url) {
         $hcontroller->render();
         $scontroller->processsignin();
         break;
+    // case 'processRegistration':
+    //     $hcontroller->render();
+    //     $hcontroller->processRegistration();
+    //     break;
     case 'logout.php':
         $lcontroller->logout();
         break;

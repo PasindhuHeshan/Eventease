@@ -26,6 +26,10 @@ table{
     padding: 20px;
     border-radius: 25px;
 }
+
+tbody{
+    text-align: left;
+}
 .button{
     text-align: center;
 }
@@ -74,4 +78,18 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 .star{
     color: red;
+}
+
+label {
+    text-align: left;
+    display: block;
+    margin-right: 10px;
+}
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+.success {
+    color: green;
+    font-size: 0.9em;
 }

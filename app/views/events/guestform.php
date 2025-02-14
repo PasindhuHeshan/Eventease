@@ -2,114 +2,8 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="./css/loginformstyle.css">
-    <script src="./js/payment.js"></script>
-    <script>
-        function showNextStep(currentStep, nextStep) {
-            if (validateStep(currentStep)) {
-                document.getElementById(currentStep).style.display = 'none';
-                document.getElementById(nextStep).style.display = 'block';
-            }
-        }
-
-        function validateStep(step) {
-            var inputs = document.querySelectorAll('#' + step + ' input[required]');
-            var valid = true;
-            for (var i = 0; i < inputs.length; i++) {
-                var errorDiv = document.getElementById(inputs[i].id + '_error');
-                if (inputs[i].value.trim() === '') {
-                    errorDiv.textContent = "This field is required.";
-                    valid = false;
-                } else {
-                    errorDiv.textContent = "";
-                }
-
-                if (inputs[i].type === 'email' && !validateEmail(inputs[i].value)) {
-                    errorDiv.textContent = "Please enter a valid email address.";
-                    valid = false;
-                }
-
-                if (inputs[i].id === 'contactno1' && !validatePhoneNumber(inputs[i].value)) {
-                    errorDiv.textContent = "Please enter a valid phone number.";
-                    valid = false;
-                }
-
-                if (inputs[i].id === 'cardno' && !validateCardNumber(inputs[i].value)) {
-                    errorDiv.textContent = "Please enter a valid card number.";
-                    valid = false;
-                }
-
-                if (inputs[i].id === 'cvv' && !validateCVV(inputs[i].value)) {
-                    errorDiv.textContent = "Please enter a valid CVV.";
-                    valid = false;
-                }
-            }
-            return valid;
-        }
-
-        function validateEmail(email) {
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailPattern.test(email);
-        }
-
-        function validatePhoneNumber(phone) {
-            var phonePattern = /^\d{10}$/;
-            return phonePattern.test(phone);
-        }
-
-        function validateCardNumber(cardNumber) {
-            var cardPattern = /^\d{16}$/;
-            return cardPattern.test(cardNumber);
-        }
-
-        function validateCVV(cvv) {
-            var cvvPattern = /^\d{3,4}$/;
-            return cvvPattern.test(cvv);
-        }
-
-        function validatePasswords(event) {
-            var password = document.getElementById('password').value;
-            var confirmPassword = document.getElementById('confirm_password').value;
-            var username = document.getElementById('username').value;
-            var valid = true;
-
-            if (username.length < 4) {
-                document.getElementById('username_error').textContent = "Username must be at least 4 characters long.";
-                valid = false;
-            } else {
-                document.getElementById('username_error').textContent = "";
-            }
-
-            var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
-            if (!passwordPattern.test(password)) {
-                document.getElementById('password_error').textContent = "Password must contain at least one uppercase letter, one lowercase letter, and one number.";
-                valid = false;
-            } else {
-                document.getElementById('password_error').textContent = "";
-            }
-
-            if (password !== confirmPassword) {
-                document.getElementById('confirm_password_error').textContent = "Passwords do not match. Please try again.";
-                valid = false;
-            } else {
-                document.getElementById('confirm_password_error').textContent = "";
-            }
-
-            if (!valid) {
-                event.preventDefault(); // Prevent form submission
-            }
-        }
-    </script>
-    <style>
-        label {
-            text-align: left;
-            display: block;
-            margin-right: 10px;
-        }
-        .error {
-            color: red;
-            font-size: 0.9em;
-        }
-    </style>
+    <script type="text/javascript" src="./js/payment.js"></script>
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 </head>
 <body>
     <div class="main">
@@ -125,6 +19,9 @@
             ?>
             <?php if (isset($username_error)): ?>
                 <div class="error"><?php echo $username_error; ?></div>
+            <?php endif; ?>
+            <?php if (isset($_GET['payment']) && $_GET['payment'] === 'cancel'): ?>
+                <div class="error">Payment was cancelled.<br/>Account not created!</div>
             <?php endif; ?>
             <form id="register" name="register" action="" method="post" onsubmit="validatePasswords(event)">
                 <!-- Step 1: Basic Information -->
@@ -154,7 +51,7 @@
                     </table>
                     <div class="button-container"> 
                         <button type="reset">Clear</button>
-                        <button type="button" onclick="showNextStep('step1', 'step2')">Next</button>
+                        <button type="button" onclick="showNextStep('step1', 'step2', true)">Next</button>
                     </div>
                 </div>
 
@@ -192,7 +89,7 @@
                     </table>
                     <div class="button-container"> 
                         <button type="button" onclick="showNextStep('step2', 'step1')">Back</button>
-                        <button type="button" onclick="showNextStep('step2', 'step3')">Next</button>
+                        <button type="button" onclick="showNextStep('step2', 'step3', true)">Next</button>
                     </div>
                 </div>
 
@@ -223,22 +120,43 @@
                     </table>
                     <div class="button-container"> 
                         <button type="button" onclick="showNextStep('step3', 'step2')">Back</button>
-                        <button type="button" onclick="showNextStep('step3', 'step4')">Next</button>
+                        <button type="button" onclick="showNextStep('step3', 'step4', true)">Next</button>
                     </div>
                 </div>
                 <!-- Step 4: Payment Information -->
                 <div id="step4" style="display: none;">
                     <p>You are about to pay Rs. 500 for the registration.</p>
-                    <button onclick="paymentGateWay();">Pay Now</button>
-                    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+                    <button type="button" onclick="paymentGateWay()">Pay Now</button>
                     <input type="text" id="universityid" name="universityid" value="X" hidden>
                     <input type="text" id="universityregno" name="universityregno" value="X" hidden>
                     <input type="text" id="usertype" name="usertype" value="guest" hidden>
-                    <input type="int" id="status" name="status" value="1" hidden>
+                    <input type="number" id="status" name="status" value="1" hidden>
+                    <input type="hidden" id="payment_status" name="payment_status" value="">
                     <div class="button-container"> 
                         <button type="button" onclick="showNextStep('step4', 'step3')">Back</button>
                     </div>
                 </div>
+                <div id="step5" style="display: none;">
+                    <div class="success">Payment was successful!</div>
+                    <div class="button-container"> 
+                        <button type="button">Finish</button>
+                    </div>
+                </div>
+                <script>
+                    payhere.onCompleted = function onCompleted(orderId) {
+                        document.getElementById('payment_status').value = 'success';
+                        document.getElementById('register').submit();
+                        window.location.href = "login.php?payment=success";
+                    };
+
+                    payhere.onDismissed = function onDismissed() {
+                        window.location.href = "guestform.php?payment=cancel";
+                    };
+
+                    payhere.onError = function onError(error) {
+                        window.location.href = "guestform.php?payment=cancle";
+                    };
+                </script>
             </form>
         </div>
     </div>

@@ -22,6 +22,7 @@ class SigninController {
             $confirm_password = $_POST['confirm_password'] ?? null;
             $usertype = $_POST['usertype'] ?? null;
             $profile_picture = null;
+            $status= '1';
 
             if ($username && $password && $confirm_password && $password === $confirm_password) {
                 $database = new Database();
@@ -32,7 +33,7 @@ class SigninController {
                 $isUserCreated = $userModel->createUser(
                     $username, $hashedPassword, $fname, $lname, $email, 
                     $usertype, $universityid, $universityregno, $address, $city,
-                    $contactno1, $contactno2,  $profile_picture, 
+                    $contactno1, $contactno2,  $profile_picture, $status,
                     $database
                 );
                 

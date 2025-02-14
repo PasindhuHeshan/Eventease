@@ -76,8 +76,6 @@ class HeaderController {
                 $contactno1, $contactno2, $profile_picture,$status, 
                 new Database()
             );
-    
-            echo "<script>alert('Registration successful!'); window.location.href = 'index.php';</script>";
         }
     }
     
