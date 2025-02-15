@@ -6,6 +6,16 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="./css/mngusrstyle.css">
     <link rel="stylesheet" href="./css/useraddstyles.css">
+    <style>
+        .enable-button {
+            background-color: mediumseagreen;
+            color: white;
+        }
+        .disable-button {
+            background-color: lightslategray;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -40,7 +50,9 @@
             <h2>Users</h2>
             <p>This section allows you to manage the users of the application. You can disable any user accounts or add new staff accounts.</p>
             <div>
-                <label for="userTypeFilter">Filter by User Type:</label>
+                <label for="nameSearch">Search by Name</label>
+                <input type="text" id="nameSearch" class="user_type" onkeyup="filterUsers()" placeholder="Search for names..">
+                <label for="userTypeFilter">Filter by User Type</label>
                 <select id="userTypeFilter" class="user_type" onchange="filterUsers()">
                     <option value="all" default>All</option>
                     <option value="staff">Staff</option>
@@ -50,23 +62,28 @@
                     <option value="guest">Guest</option>
                     <option value="student">Student</option>
                 </select>
-                <label for="nameSearch">Search by Name:</label>
-                <input type="text" id="nameSearch" class="user_type" onkeyup="filterUsers()" placeholder="Search for names..">
+                <label for="statusFilter">Status</label>
+                <select id="statusFilter" class="user_type" onchange="filterUsers()">
+                    <option value="all" default>All</option>
+                    <option value="enabled">Enabled</option>
+                    <option value="disabled">Disabled</option>
+                </select>
             </div>
             <table id="usersTable">
                 <tr>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th>Action (Enable Acc. or Disable Acc.)</th>
+                    <th>Account Status</th>
                 </tr>
                 <?php
                 $result = $dashboard->getUsers();
                 if (is_array($result) && count($result) > 0) {
                     foreach ($result as $row) {
-                        $buttonText = $row['status'] == 1 ? 'Disable' : 'Enable';
+                        $buttonText = $row['status'] == 1 ? 'Enabled' : 'Disabled';
+                        $buttonClass = $row['status'] == 1 ? 'enable-button' : 'disable-button';
                         $status = $row['status'];
-                        echo "<tr data-user-type='" . htmlspecialchars($row['usertype']) . "' data-name='" . htmlspecialchars($row['fname'] . ' ' . $row['lname']) . "'>";
+                        echo "<tr data-user-type='" . htmlspecialchars($row['usertype']) . "' data-name='" . htmlspecialchars($row['fname'] . ' ' . $row['lname']) . "' data-status='" . htmlspecialchars($status == 1 ? 'enabled' : 'disabled') . "'>";
                         echo "<td>" . htmlspecialchars($row['fname']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['lname']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['email']) . "</td>";
@@ -74,7 +91,7 @@
                             <form method='post' action='index.php?url=changestatus' onsubmit='saveFilterState()'>
                                 <input type='hidden' name='No' value='" . htmlspecialchars($row['No']) . "'>
                                 <input type='hidden' name='status' value='" . htmlspecialchars($status == 1 ? 0 : 1) . "'>
-                                <button type='submit'>" . htmlspecialchars($buttonText) . "</button>
+                                <button type='submit' class='" . htmlspecialchars($buttonClass) . "'>" . htmlspecialchars($buttonText) . "</button>
                             </form>
                         </td>";
                         echo "</tr>";
@@ -90,20 +107,24 @@
             </div>
             <script>
                 function filterUsers() {
-                    var filter = document.getElementById('userTypeFilter').value;
+                    var userTypeFilter = document.getElementById('userTypeFilter').value;
+                    var statusFilter = document.getElementById('statusFilter').value;
                     var search = document.getElementById('nameSearch').value.toLowerCase();
                     var rows = document.querySelectorAll('#usersTable tr[data-user-type]');
                     rows.forEach(function(row) {
                         var userType = row.getAttribute('data-user-type');
+                        var status = row.getAttribute('data-status');
                         var name = row.getAttribute('data-name').toLowerCase();
-                        if ((filter === 'all' || userType === filter) && (name.includes(search))) {
+                        if ((userTypeFilter === 'all' || userType === userTypeFilter) &&
+                            (statusFilter === 'all' || status === statusFilter) &&
+                            (name.includes(search))) {
                             row.style.display = '';
                         } else {
                             row.style.display = 'none';
                         }
                     });
                     var addNewButton = document.getElementById('addNewButton');
-                    if (filter === 'staff') {
+                    if (userTypeFilter === 'staff') {
                         addNewButton.style.display = 'block';
                     } else {
                         addNewButton.style.display = 'none';
@@ -111,17 +132,23 @@
                 }
 
                 function saveFilterState() {
-                    var filter = document.getElementById('userTypeFilter').value;
+                    var userTypeFilter = document.getElementById('userTypeFilter').value;
+                    var statusFilter = document.getElementById('statusFilter').value;
                     var search = document.getElementById('nameSearch').value;
-                    localStorage.setItem('userTypeFilter', filter);
+                    localStorage.setItem('userTypeFilter', userTypeFilter);
+                    localStorage.setItem('statusFilter', statusFilter);
                     localStorage.setItem('nameSearch', search);
                 }
 
                 function loadFilterState() {
-                    var filter = localStorage.getItem('userTypeFilter');
+                    var userTypeFilter = localStorage.getItem('userTypeFilter');
+                    var statusFilter = localStorage.getItem('statusFilter');
                     var search = localStorage.getItem('nameSearch');
-                    if (filter) {
-                        document.getElementById('userTypeFilter').value = filter;
+                    if (userTypeFilter) {
+                        document.getElementById('userTypeFilter').value = userTypeFilter;
+                    }
+                    if (statusFilter) {
+                        document.getElementById('statusFilter').value = statusFilter;
                     }
                     if (search) {
                         document.getElementById('nameSearch').value = search;

@@ -324,6 +324,40 @@ class AdminLoginController {
         }
     }
     
-    
+    public function importExcel()
+    {
+        if (isset($_POST['import'])) {
+            // Check if a file is uploaded
+            if (isset($_FILES['excel_file']) && $_FILES['excel_file']['error'] == 0) {
+                $file = $_FILES['excel_file']['tmp_name'];
+                $this->processExcel($file);
+            } else {
+                $_SESSION['error'] = 'Please upload a valid Excel file.';
+            }
+        }
+        $database = new Database();
+        $dashboard = new Dashboard($database);
+        include __DIR__ . '/../views/events/inventory.php';
+    }
+
+    private function processExcel($file)
+    {
+        require_once __DIR__ . '/../../../vendor/autoload.php';
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $rows = $worksheet->toArray();
+        array_shift($rows); // Remove the first row (header)
+
+        foreach ($rows as $row) {
+            $item = $row[1];
+            $inventory_no = $row[2];
+            $quantity = $row[3];
+            $inventory_type = $row[4];
+
+            // Insert data into the database
+            $dashboard = new Dashboard(new Database());
+            $dashboard->insertItem($item, $inventory_no, $quantity, $inventory_type);
+        }
+    }
 }
-?>

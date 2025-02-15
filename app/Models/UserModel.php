@@ -172,7 +172,7 @@ class UserModel {
     //admin function
     public function getRoleRequests(Database $database){
         $conn = $database->getConnection();
-        $sql = "SELECT * FROM rolereq";
+        $sql = "SELECT * FROM rolereq where status=0";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -67,7 +67,6 @@
                 <th>No</th>
                 <th>Email</th>
                 <th>Reason</th>
-                <th>Reply (last reply when rejected)</th>
                 <th>Approve</th>
                 <th>Reject</th>
             </tr>
@@ -81,7 +80,6 @@
                         <td>" . $rowNumber++ . "</td>
                         <td>" . htmlspecialchars($row["email"]) . "</td>
                         <td>" . htmlspecialchars($row["reason"]) . "</td>
-                        <td>" . (!empty($row["reply"]) ? htmlspecialchars($row["reply"]) : "") . "</td>
                         <td>
                             <form method='POST' action='role_requests.php'>
                                 <input type='hidden' name='no' value='" . htmlspecialchars($row["no"]) . "'>

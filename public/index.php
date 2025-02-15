@@ -175,6 +175,9 @@ switch ($url) {
     case 'add_item.php':
         $alcontroller->add_item();
         break;
+    case 'import_excel.php':
+        $alcontroller->importExcel();
+        break;
     case 'save_item.php':
         $alcontroller->save_item();
         break;

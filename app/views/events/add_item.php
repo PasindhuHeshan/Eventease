@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Add New Item</h2>
-    <form method="POST" action="save_item.php" id="addItemForm">
+    <form method="POST" action="save_item.php" id="addItemForm" enctype="multipart/form-data">
         <label for="item">Item</label>
         <input type="text" name="item" id="item" placeholder="Desk"><br>
 
@@ -17,6 +17,7 @@
         <?php if (isset($_SESSION['error'])) { ?>
             <p class="error"><?php echo $_SESSION['error']; ?></p>
         <?php } ?>
+        <?php unset($_SESSION['error']); ?>
         <br>
         <label for="quantity">Quantity</label>
         <input type="number" name="quantity" id="quantity" placeholder="25"><br>
@@ -33,6 +34,13 @@
             <button type="submit" name="submit">Save</button>
             <button type="submit" name="back">Back</button>
         </div>
+    </form>
+
+    <h2>Import Items from Excel</h2>
+    <form method="POST" action="import_excel.php" id="importExcelForm" enctype="multipart/form-data">
+        <label for="excel_file">Excel File</label>
+        <input type="file" name="excel_file" id="excel_file" accept=".xlsx, .xls"><br>
+        <button type="submit" name="import">Import Excel</button>
     </form>
 
     <script>

@@ -269,6 +269,24 @@ class Dashboard {
         }
     }
     
+    public function insertItem($item, $inventory_no, $quantity, $inventory_type) {
+        $query = "INSERT INTO items (item, inventory_no, quantity, inventory_type) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt) {
+            $stmt->bind_param("ssis", $item, $inventory_no, $quantity, $inventory_type);
+
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
+            $stmt->close();
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>
