@@ -39,8 +39,8 @@ class SigninController {
                 
     
                 if ($isUserCreated) {
-                    $_SESSION['username'] = $username;
-                    header("Location: ../public/index.php");
+                    // $_SESSION['username'] = $username;
+                    header("Location: ../public/login.php?payment=success");
                     exit();
                 } else {
                     $_SESSION['error'] = 'User creation failed!';

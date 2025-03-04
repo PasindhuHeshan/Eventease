@@ -1,6 +1,7 @@
 <?php
 $inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances';  // Default to 'Appliances'
 $result = $dashboard->getInventoryByType($inventory_type);
+$parameter='inventory';
 ?>
 
 <!DOCTYPE html>
@@ -22,21 +23,8 @@ $result = $dashboard->getInventoryByType($inventory_type);
         </div>
     </header>
     <div class="container">
-        <div class="sidebar">
-            <div class="profile-section">
-                <div class="profile-icon">
-                <img src="./images/adminlogo.png" alt="Profile">
-                </div>
-                <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
-            </div>
-            <ul>
-                <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="manage_users.php">Manage Users</a></li>
-                <li><a href="role_requests.php">User Privilage Requests</a></li>
-                <li><a href="manageevent.php">Approve Events</a></li>
-                <li class="active">Manage Inventory</li>
-            </ul>
-        </div>
+    
+        <?php include 'aside.php'; ?>
 
         <div class="content">
             <h2>Manage Inventory</h2>

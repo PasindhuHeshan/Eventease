@@ -7,17 +7,16 @@ body{
     padding: 0;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: #f4f4f4;
 }
 .container{
-    width: auto;
-    padding: 20px 100px 40px 100px;
+    padding: 40px 60px;
     border-radius: 8px;
-    margin: 30px 20px 0px 20px;
+    margin: 20px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
+    width: max-content;
 }
 .profile {
     display: flex;
@@ -146,6 +145,10 @@ label{
     border-radius: 10px;
 }
 
+.request-section{
+    justify-items: center;
+}
+
 .request-para{
     margin-top: 50px;
 }
@@ -158,4 +161,8 @@ th, td {
 
 td{
     padding-right: 40px;
+}
+
+.container h2{
+    text-align: center;
 }

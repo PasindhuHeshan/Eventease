@@ -1,3 +1,6 @@
+<?php 
+    $parameter='event';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +49,39 @@
             color: red;
             font-size: smaller;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border-radius: 20px;
+            justify-self: center;
+            border: 1px solid #888;
+            width: max-content;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -85,7 +121,7 @@
                             </form>
                         <?php endif; ?>
                     <?php else: ?>
-                        <form action="removeEnrollment.php" method="POST" onsubmit="return confirmUnenroll(<?php echo $daysUntilEvent; ?>)"> 
+                        <form action="removeEnrollment.php" method="POST" onsubmit="return showModal(<?php echo $daysUntilEvent; ?>)"> 
                             <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
                             <button type="submit" class="button remove-enroll-button<?php echo ($daysUntilEvent <= 7) ? ' disabled' : ''; ?>" <?php echo ($daysUntilEvent <= 7) ? 'disabled' : ''; ?>>Enrolled</button> 
                         </form>
@@ -104,14 +140,56 @@
             <?php endif; ?>
         </div>
     </main>
-</body>
-</html>
-<script type="text/javascript"> 
-    function confirmUnenroll(daysUntilEvent) { 
-        if (daysUntilEvent <= 7) {
-            alert("You cannot unenroll from this event as it is within the next 7 days.");
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+            <button id="confirm-button" class="button">Confirm</button>
+            <button id="cancel-button" class="button">Cancel</button>
+        </div>
+    </div>
+
+    <script type="text/javascript"> 
+        function showModal(daysUntilEvent) {
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+            var confirmButton = document.getElementById("confirm-button");
+            var cancelButton = document.getElementById("cancel-button");
+            var message = document.getElementById("modal-message");
+
+            if (daysUntilEvent <= 7) {
+                message.textContent = "You cannot unenroll from this event as it is within the next 7 days.";
+                confirmButton.style.display = "none";
+            } else {
+                message.textContent = "Are you sure you want to unenroll from this event?";
+                confirmButton.style.display = "inline-block";
+            }
+
+            modal.style.display = "block";
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            cancelButton.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            confirmButton.onclick = function() {
+                modal.style.display = "none";
+                document.querySelector("form[action='removeEnrollment.php']").submit();
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
             return false;
         }
-        return confirm("Are you sure you want to unenroll from this event?");
-    }
-</script>
+    </script>
+</body>
+</html>

@@ -23,7 +23,7 @@
             <?php if (isset($_GET['payment']) && $_GET['payment'] === 'cancel'): ?>
                 <div class="error">Payment was cancelled.<br/>Account not created!</div>
             <?php endif; ?>
-            <form id="register" name="register" action="" method="post" onsubmit="validatePasswords(event)">
+            <form id="register" name="register" action="index.php?url=processsignin" method="post" onsubmit="validatePasswords(event)">
                 <!-- Step 1: Basic Information -->
                 <div id="step1">
                     <table>
@@ -139,14 +139,13 @@
                 <div id="step5" style="display: none;">
                     <div class="success">Payment was successful!</div>
                     <div class="button-container"> 
-                        <button type="button">Finish</button>
+                        <button type="submit">Finish</button>
                     </div>
                 </div>
                 <script>
                     payhere.onCompleted = function onCompleted(orderId) {
                         document.getElementById('payment_status').value = 'success';
-                        document.getElementById('register').submit();
-                        window.location.href = "login.php?payment=success";
+                        showNextStep('step4', 'step5', true);
                     };
 
                     payhere.onDismissed = function onDismissed() {

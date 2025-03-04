@@ -31,6 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+<?php 
+    $parameter='dashboard';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,22 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
 
     <div class="container">
-        <aside class="sidebar">
-            <div class="profile-section">
-                <div class="profile-icon">
-                    <img src="./images/adminlogo.png" alt="Profile">
-                </div>
-                <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>
-            </div>
-            <ul>
-                <li class="active">Dashboard</li>
-                <!-- <li><a>Dashboard</a></li> -->
-                <li><a href="manage_users.php">Manage Users</a></li>
-                <li><a href="role_requests.php">User Privilage Requests</a></li>
-                <li><a href="manageevent.php">Approve Events</a></li>
-                <li><a href="inventory.php">Manage Inventory</a></li>
-            </ul>
-        </aside>
+        <?php include 'aside.php'; ?>
 
         <main class="main-content">
             <!-- User Type Section -->
