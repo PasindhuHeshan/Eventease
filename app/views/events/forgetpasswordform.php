@@ -23,7 +23,7 @@
                     </tr>
                     <?php if (isset($_SESSION['error'])) { ?>
                         <tr>
-                            <td colspan="2"><p style="color: red; text-align: center"><?php echo $_SESSION['error']; ?></p></td>
+                            <td colspan="2"><p style="color: red; text-align: center"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p></td>
                         </tr>
                     <?php } ?>
                 </table>

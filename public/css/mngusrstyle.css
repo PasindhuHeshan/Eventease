@@ -100,44 +100,6 @@
         margin-bottom: 10px;
     }
 
-    .sidebar ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .sidebar ul li {
-        padding: 0;
-        margin: 0;
-    }
-
-    .sidebar ul li a {
-        display: block;
-        padding: 15px 20px;
-        color: #333;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .sidebar ul li a:hover {
-        background-color: rgb(156, 199, 215);
-        color: #535e94;
-        text-decoration: none;
-        border-radius: 10px;
-    }
-
-    .sidebar ul li.active {
-        padding: 15px 20px;
-        color: #535e94;
-    }
-
-    .sidebar ul li.active:hover {
-        background-color: rgb(156, 199, 215);
-        color: #535e94;
-        text-decoration: none;
-        border-radius: 10px;
-    }
-
     .content {
         flex: 1;
         padding: 20px;

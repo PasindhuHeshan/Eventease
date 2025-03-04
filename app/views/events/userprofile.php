@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="./css/userprofile.css">
-</head>
-<style>
+    <style>
         /* Hide increment arrows in number inputs */
         input[type=number]::-webkit-outer-spin-button,
         input[type=number]::-webkit-inner-spin-button {
@@ -15,10 +14,11 @@
             -moz-appearance: textfield;
         }
     </style>
+</head>
 <body>
     <div class="box">
         <div class="container">
-            <center><h2>Profile Details</h2></center>
+            <h2>Profile Details</h2>
             <div class="profile">
                 <div class="profile-image">
                     <div class="image">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="imgbuttons">
                         <form action="user_controller.php?url=uploadProfilePicture" method="post" enctype="multipart/form-data">
-                            <button type="button" class="upload-btn" onclick="document.getElementById('profile_picture').click();">Add Image</button>
+                            <button type="button" class="upload-btn" onclick="document.getElementById('profile_picture').click();">Change Image</button>
                             <input type="file" id="profile_picture" name="profile_picture" style="display: none;" onchange="showFileName()">
                             <span id="file-name" class="file-name"></span>
                             <button type="submit" id="upload-button" style="display: none;">Upload</button>
@@ -75,87 +75,77 @@
                     </div>
                 </div>
 
-                <!-- Profile Details Section -->
                 <div class="profile-details">
                     <form id="profileForm" action="index.php?url=updateProfile.php" method="post">
                         <table>
                             <tr>
-                                <td><label for="fname">First Name</label></td>
-                                <td><input type="text" id="fname" name="fname" value="<?php if ($userData) echo $userData['fname']; ?>" oninput="showSaveButton()"></td>
+                                <th><label for="fname">First Name</label></th>
+                                <td><input type="text" id="fname" name="fname" value="<?php if ($userData) echo $userData['fname']; ?>" oninput="showSaveButton()" required></td>
                             </tr>
                             <tr>
-                                <td><label for="lname">Last Name</label></td>
-                                <td><input type="text" id="lname" name="lname" value="<?php if ($userData) echo $userData['lname']; ?>" oninput="showSaveButton()"></td>
+                                <th><label for="lname">Last Name</label></th>
+                                <td><input type="text" id="lname" name="lname" value="<?php if ($userData) echo $userData['lname']; ?>" oninput="showSaveButton()" required></td>
                             </tr>
                             <tr>
-                                <td><label for="email">Email</label></td>
+                                <th><label for="email">Email</label></th>
                                 <td><input type="email" id="email" name="email" value="<?php if ($userData) echo $userData['email']; ?>" oninput="showSaveButton()" readonly></td>
                             </tr>
                             <tr>
-                                <td><label for="address">Address</label></td>
+                                <th><label for="address">Address</label></th>
                                 <td><input type="text" id="address" name="address" value="<?php if ($userData) echo $userData['address']; ?>" oninput="showSaveButton()"></td>
                             </tr>
                             <tr>
-                                <td><label for="city">City</label></td>
+                                <th><label for="city">City</label></th>
                                 <td><input type="text" id="city" name="city" value="<?php if ($userData) echo $userData['city']; ?>" oninput="showSaveButton()"></td>
                             </tr>
-                            <tr> 
-                                <td><label for="contactno1">Primary Contact Number</label></td> 
-                                <td><input type="number" id="contactno1" name="contactno1" value="<?php if ($userData) echo $userData['contactno1']; ?>" oninput="showSaveButton()"></td> 
-                            </tr> 
-                            <tr> 
-                                <td><label for="contactno2">Secondary Contact Number</label></td> 
+                            <tr>
+                                <th><label for="contactno1">Primary Contact No</label></th>
+                                <td><input type="number" id="contactno1" name="contactno1" value="<?php if ($userData) echo $userData['contactno1']; ?>" oninput="showSaveButton()" required></td>
+                            </tr>
+                            <tr>
+                                <th><label for="contactno2">Secondary Contact No</label></th>
                                 <td><input type="number" id="contactno2" name="contactno2" value="<?php if ($userData && $userData['contactno2']) echo $userData['contactno2']; ?>" oninput="showSaveButton()"></td>
                             </tr>
+                            <?php if ($userData && $userData['usertype'] !== 'guest') : ?>
+                                <tr>
+                                    <th><label for="universityid">University ID</label></th>
+                                    <td><input type="text" id="universityid" name="universityid" value="<?php echo $userData['universityid']; ?>" readonly></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') : ?>
+                                <tr>
+                                    <th><label for="universityregno">University Reg No</label></th>
+                                    <td><input type="text" id="universityregno" name="universityregno" value="<?php echo $userData['universityregno']; ?>" readonly></td>
+                                </tr>
+                            <?php endif; ?>
                             <tr>
-                                <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest') ? 'table-cell' : 'none'; ?>">
-                                    <label for="universityid">University ID</label>
-                                </td>
-                                <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest') ? 'table-cell' : 'none'; ?>">
-                                    <?php if ($userData && $userData['usertype'] !== 'guest') : ?>
-                                        <input type="text" id="universityid" name="universityid" value="<?php echo $userData['universityid']; ?>" readonly>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                            <tr>
-                            <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') ? 'table-cell' : 'none'; ?>">
-                                <label for="universityregno">University Registration No</label>
-                            </td>
-                            <td style="display: <?php echo ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') ? 'table-cell' : 'none'; ?>">
-                                <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') : ?>
-                                    <input type="text" id="universityregno" name="universityregno" value="<?php echo $userData['universityregno']; ?>" readonly>
-                                <?php endif; ?>
-                            </td>
-
-                            </tr>
-                            <tr>
-                                <td><label for="usertype">User Type</label></td>
-                                <td><input type="text" id="usertype" name="usertype" value="<?php if ($userData) echo $userData['usertype']; ?>" readonly style="border:none"></td>
+                                <th><label for="usertype">User Type</label></th>
+                                <td><input type="text" id="usertype" name="usertype" value="<?php if ($userData) echo $userData['usertype']; ?>" readonly></td>
                             </tr>
                         </table>
-                        <!-- Buttons Section -->
+
                         <div class="buttons">
-                            <div class="button-div">
-                                <button type="submit" class="save-btn" id="save-button" style="display: none;">Save</button>
-                                <button type="submit" class="delete-btn" id="delete-button" onclick="confirmDelete()">Delete Account</button>
-                            </div>
+                            <button type="submit" class="save-btn" id="save-button" style="display: none;">Save Changes</button>
+                            <button type="button" class="delete-btn" onclick="confirmDelete()">Delete Account</button>
+
                             <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff' && $userData['usertype'] !== 'organizer') : ?>
-                                <?php
-                                    if(!$roleData){
-                                ?>
-                                    <p class="request-para">Do you want to Request Event Organizer Privilege?</p>
-                                    <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request</button>
-                                <?php } else { ?>
-                                    <p class="request-para">You have created a Role Request. Need to update it?</p>
-                                    <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Update</button>
-                                <?php }; ?>
+                                <div class="request-section">  <?php if (!$roleData) : ?>
+                                        <p class="request-para">Want to become an Event Organizer?</p>
+                                        <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request Privilege</button>
+                                    <?php else : ?>
+                                        <p class="request-para">Role Request Submitted. Update?</p>
+                                        <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Update Request</button>
+                                    <?php endif; ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </form>
                 </div>
-            </form>
+            </div>
         </div>
-        <script>
+    </div>
+
+    <script>
             function showSaveButton() {
                 document.getElementById('save-button').style.display = 'block';
             }
@@ -176,20 +166,18 @@
                     return false;
                 }
             }
-        </script>
-    </div>
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                const inputs = document.querySelectorAll('.inputs input');
+                const saveButton = document.querySelector('.save-btn');
+                saveButton.style.display = 'none';
+
+                inputs.forEach(input => {
+                    input.addEventListener('input', function() {
+                        saveButton.style.display = 'block';
+                    });
+                });
+            });
+    </script>
 </body>
 </html>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('.inputs input');
-        const saveButton = document.querySelector('.save-btn');
-        saveButton.style.display = 'none';
-
-        inputs.forEach(input => {
-            input.addEventListener('input', function() {
-                saveButton.style.display = 'block';
-            });
-        });
-    });
-</script>

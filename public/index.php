@@ -63,7 +63,6 @@ switch ($url) {
         $lcontroller->form();
         break;
     case 'processlogin':
-        $hcontroller->render();
         $lcontroller->processlogin();
         break;
     case 'processsignin':

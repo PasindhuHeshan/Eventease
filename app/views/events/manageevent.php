@@ -1,3 +1,6 @@
+<?php 
+    $parameter='manageevent';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,26 +20,11 @@
         </div>
     </header>
     <div class="container">
-        <div class="sidebar">
-            <div class="profile-section">
-                <div class="profile-icon">
-                <img src="./images/adminlogo.png" alt="Profile">
-                </div>
-                <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>
-            </div>
-            <ul>
-                
-                <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="manage_users.php">Manage Users</a></li>
-                <li><a href="role_requests.php">User Privilage Requests</a></li>
-                <li class="active">Approve Events</li>
-                <li><a href="inventory.php">Manage Inventory</a></li>
-            </ul>
-        </div>
+    
+        <?php include 'aside.php'; ?>
 
         <div class="content">
             <iframe src="events.php" class="iframe-section"></iframe>
-            <!-- <iframe src="approved_events.php" class="iframe-section"></iframe> -->
         </div>
     </div>
 </body>

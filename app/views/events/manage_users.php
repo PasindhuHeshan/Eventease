@@ -1,3 +1,6 @@
+<?php 
+    $parameter='manage_users';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,22 +21,8 @@
         </div>
     </header>
     <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="profile-section">
-                <div class="profile-icon">
-                    <img src="./images/adminlogo.png" alt="Profile">
-                </div>
-                <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
-            </div>
-            <ul>
-                <li><a href="dashboard.php">Dashboard</a></li>
-                <li class="active">Manage Users</li>
-                <li><a href="role_requests.php">User Privilage Requests</a></li>
-                <li><a href="manageevent.php">Approve Events</a></li>
-                <li><a href="inventory.php">Manage Inventory</a></li>
-            </ul>
-        </div>
+    
+        <?php include 'aside.php'; ?>
 
         <!-- Content -->
         <div class="content">
