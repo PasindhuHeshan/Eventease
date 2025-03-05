@@ -9,26 +9,26 @@ use App\Models\Dashboard;
 $database = new Database();
 $dashboard = new Dashboard($database);
 
-$user_count = $dashboard->getUserCount('admin');
-$event_count =  $dashboard->getEventCount('social');
-$inventory_count =  $dashboard->getInventoryCount('Appliances');
+// Define the user types
+$user_types = ['admin', 'staff', 'guest', 'organizer', 'student', 'support'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['user_type'])) {
-        $user_type = $_POST['user_type'];
-        $user_count = $dashboard->getUserCount($user_type);
-    }
+// Initialize an array to store user counts
+$user_counts = [];
 
-    if (isset($_POST['event_type'])) {
-        $event_type = $_POST['event_type'];
-        $event_count = $dashboard->getEventCount($event_type);
-    }
-
-    if (isset($_POST['inventory_type'])) {
-        $inventory_type = $_POST['inventory_type'];
-        $inventory_count = $dashboard->getInventoryCount($inventory_type);
-    }
+// Retrieve user counts for each user type
+foreach ($user_types as $type) {
+    $user_counts[$type] = $dashboard->getUserCount($type);
 }
+
+// Map database values to display values
+$display_user_types = [
+    'admin' => 'Admin',
+    'staff' => 'Academic Staff',
+    'guest' => 'Guest',
+    'organizer' => 'Event Organizer',
+    'student' => 'Student',
+    'support' => 'Support Staff'
+];
 ?>
 
 <?php 
@@ -41,6 +41,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="./css/dashboardstyle.css">
+    <style>
+        .container {
+            display: flex;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .upper-section, .lower-section {
+            flex: 1;
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .upper-section {
+            flex-direction: row;
+        }
+        .left-part, .right-part {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-right: 10px;
+        }
+        .right-part {
+            margin-right: 0;
+        }
+        .lower-section {
+            display: flex;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        .lower-left, .lower-right {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .lower-right {
+            margin-right: 0;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .data-title {
+            font-weight: bold;
+        }
+        </style>
 </head>
 <body>
     <header>
@@ -57,56 +106,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php include 'aside.php'; ?>
 
         <main class="main-content">
-            <!-- User Type Section -->
-            <form id="filter-form" action="dashboard.php" method="POST">
-                <div class="card">
-                    <h3>User Type</h3>
-                    <select name="user_type" onchange="this.form.submit()">
-                        <option value="admin" <?php if(isset($user_type) && $user_type == 'admin') echo 'selected'; ?>>Admin</option>
-                        <option value="staff" <?php if(isset($user_type) && $user_type == 'staff') echo 'selected'; ?>>Staff Member</option>
-                        <option value="guest" <?php if(isset($user_type) && $user_type == 'guest') echo 'selected'; ?>>Guest</option>
-                        <option value="organizer" <?php if(isset($user_type) && $user_type == 'organizer') echo 'selected'; ?>>Event Organizer</option>
-                        <option value="student" <?php if(isset($user_type) && $user_type == 'student') echo 'selected'; ?>>Student</option>
-                        <option value="support" <?php if(isset($user_type) && $user_type == 'support') echo 'selected'; ?>>SupportStaff </option>
-                    </select>
-                    <p>Users: <?php echo $user_count; ?></p>
+            <div class="upper-section">
+                <div class="left-part">
+                <table border="1" style="width:100%; border-collapse: collapse;">
+                    <tr>
+                        <th>User Type</th>
+                        <th>New Count (this month)</th>
+                        <th>User Count</th>
+                    </tr>
+                    <?php foreach ($user_types as $type): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($display_user_types[$type] ?? ''); ?></td>
+                        <td style="color:green;"><?php if (isset($newuser_count[$type]) && $newuser_count[$type] !== null){echo '+'.htmlspecialchars($newuser_count[$type]);}else{echo '-';} ?></td> <!-- New user count -->
+                        <td><?php echo htmlspecialchars($user_counts[$type] ?? ''); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
                 </div>
-            </form>
+                <div class="right-part">
+                    <div class="data-row">
+                        <div class="data-title">Unresolved Org Privilege</div>
+                        <div class="data-content">10</div>
+                    </div>
+                    <div class="data-row">
+                        <div class="data-title">Unresolved Event Approvals</div>
+                        <div class="data-content">5</div>
+                    </div>
+                    <div class="data-row">
+                        <div class="data-title">Inventory Outages</div>
+                        <div class="data-content">2</div>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Event Type Section -->
-            <form id="filter-form" action="dashboard.php" method="POST">
-                <div class="card">
-                    <h3>Event Type</h3>
-                    <select name="event_type" onchange="this.form.submit()">
-                        <option value="Social" <?php if(isset($event_type) && $event_type == 'Social') echo 'selected'; ?>>Social</option>
-                        <option value="Educational" <?php if(isset($event_type) && $event_type == 'Educational') echo 'selected'; ?>>Educational</option>
-                        <option value="Entertainment" <?php if(isset($event_type) && $event_type == 'Entertainment') echo 'selected'; ?>>Entertainment</option>
-                        <option value="Culture" <?php if(isset($event_type) && $event_type == 'Culture') echo 'selected'; ?>>Culture</option>
-                        <option value="Charity" <?php if(isset($event_type) && $event_type == 'Charity') echo 'selected'; ?>>Charity</option>
-                        <option value="Exhibition" <?php if(isset($event_type) && $event_type == 'Exhibition') echo 'selected'; ?>>Exhibition</option>
-                        <option value="Festival" <?php if(isset($event_type) && $event_type == 'Festival') echo 'selected'; ?>>Festival</option>
-                        <option value="Conference" <?php if(isset($event_type) && $event_type == 'Conference') echo 'selected'; ?>>Conference</option>
-                        <option value="Event" <?php if(isset($event_type) && $event_type == 'Event') echo 'selected'; ?>>Event</option>
-                        <option value="Expo" <?php if(isset($event_type) && $event_type == 'Expo') echo 'selected'; ?>>Expo</option>
-                        <option value="Summit" <?php if(isset($event_type) && $event_type == 'Summit') echo 'selected'; ?>>Summit</option>
-                    </select>
-                    <p>Events: <?php echo $event_count; ?></p>
+            <div class="lower-section">
+                <div class="lower-left">
+                    <div class="data-row">
+                        <div class="data-title">Disable Account Complaints</div>
+                        <div class="data-content">3</div>
+                    </div>
                 </div>
-            </form>
-
-            <!-- Inventory Section -->
-            <form id="inventory-form" method="POST" action="dashboard.php">
-                <div class="card">
-                    <h3>Inventory</h3>
-                    <select name="inventory_type" onchange="this.form.submit()">
-                        <option value="Appliances" <?php if(isset($inventory_type) && $inventory_type == 'Appliances') echo 'selected'; ?>>Appliances</option>
-                        <option value="Stationery" <?php if(isset($inventory_type) && $inventory_type == 'Stationery') echo 'selected'; ?>>Stationery</option>
-                        <option value="Furniture" <?php if(isset($inventory_type) && $inventory_type == 'Furniture') echo 'selected'; ?>>Furniture</option>
-                        <option value="Electronics" <?php if(isset($inventory_type) && $inventory_type == 'Electronics') echo 'selected'; ?>>Electronics</option>
-                    </select>
-                    <p>Inventories: <?php echo $inventory_count; ?></p>
+                <div class="lower-right">
+                    <div class="data-row">
+                        <div class="data-title">Complaints</div>
+                        <div class="data-content">3</div>
+                    </div>
                 </div>
-            </form>
+            </div>
         </main>
     </div>
 </body>

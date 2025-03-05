@@ -5,8 +5,6 @@ body {
     background-color: #f4f4f4;
 }
 
-
-
 header {
     display: flex;
     justify-content: flex-end;
@@ -34,11 +32,8 @@ header {
 .container {
     display: flex;
     gap: 20px; 
-    
     min-height: calc(100vh - 50px);
 }
-
-
 
 .sidebar {
     width: 200px;
@@ -65,15 +60,38 @@ header {
 .main-content {
     flex-grow: 1;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.upper-section, .lower-section {
+    flex: 1;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.upper-section {
+    flex-direction: row;
+}
+
+.left-part, .right-part {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-right: 10px;
+}
+
+.right-part {
+    margin-right: 0;
+}
+
+.lower-section {
+    border: 1px solid #ccc;
     padding: 20px;
 }
 
 .card {
-   
     background-color: rgb(156, 199, 215);
-
     border-radius: 15px;
     padding: 20px;
     width: 280px;

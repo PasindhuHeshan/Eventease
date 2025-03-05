@@ -55,6 +55,7 @@ class AdminLoginController {
         $dashboard = new Dashboard($database);
 
         $user_count = $dashboard->getUserCount('user_type');
+        $newuser_count = $dashboard->getNewUsersByType();
         $event_count = $dashboard->getEventCount('event_type');
         $inventory_count = $dashboard->getInventoryCount('inventory_type');
 
