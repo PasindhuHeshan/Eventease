@@ -22,6 +22,21 @@ class Dashboard {
         return $data['count'];
     }
 
+    public function getNewUsersByType() {
+        $query = "SELECT usertype, COUNT(*) as count FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) GROUP BY usertype";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $userdata = [];
+        
+        while ($data = $result->fetch_assoc()) {
+            $userdata[$data['usertype']] = $data['count'];
+        }
+        
+        $stmt->close();
+        return $userdata;
+    }
+
     public function getEventCount($event_type) {
         $query = "SELECT COUNT(*) AS count FROM events WHERE event_type = ?";
         $stmt = $this->conn->prepare($query);
