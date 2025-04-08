@@ -60,11 +60,15 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getApprovedEvents() {
-        $query = "SELECT * FROM events WHERE approvedstatus = 1";
-        $result = $this->conn->query($query);
-    
-        return $result->fetch_all(MYSQLI_ASSOC);
+    public function getNotApprovedEvents() {
+        $query = "SELECT no, name, event_type FROM events WHERE approvedstatus = 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $data;
     }
     
 

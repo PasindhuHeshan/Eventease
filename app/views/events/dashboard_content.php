@@ -56,39 +56,114 @@ $display_user_types = [
             margin-bottom: 20px;
         }
         .upper-section {
-            flex-direction: row;
+            display: flex;
+            /*gap: 10px;*/ /* Adds space between the two sections */
         }
-        .left-part, .right-part {
-            flex: 1;
+
+        .left-part {
+            flex: 2; /* Takes up 2 parts of the available space */
+            border: 1px solid #ccc;
+            padding: 0px;
+            box-sizing: border-box; /* Includes padding and border in width calculation */
+        }
+
+        .right-part {
+            flex: 1; /* Takes up 1 part of the available space */
             border: 1px solid #ccc;
             padding: 20px;
-            margin-right: 10px;
+            box-sizing: border-box; /* Includes padding and border in width calculation */
         }
-        .right-part {
-            margin-right: 0;
+
+
+        a{
+            text-decoration: none;
+            color: inherit; 
         }
         .lower-section {
-            display: flex;
-            border: 1px solid #ccc;
-            padding: 20px;
-        }
-        .lower-left, .lower-right {
-            flex: 1;
-            margin-right: 10px;
-        }
-        .lower-right {
-            margin-right: 0;
-        }
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-        .data-title {
-            font-weight: bold;
-        }
+    display: flex;
+    justify-content: space-between; /* Adds space between cards */
+    gap: 10px; /* Adds spacing between the cards */
+    border: none;
+}
+
+.lower-card {
+    transition: transform 0.3s ease-in-out;
+    flex: 1; /* Ensures all cards take up equal width */
+    border: 1px solid #ccc; /* Adds a border for consistency */
+    border-radius: 25px; /* Rounds the corners */
+    padding: 10px; /* Adds padding for neatness */
+    display: flex;
+    align-items: center; /* Aligns the items vertically */
+    justify-content: space-between; /* Ensures proper spacing between elements */
+}
+
+.lower-card:hover {
+    transform: scale(1.02); /* Slightly increase the size on hover */
+}
+
+.data-row {
+    display: flex;
+    flex-direction: row; /* Aligns content horizontally */
+    align-items: center; /* Aligns items vertically */
+    justify-content: space-between; /* Adds spacing between the info and image */
+    width: 100%; /* Takes the full width of the card */
+}
+
+.data-info {
+    text-align: left;
+    flex: 2; /* Gives more space to the info section */
+    /* margin-right: 10px; Adds space between info and image */
+}
+
+.data-image {
+    flex: 1; /* Gives less space to the image */
+    display: flex;
+    justify-content: center; /* Centers the image horizontally */
+    align-items: center; /* Centers the image vertically */
+}
+
+.data-image img {
+    width: 60%; /* Adjusts the image size */
+    height: auto;
+}
+
+
+.data-title {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center; /* Centers the title */
+}
+
+.data-content {
+    font-size: 25px;
+    margin-top: 5px;
+    text-align: center; /* Centers the content */
+}
+
+table {
+    width: 100%; /* Full width table */
+    border-collapse: collapse; /* Ensures clean borders */
+    border: 1px solid #ccc; /* Matches the card border style */
+    height: 300px; /* Set a height similar to card heights */
+    box-sizing: border-box; /* Includes padding and border in the height calculation */
+}
+
+table th, table td {
+    padding: 10px; /* Adds spacing within cells */
+    text-align: center; /* Centers text inside cells */
+    vertical-align: middle; /* Aligns content vertically */
+    border: 1px solid #ccc; /* Matches card borders */
+}
+
+.left-part {
+    display: flex; /* Applies Flexbox to the left section */
+    flex-direction: column; /* Aligns table content vertically */
+    height: 300px; /* Matches card height */
+    justify-content: center; /* Centers the table vertically */
+    box-sizing: border-box; /* Includes padding and border in height */
+}
+
+
         </style>
 </head>
 <body>
@@ -111,49 +186,77 @@ $display_user_types = [
                 <table border="1" style="width:100%; border-collapse: collapse;">
                     <tr>
                         <th>User Type</th>
-                        <th>New Count (this month)</th>
-                        <th>User Count</th>
+                        <th>New Users (<?php echo date('F'); ?>)</th>
+                        <th>Total</th>
                     </tr>
                     <?php foreach ($user_types as $type): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($display_user_types[$type] ?? ''); ?></td>
-                        <td style="color:green;"><?php if (isset($newuser_count[$type]) && $newuser_count[$type] !== null){echo '+'.htmlspecialchars($newuser_count[$type]);}else{echo '-';} ?></td> <!-- New user count -->
+                        <td style="color:green;"><?php if (isset($newuser_count[$type]) && $newuser_count[$type] !== null){echo '+'.htmlspecialchars($newuser_count[$type]);}else{echo '-';} ?></td>
                         <td><?php echo htmlspecialchars($user_counts[$type] ?? ''); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </table>
                 </div>
-                <div class="right-part">
+                <div class="lower-card">
+                    <a href="role_requests.php">
                     <div class="data-row">
-                        <div class="data-title">Unresolved Org Privilege</div>
-                        <div class="data-content">10</div>
+                        <div class="data-info">
+                            <div class="data-title">Pending Organizational Privilege Requests</div>
+                            <div class="data-content"><?php echo htmlspecialchars($roleRequestscount ?? '-'); ?></div>
+                        </div>
+                        <div class="data-image">
+                            <img src="./images/bell.png" alt="Bell Icon">
+                        </div>
                     </div>
-                    <div class="data-row">
-                        <div class="data-title">Unresolved Event Approvals</div>
-                        <div class="data-content">5</div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="lower-section">
+    
+            <div class="lower-card">
+                <a href="manageevent.php">
+                <div class="data-row">
+                    <div class="data-info">
+                        <div class="data-title">Pending Event Approvals</div>
+                        <div class="data-content"><?php echo htmlspecialchars($eventcount ?? '-'); ?></div>
                     </div>
-                    <div class="data-row">
-                        <div class="data-title">Inventory Outages</div>
-                        <div class="data-content">2</div>
+                    <div class="data-image">
+                        <img src="./images/bell.png" alt="Bell Icon">
+                    </div>
+                </div>
+                </a>
+            </div>
+    
+            <div class="lower-card">
+                <div class="data-row">
+                    <div class="data-info">
+                        <div class="data-title">Disable Account Complaints</div>
+                        <div class="data-content">3</div>
+                    </div>
+                    <div class="data-image">
+                        <img src="./images/bell.png" alt="Bell Icon">
                     </div>
                 </div>
             </div>
 
-            <div class="lower-section">
-                <div class="lower-left">
-                    <div class="data-row">
-                        <div class="data-title">Disable Account Complaints</div>
-                        <div class="data-content">3</div>
-                    </div>
-                </div>
-                <div class="lower-right">
-                    <div class="data-row">
+            <div class="lower-card">
+                <div class="data-row">
+                    <div class="data-info">
                         <div class="data-title">Complaints</div>
                         <div class="data-content">3</div>
                     </div>
+                    <div class="data-image">
+                        <img src="./images/bell.png" alt="Bell Icon">
+                    </div>
                 </div>
             </div>
-        </main>
     </div>
-</body>
-</html>
+
+
+            </main>
+        </div>
+    </body>
+    </html>
