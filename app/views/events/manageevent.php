@@ -24,7 +24,7 @@
         <?php include 'aside.php'; ?>
 
         <div class="content">
-            <iframe src="events.php" class="iframe-section"></iframe>
+            <?php include 'events.php'; ?>
         </div>
     </div>
 </body>

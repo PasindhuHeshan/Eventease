@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\EventModel;
 use App\Models\Dashboard;
 use App\Database;
 
@@ -53,6 +54,11 @@ class AdminLoginController {
     public function dashboard() {
         $database = new Database();
         $dashboard = new Dashboard($database);
+        $usermodel = new UserModel();
+        $eventmodel = new EventModel($database);
+        
+        $eventcount = count($eventmodel->getNotApprovedEvents($database));
+        $roleRequestscount = count($usermodel->getRoleRequests($database));
 
         $user_count = $dashboard->getUserCount('user_type');
         $newuser_count = $dashboard->getNewUsersByType();
@@ -157,6 +163,11 @@ class AdminLoginController {
     
 
     public function manageevent(){
+        $database = new Database();
+        $eventmodel = new EventModel($database);
+
+        $events = $eventmodel->getNotApprovedEvents($database);
+
         include __DIR__ . '/../Views/events/manageevent.php';
     }
 

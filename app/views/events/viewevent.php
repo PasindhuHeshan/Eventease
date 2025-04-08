@@ -48,7 +48,7 @@ $conn->close();
 </head>
 <body>
     <div class="event-container">
-        <h2> Events</h2>
+        <h2> Inventory Requested</h2>
         
         <?php if ($eventData): ?>
             <!-- Displaying Event Name and Description if found -->
@@ -56,9 +56,17 @@ $conn->close();
                 <label class="event-label">Event name:</label>
                 <div class="event-name"><?php echo htmlspecialchars($eventData['name']); ?></div>
             </div>
-            <div class="event-details">
+            <!-- <div class="event-details">
                 <label class="event-label">Event description:</label>
                 <div class="event-description"><?php echo htmlspecialchars($eventData['long_dis']); ?></div>
+            </div> -->
+            <div class="event-details">
+                <label class="event-label">Inventory requested:</label>
+                <div class="event-name"><?php echo htmlspecialchars($eventData['name']); ?></div>
+            </div>
+            <div class="event-details">
+                <label class="event-label">Inventory in use:</label>
+                <div class="event-name"><?php echo htmlspecialchars($eventData['name']); ?></div>
             </div>
         <?php else: ?>
             <!-- If no unapproved event is found -->
@@ -70,7 +78,7 @@ $conn->close();
         <div class="event-buttons">
             <!-- These buttons would need logic to handle approval or rejection -->
             <button class="approve-btn">Approve</button>
-            <button class="delete-btn">Delete</button>
+            <button class="delete-btn">Reject</button>
         </div>
     </div>
 </body>
