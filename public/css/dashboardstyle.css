@@ -87,7 +87,6 @@ header {
 
 .lower-section {
     border: 1px solid #ccc;
-    /* padding: 20px; */
 }
 
 .card {
@@ -127,3 +126,4 @@ header {
     font-size: 18px;
     color: #100f0fc6;
 }
+

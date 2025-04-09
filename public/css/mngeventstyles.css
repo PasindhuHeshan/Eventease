@@ -148,8 +148,8 @@ button:hover {
 
 .event-type-container {
     display: flex;
-    align-items: center; /* Align label and select vertically */
-    gap: 10px; /* Add spacing between label and select */
+    align-items: center; 
+    gap: 10px;
     margin: 10px 0;
 }
 
