@@ -45,11 +45,11 @@ td select {
 }
 .myTextarea {
     width: 100%;
-    resize: none; /* Prevent manual resizing */
+    resize: none;
     border: 2px solid black;
     padding: 10px;
     border-radius: 10px;
-    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    box-sizing: border-box; 
 }
 
 

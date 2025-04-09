@@ -9,18 +9,18 @@ use App\Models\Dashboard;
 $database = new Database();
 $dashboard = new Dashboard($database);
 
-// Define the user types
+//Define the user types
 $user_types = ['admin', 'staff', 'guest', 'organizer', 'student', 'support'];
 
-// Initialize an array to store user counts
+//to Initialize an array to store user counts
 $user_counts = [];
 
-// Retrieve user counts for each user type
+//Retrieve user counts for each user type
 foreach ($user_types as $type) {
     $user_counts[$type] = $dashboard->getUserCount($type);
 }
 
-// Map database values to display values
+//Map database values to display values
 $display_user_types = [
     'admin' => 'Admin',
     'staff' => 'Academic Staff',
@@ -57,21 +57,20 @@ $display_user_types = [
         }
         .upper-section {
             display: flex;
-            /*gap: 10px;*/ /* Adds space between the two sections */
         }
 
         .left-part {
-            flex: 2; /* Takes up 2 parts of the available space */
+            flex: 2;
             border: 1px solid #ccc;
             padding: 0px;
-            box-sizing: border-box; /* Includes padding and border in width calculation */
+            box-sizing: border-box; 
         }
 
         .right-part {
-            flex: 1; /* Takes up 1 part of the available space */
+            flex: 1; 
             border: 1px solid #ccc;
             padding: 20px;
-            box-sizing: border-box; /* Includes padding and border in width calculation */
+            box-sizing: border-box; 
         }
 
 
@@ -80,50 +79,56 @@ $display_user_types = [
             color: inherit; 
         }
         .lower-section {
-    display: flex;
-    justify-content: space-between; /* Adds space between cards */
-    gap: 10px; /* Adds spacing between the cards */
-    border: none;
-}
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        border: none;
+        }
 
 .lower-card {
-    transition: transform 0.3s ease-in-out;
-    flex: 1; /* Ensures all cards take up equal width */
-    border: 1px solid #ccc; /* Adds a border for consistency */
-    border-radius: 25px; /* Rounds the corners */
-    padding: 10px; /* Adds padding for neatness */
+    flex: 1; 
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 10px; 
     display: flex;
-    align-items: center; /* Aligns the items vertically */
-    justify-content: space-between; /* Ensures proper spacing between elements */
+    align-items: center; 
+    justify-content: space-between; 
+    background: linear-gradient(to right, rgb(156, 199, 215), rgb(200, 230, 240));
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 280px;
+    height: 260px;
+    
 }
 
+
 .lower-card:hover {
-    transform: scale(1.02); /* Slightly increase the size on hover */
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .data-row {
     display: flex;
-    flex-direction: row; /* Aligns content horizontally */
-    align-items: center; /* Aligns items vertically */
-    justify-content: space-between; /* Adds spacing between the info and image */
-    width: 100%; /* Takes the full width of the card */
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-between; 
+    width: 100%; 
 }
 
 .data-info {
     text-align: left;
-    flex: 2; /* Gives more space to the info section */
-    /* margin-right: 10px; Adds space between info and image */
+    flex: 2;
 }
 
 .data-image {
-    flex: 1; /* Gives less space to the image */
+    flex: 1; 
     display: flex;
-    justify-content: center; /* Centers the image horizontally */
-    align-items: center; /* Centers the image vertically */
+    justify-content: center; 
+    align-items: center;
 }
 
 .data-image img {
-    width: 60%; /* Adjusts the image size */
+    width: 60%; 
     height: auto;
 }
 
@@ -131,38 +136,65 @@ $display_user_types = [
 .data-title {
     font-weight: bold;
     margin-top: 10px;
-    text-align: center; /* Centers the title */
+    font-size: 20px;
+    text-align: center; 
 }
 
 .data-content {
     font-size: 25px;
     margin-top: 5px;
-    text-align: center; /* Centers the content */
+    text-align: center; 
 }
 
 table {
-    width: 100%; /* Full width table */
-    border-collapse: collapse; /* Ensures clean borders */
-    border: 1px solid #ccc; /* Matches the card border style */
-    height: 300px; /* Set a height similar to card heights */
-    box-sizing: border-box; /* Includes padding and border in the height calculation */
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 300px;
+    box-sizing: border-box; 
 }
 
 table th, table td {
-    padding: 10px; /* Adds spacing within cells */
-    text-align: center; /* Centers text inside cells */
-    vertical-align: middle; /* Aligns content vertically */
-    border: 1px solid #ccc; /* Matches card borders */
+    border: 1px solid #ddd;
+    padding: 8px; 
+    text-align: center;
+    vertical-align: middle;
+}
+
+table th {
+    background-color:rgba(176, 203, 210, 0.92);
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+table tr:nth-child(odd) {
+    background-color:rgba(232, 241, 247, 0.96);
+}
+
+table tr:hover {
+    background-color:rgba(232, 241, 247, 0.96);
+}
+
+table td:nth-child(2) {
+    width: 30%; 
+}
+
+table td:nth-child(3) {
+    width: 30%; 
 }
 
 .left-part {
-    display: flex; /* Applies Flexbox to the left section */
-    flex-direction: column; /* Aligns table content vertically */
-    height: 300px; /* Matches card height */
-    justify-content: center; /* Centers the table vertically */
-    box-sizing: border-box; /* Includes padding and border in height */
+    display: flex; 
+    flex-direction: column;
+    height: 300px; 
+    justify-content: center; 
+    box-sizing: border-box;
+    border-radius: 16px;
 }
-
 
         </style>
 </head>
@@ -206,7 +238,7 @@ table th, table td {
                             <div class="data-content"><?php echo htmlspecialchars($roleRequestscount ?? '-'); ?></div>
                         </div>
                         <div class="data-image">
-                            <img src="./images/bell.png" alt="Bell Icon">
+                            <img src="./images/privilage.png" alt="privilage Icon">
                         </div>
                     </div>
                     </a>
@@ -224,7 +256,7 @@ table th, table td {
                         <div class="data-content"><?php echo htmlspecialchars($eventcount ?? '-'); ?></div>
                     </div>
                     <div class="data-image">
-                        <img src="./images/bell.png" alt="Bell Icon">
+                        <img src="./images/pendingapproval.png" alt="pendingapproval Icon">
                     </div>
                 </div>
                 </a>
@@ -237,7 +269,7 @@ table th, table td {
                         <div class="data-content">3</div>
                     </div>
                     <div class="data-image">
-                        <img src="./images/bell.png" alt="Bell Icon">
+                        <img src="./images/DisAccComplaints.png" alt="DisAccComplaints Icon">
                     </div>
                 </div>
             </div>
@@ -249,7 +281,7 @@ table th, table td {
                         <div class="data-content">3</div>
                     </div>
                     <div class="data-image">
-                        <img src="./images/bell.png" alt="Bell Icon">
+                        <img src="./images/complaint.png" alt="complaint Icon">
                     </div>
                 </div>
             </div>

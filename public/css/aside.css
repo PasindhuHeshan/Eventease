@@ -22,11 +22,10 @@
     background-color: rgb(156, 199, 215);
     color: #535e94;
     text-decoration: none; 
-    border-radius: 10px; /* Added border-radius */
+    border-radius: 10px; 
 }
 
 .sidebar ul li.active {
-    /* padding: 15px 20px; */
     background:rgb(156, 199, 215);
     border-radius: 10px;
 } 
@@ -35,5 +34,5 @@
      background-color: rgb(156, 199, 215);
     color: #535e94;
     text-decoration: none; 
-    border-radius: 10px; /* Added border-radius */
+    border-radius: 10px; 
 }
