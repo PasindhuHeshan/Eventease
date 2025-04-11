@@ -59,6 +59,7 @@ class AdminLoginController {
         
         $eventcount = count($eventmodel->getNotApprovedEvents($database));
         $roleRequestscount = count($usermodel->getRoleRequests($database));
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
 
         $user_count = $dashboard->getUserCount('user_type');
         $newuser_count = $dashboard->getNewUsersByType();
@@ -71,6 +72,8 @@ class AdminLoginController {
     public function manageusers(){
         $database = new Database();
         $dashboard = new Dashboard($database);
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
 
         $result = $dashboard->getUsers();
         include __DIR__ . '/../Views/events/manage_users.php';
@@ -83,6 +86,7 @@ class AdminLoginController {
     public function role_requests() {
         $database = new Database();
         $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['no'])) {
             $no = $_POST['no'];
@@ -139,6 +143,9 @@ class AdminLoginController {
     }
 
     public function changestatus() {
+        $database = new Database();
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['No']) && isset($_POST['status'])) {
             $No = $_POST['No'];
             $status = $_POST['status'];
@@ -165,15 +172,15 @@ class AdminLoginController {
     public function manageevent(){
         $database = new Database();
         $eventmodel = new EventModel($database);
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
 
         $events = $eventmodel->getNotApprovedEvents($database);
 
         include __DIR__ . '/../Views/events/manageevent.php';
     }
 
-    public function approved_events(){
-        include __DIR__ . '/../Views/events/approved_events.php';
-    }
+   
 
     public function events(){
         include __DIR__ . '/../Views/events/events.php';
@@ -183,14 +190,14 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/viewevent.php';
     }
 
-    public function approvedeventview(){
-        include __DIR__ . '/../Views/events/approvedeventview.php';
-    }
+   
 
     public function Inventory() {
 
         $database = new Database();
         $dashboard = new Dashboard($database);
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
 
         // Check if 'inventory_type' is set, otherwise default to 'Appliances'
         $inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances';
@@ -371,5 +378,19 @@ class AdminLoginController {
             $dashboard = new Dashboard(new Database());
             $dashboard->insertItem($item, $inventory_no, $quantity, $inventory_type);
         }
+    }
+
+    public function disableacc(){
+        $database = new Database();
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+        include __DIR__ . '/../Views/events/disableacc.php';
+    }
+
+    public function complaints(){
+        $database = new Database();
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+        include __DIR__ . '/../Views/events/complaints.php';
     }
 }
