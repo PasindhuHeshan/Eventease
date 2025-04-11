@@ -39,7 +39,7 @@ div ul:not(.nothingul) {
     margin-right: 5px;
 }
 
-div ul li {
+.headerbody div ul li {
     display: inline;
     margin: 5px;
 }

@@ -21,15 +21,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <p>Hello</p>
-        <div class="header-right">
-            <span>, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-            <form method="POST" action="adminlogout.php" class="form">
-                <button type="submit" class="logout-button">Log out</button>
-            </form>
-        </div>
-    </header>
+   
     <div class="container">
     
         <?php include 'aside.php'; ?>
