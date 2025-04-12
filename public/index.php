@@ -288,9 +288,17 @@ switch ($url) {
         $hcontroller->render();
         $alcontroller->disableacc();
         break;
-    case 'complaints.php':
+    case 'feedback.php':
         $hcontroller->render();
-        $alcontroller->complaints();
+        $alcontroller->getfeedbacks();
+        break;
+    case 'feedbackdone':
+        $hcontroller->render();
+        $alcontroller->feedbackdone();
+        break;
+    case 'activeacc':
+        $hcontroller->render();
+        $alcontroller->activeacc();
         break;
     default:
         $hcontroller->render();
