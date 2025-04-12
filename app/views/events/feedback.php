@@ -1,5 +1,5 @@
 <?php 
-    $parameter='complaints';
+    $parameter='feedback';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,38 +19,43 @@
 
     <!-- Content -->
     <div class="content">
-        <h2>General Complaints</h2>
+        <h2>General Feedbacks</h2>
         <p>This page allows the admin to review and manage general Complaints. Admins can approve or reject  Complaints based on the provided information.</p>
         <table>
             <tr>
-                <th>Email</th>
-                <th>Complaint</th>
-                <th>Approve</th>
-                <th>Reject</th>
+                <th>User</th>
+                <th>ID</th>
+                <th>Feedbacks</th>
+                <th>Send Mail</th>
+                <th>Status</th>
             </tr>
 
             <?php
-            if (!empty($roleRequests)) {
-                $rowNumber = 1; // Initialize row number
-                // Output each row
-                foreach ($roleRequests as $row) {
+            if (!empty($complaints)) {
+                foreach ($complaints as $row) {
                     echo "<tr>
-                        <td>" . $rowNumber++ . "</td>
-                        <td>" . htmlspecialchars($row["email"]) . "</td>
-                        <td>" . htmlspecialchars($row["reason"]) . "</td>
+                        <td>" . htmlspecialchars($row["fname"]) . "</td>
+                        <td>" . htmlspecialchars($row["universityid"]) . "</td>
+                        <td>" . htmlspecialchars($row["details"]) . "</td>
                         <td>
-                            <form method='POST' action='role_requests.php'>
-                                <input type='hidden' name='no' value='" . htmlspecialchars($row["no"]) . "'>
-                                <button type='submit' name='approve' " . ($row["status"] == 1 ? "disabled" : "") . ">Approve</button>
+                            <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")'>Send</button>
+                        </td>";
+
+                    if (htmlspecialchars($row["status"]) == 0) {
+                        echo "<td>
+                            <form method='POST' action='feedbackdone'>
+                                <input type='hidden' name='row_id' value='" . htmlspecialchars($row["row_id"]) . "'>
+                                <button type='submit' name='approve'>Done</button>
                             </form>
-                        </td>
-                        <td>
-                            <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")' " . ($row["status"] == -1 ? "disabled" : "") . ">Reject</button>
-                        </td>
-                    </tr>";
+                        </td>";
+                    } else {
+                        echo "<td>Completed</td>";
+                    }
+
+                    echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='7'>No role requests found.</td></tr>";
+                echo "<tr><td colspan='5'>No feedbacks found.</td></tr>";
             }
             ?>
         </table>
@@ -74,7 +79,7 @@
                     <textarea id="reply" name="reply" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="reject">Reject</button>
+                    <button type="submit" name="submit">Submit</button>
                 </div>
             </form>
         </div>

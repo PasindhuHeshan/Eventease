@@ -384,13 +384,43 @@ class AdminLoginController {
         $database = new Database();
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+        $complaints = $usermodel->getdisableaccComplaints($database);
         include __DIR__ . '/../Views/events/disableacc.php';
     }
 
-    public function complaints(){
+    public function activeacc(){
+        $database = new Database();
+        $dashboard = new Dashboard($database);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $no = $_POST['no'] ?? null;
+            $dashboard->updateStatus($no,1);
+            $usermodel = new UserModel();
+            $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+            $usermodel->deleteComplaint($no, $database);
+            $_SESSION['success'] = 'Complaint deleted successfully!';
+            include __DIR__ . '/../Views/events/disableacc.php';
+        }
+    }
+
+    public function getfeedbacks(){
         $database = new Database();
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
-        include __DIR__ . '/../Views/events/complaints.php';
+        $complaints = $usermodel->getfeedbacks($database);
+        include __DIR__ . '/../Views/events/feedback.php';
+    }
+
+    public function feedbackdone(){
+        $database = new Database();
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $row_id = $_POST['row_id'] ?? null;
+            $usermodel->feedbackdone($row_id, $database);
+            $_SESSION['success'] = 'Complaint deleted successfully!';
+            $complaints = $usermodel->getfeedbacks($database);
+            include __DIR__ . '/../Views/events/feedback.php';
+        }
     }
 }

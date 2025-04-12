@@ -22,30 +22,30 @@
         <p>This page allows the admin to review and manage Disable Account Complaints. Admins can approve or reject requests based on the provided information.</p>
         <table>
             <tr>
-                <th>Email</th>
+                <th>User</th>
+                <th>ID</th>
                 <th>Complaint</th>
+                <th>Send Mail</th>
                 <th>Approve</th>
-                <th>Reject</th>
             </tr>
 
             <?php
-            if (!empty($roleRequests)) {
-                $rowNumber = 1; // Initialize row number
-                // Output each row
-                foreach ($roleRequests as $row) {
+            if (!empty($complaints)) {
+                foreach ($complaints as $row) {
                     echo "<tr>
-                        <td>" . $rowNumber++ . "</td>
-                        <td>" . htmlspecialchars($row["email"]) . "</td>
-                        <td>" . htmlspecialchars($row["reason"]) . "</td>
+                        <td>" . htmlspecialchars($row["fname"]) . "</td>
+                        <td>" . htmlspecialchars($row["universityid"]) . "</td>
+                        <td>" . htmlspecialchars($row["details"]) . "</td>
                         <td>
-                            <form method='POST' action='role_requests.php'>
+                            <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")'>Send</button>
+                        </td>
+                        <td>
+                            <form method='POST' action='activeacc'>
                                 <input type='hidden' name='no' value='" . htmlspecialchars($row["no"]) . "'>
-                                <button type='submit' name='approve' " . ($row["status"] == 1 ? "disabled" : "") . ">Approve</button>
+                                <button type='submit' name='approve'>Active</button>
                             </form>
                         </td>
-                        <td>
-                            <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")' " . ($row["status"] == -1 ? "disabled" : "") . ">Reject</button>
-                        </td>
+                        
                     </tr>";
                 }
             } else {
@@ -65,15 +65,15 @@
                 <h2>Disable Account Complaints</h2>
                 <input type="hidden" id="rejectNo" name="no">
                 <div class="form-group">
-                    <label for="fname">Email</label>
-                    <input type="text" value="<?php echo htmlspecialchars($row['email']); ?>" readonly>
+                    <label for="fname">User</label>
+                    <input type="text" value="<?php echo htmlspecialchars($row['fname']); ?>" readonly>
                 </div>
                 <div class="form-group">
                     <label for="reply">Reply</label>
                     <textarea id="reply" name="reply" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="reject">Reject</button>
+                    <button type="submit" name="submit">Send</button>
                 </div>
             </form>
         </div>
