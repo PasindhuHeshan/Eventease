@@ -24,7 +24,8 @@
         <table>
             <tr>
                 <th>No</th>
-                <th>Email</th>
+                <th>ID</th>
+                <th>Organization</th>
                 <th>Reason</th>
                 <th>Approve</th>
                 <th>Reject</th>
@@ -37,12 +38,13 @@
                 foreach ($roleRequests as $row) {
                     echo "<tr>
                         <td>" . $rowNumber++ . "</td>
-                        <td>" . htmlspecialchars($row["email"]) . "</td>
+                        <td>" . htmlspecialchars($row["id"]) . "</td>
+                        <td>" . htmlspecialchars($row["orgname"]) . "</td>
                         <td>" . htmlspecialchars($row["reason"]) . "</td>
                         <td>
                             <form method='POST' action='role_requests.php'>
                                 <input type='hidden' name='no' value='" . htmlspecialchars($row["no"]) . "'>
-                                <button type='submit' name='approve' " . ($row["status"] == 1 ? "disabled" : "") . ">Approve</button>
+                                <button type='submit' name='approve' " . ($row["status"] == 0 ? "disabled" : "") . ">Approve</button>
                             </form>
                         </td>
                         <td>
