@@ -85,18 +85,23 @@
                 }
             ?></textarea>
 
+            <?php if($roleData){ ?>
             <label for="status">Status</label>
-            <div type="text" id="status" name="status" readonly style="color: <?php echo ($roleData && $roleData['status']) ? 'green' : 'red'; ?>">
+            <div type="text" id="status" name="status" readonly style="color: <?php echo ($roleData && $roleData['status']==1) ? 'green' : 'red'; ?>">
                 <?php
-                if ($roleData) {
-                    echo $roleData['status'] ? 'Approved' : 'Pending';
+                if ($roleData && $roleData['status']==0){
+                    echo 'Pending';
+                }else if($roleData && $roleData['status']==1){
+                    echo 'Approved';
+                }else{
+                    echo 'Rejected';
                 }
                 ?>
             </div><br><br>
-
+              <?php }  ?>
             <?php
             
-            if (!$roleData || ($roleData && !$roleData['status'])) {
+            if (!$roleData || !$roleData['status'] == 0 && !$roleData['status'] == 1) {
             ?>
                 <center>
                     <?php if (!$roleData) { ?>

@@ -112,7 +112,7 @@ $display_user_types = [
             </div>
 
             <div class="lower-card">
-            <a href="complaints.php">
+            <a href="feedback.php">
                 <div class="data-row">
                     <div class="data-info">
                         <div class="data-title">Complaints</div>

@@ -7,6 +7,7 @@ require __DIR__ . '/../app/Database.php';
 require __DIR__ . '/../app/Models/UserModel.php';
 require __DIR__ . '/../app/Models/connection.php';
 require __DIR__ . '/../app/Models/EventModel.php';
+require __DIR__ . '/../app/Models/contactus.php';
 require __DIR__ . '/../app/Controllers/EventController.php';
 require __DIR__ . '/../app/Controllers/HeaderController.php';
 require __DIR__ . '/../app/Controllers/LoginController.php';
@@ -233,11 +234,11 @@ switch ($url) {
         break;
     case 'contactus':
         $hcontroller->render();
-        $econtroller->contactus();
+        $cucontroller->contactus();
         break;
     case 'createform':
         $hcontroller->render();
-        $eocontroller->createform();
+        $cucontroller->createform();
         break;
     case 'createevent':
         $hcontroller->render();

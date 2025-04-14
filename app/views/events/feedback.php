@@ -24,40 +24,34 @@
         <table>
             <tr>
                 <th>User</th>
-                <th>ID</th>
+                <th>Contact No</th>
                 <th>Feedbacks</th>
                 <th>Send Mail</th>
                 <th>Status</th>
             </tr>
 
             <?php
-            if (!empty($complaints)) {
-                foreach ($complaints as $row) {
-                    echo "<tr>
-                        <td>" . htmlspecialchars($row["fname"]) . "</td>
-                        <td>" . htmlspecialchars($row["universityid"]) . "</td>
-                        <td>" . htmlspecialchars($row["details"]) . "</td>
-                        <td>
-                            <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")'>Send</button>
-                        </td>";
-
-                    if (htmlspecialchars($row["status"]) == 0) {
-                        echo "<td>
-                            <form method='POST' action='feedbackdone'>
-                                <input type='hidden' name='row_id' value='" . htmlspecialchars($row["row_id"]) . "'>
-                                <button type='submit' name='approve'>Done</button>
-                            </form>
-                        </td>";
-                    } else {
-                        echo "<td>Completed</td>";
+                if (!empty($complaints)) {
+                    foreach ($complaints as $row) {
+                        echo "<tr>
+                            <td>" . htmlspecialchars($row["name"]) . "</td>
+                            <td>" . htmlspecialchars($row["contact_no"]) . "</td>
+                            <td>" . htmlspecialchars($row["details"]) . "</td>
+                            <td>
+                                <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")'>Send</button>
+                            </td>
+                            <td>
+                                <form method='POST' action='feedbackdone'>
+                                    <input type='hidden' name='row_id' value='" . htmlspecialchars($row["no"]) . "'>
+                                    <button type='submit' name='approve'>Done</button>
+                                </form>
+                            </td>
+                        </tr>";
                     }
-
-                    echo "</tr>";
+                } else {
+                    echo "<tr><td colspan='5'>No feedbacks found.</td></tr>";
                 }
-            } else {
-                echo "<tr><td colspan='5'>No feedbacks found.</td></tr>";
-            }
-            ?>
+                ?>
         </table>
     </div>
 </div>

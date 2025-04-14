@@ -34,7 +34,7 @@
                 foreach ($complaints as $row) {
                     echo "<tr>
                         <td>" . htmlspecialchars($row["fname"]) . "</td>
-                        <td>" . htmlspecialchars($row["universityid"]) . "</td>
+                        <td>" . htmlspecialchars($row["id"]) . "</td>
                         <td>" . htmlspecialchars($row["details"]) . "</td>
                         <td>
                             <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")'>Send</button>
