@@ -35,7 +35,7 @@ class EventController
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : null; 
 
     $isEnrolled = false; // Default value when no user is logged in
-    $userdata = ['usertype' => '']; // Default value when no user is logged in
+    $userdata = ['role_name' => '']; // Default value when no user is logged in
 
     if ($username) {
         $isEnrolled = $this->eventModel->isUserEnrolled($username, $no);
@@ -160,7 +160,7 @@ class EventController
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : null; 
     
         $isEnrolled = false; // Default value when no user is logged in
-        $userdata = ['usertype' => '']; // Default value when no user is logged in
+        $userdata = ['role_name' => '']; // Default value when no user is logged in
     
         if ($username) {
             $isEnrolled = $this->eventModel->isUserEnrolled($username, $no);

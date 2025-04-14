@@ -18,7 +18,7 @@ class UserProfileController
         $database = new Database();
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
         $userData = $this->usermodel->getUserData($username, $database);
-        $roleData = $this->usermodel->getRoleRequest($database, $username);
+        $roleData = $this->usermodel->getRoleRequest($database, $userData['No']);
         require __DIR__ . '/../Views/events/userprofile.php';
     }
 
@@ -65,8 +65,8 @@ class UserProfileController
 
             if ($username && $fname && $lname && $email && $address && $city && $contactno1) {
                 $isUpdated = $userModel->updateUserProfile(
-                    $username, $fname, $lname, $email, $address, $city, $contactno1, $contactno2, $database
-                );
+                    $username, $fname, $lname, $email, $address, $city, $database
+                ) && $userModel->updateContactNumber($userModel->getUserData($username,$database)['No'], $contactno1, $contactno2, $database);
 
                 if ($isUpdated) {
                     header("Location: userprofile.php");

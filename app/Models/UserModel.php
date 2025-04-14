@@ -29,8 +29,7 @@ class UserModel {
 
     public function createUser(
         $username, $hashedPassword, $fname, $lname, $email, 
-        $usertype, $universityid, $universityregno, $address, $city,
-        $contactno1, $contactno2, $profile_picture, $status,
+        $usertype, $id, $address, $city, $profile_picture, $status,
         $database
     ) {
         $conn = $database->getConnection();
@@ -42,25 +41,50 @@ class UserModel {
     
         $sql = "INSERT INTO users (
                     username, password, fname, lname, email,
-                    usertype, universityid, universityregno, address, city,
-                    contactno1, contactno2, profile_picture, status, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+                    usertype, id, address, city, profile_picture, status, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssssssssss", 
+        $stmt->bind_param("sssssssssssss", 
             $username, $hashedPassword, $fname, $lname, $email, 
-            $usertype, $universityid, $universityregno, $address, $city,
-            $contactno1, $contactno2, $profile_picture, $status
+            $usertype, $id, $address, $city, $profile_picture, $status
         );
         return $stmt->execute();
     }
     
+    public function createContactNumber($userId, $contactNumber, $database) {
+        $conn = $database->getConnection();
+        $query = "INSERT INTO contact_numbers (Cnt_no, Cnt_num) VALUES (?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("is", $userId, $contactNumber);
+        $stmt->execute();
+        $stmt->close();
+    }
 
-    public function updateUserProfile($username, $fname, $lname, $email, $address, $city, $contactno1, $contactno2, $database) 
+    public function updateUserProfile($username, $fname, $lname, $email, $address, $city, $database) 
     {
         $conn = $database->getConnection();
-        $sql = "UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, city = ?, contactno1 = ?, contactno2 = ? WHERE username = ?";
+        $sql = "UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, city = ? WHERE username = ?";
         $stmt = $conn->prepare($sql);
-        return $stmt->execute([$fname, $lname, $email, $address, $city, $contactno1, $contactno2, $username]);
+        return $stmt->execute([$fname, $lname, $email, $address, $city, $username]);
+    }
+
+    public function updateContactNumber($userId, $contactno1, $contactno2, $database) {
+        $conn = $database->getConnection();
+
+        $deleteSql = "DELETE FROM contact_numbers WHERE Cnt_no = ?";
+        $deleteStmt = $conn->prepare($deleteSql);
+        $deleteStmt->bind_param("i", $userId);
+        $deleteStmt->execute();
+        $deleteStmt->close();
+
+        if ($contactno1) {
+            $this->createContactNumber($userId, $contactno1, $database);
+        }
+        if ($contactno2) {
+            $this->createContactNumber($userId, $contactno2, $database);
+        }
+
+        return true;
     }
 
     public function checkUser($username, Database $database) {
@@ -92,19 +116,38 @@ class UserModel {
     public function getUserData($username, Database $database) {
         $conn = $database->getConnection();
     
-        $sql = "SELECT * FROM users WHERE username = ?";
+        $sql = "SELECT u.*, r.role_name, c.Cnt_num
+                FROM users u
+                JOIN roles r ON u.usertype = r.role_id
+                LEFT JOIN contact_numbers c ON u.No = c.Cnt_no
+                WHERE u.username = ?";
+    
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
     
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            return $row;
+        $userData = null;
+        $contactNumbers = [];
+    
+        while ($row = $result->fetch_assoc()) {
+            if (!$userData) {
+                $userData = $row;
+                unset($userData['Cnt_num']); // Remove the contact number from the user data
+            }
+            if ($row['Cnt_num']) {
+                $contactNumbers[] = $row['Cnt_num'];
+            }
+        }
+    
+        if ($userData) {
+            $userData['contact_numbers'] = $contactNumbers;
+            return $userData; // Returns user data with role_name and contact numbers
         } else {
             return null;
         }
     }
+    
 
     public function fpcheck($username, $email, Database $database) {
         $conn = $database->getConnection();
@@ -134,16 +177,16 @@ class UserModel {
         return true;
     }
 
-    public function insertRoleRequest($username, $email, $role, $reason, $status, Database $database) {
+    public function insertRoleRequest($no, $role,$organization, $reason, $status, Database $database) {
         $conn = $database->getConnection();
-        $sql = "INSERT INTO rolereq (username, email, role, reason, status) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO rolereq (no, role, organization, reason, status) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
     
         if ($stmt === false) {
             die("Error preparing SQL: " . $conn->error);
         }
     
-        $stmt->bind_param("sssss", $username, $email, $role, $reason, $status);
+        $stmt->bind_param("sssss", $no, $role, $organization, $reason, $status);
     
         if ($stmt->execute() === false) {
             die("Error executing SQL: " . $stmt->error);
@@ -153,11 +196,11 @@ class UserModel {
         return true;
     }
 
-    public function getRoleRequest(Database $database, $username){
+    public function getRoleRequest(Database $database, $no){
         $conn = $database->getConnection();
-        $sql = "SELECT * FROM rolereq WHERE username = ?";
+        $sql = "SELECT * FROM rolereq WHERE no = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
+        $stmt->bind_param("s", $no);
         $stmt->execute();
         $result = $stmt->get_result();
     
@@ -238,11 +281,11 @@ class UserModel {
     }
 
     //normal user function
-    public function updateRoleRequest($username, $email, $role, $reason, $status, Database $database) {
+    public function updateRoleRequest($no, $role, $organization, $reason, $status,Database $database) {
         $conn = $database->getConnection();
-        $sql = "UPDATE rolereq set email=?, role=?, reason=?, status=? where username=?";
+        $sql = "UPDATE rolereq set role=?, organization=?,reason=?, status=? where no=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssss", $email, $role, $reason, $status, $username);
+        $stmt->bind_param("sssss", $role,$organization, $reason, $status, $no);
         $stmt->execute();
         $stmt->close();
         return true;
@@ -258,11 +301,11 @@ class UserModel {
         $stmt->close();
     }
 
-    public function deleteRoleRequest($username, Database $database) {
+    public function deleteRoleRequest($no, Database $database) {
         $conn = $database->getConnection();
-        $sql = "DELETE FROM rolereq WHERE username = ?";
+        $sql = "DELETE FROM rolereq WHERE no = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
+        $stmt->bind_param("s", $no);
         $stmt->execute();
         $stmt->close();
         return true;
@@ -280,6 +323,18 @@ class UserModel {
     
         return $row['count'] > 0;
     }
+
+    public function getorganizations(Database $database){
+        $conn= $database->getConnection();
+        $sql = "SELECT * FROM organizations";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $organizations = [];
+        while ($row = $result->fetch_assoc()) {
+            $organizations[] = $row;
+        }
+        return $organizations;
 
     public function getdisableaccComplaints(Database $database) {
         $conn = $database->getConnection();

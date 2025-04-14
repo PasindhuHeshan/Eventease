@@ -9,7 +9,7 @@
             <?php if ($event): ?>
                 <div>
                     <h1><?php echo $event['name']; ?></h1>
-                    <?php if ($event['flag'] == 0 && $userdata['usertype'] == "guest"): ?>
+                    <?php if ($event['flag'] == 0 && $userdata['role_name'] == "Guest"): ?>
                         <p style="font-weight: bold; font-size: smaller; color:red;">*This Event is Only Available for <u>University Students</u></p>
                     <?php endif; ?>
                     <hr>
