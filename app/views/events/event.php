@@ -38,6 +38,14 @@
             flex: 1;
             margin-right: 20px;
         }
+
+        .event-details h1{
+            margin-bottom: 0;
+        }
+
+        .event-details h5{
+            margin: 2px;
+        }
         .cover {
             flex: 0 0 500px;
         }
@@ -89,7 +97,7 @@
         <div class="event-details">
             <?php if ($event): ?>
                 <div>
-                    <h1><?php echo $event['name']; ?></h1>
+                    <h1><?php echo $event['name']; ?></h1><h5>Organized by <?php echo $event['orgname'];?></h5>
                     <?php if ($event['flag'] == 0 && $userdata['usertype'] == "guest"): ?>
                         <p style="font-weight: bold; font-size: smaller; color:red;">*This Event is Only Available for <u>University Students</u></p>
                     <?php endif; ?>

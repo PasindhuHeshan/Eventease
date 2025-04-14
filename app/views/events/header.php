@@ -34,13 +34,13 @@
                             <?php endif; ?>
                         </div>
                     </li>
-                    <?php if($userData['usertype']==='staff'){?>
+                    <?php if($userData['role_name']==='Academic'){?>
                         <li><a href="getApprovedEvents" target="_self">Approve Events</a></li>
                     <?php } ?>
-                    <?php if($userData['usertype']==='organizer'){?>
+                    <?php if($userData['role_name']==='Organizer'){?>
                         <li><a href="myevents" target="_self">My events</a></li>
                     <?php } ?>
-                    <?php if($userData['usertype']==='support'){?>
+                    <?php if($userData['role_name']==='Support Staff'){?>
                         <li>
                             <a href="myevents" target="_self">Assigned Events</a>
                         </li>

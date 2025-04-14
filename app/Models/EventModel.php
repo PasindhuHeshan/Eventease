@@ -43,15 +43,18 @@ class EventModel {
     }
 
     public function getEvent($no) {
-        $query = "SELECT * FROM events WHERE no = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $no);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
+    $query = "SELECT events.*, organizations.* 
+              FROM events 
+              JOIN organizations ON events.orgno = organizations.orgno 
+              WHERE events.no = ?";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bind_param("i", $no);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
 
-        return $result->fetch_assoc();
-    }
+    return $result->fetch_assoc();
+}
 
     public function getAllEvents() {
         $query = "SELECT * FROM events WHERE approvedstatus = 0 AND date >= CURDATE()";

@@ -100,27 +100,27 @@
                             </tr>
                             <tr>
                                 <th><label for="contactno1">Primary Contact No</label></th>
-                                <td><input type="number" id="contactno1" name="contactno1" value="<?php if ($userData) echo $userData['contactno1']; ?>" oninput="showSaveButton()" required></td>
+                                <td><input type="number" id="contactno1" name="contactno1" value="<?php if ($userData && isset($userData['contact_numbers'][0])) echo $userData['contact_numbers'][0]; ?>" oninput="showSaveButton()" required></td>
                             </tr>
                             <tr>
                                 <th><label for="contactno2">Secondary Contact No</label></th>
-                                <td><input type="number" id="contactno2" name="contactno2" value="<?php if ($userData && $userData['contactno2']) echo $userData['contactno2']; ?>" oninput="showSaveButton()"></td>
+                                <td><input type="number" id="contactno2" name="contactno2" value="<?php if ($userData && isset($userData['contact_numbers'][1])) echo $userData['contact_numbers'][1]; ?>" oninput="showSaveButton()"></td>
                             </tr>
-                            <?php if ($userData && $userData['usertype'] !== 'guest') : ?>
+                            <?php if ($userData && $userData['role_name'] !== 'Guest') : ?>
                                 <tr>
-                                    <th><label for="universityid">University ID</label></th>
-                                    <td><input type="text" id="universityid" name="universityid" value="<?php echo $userData['universityid']; ?>" readonly></td>
+                                    <th><label for="id">University ID</label></th>
+                                    <td><input type="text" id="id" name="id" value="<?php echo $userData['id']; ?>" readonly></td>
                                 </tr>
                             <?php endif; ?>
-                            <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff') : ?>
+                            <?php if ($userData && $userData['role_name'] == 'Guest') : ?>
                                 <tr>
-                                    <th><label for="universityregno">University Reg No</label></th>
-                                    <td><input type="text" id="universityregno" name="universityregno" value="<?php echo $userData['universityregno']; ?>" readonly></td>
+                                    <th><label for="id">NIC</label></th>
+                                    <td><input type="text" id="id" name="id" value="<?php echo $userData['id']; ?>" readonly></td>
                                 </tr>
                             <?php endif; ?>
                             <tr>
                                 <th><label for="usertype">User Type</label></th>
-                                <td><input type="text" id="usertype" name="usertype" value="<?php if ($userData) echo $userData['usertype']; ?>" readonly></td>
+                                <td><input type="text" id="usertype" name="usertype" value="<?php if ($userData) echo $userData['role_name']; ?>" readonly></td>
                             </tr>
                         </table>
 
@@ -128,7 +128,7 @@
                             <button type="submit" class="save-btn" id="save-button" style="display: none;">Save Changes</button>
                             <button type="button" class="delete-btn" onclick="confirmDelete()">Delete Account</button>
 
-                            <?php if ($userData && $userData['usertype'] !== 'guest' && $userData['usertype'] !== 'staff' && $userData['usertype'] !== 'organizer') : ?>
+                            <?php if ($userData && $userData['role_name'] !== 'Guest' && $userData['role_name'] !== 'Academic' && $userData['role_name'] !== 'Organizer') : ?>
                                 <div class="request-section">  <?php if (!$roleData) : ?>
                                         <p class="request-para">Want to become an Event Organizer?</p>
                                         <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request Privilege</button>

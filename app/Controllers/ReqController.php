@@ -20,6 +20,12 @@ class ReqController{
             $database = new Database();
             $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
             $userData = $this->usermodel->getUserData($username,$database);
+            if ($username !== null) {
+                $roleData = $this->usermodel->getRoleRequest($database, $userData['No']);
+            } else {
+                $roleData = null; // Handle the case where $no is null
+            }
+            $organization = $this->usermodel->getorganizations($database);
             require __DIR__ . '/../views/events/RoleRequest.php';
         }
         /*public function processreq(){
@@ -45,8 +51,8 @@ class ReqController{
         public function processreq(){
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                 // Retrieve data from POST
-                $username = $_POST['name'];
-                $email = $_POST['email'];
+                $no = $_POST['No'];
+                $organization = $_POST['organization'];
                 $role = $_POST['role'];
                 $reason = $_POST['reason'];
                 $status = isset($_POST['status']) ? $_POST['status'] : 'Pending'; // Default status if not provided
@@ -54,12 +60,12 @@ class ReqController{
 
                 if (isset($_GET['type']) && $_GET['type'] == "update") { 
                     $userModel = new UserModel(); 
-                    $userModel->updateRoleRequest($username, $email, $role, $reason, $status, $database); 
+                    $userModel->updateRoleRequest($no, $role, $organization, $reason, $status, $database); 
                     header('Location: userprofile.php'); 
                     exit(); 
                 } else { 
                     $userModel = new UserModel(); 
-                    $userModel->insertRoleRequest($username, $email, $role, $reason, $status, $database); 
+                    $userModel->insertRoleRequest($no, $role, $organization, $reason, $status, $database); 
                     header('Location: userprofile.php'); 
                     exit();
                 }
@@ -70,23 +76,24 @@ class ReqController{
             
             }
             else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
-                $username = $_POST['name'];
-                $email = $_POST['email'];
+                $no = $_POST['No'];
+                $organization = $_POST['organization'];
+                $role = $_POST['role'];
                 $role = $_POST['role'];
                 $reason = $_POST['reason'];
                 $status = isset($_POST['status']) ? $_POST['status'] : 'Pending'; // Default status if not provided
                 $database = new Database(); // Ensure the database connection is created here
                 $userModel = new UserModel(); 
-                $userModel->updateRoleRequest($username, $email, $role, $reason, $status, $database); 
+                $userModel->updateRoleRequest($no, $role, $organization, $reason, $status, $database); 
                 header('Location: userprofile.php'); 
                 exit();    
                     
             } 
             else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])){
-                $username = $_POST['name'];
+                $no = $_POST['No'];
                 $database = new Database();
                 $userModel = new UserModel();
-                $userModel->deleteRoleRequest($username, $database);
+                $userModel->deleteRoleRequest($no, $database);
                 header('Location: userprofile.php');
                 exit();
             } else {
