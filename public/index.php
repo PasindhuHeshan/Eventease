@@ -130,63 +130,77 @@ switch ($url) {
         $econtroller->removeEnrollment(); 
         break;
     case 'adminlogin.php':
+        $hcontroller->render();
         $alcontroller->form();
         break;
     case 'processadminlogin.php':
+        $hcontroller->render();
         $alcontroller->processlogin();
         break;  
     case 'dashboard.php':
+        $hcontroller->render();
         $alcontroller->dashboard();
         break;    
     case 'adminlogout.php':
+        $hcontroller->render();
         $alcontroller->logout();
         break;   
     case 'manage_users.php':
+        $hcontroller->render();
         $alcontroller->manageusers();
         break; 
     case 'users.php':
+        $hcontroller->render();
         $alcontroller->users();
         break; 
     case 'role_requests.php':
+        $hcontroller->render();
         $alcontroller->role_requests();
         break;
     case 'useradd.php':
+        $hcontroller->render();
         $alcontroller->useradd();
         break;
     case 'manageevent.php':
+        $hcontroller->render();
         $alcontroller->manageevent();
         break;
-    case 'approved_events.php':
-        $alcontroller->approved_events();
-        break;
+    
     case 'events.php':
+        $hcontroller->render();
         $alcontroller->events();
         break;
-    case 'approvedeventview.php':
-        $alcontroller->approvedeventview();
-        break;
+    
     case 'viewevent.php':
+        $hcontroller->render();
         $alcontroller->viewevent();
         break;
     case 'inventory.php':
+        $hcontroller->render();
         $alcontroller->inventory();
         break;
     case 'add_item.php':
+        $hcontroller->render();
         $alcontroller->add_item();
         break;
     case 'import_excel.php':
+        $hcontroller->render();
         $alcontroller->importExcel();
         break;
     case 'save_item.php':
+        $hcontroller->render();
         $alcontroller->save_item();
         break;
     case 'delete_item.php':
+        $hcontroller->render();
         $alcontroller->delete_item();
         break;
     case 'get_item.php':
+        $hcontroller->render();
         $alcontroller->get_item();
         break;
     case 'modify_item.php':
+        $hcontroller->render();
         $alcontroller->modify_item();
         break;
     case 'RoleRequest.php':
@@ -267,7 +281,24 @@ switch ($url) {
         break;
 
     case 'changestatus':
+        $hcontroller->render();
         $alcontroller->changestatus();
+        break;
+    case 'disableacc.php':
+        $hcontroller->render();
+        $alcontroller->disableacc();
+        break;
+    case 'feedback.php':
+        $hcontroller->render();
+        $alcontroller->getfeedbacks();
+        break;
+    case 'feedbackdone':
+        $hcontroller->render();
+        $alcontroller->feedbackdone();
+        break;
+    case 'activeacc':
+        $hcontroller->render();
+        $alcontroller->activeacc();
         break;
     default:
         $hcontroller->render();

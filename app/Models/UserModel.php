@@ -335,6 +335,60 @@ class UserModel {
             $organizations[] = $row;
         }
         return $organizations;
+
+    public function getdisableaccComplaints(Database $database) {
+        $conn = $database->getConnection();
+        $sql = "SELECT * FROM admin_support AS a JOIN users AS u ON a.no = u.No WHERE a.id = 2; ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return [];
+        }
+    }
+
+    public function deleteComplaint($no, Database $database) {
+        $conn = $database->getConnection();
+        $sql = "DELETE FROM admin_support WHERE no = $no";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function getfeedbacks(Database $database) {
+        $conn = $database->getConnection();
+        $sql = "SELECT * FROM admin_support AS a JOIN users AS u ON a.no = u.No WHERE a.id = 1; ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return [];
+        }
+    }
+
+    public function feedbackdone($row_id, Database $database) {
+        $conn = $database->getConnection();
+        $sql = "UPDATE admin_support SET status = 1 WHERE row_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $row_id);
+        $stmt->execute();
+        $stmt->close();
+        return true;
     }
 }
 ?>

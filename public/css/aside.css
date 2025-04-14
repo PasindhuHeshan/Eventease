@@ -13,6 +13,7 @@
     display: block;
     padding: 15px 20px;
     color: #333;
+    background-color: unset;
     text-decoration: none; 
     cursor: pointer;
    
