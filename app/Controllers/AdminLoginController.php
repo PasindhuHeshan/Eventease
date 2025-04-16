@@ -6,11 +6,37 @@ use App\Models\UserModel;
 use App\Models\EventModel;
 use App\Models\Dashboard;
 use App\Models\Contactus;
+use App\Models\EmailModel;
 use App\Database;
 
-require_once __DIR__ . '/../Models/Dashboard.php';
-
 class AdminLoginController {
+    private $userModel; 
+    
+    // public function processSendEmail() {
+    //     if (isset($_POST['send_email'])) {
+    //         $recipient = $_POST['recipient_email'];
+    //         $subject = $_POST['email_subject'];
+    //         $body = $_POST['email_body'];
+
+    //         $this->emailModel = new EmailModel(); // Initialize emailModel
+    //         $success = $this->emailModel->sendEmail($recipient, $subject, $body);
+
+    //         if ($success) {
+    //             $_SESSION['email_message'] = "Email sent successfully to " . htmlspecialchars($recipient);
+    //             $_SESSION['email_success'] = true;
+    //         } else {
+    //             $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
+    //             $_SESSION['email_success'] = false;
+    //         }
+    //         header('Location: index.php?url=manage_users.php'); // Redirect back to manage users page
+    //         exit();
+    //     } else {
+    //         // Handle cases where the form wasn't submitted correctly
+    //         header('Location: index.php?url=manage_users.php'); // Redirect back
+    //         exit();
+    //     }
+    // }
+
     public function processLogin() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['name'] ?? null;
@@ -113,37 +139,106 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/role_requests.php';
     }
 
+    // public function useradd() {
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $fname = $_POST['fname'] ?? null;
+    //         $lname = $_POST['lname'] ?? null;
+    //         $email = $_POST['email'] ?? null;
+    //         $userType = 5;
+
+    //         if ($fname && $lname && $email) {
+    //             $database = new Database();
+    //             $dashboard = new Dashboard($database);
+
+    //             if ($dashboard->checkemail($email)) {
+    //                 $_SESSION['ac_createerror'] = 'Email already exists!';
+    //                 include __DIR__ . '/../Views/events/manage_users.php';
+    //                 exit();
+    //             }
+
+    //             if ($dashboard->addUser($fname, $lname, $email, $userType)) {
+    //                 header("Location: ../public/index.php?url=manage_users.php");
+    //                 exit();
+    //             } else {
+    //                 $_SESSION['ac_createerror'] = 'Error adding user!';
+    //                 include __DIR__ . '/../Views/events/manage_users.php';
+    //             }
+    //         } else {
+    //             $_SESSION['ac_createerror'] = 'Please fill all fields!';
+    //             include __DIR__ . '/../Views/events/manage_users.php';
+    //         }
+    //     } else {
+    //         include __DIR__ . '/../Views/events/manage_users.php';
+    //     }
+    // }
+
     public function useradd() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $fname = $_POST['fname'] ?? null;
-            $lname = $_POST['lname'] ?? null;
-            $email = $_POST['email'] ?? null;
-            $userType = 'staff'; // Set user type to 'staff'
+        $userModel = new UserModel();
+        $emailModel = new EmailModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $_POST['email'];
+            $email = $_POST['email'];
+            $usertype = 5;
+            $defaultPassword = $this->generateDefaultPassword();
 
-            if ($fname && $lname && $email) {
-                $database = new Database();
-                $dashboard = new Dashboard($database);
-
-                if ($dashboard->checkemail($email)) {
-                    $_SESSION['ac_createerror'] = 'Email already exists!';
-                    include __DIR__ . '/../Views/events/manage_users.php';
-                    exit();
-                }
-
-                if ($dashboard->addUser($fname, $lname, $email, $userType)) {
-                    header("Location: ../public/index.php?url=manage_users.php");
-                    exit();
-                } else {
-                    $_SESSION['ac_createerror'] = 'Error adding user!';
-                    include __DIR__ . '/../Views/events/manage_users.php';
-                }
-            } else {
-                $_SESSION['ac_createerror'] = 'Please fill all fields!';
-                include __DIR__ . '/../Views/events/manage_users.php';
+            // Basic validation
+            if (empty($email) || empty($usertype)) {
+                $_SESSION['error'] = "All fields are required.";
+                $_SESSION['ac_createerror'] = true;
+                header('Location: index.php?url=manage_users.php');
+                exit();
             }
-        } else {
-            include __DIR__ . '/../Views/events/manage_users.php';
+
+            $hashedPassword = password_hash($defaultPassword, PASSWORD_BCRYPT);
+            $fname = null;
+            $lname = null;
+            $id = null;
+            $address = null;
+            $city = null;
+            $profile_picture = null;
+            $status = 0;
+            $database = new Database();
+
+            if ($userModel->createUser(
+                $username, $hashedPassword, $fname, $lname, $email, 
+                $usertype, $id, $address, $city, $profile_picture, $status, $database
+            )) {
+                // Send the welcome email
+                $subject = 'Your Eventease Account Created';
+                $body = "Dear User,\n\n";
+                $body .= "Your account on Eventease has been created.\n";
+                $body .= "You can log in using the following credentials:\n";
+                $body .= "Email: " . htmlspecialchars($email) . "\n";
+                $body .= "Password: " . htmlspecialchars($defaultPassword) . "\n\n";
+                $body .= "We recommend you change your password after your first login.\n\n";
+                $body .= "Welcome to Eventease!\n";
+
+                $emailSent = $emailModel->sendEmail($email, $subject, $body);
+
+                if ($emailSent[0]) {
+                    $_SESSION['message'] = "Staff member created and welcome email sent to " . htmlspecialchars($email);
+                } else {
+                    $_SESSION['message'] = "Staff member created, but failed to send welcome email. Error: " . $emailSent[1];
+                }
+                header('Location: index.php?url=manage_users.php');
+                exit();
+            } else {
+                $_SESSION['error'] = "Error creating user.";
+                $_SESSION['ac_createerror'] = true;
+                header('Location: index.php?url=manage_users.php');
+                exit();
+            }
         }
+    }
+
+    private function generateDefaultPassword($length = 10) {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+        $password = '';
+        $characterCount = strlen($characters);
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $characters[rand(0, $characterCount - 1)];
+        }
+        return $password;
     }
 
     public function changestatus() {

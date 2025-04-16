@@ -226,11 +226,11 @@ class Dashboard {
     }
 
     public function addUser($fname, $lname, $email, $userType) {
-        $sql = "INSERT INTO users (username, fname, lname, email, usertype) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (fname, lname, email, usertype) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
 
         if ($stmt) {
-            $stmt->bind_param("sssss",$email, $fname, $lname, $email, $userType);
+            $stmt->bind_param("ssss", $fname, $lname, $email, $userType);
 
             if ($stmt->execute()) {
                 return true;

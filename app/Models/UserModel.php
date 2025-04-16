@@ -44,7 +44,7 @@ class UserModel {
                     usertype, id, address, city, profile_picture, status, created_at, updated_at
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssssssss", 
+        $stmt->bind_param("sssssssssss", 
             $username, $hashedPassword, $fname, $lname, $email, 
             $usertype, $id, $address, $city, $profile_picture, $status
         );
