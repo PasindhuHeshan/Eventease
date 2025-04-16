@@ -42,6 +42,13 @@
                             <td colspan="3"><div id="lname_error" class="error"></div></td>
                         </tr>
                         <tr>
+                            <td><label for="id">NIC <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="id" name="id" placeholder="XXXXXXXXXXX" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><div id="id_error" class="error"></div></td>
+                        </tr>
+                        <tr>
                             <td><label for="email">Email Address <span class="star">*</span></label></td>
                             <td colspan="2"><input type="email" id="email" name="email" placeholder="navindu.perera@gmail.com" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required></td>
                         </tr>
@@ -127,9 +134,7 @@
                 <div id="step4" style="display: none;">
                     <p>You are about to pay Rs. 500 for the registration.</p>
                     <button type="button" onclick="paymentGateWay()">Pay Now</button>
-                    <input type="text" id="universityid" name="universityid" value="X" hidden>
-                    <input type="text" id="universityregno" name="universityregno" value="X" hidden>
-                    <input type="text" id="usertype" name="usertype" value="guest" hidden>
+                    <input type="text" id="usertype" name="usertype" value="2" hidden>
                     <input type="number" id="status" name="status" value="1" hidden>
                     <input type="hidden" id="payment_status" name="payment_status" value="">
                     <div class="button-container"> 

@@ -3,17 +3,20 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\Event;
+use App\Models\notifications;
 use App\Database;
 
 class HeaderController {
     private $usermodel;
     private $eventmodel;
+    private $notifications;
 
     public function __construct() {
         $database = new Database();
         $conn = $database->getConnection();
         $this->usermodel = new UserModel($conn);
         $this->eventmodel = new Event($conn);
+        $this->notifications = new notifications($conn);
     }
 
     public function render() {
@@ -29,6 +32,19 @@ class HeaderController {
                 $fname = $userData['fname']; // Set $fname from user data
                 $events = $this->eventmodel->getUpcomingEvents($username);
             }
+            $checknewchat = $this->notifications->checknewchat($userData['email'], $database);  //for user
+            $checknewchatadmin = $this->notifications->checknewchatforadmin($database);  //for admin
+            if ($checknewchat) {
+                $newchat = true;
+            } else {
+                $newchat = false;
+            }
+
+            if ($checknewchatadmin) {
+                $newchatadmin = true;
+            } else {
+                $newchatadmin = false;
+            }
         }
         require __DIR__ . '/../Views/events/header.php';
     }
@@ -38,46 +54,46 @@ class HeaderController {
         return $this->usermodel->checkUser2($username, $database);
     }
 
-    public function processRegistration() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['username'];
-            if ($this->checkUser($username)) {
-                echo "<div class='error'>Username already exists.</div>";
-                return;
-            }
+    // public function processRegistration() {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $username = $_POST['username'];
+    //         if ($this->checkUser($username)) {
+    //             echo "<div class='error'>Username already exists.</div>";
+    //             return;
+    //         }
     
-            // Proceed with the rest of the form processing
-            $fname = $_POST['fname'];
-            $lname = $_POST['lname'];
-            $email = $_POST['email'];
-            $contactno1 = $_POST['contactno1'];
-            $contactno2 = $_POST['contactno2'];
-            $address = $_POST['address'];
-            $city = $_POST['city'];
-            $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-            $status = $_POST['status'];
+    //         // Proceed with the rest of the form processing
+    //         $fname = $_POST['fname'];
+    //         $lname = $_POST['lname'];
+    //         $email = $_POST['email'];
+    //         $contactno1 = $_POST['contactno1'];
+    //         $contactno2 = $_POST['contactno2'];
+    //         $address = $_POST['address'];
+    //         $city = $_POST['city'];
+    //         $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    //         $status = $_POST['status'];
     
-            // Define usertype, universityid, universityregno, and profile_picture
-            $usertype = isset($_POST['usertype']) ? $_POST['usertype'] : 'guest';
-            $universityid = isset($_POST['universityid']) ? $_POST['universityid'] : '0';
-            $universityregno = isset($_POST['universityregno']) ? $_POST['universityregno'] : '0';
-            $profile_picture = isset($_POST['profile_picture']) ? $_POST['profile_picture'] : null;
+    //         // Define usertype, universityid, universityregno, and profile_picture
+    //         $usertype = isset($_POST['usertype']) ? $_POST['usertype'] : '2';
+    //         $universityid = isset($_POST['universityid']) ? $_POST['universityid'] : '0';
+    //         $universityregno = isset($_POST['universityregno']) ? $_POST['universityregno'] : '0';
+    //         $profile_picture = isset($_POST['profile_picture']) ? $_POST['profile_picture'] : null;
     
-            // Ensure universityid and universityregno are set to '0' for guests
-            if ($usertype === 'guest') {
-                $universityid = '0';
-                $universityregno = '0';
-            }
+    //         // Ensure universityid and universityregno are set to '0' for guests
+    //         if ($usertype === 'guest') {
+    //             $universityid = '0';
+    //             $universityregno = '0';
+    //         }
     
-            // Insert the new user into the database
-            $this->usermodel->createUser(
-                $username, $password, $fname, $lname, $email, 
-                $usertype, $universityid, $universityregno, $address, $city,
-                $contactno1, $contactno2, $profile_picture,$status, 
-                new Database()
-            );
-        }
-    }
+    //         // Insert the new user into the database
+    //         $this->usermodel->createUser(
+    //             $username, $password, $fname, $lname, $email, 
+    //             $usertype, $universityid, $universityregno, $address, $city,
+    //             $contactno1, $contactno2, $profile_picture,$status, 
+    //             new Database()
+    //         );
+    //     }
+    // }
     
 
 }

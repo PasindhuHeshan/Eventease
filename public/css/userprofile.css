@@ -7,7 +7,6 @@ body{
     padding: 0;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
     background-color: #f4f4f4;
 }
 .container{
@@ -40,7 +39,16 @@ body{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    margin: 40px;
+    margin: 0px; /* Adjusted */
+    display: flex; /* Added */
+    justify-content: center; /* Added */
+    align-items: center; /* Added */
+}
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
 button {
     padding: 10px;
@@ -48,6 +56,7 @@ button {
     border-radius: 10px;
     font-weight: bold;
     border-width: 1px;
+    cursor: pointer; /* Added for better UX */
 }
 
 .button-div{
@@ -63,6 +72,11 @@ button {
 
 .imgbuttons{
     column-gap: inherit;
+    margin-top: 10px; /* Added some space below the image */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
 }
 
 .profile-image img {
@@ -78,8 +92,9 @@ button {
 }
 .profile-details h2 {
     display: flex;
-    margin-top: 50px;
+    margin-top: 0px; /* Adjusted */
     font-size: 20px;
+    margin-bottom: 20px; /* Added some space below the title */
 }
 /*.label{
     display: flex;
@@ -103,7 +118,7 @@ label{
     flex-direction: column;
     width: 235px;
 }
-    
+
 .inputs{
     width: 100%;
     display: flex;
@@ -124,12 +139,13 @@ label{
 }
 
 .profile-details input {
-    padding: 10px;
-    margin: 2 2 2 40px;
+    padding: 8px; /* Adjusted padding */
+    margin: 2px 2px 2px 0px; /* Adjusted margin */
     gap: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width : 240px;
+    width : 100%; /* Adjusted width to fill table cell */
+    box-sizing: border-box; /* Added to include padding and border in width */
 }
 .buttons{
     display: flex;
@@ -138,7 +154,6 @@ label{
     border-radius: 3px;
     gap: 10px;
     margin-top: 20px;
-    
 }
 .custom-file-input {
     padding: 5px;
@@ -147,22 +162,98 @@ label{
 
 .request-section{
     justify-items: center;
+    margin-top: 30px;
 }
 
 .request-para{
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
-th, td { 
-    padding: 10px; 
-    text-align: left; 
+th, td {
+    padding: 8px;
+    text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-td{
-    padding-right: 40px;
+th {
+    font-weight: bold;
 }
 
 .container h2{
     text-align: center;
+    margin-bottom: 30px; /* Added space below the main title */
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.profile-details table {
+    width: 100%;
+}
+
+.profile-details th, .profile-details td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-details th {
+    font-weight: bold;
+    width: 150px; /* Adjust width as needed */
+}
+
+.profile-details .name-row td {
+    display: flex;
+    gap: 20px; /* Adjust gap between first and last name fields */
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Additional Buttons Section */
+.additional-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.additional-buttons button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.additional-buttons button:hover {
+    background-color: #e0e0e0;
+}
+
+.chat-btn {
+    /* Add specific styling for the Chats button if needed */
+}
+
+.request-role-btn {
+    /* Add specific styling for the Request Role button if needed */
+}
+
+.delete-account-btn {
+    color: red;
+    /* Add specific styling for the Delete Account button if needed */
 }

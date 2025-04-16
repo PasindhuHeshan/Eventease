@@ -1,5 +1,5 @@
 <?php 
-    $parameter='feedback';
+    $parameter = 'feedback';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,6 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="./css/mngusrstyle.css">
     <link rel="stylesheet" href="./css/useraddstyles.css">
-
 </head>
 <body>
 
@@ -17,63 +16,97 @@
 
     <?php include 'aside.php'; ?>
 
-    <!-- Content -->
     <div class="content">
         <h2>General Feedbacks</h2>
         <p>This page allows the admin to review and manage general Feedbacks. Admins can check feedbacks and send reply based on the provided information.</p>
-        <table>
-            <tr>
-                <th>User</th>
-                <th>ID</th>
-                <th>Feedbacks</th>
-                <th>Send Mail</th>
-                <th>Status</th>
-            </tr>
+        <div class="table-selector">
+            <label for="tableSelect">Select Feedback Type:</label>
+            <select id="tableSelect" onchange="toggleTable()">
+                <option value="normal">Normal Users</option>
+                <option value="registered">Registered Users</option>
+            </select>
+        </div>
 
-            <?php
-            if (!empty($complaints)) {
-                foreach ($complaints as $row) {
-                    echo "<tr>
-                        <td>" . htmlspecialchars($row["fname"]) . "</td>
-                        <td>" . htmlspecialchars($row["universityid"]) . "</td>
-                        <td>" . htmlspecialchars($row["details"]) . "</td>
-                        <td>
-                            <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")'>Send</button>
-                        </td>";
-
-                    if (htmlspecialchars($row["status"]) == 0) {
-                        echo "<td>
-                            <form method='POST' action='feedbackdone'>
-                                <input type='hidden' name='row_id' value='" . htmlspecialchars($row["row_id"]) . "'>
-                                <button type='submit' name='approve'>Done</button>
-                            </form>
-                        </td>";
+        <div id="normalTable" class="feedback-table">
+            <h3>Normal Users</h3>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Contact No</th>
+                    <th>Feedbacks</th>
+                    <th>Send Mail</th>
+                    <th>Status</th>
+                </tr>
+                <?php
+                    if (!empty($complaints)) {
+                        foreach ($complaints as $row) {
+                            $rowJson = htmlspecialchars(json_encode($row));
+                            echo "<tr>
+                                <td>" . htmlspecialchars($row["name"]) . "</td>
+                                <td>" . htmlspecialchars($row["contact_no"]) . "</td>
+                                <td>" . htmlspecialchars($row["user_msg"]) . "</td>
+                                <td>
+                                    <button onclick='openPopup($rowJson)'>Send</button>
+                                </td>
+                                <td>
+                                    <form method='POST' action='feedbackdone'>
+                                        <input type='hidden' name='row_id' value='" . htmlspecialchars($row["no"]) . "'>
+                                        <button type='submit' name='approve'>Done</button>
+                                    </form>
+                                </td>
+                            </tr>";
+                        }
                     } else {
-                        echo "<td>Completed</td>";
+                        echo "<tr><td colspan='5'>No feedbacks found.</td></tr>";
                     }
+                ?>
+            </table>
+        </div>
 
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5'>No feedbacks found.</td></tr>";
-            }
-            ?>
-        </table>
+        <div id="registeredTable" class="feedback-table" style="display: none;">
+            <h3>Registered Users</h3>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Contact No</th>
+                    <th>Open Chat</th>
+                </tr>
+                <?php
+                    if (!empty($regcomplaints)) {
+                        foreach ($regcomplaints as $row) {
+                            $rowJson = htmlspecialchars(json_encode($row));
+                            echo "<tr>
+                                <td>" . htmlspecialchars($row["name"]) . "</td>
+                                <td>" . htmlspecialchars($row["contact_no"]) . "</td>
+                                <td>
+                                    <form method='POST' action='chat.php'>
+                                        <input type='hidden' name='email' value='" . htmlspecialchars($row["email"]) . "'>
+                                        <button type='submit'>Open</button>
+                                    </form>
+                                </td>
+                            </tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='5'>No feedbacks found.</td></tr>";
+                    }
+                ?>
+            </table>
+        </div>
     </div>
 </div>
 
-<!-- Popup Form -->
 <div id="popupForm" class="popup-form">
     <div class="popup-content">
         <span class="close" onclick="closePopup()">&times;</span>
         <div class="container">
-            <form action="role_requests.php" method="post">
+            <form action="replyfeedback" method="post">
                 <h2>General Complaints</h2>
-                <input type="hidden" id="rejectNo" name="no">
+                <input type="hidden" id="row_no" name="row_no">
                 <div class="form-group">
-                    <label for="fname">Email</label>
-                    <input type="text" value="<?php echo htmlspecialchars($row['email']); ?>" readonly>
+                    <label for="fname">Name</label>
+                    <input type="text" id="name" readonly>
                 </div>
+                <input type="hidden" id="email" readonly>
                 <div class="form-group">
                     <label for="reply">Reply</label>
                     <textarea id="reply" name="reply" rows="4" required></textarea>
@@ -87,8 +120,20 @@
 </div>
 
 <script>
-    function openPopup(no) {
-        document.getElementById('rejectNo').value = no;
+    function toggleTable() {
+        const selectedValue = document.getElementById('tableSelect').value;
+        document.getElementById('normalTable').style.display = selectedValue === 'normal' ? 'block' : 'none';
+        document.getElementById('registeredTable').style.display = selectedValue === 'registered' ? 'block' : 'none';
+    }
+
+    function openchat(){
+        window.location.href = "chat.php";
+    }
+
+    function openPopup(row) {
+        document.getElementById('row_no').value = row.row_no;
+        document.getElementById('name').value = row.name;
+        document.getElementById('email').value = row.email;
         document.getElementById('popupForm').style.display = 'flex';
     }
 

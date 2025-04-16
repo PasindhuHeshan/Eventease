@@ -126,11 +126,11 @@
                         </tr>
                         <!-- New rows for University ID and University Registration No -->
                         <tr>
-                            <td><label for="universityid">University ID <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="text" id="universityid" name="universityid" placeholder="2202XXXX" required></td>
+                            <td><label for="id">University ID <span class="star">*</span></label></td>
+                            <td colspan="2"><input type="text" id="id" name="id" placeholder="2202XXXX" required></td>
                         </tr>
                         <tr>
-                            <td colspan="3"><div id="universityid_error" class="error"></div></td>
+                            <td colspan="3"><div id="id_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="universityregno">University Registration No <span class="star">*</span></label></td>
@@ -209,7 +209,7 @@
                             <td colspan="3"><div id="confirm_password_error" class="error"></div></td>
                         </tr>
                     </table>
-                    <input type="text" id="usertype" name="usertype" value="staff" hidden>
+                    <input type="text" id="usertype" name="usertype" value="5" hidden>
                     <div class="button-container"> 
                         <button type="button" onclick="showNextStep('step3', 'step2')">Back</button>
                         <button type="submit">Submit</button>

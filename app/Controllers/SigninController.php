@@ -15,31 +15,36 @@ class SigninController {
             $contactno2 = $_POST['contactno2'] ?? null;
             $address = $_POST['address'] ?? null;
             $city = $_POST['city'] ?? null;
-            $universityid = $_POST['universityid'] ?? '00';
-            $universityregno = $_POST['universityregno'] ?? '00';
+            $id = $_POST['id'] ?? '00';
             $username = $_POST['username'] ?? null;
             $password = $_POST['password'] ?? null;
             $confirm_password = $_POST['confirm_password'] ?? null;
             $usertype = $_POST['usertype'] ?? null;
             $profile_picture = null;
-            $status= '1';
-
+            $status = '1';
+    
             if ($username && $password && $confirm_password && $password === $confirm_password) {
                 $database = new Database();
                 $userModel = new UserModel();
     
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                
+    
                 $isUserCreated = $userModel->createUser(
                     $username, $hashedPassword, $fname, $lname, $email, 
-                    $usertype, $universityid, $universityregno, $address, $city,
-                    $contactno1, $contactno2,  $profile_picture, $status,
+                    $usertype, $id, $address, $city, $profile_picture, $status,
                     $database
                 );
-                
     
                 if ($isUserCreated) {
-                    // $_SESSION['username'] = $username;
+                    $userId = $userModel->getUserData($username,$database)['No'];
+    
+                    if ($contactno1) {
+                        $userModel->createContactNumber($userId, $contactno1, $database);
+                    }
+                    if ($contactno2) {
+                        $userModel->createContactNumber($userId, $contactno2, $database);
+                    }
+    
                     header("Location: ../public/login.php?payment=success");
                     exit();
                 } else {

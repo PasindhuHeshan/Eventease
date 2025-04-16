@@ -1,18 +1,3 @@
-<?php
-namespace App\Views\Events;
-
-use App\Models\UserModel;
-use App\Database;
-if (isset($userData['username'])) {
-    $username = $userData['username'];
-
-    $database = new Database();
-
-    $userModel = new UserModel();
-    $roleData = $userModel->getRoleRequest($database, $username);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,37 +65,43 @@ if (isset($userData['username'])) {
     <div class="form-container">
         <h2>Role Request Form</h2>
         <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" onsubmit="return confirmAction(event)" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="name" value="<?php echo isset($userData['username']) ? $userData['username'] : ''; ?>" readonly>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo isset($userData['email']) ? $userData['email'] : ''; ?>" readonly>
-
-            <label for="role">Role:</label>
-            <select id="role" name="role" required>
-                <option value="organizer">Event Organizer</option>
-                
+            <input type="hidden" name="No" value="<?php echo $userData['No']; ?>">
+            <lable for="organization">Organization</label>
+            <select id="organization" name="organization" required>
+                <?php foreach ($organization as $org) { ?>
+                    <option value="<?php echo $org['orgno']; ?>"><?php echo $org['orgname']; ?></option>
+                <?php } ?>
             </select>
 
-            <label for="reason">Reason for Request:</label>
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+                <option value="organizer">Event Organizer</option>
+            </select>
+
+            <label for="reason">Reason for Request</label>
             <textarea id="reason" name="reason" rows="4" placeholder="Reason goes here" required><?php
                 if ($roleData) {
                     echo $roleData['reason'];
                 }
             ?></textarea>
 
-            <label for="status">Status:</label>
-            <div type="text" id="status" name="status" readonly style="color: <?php echo ($roleData && $roleData['status']) ? 'green' : 'red'; ?>">
+            <?php if($roleData){ ?>
+            <label for="status">Status</label>
+            <div type="text" id="status" name="status" readonly style="color: <?php echo ($roleData && $roleData['status']==1) ? 'green' : 'red'; ?>">
                 <?php
-                if ($roleData) {
-                    echo $roleData['status'] ? 'Approved' : 'Pending';
+                if ($roleData && $roleData['status']==0){
+                    echo 'Pending';
+                }else if($roleData && $roleData['status']==1){
+                    echo 'Approved';
+                }else{
+                    echo 'Rejected';
                 }
                 ?>
             </div><br><br>
-
+              <?php }  ?>
             <?php
             
-            if (!$roleData || ($roleData && !$roleData['status'])) {
+            if (!$roleData || !$roleData['status'] == 0 && !$roleData['status'] == 1) {
             ?>
                 <center>
                     <?php if (!$roleData) { ?>

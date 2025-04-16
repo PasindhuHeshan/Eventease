@@ -29,14 +29,15 @@ class LoginController {
 
                     if (password_verify($password, $userData['password'])) {
                         $_SESSION['username'] = $username;
+                        $_SESSION['no'] = $userData['no'];
                         $_SESSION['upevent'] = $upevents;
 
-                        switch ($userData['usertype']) {
-                            case 'student':
-                            case 'guest':
-                            case 'staff':
-                            case 'organizer':
-                            case 'support':
+                        switch ($userData['role_name']) {
+                            case 'Student':
+                            case 'Guest':
+                            case 'Academic':
+                            case 'Organizer':
+                            case 'Support Staff':
                                 header("Location: ../public/index.php");
                                 break;
                             default:
