@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role Request Form</title>
     <style>
         .form-container {
@@ -69,13 +67,13 @@
             <lable for="organization">Organization</label>
             <select id="organization" name="organization" required>
                 <?php foreach ($organization as $org) { ?>
-                    <option value="<?php echo $org['orgno']; ?>"><?php echo $org['orgname']; ?></option>
+                    <option value="<?php echo $org['orgno']; ?>" <?php if($roleData!= null && $roleData['organization']==$org['orgno']){ echo "selected";}?>><?php echo $org['orgname']; ?></option>
                 <?php } ?>
             </select>
 
             <label for="role">Role</label>
             <select id="role" name="role" required>
-                <option value="organizer">Event Organizer</option>
+                <option value="3">Event Organizer</option>
             </select>
 
             <label for="reason">Reason for Request</label>
@@ -99,31 +97,16 @@
                 ?>
             </div><br><br>
               <?php }  ?>
-            <?php
-            
-            if (!$roleData || !$roleData['status'] == 0 && !$roleData['status'] == 1) {
-            ?>
                 <center>
                     <?php if (!$roleData) { ?>
                         <button type="submit" name="submit">Submit</button>
-                    <?php } else { ?>
+                    <?php } else if ($roleData['status']==-1){ ?>
                         <button type="submit" name="update">Update</button>
-                        
                         <button type="submit" name="delete"><a>Delete</a></button>
                         <br><br>
-                        
                     <?php } ?>
                     <button type="button" name="cancel"><a href="userprofile.php" target="_self">Cancel</a></button>
                 </center>
-            <?php
-            } else {
-            ?>
-                <center>
-                    <button type="button" name="cancel"><a href="userprofile.php" target="_self">Cancel</a></button>
-                </center>
-            <?php
-            } 
-            ?>
         </form>
     </div>
 </body>

@@ -33,8 +33,7 @@
 
             <?php
             if (!empty($roleRequests)) {
-                $rowNumber = 1; // Initialize row number
-                // Output each row
+                $rowNumber = 1;
                 foreach ($roleRequests as $row) {
                     echo "<tr>
                         <td>" . $rowNumber++ . "</td>
@@ -44,6 +43,7 @@
                         <td>
                             <form method='POST' action='role_requests.php'>
                                 <input type='hidden' name='no' value='" . htmlspecialchars($row["no"]) . "'>
+                                <input type='hidden' name='orgno' value='" . htmlspecialchars($row["orgno"]) . "'>
                                 <button type='submit' name='approve' " . ($row["status"] == 0 ? "disabled" : "") . ">Approve</button>
                             </form>
                         </td>

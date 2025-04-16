@@ -121,6 +121,7 @@ class AdminLoginController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['no'])) {
             $no = $_POST['no'];
             $reply = $_POST['reply'] ?? '';
+            $orgno = $_POST['orgno'] ?? null;
 
             if (isset($_POST['approve'])) {
                 $new_role = 'approved';
@@ -128,7 +129,7 @@ class AdminLoginController {
                 $new_role = 'rejected';
             }
 
-            if ($usermodel->admin_updateRoleRequests($no, $new_role, $reply, $database)) {
+            if ($usermodel->admin_updateRoleRequests($no,$orgno, $new_role, $reply, $database)) {
                 $_SESSION['success'] = 'Role request updated successfully!';
             } else {
                 $_SESSION['error'] = 'Error updating role request!';
