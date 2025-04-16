@@ -9,6 +9,8 @@ require __DIR__ . '/../app/Models/connection.php';
 require __DIR__ . '/../app/Models/EventModel.php';
 require __DIR__ . '/../app/Models/contactus.php';
 require __DIR__ . '/../app/Models/notifications.php';
+require __DIR__ . '/../app/Models/EmailModel.php';
+require __DIR__ . '/../app/Models/dashboard.php';
 require __DIR__ . '/../app/Controllers/EventController.php';
 require __DIR__ . '/../app/Controllers/HeaderController.php';
 require __DIR__ . '/../app/Controllers/LoginController.php';
@@ -309,6 +311,13 @@ switch ($url) {
     case 'chat.php':
         $hcontroller->render();
         $cucontroller->chat();
+        break;
+    case 'send_email_form':
+        $hcontroller->render();
+        $alcontroller->showSendEmailForm();
+        break;
+    case 'process_send_email':
+        $alcontroller->processSendEmail();
         break;
     default:
         $hcontroller->render();

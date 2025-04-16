@@ -36,12 +36,12 @@
                 <label for="userTypeFilter">Filter by User Type</label>
                 <select id="userTypeFilter" class="user_type" onchange="filterUsers()">
                     <option value="all" default>All</option>
-                    <option value="staff">Staff</option>
-                    <option value="admin">Admin</option>
-                    <option value="organizer">Organizer</option>
-                    <option value="support">Support</option>
-                    <option value="guest">Guest</option>
-                    <option value="student">Student</option>
+                    <option value="5">Academic Staff</option>
+                    <option value="0">Admin</option>
+                    <option value="3">Organizer</option>
+                    <option value="4">Support</option>
+                    <option value="2">Guest</option>
+                    <option value="1">Student</option>
                 </select>
                 <label for="statusFilter">Status</label>
                 <select id="statusFilter" class="user_type" onchange="filterUsers()">
@@ -64,10 +64,10 @@
                         $buttonText = $row['status'] == 1 ? 'Enabled' : 'Disabled';
                         $buttonClass = $row['status'] == 1 ? 'enable-button' : 'disable-button';
                         $status = $row['status'];
-                        echo "<tr data-user-type='" . htmlspecialchars($row['usertype']) . "' data-name='" . htmlspecialchars($row['fname'] . ' ' . $row['lname']) . "' data-status='" . htmlspecialchars($status == 1 ? 'enabled' : 'disabled') . "'>";
-                        echo "<td>" . htmlspecialchars($row['fname']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['lname']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                        echo "<tr data-user-type='" . htmlspecialchars($row['usertype'] ?? '') . "' data-name='" . htmlspecialchars(($row['fname'] ?? '') . ' ' . ($row['lname'] ?? '')) . "' data-status='" . htmlspecialchars($status == 1 ? 'enabled' : 'disabled') . "'>";
+                        echo "<td>" . htmlspecialchars($row['fname'] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['lname'] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['email'] ?? '') . "</td>";
                         echo "<td>
                             <form method='post' action='index.php?url=changestatus' onsubmit='saveFilterState()'>
                                 <input type='hidden' name='No' value='" . htmlspecialchars($row['No']) . "'>
@@ -145,6 +145,11 @@
                 <div class="popup-content">
                     <span class="close" onclick="closePopup()">&times;</span>
                     <div class="container">
+                    <?php if (isset($_SESSION['message'])): ?>
+                        <p class="<?php echo (strpos($_SESSION['message'], 'failed') !== false) ? 'email-error' : 'email-success'; ?>">
+                            <?php echo $_SESSION['message']; unset($_SESSION['message']); ?>
+                        </p>
+                    <?php endif; ?>
                         <form action="index.php?url=useradd.php" method="post">
                             <h2>New Staff Member</h2>
                             <?php if (!empty($_SESSION['error'])): ?>
@@ -164,7 +169,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="usertype">User Type</label>
-                                <input type="text" id="usertype" name="usertype" value="staff" readonly>
+                                <input type="text" id="usertype" name="usertype" value="Academic Staff" readonly>
                             </div>
                             <div class="form-group">
                                 <button type="submit">Create</button>
