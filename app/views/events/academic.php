@@ -119,7 +119,7 @@
                         </tr>
                         <tr>
                             <td><label for="email">Email Address <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="email" id="email" name="email" placeholder="navindu@ucsc.cmb.ac.lk" required></td>
+                            <td colspan="2"><input type="email" id="email" name="email" value="<?php echo $userData['email'];?>"readonly></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="email_error" class="error"></div></td>
@@ -131,13 +131,6 @@
                         </tr>
                         <tr>
                             <td colspan="3"><div id="id_error" class="error"></div></td>
-                        </tr>
-                        <tr>
-                            <td><label for="universityregno">University Registration No <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="text" id="universityregno" name="universityregno" placeholder="2022/IS/XXX" required></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><div id="universityregno_error" class="error"></div></td>
                         </tr>
                     </table>
                     <div class="button-container"> 
@@ -210,6 +203,7 @@
                         </tr>
                     </table>
                     <input type="text" id="usertype" name="usertype" value="5" hidden>
+                    <input type="hidden" id="page" name="page" value="academic" hidden>
                     <div class="button-container"> 
                         <button type="button" onclick="showNextStep('step3', 'step2')">Back</button>
                         <button type="submit">Submit</button>

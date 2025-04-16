@@ -22,9 +22,14 @@ class LoginController {
 
                 if ($userData) {
                     if ($userData['status'] == 0) {
-                        $_SESSION['error'] = 'Account blocked!<br>Contact administration!';
-                        header("Location: ../public/index.php?url=login.php");
-                        exit();
+                        if ($userData['id']==null) {
+                            require __DIR__ . '/../views/events/academic.php';
+                            exit();
+                        }else{
+                            $_SESSION['error'] = 'Account blocked!<br>Contact administration!';
+                            header("Location: ../public/index.php?url=login.php");
+                            exit();
+                        }
                     }
 
                     if (password_verify($password, $userData['password'])) {

@@ -62,10 +62,11 @@ class UserProfileController
             $city = $_POST['city'] ?? null;
             $contactno1 = $_POST['contactno1'] ?? null;
             $contactno2 = $_POST['contactno2'] ?? null;
+            $status = '1';
 
             if ($username && $fname && $lname && $email && $address && $city && $contactno1) {
                 $isUpdated = $userModel->updateUserProfile(
-                    $username, $fname, $lname, $email, $address, $city, $database
+                    $username,null, $fname, $lname, $email,null, $address, $city,$status, $database
                 ) && $userModel->updateContactNumber($userModel->getUserData($username,$database)['No'], $contactno1, $contactno2, $database);
 
                 if ($isUpdated) {
