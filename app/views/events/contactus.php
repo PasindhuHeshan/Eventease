@@ -25,6 +25,7 @@
                                 <?php if($username == ''): ?>
                                     <option value="2">Account Disable</option>
                                 <?php endif; ?>
+                                <option value="3">Complain</option>
                             </select>
                         </td>
                     </tr>

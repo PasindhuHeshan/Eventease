@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2025 at 03:47 PM
+-- Generation Time: Apr 16, 2025 at 08:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,8 +74,8 @@ CREATE TABLE `contact_numbers` (
 INSERT INTO `contact_numbers` (`Cnt_No`, `Cnt_num`) VALUES
 (63, '0452896578'),
 (63, '0526998574'),
-(17, '0718596858'),
-(17, '0748596328');
+(17, '0718596859'),
+(17, '0748596327');
 
 -- --------------------------------------------------------
 
@@ -89,18 +89,29 @@ CREATE TABLE `contact_support` (
   `id` varchar(10) NOT NULL,
   `email` varchar(100) NOT NULL,
   `contact_no` varchar(10) NOT NULL,
-  `details` varchar(500) NOT NULL
+  `open_time` timestamp NULL DEFAULT NULL,
+  `reply_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `contact_support`
 --
 
-INSERT INTO `contact_support` (`no`, `name`, `id`, `email`, `contact_no`, `details`) VALUES
-(1, 'asd', '1', 'asd@gmail.com', '0254789658', 'asdasd'),
-(5, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596858', 'asdasdasdad'),
-(6, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596858', 'ad'),
-(7, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596858', 'ad');
+INSERT INTO `contact_support` (`no`, `name`, `id`, `email`, `contact_no`, `open_time`, `reply_time`) VALUES
+(23, 'sdsa', '3', 'ss@gmail.com', '0125478969', '2025-04-16 06:38:04', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_support_data`
+--
+
+CREATE TABLE `contact_support_data` (
+  `row_no` int(11) NOT NULL,
+  `no` int(11) NOT NULL,
+  `user_msg` varchar(1000) NOT NULL,
+  `admin_msg` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -356,7 +367,7 @@ INSERT INTO `users` (`No`, `username`, `password`, `fname`, `lname`, `email`, `u
 (10, 'sanduni', '$2y$10$VB/Zi7XXE/gFY.64z8o7a.jric8faY3mLJwBCXynOtpP1SNSIgGBq', 'Sanduni', '', 'saduni@stu.ucsc.cmb.lk', '0', 'ucsc', '2', '2', 'images/profiles/BlackRock-windows10Wallpapers.jpg', 1, '2024-11-28 13:00:52', '2025-04-14 09:56:42'),
 (11, 'navindu', '$2y$10$gLOWumpp8eS6JnsCrLrK.uJP4y9hr/wNfQ5tM/TlkSnh9ScaPFfGq', 'Navindu', 'Thilakshana', 'se@gmail.com', '2', '200234600111', 'asd', 'asd', NULL, 1, '2024-11-28 13:27:11', '2025-04-07 08:01:08'),
 (16, 'pasindu', '$2y$10$.6eQk7X78Q.s2vhu3IG77uPC9YH5/3JKzVZ.mutH0Z0EkGP6z3YUa', 'Pasindu', 'Heshan', 'seniru@stu.ucsc.cmb.lk', '3', '22020782', 'Sama Mawatha', 'Kottawa', 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', 1, '2024-11-28 14:55:07', '2025-04-07 06:44:36'),
-(17, 'seniru', '$2y$10$OKNPBhPharr9wqV2FS1MPONXDVA2gVqOcgAM1TiBqA3OgVE/xqvnW', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.ac.lk', '1', '22020782', 'Sama Mawatha', 'Kottawa', 'images/profiles/HD wallpaper_ Greenmapple17, Darling in the FranXX, Zero Two (Darling in the FranXX).jpg', 1, '2024-11-28 15:02:04', '2025-04-14 12:58:16'),
+(17, 'seniru', '$2y$10$OKNPBhPharr9wqV2FS1MPONXDVA2gVqOcgAM1TiBqA3OgVE/xqvnW', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.ac.lk', '1', '22020782', 'Sama Mawatha', 'Homagama', 'images/profiles/Screenshot (3).png', 1, '2024-11-28 15:02:04', '2025-04-15 16:38:53'),
 (19, 'pasindu2', '$2y$10$tYxF4J6sEY6EYZdwf6RodOSSFmOkyaym3FgHLN51xaDqyJoevdm/O', 'Pasindu', 'aa', 'aa@gmail.com', '4', '0', '12', '`12', NULL, 1, '2024-11-29 04:55:05', '2025-04-07 06:44:37'),
 (20, 'navindu2', '$2y$10$tyZ0/xUexSm8mGn8WT9WHe9AaHcjrmusKBLLV6soRYc/UQ0ZY446C', 'Navindu', 'T', 'se@gmail.com', '5', '0', '12', '12', NULL, 1, '2024-11-29 05:01:30', '2025-04-07 06:44:37'),
 (51, 'aaaa', '$2y$10$dAcHXcRFqhUExqHjnXC2EemXfy0uF/QPY9yJB7G8RpytFVDnBFHlO', 'as', 'asd', 'asd@gmail.com', '2', '200234600222', '45', '5', NULL, 1, '2025-04-07 08:05:54', '2025-04-14 11:57:21'),
@@ -396,6 +407,13 @@ ALTER TABLE `contact_numbers`
 --
 ALTER TABLE `contact_support`
   ADD PRIMARY KEY (`no`);
+
+--
+-- Indexes for table `contact_support_data`
+--
+ALTER TABLE `contact_support_data`
+  ADD PRIMARY KEY (`row_no`),
+  ADD KEY `contact_support_data_ibfk_1` (`no`);
 
 --
 -- Indexes for table `events`
@@ -463,7 +481,13 @@ ALTER TABLE `admin_support`
 -- AUTO_INCREMENT for table `contact_support`
 --
 ALTER TABLE `contact_support`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `contact_support_data`
+--
+ALTER TABLE `contact_support_data`
+  MODIFY `row_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -505,6 +529,12 @@ ALTER TABLE `admin_support`
 --
 ALTER TABLE `contact_numbers`
   ADD CONSTRAINT `contact_numbers_ibfk_1` FOREIGN KEY (`Cnt_No`) REFERENCES `users` (`No`);
+
+--
+-- Constraints for table `contact_support_data`
+--
+ALTER TABLE `contact_support_data`
+  ADD CONSTRAINT `contact_support_data_ibfk_1` FOREIGN KEY (`no`) REFERENCES `contact_support` (`no`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `events`

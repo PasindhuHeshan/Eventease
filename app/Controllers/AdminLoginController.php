@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\EventModel;
 use App\Models\Dashboard;
+use App\Models\Contactus;
 use App\Database;
 
 require_once __DIR__ . '/../Models/Dashboard.php';
@@ -407,7 +408,8 @@ class AdminLoginController {
         $database = new Database();
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
-        $complaints = $usermodel->getfeedbacks($database);
+        $complaints = $usermodel->getnormalfeedbacks($database);
+        $regcomplaints = $usermodel->getregfeedbacks($database);
         include __DIR__ . '/../Views/events/feedback.php';
     }
 
@@ -419,6 +421,21 @@ class AdminLoginController {
             $row_id = $_POST['row_id'] ?? null;
             $usermodel->feedbackdone($row_id, $database);
             $_SESSION['success'] = 'Complaint deleted successfully!';
+            $complaints = $usermodel->getfeedbacks($database);
+            include __DIR__ . '/../Views/events/feedback.php';
+        }
+    }
+
+    public function replyfeedback(){
+        $database = new Database();
+        $contactus = new Contactus();
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $row_no = $_POST['row_no'] ?? null;
+            $reply = $_POST['reply'] ?? null;
+            $contactus->replyfeedback($row_no, $reply, $database);
+            $_SESSION['success'] = 'Reply sent successfully!';
             $complaints = $usermodel->getfeedbacks($database);
             include __DIR__ . '/../Views/events/feedback.php';
         }

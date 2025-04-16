@@ -78,4 +78,45 @@ class ContactusController{
     //     echo "Error submitting feedback";
     // }
     }
+
+    public function chat() {
+        $database = new Database();
+        $usermodel = new UserModel();
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+        $userData = $usermodel->getUserData($username, $database);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
+            $no = isset($_POST['no']) ? $_POST['no'] : null;
+            $database = new Database();
+
+            $message = isset($_POST['message']) ? $_POST['message'] : null;
+
+            $contactus = new contactus();
+            if($userData['usertype']=='0'){
+                $contactus->insertadminChat($no, $message, $database);
+            }else{
+                $contactus->insertChat($no, $message, $database);
+            }
+        }
+        
+        $email = isset($_POST['email']) ? $_POST['email'] : null;
+        
+        if (!$userData) {
+            $_SESSION['errors'] = ["Error: User not found."];
+            require __DIR__ . '/../Views/events/chat.php';
+            exit();
+        }
+
+        if($email && $userData['usertype']=='0'){
+            $contactus = new contactus();
+            $chats = $contactus->getChatDetails($email, $database);
+            require __DIR__ . '/../Views/events/chat.php';
+        }else{
+            $contactus = new contactus();
+            $contactus->updateopentime($userData['email'], $database);
+            $chats = $contactus->getChatDetails($userData['email'], $database);
+            require __DIR__ . '/../Views/events/chat.php';
+        }
+        
+    }
 }
