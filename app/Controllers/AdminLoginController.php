@@ -206,13 +206,15 @@ class AdminLoginController {
             )) {
                 // Send the welcome email
                 $subject = 'Your Eventease Account Created';
-                $body = "Dear User,\n\n";
-                $body .= "Your account on Eventease has been created.\n";
-                $body .= "You can log in using the following credentials:\n";
-                $body .= "Email: " . htmlspecialchars($email) . "\n";
-                $body .= "Password: " . htmlspecialchars($defaultPassword) . "\n\n";
-                $body .= "We recommend you change your password after your first login.\n\n";
-                $body .= "Welcome to Eventease!\n";
+                $body = "Dear User,\r\n\r\n" .
+                        "Your account on Eventease has been created.\r\n" .
+                        "You can log in using the following credentials:\r\n" .
+                        "Email: " . htmlspecialchars($email) . "\r\n" .
+                        "Password: " . htmlspecialchars($defaultPassword) . "\r\n\r\n" .
+                        "We recommend you change your password after your first login.\r\n\r\n" .
+                        "Welcome to Eventease!\r\n";
+
+                $body = nl2br($body); // Convert line breaks to HTML <br> tags
 
                 $emailSent = $emailModel->sendEmail($email, $subject, $body);
 

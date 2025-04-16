@@ -20,6 +20,7 @@ class SigninController {
             $password = $_POST['password'] ?? null;
             $confirm_password = $_POST['confirm_password'] ?? null;
             $usertype = $_POST['usertype'] ?? null;
+            $page = $_POST['page'] ?? null;
             $profile_picture = null;
             $status = '1';
     
@@ -29,13 +30,17 @@ class SigninController {
     
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
-                $isUserCreated = $userModel->createUser(
-                    $username, $hashedPassword, $fname, $lname, $email, 
-                    $usertype, $id, $address, $city, $profile_picture, $status,
-                    $database
-                );
+                if($page=='academic'){
+                    $updateuser=$userModel->updateUserProfile($username, $hashedPassword, $fname, $lname, $email,$id, $address, $city,$status, $database);
+                }else{
+                    $isUserCreated = $userModel->createUser(
+                        $username, $hashedPassword, $fname, $lname, $email, 
+                        $usertype, $id, $address, $city, $profile_picture, $status,
+                        $database
+                    );
+                }
     
-                if ($isUserCreated) {
+                if ($isUserCreated || $updateuser) {
                     $userId = $userModel->getUserData($username,$database)['No'];
     
                     if ($contactno1) {

@@ -9,8 +9,4 @@ class staffController
     public function index() {
         require __DIR__ . '/../views/events/staff.php';
     }
-
-    public function aca() {
-        require __DIR__ . '/../views/events/academic.php';
-    }
 }

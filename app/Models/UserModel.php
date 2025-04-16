@@ -60,12 +60,24 @@ class UserModel {
         $stmt->close();
     }
 
-    public function updateUserProfile($username, $fname, $lname, $email, $address, $city, $database) 
+    public function updateUserProfile($username,$password, $fname, $lname, $email,$id, $address, $city, $status, $database) 
     {
         $conn = $database->getConnection();
-        $sql = "UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, city = ? WHERE username = ?";
-        $stmt = $conn->prepare($sql);
-        return $stmt->execute([$fname, $lname, $email, $address, $city, $username]);
+        if($password==null&&$id==null){
+        $sql = "UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, city = ?, status =? WHERE username = ?";
+        $stmt= $conn->prepare($sql);
+        $stmt->bind_param("sssssss", $fname, $lname, $email, $address, $city,$status, $username);
+        $stmt->execute();
+        $stmt->close();
+        }else{
+        $sql = "UPDATE users SET username = ?, password = ?, fname = ?, lname = ?, email = ?,id=?, address = ?, city = ?, status =? WHERE email = ?";
+        $stmt= $conn->prepare($sql);
+        $stmt->bind_param("ssssssssss", $username, $password, $fname, $lname, $email,$id, $address, $city,$status, $email);
+        $stmt->execute();
+        $stmt->close();
+        }
+        return true;
+
     }
 
     public function updateContactNumber($userId, $contactno1, $contactno2, $database) {

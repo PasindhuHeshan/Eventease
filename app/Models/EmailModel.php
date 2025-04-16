@@ -11,10 +11,10 @@ require __DIR__ . '/../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require __DIR__ . '/../../vendor/phpmailer/phpmailer/src/SMTP.php';
 
 class EmailModel {
-    private $smtp_server = 'smtp.gmail.com'; // Or your SMTP server
-    private $port = 465; // Or your SMTP port
-    private $username = 'your_gmail_address@gmail.com'; // Your SMTP username
-    private $password = 'your_gmail_password_or_app_password'; // Your SMTP password
+    private $smtp_server = 'smtp.gmail.com';
+    private $port = 465;
+    private $username = '';
+    private $password = '';
 
     public function __construct() {
         // You can leave the constructor empty if the SMTP details are hardcoded here
