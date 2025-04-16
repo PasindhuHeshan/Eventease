@@ -68,9 +68,7 @@ class AdminLoginController {
         $event_count = $dashboard->getEventCount('event_type');
         $inventory_count = $dashboard->getInventoryCount('inventory_type');
         $disableacccount = count($usermodel->getdisableaccComplaints($database));
-        $feedbackcount = count($usermodel->getfeedbacks($database));
-        
-
+        $feedbackcount = count($usermodel->getnormalfeedbacks($database)) + count($usermodel->getregfeedbacks($database));
 
         include __DIR__ . '/../Views/events/dashboard_content.php';
     }
