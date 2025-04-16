@@ -8,6 +8,7 @@ require __DIR__ . '/../app/Models/UserModel.php';
 require __DIR__ . '/../app/Models/connection.php';
 require __DIR__ . '/../app/Models/EventModel.php';
 require __DIR__ . '/../app/Models/contactus.php';
+require __DIR__ . '/../app/Models/notifications.php';
 require __DIR__ . '/../app/Controllers/EventController.php';
 require __DIR__ . '/../app/Controllers/HeaderController.php';
 require __DIR__ . '/../app/Controllers/LoginController.php';
@@ -300,6 +301,14 @@ switch ($url) {
     case 'activeacc':
         $hcontroller->render();
         $alcontroller->activeacc();
+        break;
+    case 'replyfeedback':
+        $hcontroller->render();
+        $alcontroller->replyfeedback();
+        break;
+    case 'chat.php':
+        $hcontroller->render();
+        $cucontroller->chat();
         break;
     default:
         $hcontroller->render();

@@ -2,18 +2,6 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="./css/userprofile.css">
-    <style>
-        /* Hide increment arrows in number inputs */
-        input[type=number]::-webkit-outer-spin-button,
-        input[type=number]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-    </style>
 </head>
 <body>
     <div class="box">
@@ -78,106 +66,97 @@
                 <div class="profile-details">
                     <form id="profileForm" action="index.php?url=updateProfile.php" method="post">
                         <table>
-                            <tr>
+                            <tr class="name-row">
                                 <th><label for="fname">First Name</label></th>
                                 <td><input type="text" id="fname" name="fname" value="<?php if ($userData) echo $userData['fname']; ?>" oninput="showSaveButton()" required></td>
-                            </tr>
-                            <tr>
                                 <th><label for="lname">Last Name</label></th>
                                 <td><input type="text" id="lname" name="lname" value="<?php if ($userData) echo $userData['lname']; ?>" oninput="showSaveButton()" required></td>
                             </tr>
                             <tr>
                                 <th><label for="email">Email</label></th>
-                                <td><input type="email" id="email" name="email" value="<?php if ($userData) echo $userData['email']; ?>" oninput="showSaveButton()" readonly></td>
+                                <td colspan="3"><input type="email" id="email" name="email" value="<?php if ($userData) echo $userData['email']; ?>" oninput="showSaveButton()" readonly></td>
                             </tr>
                             <tr>
                                 <th><label for="address">Address</label></th>
-                                <td><input type="text" id="address" name="address" value="<?php if ($userData) echo $userData['address']; ?>" oninput="showSaveButton()"></td>
+                                <td colspan="3"><input type="text" id="address" name="address" value="<?php if ($userData) echo $userData['address']; ?>" oninput="showSaveButton()"></td>
                             </tr>
                             <tr>
                                 <th><label for="city">City</label></th>
-                                <td><input type="text" id="city" name="city" value="<?php if ($userData) echo $userData['city']; ?>" oninput="showSaveButton()"></td>
+                                <td colspan="3"><input type="text" id="city" name="city" value="<?php if ($userData) echo $userData['city']; ?>" oninput="showSaveButton()"></td>
                             </tr>
                             <tr>
                                 <th><label for="contactno1">Primary Contact No</label></th>
                                 <td><input type="number" id="contactno1" name="contactno1" value="<?php if ($userData && isset($userData['contact_numbers'][0])) echo $userData['contact_numbers'][0]; ?>" oninput="showSaveButton()" required></td>
-                            </tr>
-                            <tr>
                                 <th><label for="contactno2">Secondary Contact No</label></th>
                                 <td><input type="number" id="contactno2" name="contactno2" value="<?php if ($userData && isset($userData['contact_numbers'][1])) echo $userData['contact_numbers'][1]; ?>" oninput="showSaveButton()"></td>
                             </tr>
                             <?php if ($userData && $userData['role_name'] !== 'Guest') : ?>
                                 <tr>
                                     <th><label for="id">University ID</label></th>
-                                    <td><input type="text" id="id" name="id" value="<?php echo $userData['id']; ?>" readonly></td>
+                                    <td colspan="3"><input type="text" id="id" name="id" value="<?php echo $userData['id']; ?>" readonly></td>
                                 </tr>
                             <?php endif; ?>
                             <?php if ($userData && $userData['role_name'] == 'Guest') : ?>
                                 <tr>
                                     <th><label for="id">NIC</label></th>
-                                    <td><input type="text" id="id" name="id" value="<?php echo $userData['id']; ?>" readonly></td>
+                                    <td colspan="3"><input type="text" id="id" name="id" value="<?php echo $userData['id']; ?>" readonly></td>
                                 </tr>
                             <?php endif; ?>
                             <tr>
                                 <th><label for="usertype">User Type</label></th>
-                                <td><input type="text" id="usertype" name="usertype" value="<?php if ($userData) echo $userData['role_name']; ?>" readonly></td>
+                                <td colspan="3"><input type="text" id="usertype" name="usertype" value="<?php if ($userData) echo $userData['role_name']; ?>" readonly></td>
                             </tr>
                         </table>
 
                         <div class="buttons">
                             <button type="submit" class="save-btn" id="save-button" style="display: none;">Save Changes</button>
-                            <button type="button" class="delete-btn" onclick="confirmDelete()">Delete Account</button>
-
-                            <?php if ($userData && $userData['role_name'] !== 'Guest' && $userData['role_name'] !== 'Academic' && $userData['role_name'] !== 'Organizer') : ?>
-                                <div class="request-section">  <?php if (!$roleData) : ?>
-                                        <p class="request-para">Want to become an Event Organizer?</p>
-                                        <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Request Privilege</button>
-                                    <?php else : ?>
-                                        <p class="request-para">Role Request Submitted. Update?</p>
-                                        <button type="button" class="request-btn" onclick="redirectToRoleRequest()">Update Request</button>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endif; ?>
                         </div>
                     </form>
                 </div>
+            </div>
+
+            <div class="additional-buttons">
+                <button type="button" class="chat-btn" onclick="openchat()">Chats</button>
+                <button type="button" class="request-role-btn" onclick="redirectToRoleRequest()">Request Role</button>
+                <button type="button" class="delete-account-btn" onclick="confirmDelete()">Delete Account</button>
             </div>
         </div>
     </div>
 
     <script>
-            function showSaveButton() {
-                document.getElementById('save-button').style.display = 'block';
-            }
+        function showSaveButton() {
+            document.getElementById('save-button').style.display = 'block';
+        }
 
-            function redirectToRoleRequest() {
-                window.location.href = "RoleRequest.php";
-            }
-            function confirmDelete() {
-                // Display a confirmation dialog
-                var result = confirm("Are you sure you want to delete this account?");
-                
-                // If the user clicks 'OK', return true to allow the form submission
-                if (result) {
-                    return true;
-                }
-                // If the user clicks 'Cancel', prevent the form submission
-                else {
-                    return false;
-                }
-            }
-            
-            document.addEventListener('DOMContentLoaded', function() {
-                const inputs = document.querySelectorAll('.inputs input');
-                const saveButton = document.querySelector('.save-btn');
-                saveButton.style.display = 'none';
+        function openchat(){
+            window.location.href = "chat.php";
+        }
 
-                inputs.forEach(input => {
-                    input.addEventListener('input', function() {
-                        saveButton.style.display = 'block';
-                    });
+        function redirectToRoleRequest() {
+            window.location.href = "RoleRequest.php";
+        }
+        function confirmDelete() {
+            var result = confirm("Are you sure you want to delete this account?");
+            if (result) {
+                // In a real application, you would trigger the delete action here (e.g., an AJAX request)
+                alert("Account deletion initiated (functionality not fully implemented in this example).");
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.profile-details input');
+            const saveButton = document.querySelector('.save-btn');
+            saveButton.style.display = 'none';
+
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    saveButton.style.display = 'block';
                 });
             });
+        });
     </script>
 </body>
 </html>

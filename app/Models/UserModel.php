@@ -394,10 +394,32 @@ class UserModel {
     //     }
     // }
 
-    public function getfeedbacks(Database $database) {
+    public function getnormalfeedbacks(Database $database) {
         $conn = $database->getConnection();
-        $sql = "SELECT * FROM contact_support";
+        $sql = "SELECT * FROM contact_support AS a JOIN contact_support_data AS b ON a.no = b.no WHERE email NOT LIKE ?";
         $stmt = $conn->prepare($sql);
+        $emailDomain = '%@stu.ucsc.cmb.ac.lk';
+        $stmt->bind_param("s", $emailDomain);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return [];
+        }
+    }
+
+    public function getregfeedbacks(Database $database) {
+        $conn = $database->getConnection();
+        $sql = "SELECT * FROM contact_support AS a WHERE email LIKE ?";
+        $stmt = $conn->prepare($sql);
+        $emailDomain = '%@stu.ucsc.cmb.ac.lk';
+        $stmt->bind_param("s", $emailDomain);
         $stmt->execute();
         $result = $stmt->get_result();
     
