@@ -28,6 +28,7 @@ class ReqController{
             $organization = $this->usermodel->getorganizations($database);
             require __DIR__ . '/../views/events/RoleRequest.php';
         }
+        
         /*public function processreq(){
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                 echo "<script> alert('data giya'); </script>";
