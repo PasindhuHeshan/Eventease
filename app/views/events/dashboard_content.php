@@ -66,6 +66,7 @@ $display_user_types = [
                     <?php endforeach; ?>
                 </table>
                 </div>
+
                 <div class="lower-card">
                     <a href="role_requests.php">
                     <div class="data-row">
@@ -102,7 +103,7 @@ $display_user_types = [
                 <div class="data-row">
                     <div class="data-info">
                         <div class="data-title">Disable Account Complaints</div>
-                        <div class="data-content">3</div>
+                        <div class="data-content"><?php echo htmlspecialchars($disableacccount ?? '-'); ?></div>
                     </div>
                     <div class="data-image">
                         <img src="./images/DisAccComplaints.png" alt="DisAccComplaints Icon">
@@ -112,11 +113,11 @@ $display_user_types = [
             </div>
 
             <div class="lower-card">
-            <a href="complaints.php">
+            <a href="feedback.php">
                 <div class="data-row">
                     <div class="data-info">
-                        <div class="data-title">Complaints</div>
-                        <div class="data-content">3</div>
+                        <div class="data-title">Feedbacks</div>
+                        <div class="data-content"><?php echo htmlspecialchars($feedbackcount ?? '-'); ?></div>
                     </div>
                     <div class="data-image">
                         <img src="./images/complaint.png" alt="complaint Icon">
