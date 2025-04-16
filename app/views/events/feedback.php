@@ -18,8 +18,7 @@
 
     <div class="content">
         <h2>General Feedbacks</h2>
-        <p>This page allows the admin to review and manage general Complaints. Admins can approve or reject Complaints based on the provided information.</p>
-
+        <p>This page allows the admin to review and manage general Feedbacks. Admins can check feedbacks and send reply based on the provided information.</p>
         <div class="table-selector">
             <label for="tableSelect">Select Feedback Type:</label>
             <select id="tableSelect" onchange="toggleTable()">

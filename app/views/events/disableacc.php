@@ -19,7 +19,7 @@
     <!-- Content -->
     <div class="content">
         <h2>Disable Account Complaints</h2>
-        <p>This page allows the admin to review and manage Disable Account Complaints. Admins can approve or reject requests based on the provided information.</p>
+        <p>This page allows the admin to review and manage Disable Account Complaints. Admins can approve or send reply based on the provided information.</p>
         <table>
             <tr>
                 <th>User</th>
