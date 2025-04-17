@@ -105,7 +105,7 @@
                         }
                     });
                     var addNewButton = document.getElementById('addNewButton');
-                    if (userTypeFilter === 'staff') {
+                    if (userTypeFilter === '5') {
                         addNewButton.style.display = 'block';
                     } else {
                         addNewButton.style.display = 'none';

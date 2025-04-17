@@ -60,12 +60,24 @@ class UserModel {
         $stmt->close();
     }
 
-    public function updateUserProfile($username, $fname, $lname, $email, $address, $city, $database) 
+    public function updateUserProfile($username,$password, $fname, $lname, $email,$id, $address, $city, $status, $database) 
     {
         $conn = $database->getConnection();
-        $sql = "UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, city = ? WHERE username = ?";
-        $stmt = $conn->prepare($sql);
-        return $stmt->execute([$fname, $lname, $email, $address, $city, $username]);
+        if($password==null&&$id==null){
+        $sql = "UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, city = ?, status =? WHERE username = ?";
+        $stmt= $conn->prepare($sql);
+        $stmt->bind_param("sssssss", $fname, $lname, $email, $address, $city,$status, $username);
+        $stmt->execute();
+        $stmt->close();
+        }else{
+        $sql = "UPDATE users SET username = ?, password = ?, fname = ?, lname = ?, email = ?,id=?, address = ?, city = ?, status =? WHERE email = ?";
+        $stmt= $conn->prepare($sql);
+        $stmt->bind_param("ssssssssss", $username, $password, $fname, $lname, $email,$id, $address, $city,$status, $email);
+        $stmt->execute();
+        $stmt->close();
+        }
+        return true;
+
     }
 
     public function updateContactNumber($userId, $contactno1, $contactno2, $database) {
@@ -202,12 +214,11 @@ class UserModel {
     
         $stmt->bind_param("sssss", $no, $role, $organization, $reason, $status);
     
-        if ($stmt->execute() === false) {
-            die("Error executing SQL: " . $stmt->error);
+        if($stmt->execute() == true){
+            return true;
+        } else {
+            return false;
         }
-    
-        $stmt->close();
-        return true;
     }
 
     public function getRoleRequest(Database $database, $no){
@@ -246,7 +257,7 @@ class UserModel {
     }
 
     //admin function
-    public function admin_updateRoleRequests($no,$new_role,$reply, Database $database) {
+    public function admin_updateRoleRequests($no,$orgno,$new_role,$reply, Database $database) {
         $conn = $database->getConnection();
         
         // Fetch the requested role details from the 'rolereq' table
@@ -280,10 +291,15 @@ class UserModel {
                 $stmt2->execute();
 
                 // Update the user's role in the 'users' table
-                $updateUser = "UPDATE users SET usertype = ? WHERE username = ?";
+                $updateUser = "UPDATE users SET usertype = ? WHERE no=?";
                 $stmt3 = $conn->prepare($updateUser);
-                $stmt3->bind_param("ss", $role, $username);
+                $stmt3->bind_param("ss", $role, $no);
                 $stmt3->execute();
+
+                $assignUser = "INSERT INTO organizer_society VALUES (?, ?)";
+                $stmt4 = $conn->prepare($assignUser);
+                $stmt4->bind_param("ss", $no, $orgno);
+                $stmt4->execute();
             }
 
             return true;
