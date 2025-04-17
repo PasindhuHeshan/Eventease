@@ -1,3 +1,4 @@
 
 app/Models/email_config.php
 vendor/
+vendor/composer/installed.php
