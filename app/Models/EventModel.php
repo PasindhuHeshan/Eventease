@@ -155,4 +155,18 @@ class EventModel {
         $stmt->close(); 
         return $result->fetch_all(MYSQLI_ASSOC); 
     }
+
+    public function geteventinventory(Database $database){
+        //table is event_inventory
+        $query = "SELECT ei.*, e.* FROM event_inventory ei JOIN events e ON ei.event_id = e.no WHERE ei.status = 0";
+        $result = $this->conn->query($query);
+        if ($result === false) {
+            return null;
+        }
+        if ($result->num_rows > 0) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return null;
+        }
+    }
 }

@@ -1,43 +1,3 @@
-
-<?php
-// Database connection settings
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "eventease";
-
-// Create a connection to the MySQL database
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Get the event ID from the URL query parameter (e.g., 1.php?event_no=1)
-$eventId = isset($_GET['event_no']) ? (int)$_GET['event_no'] : 0;
-
-// Fetch event data based on event ID where approvedstatus = 0 (unapproved events)
-$sql = "SELECT name, long_dis FROM events WHERE no = ? AND approvedstatus = 1"; 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $eventId); 
-$stmt->execute();
-$result = $stmt->get_result();
-
-$eventData = null;
-
-if ($result->num_rows > 0) {
-    // Fetch the event data from the result
-    $eventData = $result->fetch_assoc();
-} else {
-   
-    echo "No unapproved event found with the specified ID.";
-}
-
-// Close the database connection
-$conn->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,23 +10,19 @@ $conn->close();
     <div class="event-container">
         <h2> Inventory Requested</h2>
         
-        <?php if ($eventData): ?>
+        <?php if ($events): ?>
             <!-- Displaying Event Name and Description if found -->
             <div class="event-details">
                 <label class="event-label">Event name:</label>
-                <div class="event-name"><?php echo htmlspecialchars($eventData['name']); ?></div>
-            </div>
-            <!-- <div class="event-details">
-                <label class="event-label">Event description:</label>
-                <div class="event-description"><?php echo htmlspecialchars($eventData['long_dis']); ?></div>
-            </div> -->
+                <div class="event-name"><?php echo htmlspecialchars($events['name']); ?></div>
+            </div
             <div class="event-details">
                 <label class="event-label">Inventory requested:</label>
-                <div class="event-name"><?php echo htmlspecialchars($eventData['name']); ?></div>
+                <div class="event-name"><?php echo htmlspecialchars($events['name']); ?></div>
             </div>
             <div class="event-details">
                 <label class="event-label">Inventory in use:</label>
-                <div class="event-name"><?php echo htmlspecialchars($eventData['name']); ?></div>
+                <div class="event-name"><?php echo htmlspecialchars($events['name']); ?></div>
             </div>
         <?php else: ?>
             <!-- If no unapproved event is found -->
