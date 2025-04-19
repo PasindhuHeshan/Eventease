@@ -1,36 +1,3 @@
-<?php
-
-require_once __DIR__ . '/../../Models/Dashboard.php';
-require_once __DIR__ . '/../../Database.php';
-
-use App\Database; 
-use App\Models\Dashboard;
-
-$database = new Database();
-$dashboard = new Dashboard($database);
-
-//Define the user types
-$user_types = ['admin', 'staff', 'guest', 'organizer', 'student', 'support'];
-
-//to Initialize an array to store user counts
-$user_counts = [];
-
-//Retrieve user counts for each user type
-foreach ($user_types as $type) {
-    $user_counts[$type] = $dashboard->getUserCount($type);
-}
-
-//Map database values to display values
-$display_user_types = [
-    'admin' => 'Admin',
-    'staff' => 'Academic Staff',
-    'guest' => 'Guest',
-    'organizer' => 'Event Organizer',
-    'student' => 'Student',
-    'support' => 'Support Staff'
-];
-?>
-
 <?php 
     $parameter='dashboard';
 ?>
@@ -59,9 +26,14 @@ $display_user_types = [
                     </tr>
                     <?php foreach ($user_types as $type): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($display_user_types[$type] ?? ''); ?></td>
-                        <td style="color:green;"><?php if (isset($newuser_count[$type]) && $newuser_count[$type] !== null){echo '+'.htmlspecialchars($newuser_count[$type]);}else{echo '-';} ?></td>
-                        <td><?php echo htmlspecialchars($user_counts[$type] ?? ''); ?></td>
+                        <td><?php echo $type['role_name']; ?></td>
+                        <td style="color:green;">
+                            <?php 
+                                $roleId = $type['role_id'];
+                                echo isset($new_users[$roleId]) ? '+' . $new_users[$roleId] : '-';
+                            ?>
+                        </td>
+                        <td><?php echo $type['count']; ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </table>

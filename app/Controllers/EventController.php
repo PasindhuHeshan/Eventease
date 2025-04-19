@@ -98,10 +98,10 @@ class EventController
             }
         }
     }
-   /* public function getApprovedEvents() {
-        $events = $this->eventModel->getNotApprovedEvents();
-        include __DIR__ . '/../Views/events/staff.php';
-    }*/
+    // public function getApprovedEvents() {
+    //     $events = $this->eventModel->getApprovedEvents();
+    //     include __DIR__ . '/../Views/events/staff.php';
+    // }
 
     public function getNotApprovedEvents() {
         $database = new Database();

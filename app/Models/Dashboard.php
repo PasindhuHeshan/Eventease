@@ -22,8 +22,27 @@ class Dashboard {
         return $data['count'];
     }
 
+    public function getuserdatausingtypes() {
+        $query = "SELECT roles.role_name, users.usertype, roles.role_id, COUNT(*) as count 
+                  FROM users 
+                  JOIN roles ON users.usertype = roles.role_id 
+                  GROUP BY users.usertype";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $userdata = [];
+    
+        while ($data = $result->fetch_assoc()) {
+            $userdata[] = $data;
+        }
+    
+        $stmt->close();
+        return $userdata;
+    }
+    
+
     public function getNewUsersByType() {
-        $query = "SELECT usertype, COUNT(*) as count FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) GROUP BY usertype";
+        $query = "SELECT users.*, COUNT(*) as count FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) GROUP BY users.usertype";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();

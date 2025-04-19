@@ -10,72 +10,75 @@
 
     <h2>Events</h2>
     <p>Here you can allocate inventory for each request.</p>
+
     <div class="event-type-container">
-        <label" for="event_type">Event type</label>
+        <label for="event_type">Event Type</label>
         <select name="event_type" id="event_type">
             <option value="">All</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Conference">Conference</option>
-            <option value="Festival">Festival</option>
-            <option value="Event">Event</option>
-            <option value="Expo">Expo</option>
-            <option value="Summit">Summit</option>
-            <option value="Charity">Charity</option>
+            <?php foreach ($events as $type): ?>
+                <option value="<?php echo htmlspecialchars($type['event_type']); ?>">
+                    <?php echo htmlspecialchars($type['event_type']); ?>
+                </option>
+            <?php endforeach; ?>
         </select>
     </div>
 
+    <!-- Event Table -->
     <table>
         <thead>
             <tr>
                 <th>No</th>
                 <th>Event Name</th>
-                <th>Event Type</th>
                 <th>View Inventory Requested</th>
                 <th>Action</th>
             </tr>
         </thead>
       
         <tbody id="events_table_body">
-            <!-- Events will be populated here dynamically -->
-            <?php foreach ($events as $event):?>
-                <tr class="event_row" data-event-type="<?php echo $event['event_type']; ?>">
-                    <td><?php echo $event['no']; ?></td>
-                    <td><?php echo $event['name']; ?></td>
-                    <td><?php echo $event['event_type']; ?></td>
+            <?php if (!empty($events) && is_array($events)): ?>
+                <?php foreach ($events as $event): ?>
+                <tr class="event_row" data-event-type="<?php echo htmlspecialchars($event['event_type']); ?>">
+                    <td><?php echo htmlspecialchars($event['no']); ?></td>
+                    <td><?php echo htmlspecialchars($event['name']); ?></td>
                     <td>
-                    <button onclick="viewEvent('<?php echo $event['no']; ?>')">View</button>
+                        <button onclick="viewEvent('<?php echo $event['no']; ?>')">View</button>
                     </td>
-
                     <td>
                         <button>Approve</button> 
                         <button>Reject</button>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4">No events available.</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
 
+    <!-- Script -->
     <script>
-    // When the event type changes, filter the events
+    // Filter events by event type
     document.getElementById('event_type').addEventListener('change', function() {
-        var selectedEventType = this.value.toLowerCase();
+        var selected = this.value.trim().toLowerCase();
         var rows = document.querySelectorAll('.event_row');
-        
+
         rows.forEach(function(row) {
-            var eventType = row.getAttribute('data-event-type').toLowerCase();
-            
-            if (selectedEventType === "" || eventType.includes(selectedEventType)) {
-                row.style.display = ""; // Show the row
+            var type = row.getAttribute('data-event-type').trim().toLowerCase();
+            if (selected === "" || type === selected) {
+                row.style.display = "";
             } else {
-                row.style.display = "none"; // Hide the row
+                row.style.display = "none";
             }
         });
     });
 
-   
+    // Redirect to view event
     function viewEvent(eventNo) {
-        window.location.href = "viewevent.php?event_no=" + eventNo;
+        window.location.href = "viewevent.php?event_no=" + encodeURIComponent(eventNo);
     }
-</script>
+    </script>
+
 </body>
 </html>

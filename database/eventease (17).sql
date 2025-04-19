@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2025 at 08:55 AM
+-- Generation Time: Apr 19, 2025 at 07:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,7 +74,7 @@ CREATE TABLE `contact_numbers` (
 INSERT INTO `contact_numbers` (`Cnt_No`, `Cnt_num`) VALUES
 (63, '0452896578'),
 (63, '0526998574'),
-(17, '0718596859'),
+(17, '0718596880'),
 (17, '0748596327');
 
 -- --------------------------------------------------------
@@ -98,7 +98,8 @@ CREATE TABLE `contact_support` (
 --
 
 INSERT INTO `contact_support` (`no`, `name`, `id`, `email`, `contact_no`, `open_time`, `reply_time`) VALUES
-(23, 'sdsa', '3', 'ss@gmail.com', '0125478969', '2025-04-16 06:38:04', NULL);
+(23, 'sdsa', '3', 'ss@gmail.com', '0125478969', '2025-04-16 06:38:04', NULL),
+(25, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596859', '2025-04-16 15:59:43', '2025-04-16 15:17:02');
 
 -- --------------------------------------------------------
 
@@ -112,6 +113,16 @@ CREATE TABLE `contact_support_data` (
   `user_msg` varchar(1000) NOT NULL,
   `admin_msg` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contact_support_data`
+--
+
+INSERT INTO `contact_support_data` (`row_no`, `no`, `user_msg`, `admin_msg`) VALUES
+(50, 25, 'adasd', ''),
+(51, 25, '', 'hih'),
+(52, 25, 'hi', ''),
+(53, 25, '', '');
 
 -- --------------------------------------------------------
 
@@ -161,9 +172,10 @@ CREATE TABLE `events` (
   `people_limit` int(11) NOT NULL,
   `event_type` varchar(50) NOT NULL,
   `approvedstatus` int(11) NOT NULL,
-  `supervisor` varchar(100) NOT NULL,
+  `reason` varchar(1000) NOT NULL,
+  `supervisor` int(11) DEFAULT NULL,
   `event_banner` varchar(200) NOT NULL,
-  `organizer` varchar(100) NOT NULL,
+  `organizer` int(11) NOT NULL,
   `orgno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -171,19 +183,19 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `date`, `location`, `people_limit`, `event_type`, `approvedstatus`, `supervisor`, `event_banner`, `organizer`, `orgno`) VALUES
-(1, 'Art Exhibition', 'Futuristic art showcase from renowned artists.', 'Step into a world where imagination meets reality in this cutting-edge art exhibition. Featuring over 50 renowned contemporary artists, \"Visions of the Future\" explores the infinite possibilities of tomorrow through various mediums including paintings, sculptures, digital art, and installations. Each piece challenges conventional perceptions and invites viewers to ponder the future of technology, society, and the environment. Special guided tours and interactive sessions with the artists will provide deeper insights into their visionary creations.', 0, '09:00:00', '2025-01-15', 'Art Gallery', 150, 'Exhibition', 0, 'Mr. Adams', 'images/events/banner1.jpeg', '', 2),
-(2, 'Music Festival', 'Relaxing music in a picturesque park.', 'Experience the perfect blend of music and nature at the \"Sounds of Serenity\" music festival. Set in a picturesque park, this event features acoustic performances, ambient soundscapes, and nature-inspired compositions from world-class musicians. Guests can participate in guided meditation sessions, yoga classes, and mindfulness workshops, all designed to enhance the healing power of music and nature. Enjoy evening bonfires, storytelling sessions, and serene boat rides on the park’s tranquil lake.', 1, '10:00:00', '2025-02-11', 'City Park', 200, 'Festival', 0, 'Ms. Davis', 'images/events/banner2.jpeg', '', 0),
-(3, 'Tech Conference', 'Premier event for tech enthusiasts.', 'Join industry leaders and innovators at \"Innovate 2025,\" the foremost tech conference of the year. This three-day event includes keynote speeches from top tech CEOs, panel discussions on emerging trends, hands-on workshops, and a showcase of the latest gadgets and technologies. Attendees will have the opportunity to network with experts, learn about the future of AI, blockchain, cybersecurity, and more. The conference will also feature innovation challenges, hackathons, and startup pitches, providing a platform for the next generation of tech entrepreneurs.', 1, '08:00:00', '2025-02-20', 'Convention Center', 300, 'Conference', 0, 'Mr. Brown', 'images/events/banner3.jpeg', 'pasindu2', 0),
-(4, 'Film Festival', 'Celebration of international films.', 'Embark on a cinematic journey at \"Cinema Paradiso,\" a festival dedicated to the art of filmmaking. Featuring screenings of over 100 films from around the globe, this event highlights the diversity of storytelling through cinema. Meet acclaimed directors, participate in Q&A sessions, and enjoy special premieres of groundbreaking films. Workshops and masterclasses on screenwriting, directing, and editing are also available for aspiring filmmakers. The festival will also include a special section for independent films and documentaries, providing a platform for emerging voices in cinema.', 1, '11:00:00', '2025-04-10', 'Film Theater', 250, 'Festival', 0, 'Ms. Clark', 'images/events/banner1.jpeg', '', 0),
-(5, 'Culinary Event', 'Global culinary experience.', 'Indulge in a gastronomic adventure at \"Flavors of the World,\" where chefs from around the globe come together to showcase their culinary artistry. Taste exotic dishes, attend cooking demonstrations, and learn about the cultural significance of various cuisines. This event also features food-related workshops, such as wine pairing, chocolate making, and sustainable cooking practices. A must-attend for food lovers and culinary professionals alike, the event will also host a special farm-to-table dinner under the stars.', 1, '12:00:00', '2025-05-18', 'Gourmet Hall', 180, 'Event', 0, 'Chef Blanc', 'images/events/banner4.jpeg', '', 0),
-(6, 'Literary Festival', 'World of literature and storytelling.', 'Dive into the world of words at the \"Books and Beyond\" literary festival. Featuring renowned authors, poets, and storytellers, this event offers a variety of literary activities including book readings, signings, and panel discussions. Explore the world of publishing, participate in writing workshops, and discover new literary talents. With a dedicated area for children’s literature, the festival is a family-friendly event promoting the joy of reading. Special sessions on digital publishing, e-books, and interactive storytelling will also be part of the festival.', 1, '13:00:00', '2025-06-22', 'Library Plaza', 200, 'Festival', 0, 'Mr. Johnson', 'images/events/banner5.jpeg', '', 2),
-(7, 'Wellness Expo', 'Health and wellness expo.', 'Transform your lifestyle at the \"Live Well\" Health and Wellness Expo. This comprehensive event focuses on physical, mental, and emotional well-being, featuring health screenings, fitness classes, and nutrition seminars. Connect with wellness experts, participate in mindfulness sessions, and explore holistic health products. Workshops on stress management, mental health awareness, and alternative therapies provide valuable insights for a balanced life. Additionally, the expo will offer personalized wellness plans and one-on-one consultations with health professionals.', 1, '09:30:00', '2025-07-15', 'Health Center', 220, 'Expo', 0, 'Dr. Green', 'images/events/banner2.jpeg', '', 0),
-(8, 'Environmental Summit', 'Addressing environmental challenges.', 'Join environmental activists, scientists, and policymakers at the \"Green Future\" summit to tackle pressing ecological issues. This event includes keynote speeches on climate change, biodiversity, and sustainable practices. Participate in roundtable discussions, attend green technology exhibitions, and network with like-minded individuals committed to environmental preservation. Workshops on renewable energy, conservation strategies, and eco-friendly living offer practical solutions for a sustainable future. The summit will also host a special youth forum to engage the next generation in environmental activism.', 1, '14:00:00', '2025-08-09', 'Eco Center', 300, 'Summit', 0, 'Ms. Taylor', 'images/events/banner1.jpeg', '', 0),
-(9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '2025-09-12', 'Fashion Avenue', 150, 'Charity', 1, 'Ms. Lee', 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 'pasindu', 0),
-(10, 'Social Gathering', 'Community social event.', 'Join us for a community social gathering where neighbors can connect, share stories, and enjoy a variety of activities. The event will feature live music, food stalls, games, and a talent show. It’s a perfect opportunity to meet new people and strengthen community bonds.', 1, '16:00:00', '2025-10-10', 'Community Center', 100, 'Social', 0, 'Mr. Smith', 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', '', 0),
-(11, 'Educational Workshop', 'Interactive learning experience.', 'Participate in an interactive educational workshop designed to enhance your skills and knowledge. This workshop covers a range of topics including technology, science, and arts. Expert instructors will guide you through hands-on activities and provide valuable insights.', 1, '10:00:00', '2025-11-15', 'Education Hall', 50, 'Educational', 0, 'Ms. Johnson', '0', '', 0),
-(12, 'Entertainment Night', 'Fun-filled entertainment event.', 'Enjoy a night of entertainment with live performances, comedy acts, and dance shows. This event promises to be a fun-filled evening for all ages. Don’t miss out on the exciting lineup of entertainers and the chance to win prizes in various contests.', 1, '19:00:00', '2025-12-20', 'Entertainment Arena', 300, 'Entertainment', 0, 'Mr. Williams', '0', '', 0);
+INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `date`, `location`, `people_limit`, `event_type`, `approvedstatus`, `reason`, `supervisor`, `event_banner`, `organizer`, `orgno`) VALUES
+(1, 'Art Exhibition', 'Futuristic art showcase from renowned artists.', 'Step into a world where imagination meets reality in this cutting-edge art exhibition. Featuring over 50 renowned contemporary artists, \"Visions of the Future\" explores the infinite possibilities of tomorrow through various mediums including paintings, sculptures, digital art, and installations. Each piece challenges conventional perceptions and invites viewers to ponder the future of technology, society, and the environment. Special guided tours and interactive sessions with the artists will provide deeper insights into their visionary creations.', 0, '09:00:00', '2025-01-15', 'Art Gallery', 150, 'Exhibition', 0, '', 20, 'images/events/banner1.jpeg', 16, 2),
+(2, 'Music Festival', 'Relaxing music in a picturesque park.', 'Experience the perfect blend of music and nature at the \"Sounds of Serenity\" music festival. Set in a picturesque park, this event features acoustic performances, ambient soundscapes, and nature-inspired compositions from world-class musicians. Guests can participate in guided meditation sessions, yoga classes, and mindfulness workshops, all designed to enhance the healing power of music and nature. Enjoy evening bonfires, storytelling sessions, and serene boat rides on the park’s tranquil lake.', 1, '10:00:00', '2025-02-11', 'City Park', 200, 'Festival', 0, '', 20, 'images/events/banner2.jpeg', 16, 0),
+(3, 'Tech Conference', 'Premier event for tech enthusiasts.', 'Join industry leaders and innovators at \"Innovate 2025,\" the foremost tech conference of the year. This three-day event includes keynote speeches from top tech CEOs, panel discussions on emerging trends, hands-on workshops, and a showcase of the latest gadgets and technologies. Attendees will have the opportunity to network with experts, learn about the future of AI, blockchain, cybersecurity, and more. The conference will also feature innovation challenges, hackathons, and startup pitches, providing a platform for the next generation of tech entrepreneurs.', 1, '08:00:00', '2025-02-20', 'Convention Center', 300, 'Conference', 0, '', 20, 'images/events/banner3.jpeg', 16, 0),
+(4, 'Film Festival', 'Celebration of international films.', 'Embark on a cinematic journey at \"Cinema Paradiso,\" a festival dedicated to the art of filmmaking. Featuring screenings of over 100 films from around the globe, this event highlights the diversity of storytelling through cinema. Meet acclaimed directors, participate in Q&A sessions, and enjoy special premieres of groundbreaking films. Workshops and masterclasses on screenwriting, directing, and editing are also available for aspiring filmmakers. The festival will also include a special section for independent films and documentaries, providing a platform for emerging voices in cinema.', 1, '11:00:00', '2025-04-10', 'Film Theater', 250, 'Festival', 0, '', 20, 'images/events/banner1.jpeg', 16, 0),
+(5, 'Culinary Event', 'Global culinary experience.', 'Indulge in a gastronomic adventure at \"Flavors of the World,\" where chefs from around the globe come together to showcase their culinary artistry. Taste exotic dishes, attend cooking demonstrations, and learn about the cultural significance of various cuisines. This event also features food-related workshops, such as wine pairing, chocolate making, and sustainable cooking practices. A must-attend for food lovers and culinary professionals alike, the event will also host a special farm-to-table dinner under the stars.', 1, '12:00:00', '2025-05-18', 'Gourmet Hall', 180, 'Event', 0, '', 20, 'images/events/banner4.jpeg', 16, 0),
+(6, 'Literary Festival', 'World of literature and storytelling.', 'Dive into the world of words at the \"Books and Beyond\" literary festival. Featuring renowned authors, poets, and storytellers, this event offers a variety of literary activities including book readings, signings, and panel discussions. Explore the world of publishing, participate in writing workshops, and discover new literary talents. With a dedicated area for children’s literature, the festival is a family-friendly event promoting the joy of reading. Special sessions on digital publishing, e-books, and interactive storytelling will also be part of the festival.', 1, '13:00:00', '2025-06-22', 'Library Plaza', 200, 'Festival', 0, '', 20, 'images/events/banner5.jpeg', 16, 2),
+(7, 'Wellness Expo', 'Health and wellness expo.', 'Transform your lifestyle at the \"Live Well\" Health and Wellness Expo. This comprehensive event focuses on physical, mental, and emotional well-being, featuring health screenings, fitness classes, and nutrition seminars. Connect with wellness experts, participate in mindfulness sessions, and explore holistic health products. Workshops on stress management, mental health awareness, and alternative therapies provide valuable insights for a balanced life. Additionally, the expo will offer personalized wellness plans and one-on-one consultations with health professionals.', 1, '09:30:00', '2025-07-15', 'Health Center', 220, 'Expo', 0, '', 20, 'images/events/banner2.jpeg', 16, 0),
+(8, 'Environmental Summit', 'Addressing environmental challenges.', 'Join environmental activists, scientists, and policymakers at the \"Green Future\" summit to tackle pressing ecological issues. This event includes keynote speeches on climate change, biodiversity, and sustainable practices. Participate in roundtable discussions, attend green technology exhibitions, and network with like-minded individuals committed to environmental preservation. Workshops on renewable energy, conservation strategies, and eco-friendly living offer practical solutions for a sustainable future. The summit will also host a special youth forum to engage the next generation in environmental activism.', 1, '14:00:00', '2025-08-09', 'Eco Center', 300, 'Summit', 0, '', 20, 'images/events/banner1.jpeg', 16, 0),
+(9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '2025-09-12', 'Fashion Avenue', 150, 'Charity', 2, 'nope', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
+(10, 'Social Gathering', 'Community social event.', 'Join us for a community social gathering where neighbors can connect, share stories, and enjoy a variety of activities. The event will feature live music, food stalls, games, and a talent show. It’s a perfect opportunity to meet new people and strengthen community bonds.', 1, '16:00:00', '2025-10-10', 'Community Center', 100, 'Social', 0, '', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
+(11, 'Educational Workshop', 'Interactive learning experience.', 'Participate in an interactive educational workshop designed to enhance your skills and knowledge. This workshop covers a range of topics including technology, science, and arts. Expert instructors will guide you through hands-on activities and provide valuable insights.', 1, '10:00:00', '2025-11-15', 'Education Hall', 50, 'Educational', 0, '', 20, '0', 16, 0),
+(12, 'Entertainment Night', 'Fun-filled entertainment event.', 'Enjoy a night of entertainment with live performances, comedy acts, and dance shows. This event promises to be a fun-filled evening for all ages. Don’t miss out on the exciting lineup of entertainers and the chance to win prizes in various contests.', 1, '19:00:00', '2025-12-20', 'Entertainment Arena', 300, 'Entertainment', 0, '', 20, '0', 16, 0);
 
 -- --------------------------------------------------------
 
@@ -192,9 +204,18 @@ INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `da
 --
 
 CREATE TABLE `event_inventory` (
-  `eventno` int(11) NOT NULL,
-  `inventory_requested` varchar(100) NOT NULL
+  `event_id` int(11) NOT NULL,
+  `inventory_item` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `event_inventory`
+--
+
+INSERT INTO `event_inventory` (`event_id`, `inventory_item`, `quantity`, `status`) VALUES
+(9, 15, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -278,6 +299,7 @@ CREATE TABLE `organizations` (
 
 INSERT INTO `organizations` (`orgno`, `orgname`, `orgdetails`, `orgprofilepic`) VALUES
 (0, 'IEEE student Branch UCSC', 'Hi', ''),
+(1, 'AISEC', 'asdad', ''),
 (2, 'ACM Student Branch UCSC', 'Hello', '');
 
 -- --------------------------------------------------------
@@ -290,6 +312,13 @@ CREATE TABLE `organizer_society` (
   `organizer_no` int(11) NOT NULL,
   `organization_no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `organizer_society`
+--
+
+INSERT INTO `organizer_society` (`organizer_no`, `organization_no`) VALUES
+(17, 2);
 
 -- --------------------------------------------------------
 
@@ -311,7 +340,7 @@ CREATE TABLE `rolereq` (
 --
 
 INSERT INTO `rolereq` (`no`, `role`, `organization`, `status`, `reason`, `reply`) VALUES
-(17, 'organizer', 0, 1, 'im the one', 'nope');
+(17, '3', 2, 1, 'asd', '');
 
 -- --------------------------------------------------------
 
@@ -346,13 +375,13 @@ CREATE TABLE `users` (
   `No` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `fname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
+  `fname` varchar(50) DEFAULT NULL,
+  `lname` varchar(50) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `usertype` varchar(50) NOT NULL,
-  `id` varchar(50) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `city` varchar(100) NOT NULL,
+  `id` varchar(50) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
   `profile_picture` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -367,7 +396,7 @@ INSERT INTO `users` (`No`, `username`, `password`, `fname`, `lname`, `email`, `u
 (10, 'sanduni', '$2y$10$VB/Zi7XXE/gFY.64z8o7a.jric8faY3mLJwBCXynOtpP1SNSIgGBq', 'Sanduni', '', 'saduni@stu.ucsc.cmb.lk', '0', 'ucsc', '2', '2', 'images/profiles/BlackRock-windows10Wallpapers.jpg', 1, '2024-11-28 13:00:52', '2025-04-14 09:56:42'),
 (11, 'navindu', '$2y$10$gLOWumpp8eS6JnsCrLrK.uJP4y9hr/wNfQ5tM/TlkSnh9ScaPFfGq', 'Navindu', 'Thilakshana', 'se@gmail.com', '2', '200234600111', 'asd', 'asd', NULL, 1, '2024-11-28 13:27:11', '2025-04-07 08:01:08'),
 (16, 'pasindu', '$2y$10$.6eQk7X78Q.s2vhu3IG77uPC9YH5/3JKzVZ.mutH0Z0EkGP6z3YUa', 'Pasindu', 'Heshan', 'seniru@stu.ucsc.cmb.lk', '3', '22020782', 'Sama Mawatha', 'Kottawa', 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', 1, '2024-11-28 14:55:07', '2025-04-07 06:44:36'),
-(17, 'seniru', '$2y$10$OKNPBhPharr9wqV2FS1MPONXDVA2gVqOcgAM1TiBqA3OgVE/xqvnW', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.ac.lk', '1', '22020782', 'Sama Mawatha', 'Homagama', 'images/profiles/Screenshot (3).png', 1, '2024-11-28 15:02:04', '2025-04-15 16:38:53'),
+(17, 'seniru', '$2y$10$OKNPBhPharr9wqV2FS1MPONXDVA2gVqOcgAM1TiBqA3OgVE/xqvnW', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.ac.lk', '3', '22020782', 'Sama Mawatha', 'Homagama', 'images/profiles/Screenshot (3).png', 1, '2024-11-28 15:02:04', '2025-04-16 15:39:11'),
 (19, 'pasindu2', '$2y$10$tYxF4J6sEY6EYZdwf6RodOSSFmOkyaym3FgHLN51xaDqyJoevdm/O', 'Pasindu', 'aa', 'aa@gmail.com', '4', '0', '12', '`12', NULL, 1, '2024-11-29 04:55:05', '2025-04-07 06:44:37'),
 (20, 'navindu2', '$2y$10$tyZ0/xUexSm8mGn8WT9WHe9AaHcjrmusKBLLV6soRYc/UQ0ZY446C', 'Navindu', 'T', 'se@gmail.com', '5', '0', '12', '12', NULL, 1, '2024-11-29 05:01:30', '2025-04-07 06:44:37'),
 (51, 'aaaa', '$2y$10$dAcHXcRFqhUExqHjnXC2EemXfy0uF/QPY9yJB7G8RpytFVDnBFHlO', 'as', 'asd', 'asd@gmail.com', '2', '200234600222', '45', '5', NULL, 1, '2025-04-07 08:05:54', '2025-04-14 11:57:21'),
@@ -400,7 +429,7 @@ ALTER TABLE `admin_support_id`
 -- Indexes for table `contact_numbers`
 --
 ALTER TABLE `contact_numbers`
-  ADD KEY `Cnt_No` (`Cnt_No`);
+  ADD KEY `contact_numbers_ibfk_1` (`Cnt_No`);
 
 --
 -- Indexes for table `contact_support`
@@ -420,7 +449,15 @@ ALTER TABLE `contact_support_data`
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`no`),
-  ADD KEY `orgno` (`orgno`);
+  ADD KEY `orgno` (`orgno`),
+  ADD KEY `supervisor` (`supervisor`);
+
+--
+-- Indexes for table `event_inventory`
+--
+ALTER TABLE `event_inventory`
+  ADD KEY `eventno` (`event_id`),
+  ADD KEY `inventory_requested` (`inventory_item`);
 
 --
 -- Indexes for table `id_numbers`
@@ -481,13 +518,13 @@ ALTER TABLE `admin_support`
 -- AUTO_INCREMENT for table `contact_support`
 --
 ALTER TABLE `contact_support`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `contact_support_data`
 --
 ALTER TABLE `contact_support_data`
-  MODIFY `row_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `row_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -511,7 +548,7 @@ ALTER TABLE `organizations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- Constraints for dumped tables
@@ -528,7 +565,7 @@ ALTER TABLE `admin_support`
 -- Constraints for table `contact_numbers`
 --
 ALTER TABLE `contact_numbers`
-  ADD CONSTRAINT `contact_numbers_ibfk_1` FOREIGN KEY (`Cnt_No`) REFERENCES `users` (`No`);
+  ADD CONSTRAINT `contact_numbers_ibfk_1` FOREIGN KEY (`Cnt_No`) REFERENCES `users` (`No`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `contact_support_data`
@@ -540,7 +577,15 @@ ALTER TABLE `contact_support_data`
 -- Constraints for table `events`
 --
 ALTER TABLE `events`
-  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`orgno`) REFERENCES `organizations` (`orgno`);
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`orgno`) REFERENCES `organizations` (`orgno`),
+  ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`supervisor`) REFERENCES `users` (`No`);
+
+--
+-- Constraints for table `event_inventory`
+--
+ALTER TABLE `event_inventory`
+  ADD CONSTRAINT `event_inventory_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`no`),
+  ADD CONSTRAINT `event_inventory_ibfk_2` FOREIGN KEY (`inventory_item`) REFERENCES `inventory` (`id`);
 
 --
 -- Constraints for table `id_numbers`

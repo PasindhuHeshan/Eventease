@@ -19,8 +19,9 @@ class EventsController {
     public function index() {
         $database = new Database();
         $username = $_SESSION['username'];
-        $events = $this->eventModel->getEventsByOrganizer($username);
         $userData = $this->userModel->getUserData($username,$database);
+        $events = $this->eventModel->getEventsByOrganizer($userData['No']);
+        
         include __DIR__ . '/../Views/EventOrg/myevents.php';
     }
 
