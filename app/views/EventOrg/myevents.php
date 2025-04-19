@@ -32,6 +32,7 @@
                         <p class="event-location">Location: <?php echo $event['location']; ?></p>
                         <p class="event-description"><?php echo $event['short_dis']; ?></p>
                         <?php if($event['approvedstatus']==1){ echo '<p class="event-description" style="color:red; font-weight:bold;">Waiting for approval</p>';} ?>
+                        <?php if($event['approvedstatus']==2){ echo '<p class="event-description" style="color:red; font-weight:bold;">Event Rejected</p>';} ?>
                         <hr>
                         <p class="event-description">
                             <?php if($userType=='organizer'){ echo '<a href="createform?no=' . $event['no'] . '">Edit Event</a>';} ?>

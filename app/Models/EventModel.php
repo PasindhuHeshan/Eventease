@@ -63,8 +63,8 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getNotApprovedEvents() {
-        $query = "SELECT no, name, event_type FROM events WHERE approvedstatus = 1";
+    public function getNotApprovedEvents($no) {
+        $query = "SELECT * FROM events JOIN users ON events.organizer=users.no JOIN organizations ON events.orgno = organizations.orgno LEFT JOIN event_inventory ON events.no = event_inventory.eventno WHERE approvedstatus = 1 AND (event_inventory.eventno IS NULL OR event_inventory.status = 1) AND events.supervisor = $no AND date >= CURDATE() ORDER BY date ASC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();

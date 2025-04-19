@@ -223,9 +223,9 @@ switch ($url) {
         $hcontroller->render();
         $eocontroller->index();
         break;
-    case 'getApprovedEvents':
+    case 'getNotApprovedEvents':
         $hcontroller->render();
-        $econtroller->getApprovedEvents();
+        $econtroller->getNotApprovedEvents();
         break;
     case 'acceptevent':
         $hcontroller->render();

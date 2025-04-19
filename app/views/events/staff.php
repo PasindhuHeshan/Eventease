@@ -33,7 +33,8 @@
                     <thead>
                         <tr>
                             <th>Event</th>
-                            <th>Event Organizer</th>
+                            <th>Organization</th>
+                            <th>Organizer</th>
                             <th>Location</th>
                             <th>Date</th>
                             <th>Time</th>
@@ -45,7 +46,8 @@
                         <?php foreach ($events as $event): ?>
                             <tr>
                                 <td><a href="eventd.php?no=<?= $event['no'] ?>"><?= $event['name'] ?></a></td>
-                                <td><?= $event['organizer'] ?></td>
+                                <td><?= $event['orgname'] ?></td>
+                                <td><?= $event['fname']." ".$event['lname'] ?></td>
                                 <td><?= $event['location'] ?></td>
                                 <td><?= $event['date'] ?></td>
                                 <td><?= $event['time'] ?></td>
