@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2025 at 07:32 AM
+-- Generation Time: Apr 19, 2025 at 07:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -192,7 +192,7 @@ INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `da
 (6, 'Literary Festival', 'World of literature and storytelling.', 'Dive into the world of words at the \"Books and Beyond\" literary festival. Featuring renowned authors, poets, and storytellers, this event offers a variety of literary activities including book readings, signings, and panel discussions. Explore the world of publishing, participate in writing workshops, and discover new literary talents. With a dedicated area for children’s literature, the festival is a family-friendly event promoting the joy of reading. Special sessions on digital publishing, e-books, and interactive storytelling will also be part of the festival.', 1, '13:00:00', '2025-06-22', 'Library Plaza', 200, 'Festival', 0, '', 20, 'images/events/banner5.jpeg', 16, 2),
 (7, 'Wellness Expo', 'Health and wellness expo.', 'Transform your lifestyle at the \"Live Well\" Health and Wellness Expo. This comprehensive event focuses on physical, mental, and emotional well-being, featuring health screenings, fitness classes, and nutrition seminars. Connect with wellness experts, participate in mindfulness sessions, and explore holistic health products. Workshops on stress management, mental health awareness, and alternative therapies provide valuable insights for a balanced life. Additionally, the expo will offer personalized wellness plans and one-on-one consultations with health professionals.', 1, '09:30:00', '2025-07-15', 'Health Center', 220, 'Expo', 0, '', 20, 'images/events/banner2.jpeg', 16, 0),
 (8, 'Environmental Summit', 'Addressing environmental challenges.', 'Join environmental activists, scientists, and policymakers at the \"Green Future\" summit to tackle pressing ecological issues. This event includes keynote speeches on climate change, biodiversity, and sustainable practices. Participate in roundtable discussions, attend green technology exhibitions, and network with like-minded individuals committed to environmental preservation. Workshops on renewable energy, conservation strategies, and eco-friendly living offer practical solutions for a sustainable future. The summit will also host a special youth forum to engage the next generation in environmental activism.', 1, '14:00:00', '2025-08-09', 'Eco Center', 300, 'Summit', 0, '', 20, 'images/events/banner1.jpeg', 16, 0),
-(9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '2025-09-12', 'Fashion Avenue', 150, 'Charity', 2, 'data missing', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
+(9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '2025-09-12', 'Fashion Avenue', 150, 'Charity', 2, 'nope', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
 (10, 'Social Gathering', 'Community social event.', 'Join us for a community social gathering where neighbors can connect, share stories, and enjoy a variety of activities. The event will feature live music, food stalls, games, and a talent show. It’s a perfect opportunity to meet new people and strengthen community bonds.', 1, '16:00:00', '2025-10-10', 'Community Center', 100, 'Social', 0, '', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
 (11, 'Educational Workshop', 'Interactive learning experience.', 'Participate in an interactive educational workshop designed to enhance your skills and knowledge. This workshop covers a range of topics including technology, science, and arts. Expert instructors will guide you through hands-on activities and provide valuable insights.', 1, '10:00:00', '2025-11-15', 'Education Hall', 50, 'Educational', 0, '', 20, '0', 16, 0),
 (12, 'Entertainment Night', 'Fun-filled entertainment event.', 'Enjoy a night of entertainment with live performances, comedy acts, and dance shows. This event promises to be a fun-filled evening for all ages. Don’t miss out on the exciting lineup of entertainers and the chance to win prizes in various contests.', 1, '19:00:00', '2025-12-20', 'Entertainment Arena', 300, 'Entertainment', 0, '', 20, '0', 16, 0);
@@ -204,8 +204,8 @@ INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `da
 --
 
 CREATE TABLE `event_inventory` (
-  `eventno` int(11) NOT NULL,
-  `inventory_requested` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `inventory_item` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -214,7 +214,7 @@ CREATE TABLE `event_inventory` (
 -- Dumping data for table `event_inventory`
 --
 
-INSERT INTO `event_inventory` (`eventno`, `inventory_requested`, `quantity`, `status`) VALUES
+INSERT INTO `event_inventory` (`event_id`, `inventory_item`, `quantity`, `status`) VALUES
 (9, 15, 1, 1);
 
 -- --------------------------------------------------------
@@ -456,8 +456,8 @@ ALTER TABLE `events`
 -- Indexes for table `event_inventory`
 --
 ALTER TABLE `event_inventory`
-  ADD KEY `eventno` (`eventno`),
-  ADD KEY `inventory_requested` (`inventory_requested`);
+  ADD KEY `eventno` (`event_id`),
+  ADD KEY `inventory_requested` (`inventory_item`);
 
 --
 -- Indexes for table `id_numbers`
@@ -584,8 +584,8 @@ ALTER TABLE `events`
 -- Constraints for table `event_inventory`
 --
 ALTER TABLE `event_inventory`
-  ADD CONSTRAINT `event_inventory_ibfk_1` FOREIGN KEY (`eventno`) REFERENCES `events` (`no`),
-  ADD CONSTRAINT `event_inventory_ibfk_2` FOREIGN KEY (`inventory_requested`) REFERENCES `inventory` (`id`);
+  ADD CONSTRAINT `event_inventory_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`no`),
+  ADD CONSTRAINT `event_inventory_ibfk_2` FOREIGN KEY (`inventory_item`) REFERENCES `inventory` (`id`);
 
 --
 -- Constraints for table `id_numbers`
