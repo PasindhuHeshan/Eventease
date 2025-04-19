@@ -180,4 +180,22 @@ class EventModel {
             return null;
         }
     }
+
+    public function getoneeventinventory($event_id, Database $database){
+        $query = "SELECT ei.*, e.*, inventory.* FROM event_inventory ei JOIN events e ON ei.event_id = e.no  
+        JOIN inventory ON ei.inventory_item=inventory.id 
+        WHERE ei.status = 0 AND ei.event_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $event_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result === false) {
+            return null;
+        }
+        if ($result->num_rows > 0) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return null;
+        }
+    }
 }

@@ -142,38 +142,6 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/role_requests.php';
     }
 
-    // public function useradd() {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $fname = $_POST['fname'] ?? null;
-    //         $lname = $_POST['lname'] ?? null;
-    //         $email = $_POST['email'] ?? null;
-    //         $userType = 5;
-
-    //         if ($fname && $lname && $email) {
-    //             $database = new Database();
-    //             $dashboard = new Dashboard($database);
-
-    //             if ($dashboard->checkemail($email)) {
-    //                 $_SESSION['ac_createerror'] = 'Email already exists!';
-    //                 include __DIR__ . '/../Views/events/manage_users.php';
-    //                 exit();
-    //             }
-
-    //             if ($dashboard->addUser($fname, $lname, $email, $userType)) {
-    //                 header("Location: ../public/index.php?url=manage_users.php");
-    //                 exit();
-    //             } else {
-    //                 $_SESSION['ac_createerror'] = 'Error adding user!';
-    //                 include __DIR__ . '/../Views/events/manage_users.php';
-    //             }
-    //         } else {
-    //             $_SESSION['ac_createerror'] = 'Please fill all fields!';
-    //             include __DIR__ . '/../Views/events/manage_users.php';
-    //         }
-    //     } else {
-    //         include __DIR__ . '/../Views/events/manage_users.php';
-    //     }
-    // }
 
     public function useradd() {
         $userModel = new UserModel();
@@ -278,7 +246,6 @@ class AdminLoginController {
         $eventmodel = new EventModel($database);
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
-
         $events = $eventmodel->geteventinventory($database);
 
         include __DIR__ . '/../Views/events/manageevent.php';
@@ -290,11 +257,6 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/events.php';
     }
 
-    public function viewevent(){
-        include __DIR__ . '/../Views/events/viewevent.php';
-    }
-
-   
 
     public function Inventory() {
 
@@ -542,5 +504,16 @@ class AdminLoginController {
             $complaints = $usermodel->getfeedbacks($database);
             include __DIR__ . '/../Views/events/feedback.php';
         }
+    }
+
+    public function adminviewevent(){
+        $database = new Database();
+        $eventmodel = new EventModel($database);
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+        $event_id = $_POST['event_id'] ?? null;
+        $event = $eventmodel->getoneeventinventory($event_id, $database)[0];
+        include __DIR__ . '/../Views/events/viewevent.php';
+        
     }
 }

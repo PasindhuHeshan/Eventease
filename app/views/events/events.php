@@ -41,7 +41,10 @@
                     <td><?php echo htmlspecialchars($event['no']); ?></td>
                     <td><?php echo htmlspecialchars($event['name']); ?></td>
                     <td>
-                        <button onclick="viewEvent('<?php echo $event['no']; ?>')">View</button>
+                        <form action="adminviewevent" method="post">
+                            <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event['event_id']); ?>">
+                            <button type="submit">View Inventory</button>
+                        </form>
                     </td>
                     <td>
                         <button>Approve</button> 
@@ -73,11 +76,6 @@
             }
         });
     });
-
-    // Redirect to view event
-    function viewEvent(eventNo) {
-        window.location.href = "viewevent.php?event_no=" + encodeURIComponent(eventNo);
-    }
     </script>
 
 </body>

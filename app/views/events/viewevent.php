@@ -7,35 +7,33 @@
     <link rel="stylesheet" href="./css/eventviewstyle.css">
 </head>
 <body>
+    <div class="event-page">
+    <h2> Inventory Requested</h2>
     <div class="event-container">
-        <h2> Inventory Requested</h2>
-        
-        <?php if ($events): ?>
-            <!-- Displaying Event Name and Description if found -->
+        <?php if ($event): ?>
             <div class="event-details">
                 <label class="event-label">Event name:</label>
-                <div class="event-name"><?php echo htmlspecialchars($events['name']); ?></div>
-            </div
+                <div class="event-name"><?php echo $event['name']; ?></div>
+            </div>
+            
             <div class="event-details">
                 <label class="event-label">Inventory requested:</label>
-                <div class="event-name"><?php echo htmlspecialchars($events['name']); ?></div>
+                <div class="event-name"><?php echo $event['item']; ?></div>
             </div>
-            <div class="event-details">
-                <label class="event-label">Inventory in use:</label>
-                <div class="event-name"><?php echo htmlspecialchars($events['name']); ?></div>
+            
+          //  Add data here
+            
+            <div class="event-buttons">
+                <button class="approve-btn">Approve</button>
+                <button class="delete-btn">Reject</button>
             </div>
         <?php else: ?>
-            <!-- If no unapproved event is found -->
             <div class="event-details">
                 <p>No unapproved event found.</p>
             </div>
         <?php endif; ?>
-
-        <div class="event-buttons">
-            <!-- These buttons would need logic to handle approval or rejection -->
-            <button class="approve-btn">Approve</button>
-            <button class="delete-btn">Reject</button>
-        </div>
     </div>
+    </div>
+        </div>
 </body>
 </html>
