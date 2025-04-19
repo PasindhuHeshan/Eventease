@@ -88,11 +88,12 @@ class AdminLoginController {
         $roleRequestscount = count($usermodel->getRoleRequests($database));
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
         
-
+        $user_types = $dashboard->getuserdatausingtypes();
+        $new_users = $dashboard->getNewUsersByType();
         $user_count = $dashboard->getUserCount('user_type');
         $newuser_count = $dashboard->getNewUsersByType();
         $event_count = $dashboard->getEventCount('event_type');
-        $inventory_count = $dashboard->getInventoryCount('inventory_type');
+        // $inventory_count = $dashboard->getInventoryCount('inventory_type');
         $disableacccount = count($usermodel->getdisableaccComplaints($database));
         $feedbackcount = count($usermodel->getnormalfeedbacks($database)) + count($usermodel->getregfeedbacks($database));
 
@@ -277,7 +278,7 @@ class AdminLoginController {
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
 
-        $events = $eventmodel->getNotApprovedEvents($database);
+        $events = $eventmodel->geteventinventory($database);
 
         include __DIR__ . '/../Views/events/manageevent.php';
     }
