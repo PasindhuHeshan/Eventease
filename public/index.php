@@ -225,7 +225,7 @@ switch ($url) {
         break;
     case 'getApprovedEvents':
         $hcontroller->render();
-        $econtroller->getApprovedEvents();
+       // $econtroller->getApprovedEvents();
         break;
     case 'acceptevent':
         $hcontroller->render();
