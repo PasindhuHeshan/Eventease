@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace App\Models;
 
 use phpmailer\phpmailer\PHPMailer;
@@ -60,5 +60,5 @@ class EmailModel {
         return isset($mail) ? $mail->ErrorInfo : null;
     }
 }
-
+*/
 ?>

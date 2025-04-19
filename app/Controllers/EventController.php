@@ -99,7 +99,15 @@ class EventController
         }
     }
     public function getApprovedEvents() {
-        $events = $this->eventModel->getApprovedEvents();
+        $events = $this->eventModel->getNotApprovedEvents();
+        include __DIR__ . '/../Views/events/staff.php';
+    }
+
+    public function getNotApprovedEvents() {
+        $database = new Database();
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+        $userData= $this->UserModel->getUserData($username,$database);
+        $events = $this->eventModel->getNotApprovedEvents($userData['No']);
         include __DIR__ . '/../Views/events/staff.php';
     }
 
@@ -114,8 +122,10 @@ class EventController
             }
     
             if ($this->eventModel->acceptEvent($no)) {
-                // Event approved successfully
-                $events = $this->eventModel->getApprovedEvents();
+                $database = new Database();
+                $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+                $userData= $this->UserModel->getUserData($username,$database);
+                $events = $this->eventModel->getNotApprovedEvents($userData['No']);
                 include __DIR__ . '/../Views/events/staff.php';
                 exit();
             } else {
@@ -142,8 +152,10 @@ class EventController
             }
     
             if ($this->eventModel->rejectEvent($no, $reason)) {
-                // Event rejected successfully
-                $events = $this->eventModel->getApprovedEvents();
+                $database = new Database();
+                $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+                $userData= $this->UserModel->getUserData($username,$database);
+                $events = $this->eventModel->getNotApprovedEvents($userData['No']);
                 include __DIR__ . '/../Views/events/staff.php';
                 exit();
             } else {
