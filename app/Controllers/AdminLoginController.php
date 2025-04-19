@@ -83,8 +83,9 @@ class AdminLoginController {
         $dashboard = new Dashboard($database);
         $usermodel = new UserModel();
         $eventmodel = new EventModel($database);
-        
-        $eventcount = count($eventmodel->getNotApprovedEvents($database));
+        $no=null;
+
+        $eventcount = count($eventmodel->getNotApprovedEventsforadmin($database));
         $roleRequestscount = count($usermodel->getRoleRequests($database));
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
         
