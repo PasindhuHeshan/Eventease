@@ -64,14 +64,17 @@ class EventModel {
     }
     
     public function getNotApprovedEventsforadmin() {
-        $query = "SELECT no, name, event_type FROM events WHERE approvedstatus = 1";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
+        $query = " SELECT COUNT(DISTINCT e.no) AS event_count
+        FROM event_inventory ei
+        JOIN events e ON ei.event_id = e.no
+        WHERE ei.status = 0 ";
+    
+    $result = $this->conn->query($query);
+    if ($result && $row = $result->fetch_assoc()) {
+        return (int)$row['event_count'];
+    }
 
-        return $data;
+    return 0;
     }
 
     public function getNotApprovedEvents($no) {
