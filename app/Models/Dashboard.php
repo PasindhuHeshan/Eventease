@@ -81,7 +81,7 @@ class Dashboard {
     }
 
     public function getInventoryByType($inventory_type) {
-        $query = "SELECT * FROM inventory WHERE inventory_type = ?";
+        $query = "SELECT inventory.*, event_inventory.quantity as Qty, event_inventory.status, inventory.* FROM inventory LEFT JOIN event_inventory ON inventory.id = event_inventory.inventory_item WHERE inventory_type = ? Group by inventory_no";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("s", $inventory_type);
         $stmt->execute();
@@ -152,12 +152,16 @@ class Dashboard {
     
     
     
-    public function getItemByInventoryNo($inventoryNo) {
-        $sql = "SELECT * FROM inventory WHERE inventory_no = ?";
+    public function getItemByInventoryNo($id) {
+        $sql = "SELECT inventory.*, IFNULL(SUM(event_inventory.quantity), 0) as in_use 
+            FROM inventory 
+            LEFT JOIN event_inventory ON inventory.id = event_inventory.inventory_item 
+            WHERE inventory.id = ? AND (event_inventory.status = 1 OR event_inventory.status IS NULL)
+            GROUP BY inventory.id";
         $stmt = $this->conn->prepare($sql);
     
         if ($stmt) {
-            $stmt->bind_param("s", $inventoryNo);
+            $stmt->bind_param("s", $id);
     
             if ($stmt->execute()) {
                 $result = $stmt->get_result();
@@ -213,23 +217,6 @@ class Dashboard {
             return false;
         }
     }
-
-    public function before_modify($inventory_no, $quantity) {
-        $query = "SELECT in_use FROM inventory WHERE inventory_no = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $inventory_no);
-        $stmt->execute();
-        $stmt->store_result();
-        $stmt->bind_result($in_use);
-        $stmt->fetch();
-    
-        if ($quantity >= $in_use) {
-            return true; 
-        } else {
-            return false;
-        }
-    }
-
 
     public function checkemail($email){
         $query = "SELECT * FROM users WHERE email = ?";

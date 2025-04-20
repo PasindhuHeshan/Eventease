@@ -78,7 +78,7 @@ class EventModel {
     }
 
     public function getNotApprovedEvents($no) {
-        $query = "SELECT * FROM events JOIN users ON events.organizer=users.no JOIN organizations ON events.orgno = organizations.orgno LEFT JOIN event_inventory ON events.no = event_inventory.event_id WHERE approvedstatus = 1 AND (event_inventory.event_id IS NULL OR event_inventory.status = 1) AND events.supervisor = $no AND date >= CURDATE() ORDER BY date ASC";
+        $query = "SELECT events.*, users.*, organizations.*, event_inventory.* FROM events JOIN users ON events.organizer = users.no JOIN organizations ON events.orgno = organizations.orgno LEFT JOIN event_inventory ON events.no = event_inventory.event_id WHERE events.approvedstatus = 1 AND (event_inventory.event_id IS NULL OR event_inventory.status = 1) AND events.supervisor = $no AND events.date >= CURDATE() GROUP BY events.no ORDER BY events.date ASC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -184,21 +184,81 @@ class EventModel {
         }
     }
 
-    public function getoneeventinventory($event_id, Database $database){
-        $query = "SELECT ei.*, e.*, inventory.* FROM event_inventory ei JOIN events e ON ei.event_id = e.no  
+    public function getoneeventinventory($event_id, $inventory_item, Database $database){
+        $query = "SELECT ei.*, e.*, inventory.*, users.*, ei.quantity as Qty FROM event_inventory ei JOIN events e ON ei.event_id = e.no  
         JOIN inventory ON ei.inventory_item=inventory.id 
-        WHERE ei.status = 0 AND ei.event_id = ?";
+        JOIN users ON e.organizer=users.no
+        WHERE ei.status = 0 AND ei.event_id = ? AND ei.inventory_item = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $event_id);
+        $stmt->bind_param("ii", $event_id, $inventory_item);
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($result === false) {
-            return null;
-        }
-        if ($result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
+        $row1 = $result->fetch_assoc();
+
+        $query2 = "Select * from contact_numbers where Cnt_No=?";
+        $stmt2 = $this->conn->prepare($query2);
+        $stmt2->bind_param("i", $row1['organizer']);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+        $row2 = $result2->fetch_assoc();
+
+        $contactNumber = $row2 ? $row2['Cnt_num'] : "";
+        $row1['contact_number'] = $contactNumber;
+
+
+        if ($row1) {
+            return $row1;
         } else {
             return null;
         }
+    }
+
+    public function getavailability($inventory_item,$eventstart, $eventfinish, $date, Database $database){
+        $query = "SELECT * FROM event_inventory as ei JOIN events as e ON ei.event_id=e.no WHERE inventory_item = ? AND ei.status = 1 AND e.date = ? AND ((e.time NOT BETWEEN ? AND ?) OR (e.finish_time NOT BETWEEN ? AND ?))";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("isssss", $inventory_item, $date, $eventstart, $eventfinish, $eventstart, $eventfinish);
+        $stmt->execute();
+        $result1 = $stmt->get_result();
+
+        //get sum of all rows quantity column
+        $sum = 0;
+        while ($row = $result1->fetch_assoc()) {
+            $sum += $row['quantity'];
+        }
+
+        $query2 = "select * from inventory where id=?";
+        $stmt2 = $this->conn->prepare($query2);
+        $stmt2->bind_param("i", $inventory_item);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+        $row2 = $result2->fetch_assoc();
+
+        $available = $row2['quantity'] - $sum;
+        if ($available > 0) {
+            return $available;
+        } else {
+            return 0;
+        }
+
+    }
+
+    public function approveinventory($event_id, $inventory_item, Database $database){
+        $query = "UPDATE event_inventory SET status = 1 WHERE event_id = ? AND inventory_item = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $event_id, $inventory_item);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function rejectinventory($event_id, $inventory_item, Database $database){
+        $query = "UPDATE event_inventory SET status = 2 WHERE event_id = ? AND inventory_item = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $event_id, $inventory_item);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
     }
 }

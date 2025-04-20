@@ -2,7 +2,7 @@
 <aside class="sidebar">
     <div class="profile-section">
         <div class="profile-icon">
-            <img src="<?php echo $adminData['profile_picture']; ?>" alt="Profile Picture">
+            <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture">
         </div>
         <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>
     </div>

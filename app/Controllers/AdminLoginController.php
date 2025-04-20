@@ -347,7 +347,7 @@ class AdminLoginController {
             $quantity = $_POST['quantity'] ?? null;
             $inventoryType = $_POST['inventory_type'] ?? null;
             
-            if($dashboard->before_modify($inventoryNo,$quantity)){
+            if($quantity >= $_POST['in_use']){
                 if ($inventoryNo && $item && $quantity && $inventoryType) {
                     try {
                         if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
@@ -364,7 +364,9 @@ class AdminLoginController {
                     echo "Missing data for modification.";
                 }
             }else{
-                echo "Enter the Modified Quantity below the available Quantity";
+                $_SESSION['error'] = "Enter the Modified Quantity below the available Quantity";
+                $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
+                include __DIR__ . '/../views/events/modify_item.php';
             }
         } else {
             // Check if inventory_no is provided via GET
@@ -387,13 +389,13 @@ class AdminLoginController {
     
 
     public function get_item() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inventory_no'])) {
-            $inventory_no = $_POST['inventory_no'];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
+            $id = $_POST['id'];
             $database = new Database();
             $dashboard = new Dashboard($database);
     
-            if ($inventory_no) {
-                $itemData = $dashboard->getItemByInventoryNo($inventory_no);
+            if ($id) {
+                $itemData = $dashboard->getItemByInventoryNo($id);
     
                 if ($itemData) {
                     // Redirect to the edit item view, passing the item data
@@ -512,8 +514,33 @@ class AdminLoginController {
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
         $event_id = $_POST['event_id'] ?? null;
-        $event = $eventmodel->getoneeventinventory($event_id, $database)[0];
+        $inventory_item = $_POST['inventory_item'] ?? null;
+        $event = $eventmodel->getoneeventinventory($event_id,$inventory_item, $database);
+        $eventstart = $event['time'];
+        $eventend = $event['finish_time'];
+        $eventdate = $event['date'];
+        $availability = $eventmodel->getavailability($inventory_item,$eventstart,$eventend,$eventdate, $database);
         include __DIR__ . '/../Views/events/viewevent.php';
-        
+    }
+
+    public function handleinventory(){
+        $database = new Database();
+        $eventmodel = new EventModel($database);
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['approve'])){
+            $event_id = $_POST['event_id'] ?? null;
+            $inventory_item = $_POST['inventory_item'] ?? null;
+            $eventmodel->approveinventory($event_id,$inventory_item, $database);
+            header("Location: manageevent.php");
+            exit();
+        }else{
+            $event_id = $_POST['event_id'] ?? null;
+            $inventory_item = $_POST['inventory_item'] ?? null;
+            $eventmodel->rejectinventory($event_id,$inventory_item, $database);
+            header("Location: manageevent.php");
+            exit();
+        }
     }
 }

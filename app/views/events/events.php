@@ -30,7 +30,6 @@
                 <th>No</th>
                 <th>Event Name</th>
                 <th>View Inventory Requested</th>
-                <th>Action</th>
             </tr>
         </thead>
       
@@ -43,12 +42,9 @@
                     <td>
                         <form action="adminviewevent" method="post">
                             <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event['event_id']); ?>">
+                            <input type="hidden" name="inventory_item" value="<?php echo htmlspecialchars($event['inventory_item']); ?>">
                             <button type="submit">View Inventory</button>
                         </form>
-                    </td>
-                    <td>
-                        <button>Approve</button> 
-                        <button>Reject</button>
                     </td>
                 </tr>
                 <?php endforeach; ?>

@@ -58,8 +58,6 @@ button:hover {
 
 form input:focus,
 form select:focus {
-    
-    background-color: skyblue;
     outline: none;
 }
 

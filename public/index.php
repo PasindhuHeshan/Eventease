@@ -323,6 +323,10 @@ switch ($url) {
         $hcontroller->render();
         $alcontroller->adminviewevent();
         break;
+    case 'handleinventory':
+        $hcontroller->render();
+        $alcontroller->handleinventory();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();
