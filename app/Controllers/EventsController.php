@@ -191,6 +191,4 @@ class EventsController {
             include __DIR__ . '/../Views/EventOrg/edit.php';
         }
     }
-    
-    
 }

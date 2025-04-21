@@ -241,7 +241,7 @@ switch ($url) {
         break;
     case 'createform':
         $hcontroller->render();
-        $cucontroller->createform();
+        $eocontroller->createform();
         break;
     case 'createevent':
         $hcontroller->render();
