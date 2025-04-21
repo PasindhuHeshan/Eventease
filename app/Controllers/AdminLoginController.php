@@ -12,38 +12,13 @@ use App\Database;
 class AdminLoginController {
     private $userModel; 
     
-    // public function processSendEmail() {
-    //     if (isset($_POST['send_email'])) {
-    //         $recipient = $_POST['recipient_email'];
-    //         $subject = $_POST['email_subject'];
-    //         $body = $_POST['email_body'];
-
-    //         $this->emailModel = new EmailModel(); // Initialize emailModel
-    //         $success = $this->emailModel->sendEmail($recipient, $subject, $body);
-
-    //         if ($success) {
-    //             $_SESSION['email_message'] = "Email sent successfully to " . htmlspecialchars($recipient);
-    //             $_SESSION['email_success'] = true;
-    //         } else {
-    //             $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
-    //             $_SESSION['email_success'] = false;
-    //         }
-    //         header('Location: index.php?url=manage_users.php'); // Redirect back to manage users page
-    //         exit();
-    //     } else {
-    //         // Handle cases where the form wasn't submitted correctly
-    //         header('Location: index.php?url=manage_users.php'); // Redirect back
-    //         exit();
-    //     }
-    // }
-
     public function processLogin() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['name'] ?? null;
             $password = $_POST['password'] ?? null;
 
             if ($username && $password) {
-                $database = new Database(); // Ensure the database connection is created here
+                $database = new Database(); 
                 $userModel = new UserModel();
                 $isValidUser = $userModel->validateUser($username, $password, $database);
 
@@ -85,7 +60,7 @@ class AdminLoginController {
         $eventmodel = new EventModel($database);
         $no=null;
 
-        $eventcount = count($eventmodel->getNotApprovedEventsforadmin($database));
+        $eventcount = $eventmodel->getNotApprovedEventsforadmin($database);
         $roleRequestscount = count($usermodel->getRoleRequests($database));
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
         
@@ -94,7 +69,6 @@ class AdminLoginController {
         $user_count = $dashboard->getUserCount('user_type');
         $newuser_count = $dashboard->getNewUsersByType();
         $event_count = $dashboard->getEventCount('event_type');
-        // $inventory_count = $dashboard->getInventoryCount('inventory_type');
         $disableacccount = count($usermodel->getdisableaccComplaints($database));
         $feedbackcount = count($usermodel->getnormalfeedbacks($database)) + count($usermodel->getregfeedbacks($database));
 
@@ -142,43 +116,12 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/role_requests.php';
     }
 
-    // public function useradd() {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $fname = $_POST['fname'] ?? null;
-    //         $lname = $_POST['lname'] ?? null;
-    //         $email = $_POST['email'] ?? null;
-    //         $userType = 5;
-
-    //         if ($fname && $lname && $email) {
-    //             $database = new Database();
-    //             $dashboard = new Dashboard($database);
-
-    //             if ($dashboard->checkemail($email)) {
-    //                 $_SESSION['ac_createerror'] = 'Email already exists!';
-    //                 include __DIR__ . '/../Views/events/manage_users.php';
-    //                 exit();
-    //             }
-
-    //             if ($dashboard->addUser($fname, $lname, $email, $userType)) {
-    //                 header("Location: ../public/index.php?url=manage_users.php");
-    //                 exit();
-    //             } else {
-    //                 $_SESSION['ac_createerror'] = 'Error adding user!';
-    //                 include __DIR__ . '/../Views/events/manage_users.php';
-    //             }
-    //         } else {
-    //             $_SESSION['ac_createerror'] = 'Please fill all fields!';
-    //             include __DIR__ . '/../Views/events/manage_users.php';
-    //         }
-    //     } else {
-    //         include __DIR__ . '/../Views/events/manage_users.php';
-    //     }
-    // }
 
     public function useradd() {
+        $database = new Database();
         $userModel = new UserModel();
         $emailModel = new EmailModel();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userModel->getUserDatabyemail($_POST['email'], $database)==null) {
             $username = $_POST['email'];
             $email = $_POST['email'];
             $usertype = 5;
@@ -233,6 +176,11 @@ class AdminLoginController {
                 header('Location: index.php?url=manage_users.php');
                 exit();
             }
+        }else{
+            $_SESSION['error'] = "Email already exists.";
+            $_SESSION['ac_createerror'] = true;
+            header('Location: index.php?url=manage_users.php');
+            exit();
         }
     }
 
@@ -278,8 +226,8 @@ class AdminLoginController {
         $eventmodel = new EventModel($database);
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
-
         $events = $eventmodel->geteventinventory($database);
+        $eventtype = $eventmodel->geteventtypes($database);
 
         include __DIR__ . '/../Views/events/manageevent.php';
     }
@@ -290,11 +238,6 @@ class AdminLoginController {
         include __DIR__ . '/../Views/events/events.php';
     }
 
-    public function viewevent(){
-        include __DIR__ . '/../Views/events/viewevent.php';
-    }
-
-   
 
     public function Inventory() {
 
@@ -385,7 +328,7 @@ class AdminLoginController {
             $quantity = $_POST['quantity'] ?? null;
             $inventoryType = $_POST['inventory_type'] ?? null;
             
-            if($dashboard->before_modify($inventoryNo,$quantity)){
+            if($quantity >= $_POST['in_use']){
                 if ($inventoryNo && $item && $quantity && $inventoryType) {
                     try {
                         if ($dashboard->modify_item($inventoryNo, $item, $quantity, $inventoryType)) {
@@ -402,7 +345,9 @@ class AdminLoginController {
                     echo "Missing data for modification.";
                 }
             }else{
-                echo "Enter the Modified Quantity below the available Quantity";
+                $_SESSION['error'] = "Enter the Modified Quantity below the available Quantity";
+                $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
+                include __DIR__ . '/../views/events/modify_item.php';
             }
         } else {
             // Check if inventory_no is provided via GET
@@ -425,13 +370,13 @@ class AdminLoginController {
     
 
     public function get_item() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inventory_no'])) {
-            $inventory_no = $_POST['inventory_no'];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
+            $id = $_POST['id'];
             $database = new Database();
             $dashboard = new Dashboard($database);
     
-            if ($inventory_no) {
-                $itemData = $dashboard->getItemByInventoryNo($inventory_no);
+            if ($id) {
+                $itemData = $dashboard->getItemByInventoryNo($id);
     
                 if ($itemData) {
                     // Redirect to the edit item view, passing the item data
@@ -524,7 +469,8 @@ class AdminLoginController {
             $row_id = $_POST['row_id'] ?? null;
             $usermodel->feedbackdone($row_id, $database);
             $_SESSION['success'] = 'Complaint deleted successfully!';
-            $complaints = $usermodel->getfeedbacks($database);
+            $complaints = $usermodel->getnormalfeedbacks($database);
+            $regcomplaints = $usermodel->getregfeedbacks($database);
             include __DIR__ . '/../Views/events/feedback.php';
         }
     }
@@ -541,6 +487,42 @@ class AdminLoginController {
             $_SESSION['success'] = 'Reply sent successfully!';
             $complaints = $usermodel->getfeedbacks($database);
             include __DIR__ . '/../Views/events/feedback.php';
+        }
+    }
+
+    public function adminviewevent(){
+        $database = new Database();
+        $eventmodel = new EventModel($database);
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+        $event_id = $_POST['event_id'] ?? null;
+        $inventory_item = $_POST['inventory_item'] ?? null;
+        $event = $eventmodel->getoneeventinventory($event_id,$inventory_item, $database);
+        $eventstart = $event['time'];
+        $eventend = $event['finish_time'];
+        $eventdate = $event['date'];
+        $availability = $eventmodel->getavailability($inventory_item,$eventstart,$eventend,$eventdate, $database);
+        include __DIR__ . '/../Views/events/viewevent.php';
+    }
+
+    public function handleinventory(){
+        $database = new Database();
+        $eventmodel = new EventModel($database);
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['approve'])){
+            $event_id = $_POST['event_id'] ?? null;
+            $inventory_item = $_POST['inventory_item'] ?? null;
+            $eventmodel->approveinventory($event_id,$inventory_item, $database);
+            header("Location: manageevent.php");
+            exit();
+        }else{
+            $event_id = $_POST['event_id'] ?? null;
+            $inventory_item = $_POST['inventory_item'] ?? null;
+            $eventmodel->rejectinventory($event_id,$inventory_item, $database);
+            header("Location: manageevent.php");
+            exit();
         }
     }
 }

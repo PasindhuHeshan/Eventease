@@ -319,6 +319,14 @@ switch ($url) {
     case 'process_send_email':
         $alcontroller->processSendEmail();
         break;
+    case 'adminviewevent':
+        $hcontroller->render();
+        $alcontroller->adminviewevent();
+        break;
+    case 'handleinventory':
+        $hcontroller->render();
+        $alcontroller->handleinventory();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();

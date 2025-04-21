@@ -1,48 +1,4 @@
-<?php
-// Initialize an error message variable
-$errorMsg = "";
 
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Database connection settings
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "eventease";
-
-    // Create a connection to the MySQL database
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check the connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Get the form data
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $userType = 'staff'; // Set user type to 'staff'
-
-    // Prepare an SQL query to insert the new user into the `users` table
-    $sql = "INSERT INTO users (fname, lname, email, usertype) VALUES ('$fname', '$lname', '$email', '$userType')";
-
-    if ($conn->query($sql) === TRUE) {
-        // Redirect to user table page after successful insertion
-        header("Location: ../public/index.php?url=users.php");  // Change "user-table.php" to your page showing the users
-        exit();  // Ensure no further code is executed after redirection
-    } else {
-        if ($conn->errno == 1062) {
-            $errorMsg = "Email already exists!";
-        } else {
-            $errorMsg = "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
-
-    // Close the database connection
-    $conn->close();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
