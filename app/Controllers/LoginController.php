@@ -30,6 +30,10 @@ class LoginController {
                             header("Location: ../public/index.php?url=login.php");
                             exit();
                         }
+                    } elseif ($userData['status'] == -1) {
+                        $_SESSION['error']='This account is Deleted!<br>Contact administration!';
+                        header("Location: ../public/index.php?url=login.php");
+                        exit();
                     }
 
                     if (password_verify($password, $userData['password'])) {

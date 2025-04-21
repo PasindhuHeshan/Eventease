@@ -24,6 +24,17 @@ class EventController
         $events = $this->eventModel->getAllEvents();
         $upevents = $this->eventModel->getAllupcomingEvents($username);
         $_SESSION['upevent'] = $upevents;
+        $deletemessage = null;
+        include __DIR__ . '/../Views/events/index.php';
+    }
+
+    public function deletetoindex()
+    {
+        $deletemessage = "Your account has been successfully deleted. Thank you for being a part of our community.";
+        $username = null;
+        $events = $this->eventModel->getAllEvents();
+        $upevents = $this->eventModel->getAllupcomingEvents($username);
+        $_SESSION['upevent'] = $upevents;
         include __DIR__ . '/../Views/events/index.php';
     }
    
