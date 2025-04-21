@@ -44,18 +44,6 @@ $parameter='inventory';
                 <tbody>
                     <?php
 
-                        use App\Models\Dashboard;
-                        use App\Database;
-
-                        $database = new Database();
-                        $dashboard = new Dashboard($database);
-
-                        // Check if 'inventory_type' is set, otherwise default to 'Appliances'
-                        $inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances';
-
-                        // Fetch inventory data
-                        $result = $dashboard->getInventoryByType($inventory_type);
-
                         // Check if any rows were returned
                         if ($result->num_rows > 0) {
                             $no = 1;
@@ -67,12 +55,12 @@ $parameter='inventory';
                                         <td>{$row['inventory_no']}</td>
                                         <td>{$row['quantity']}</td>
                                         <td><form method='POST' action='get_item.php'>
-                                            <input type='hidden' name='inventory_no' value='{$row['inventory_no']}'>
+                                            <input type='hidden' name='id' value='{$row['id']}'>
                                             <input type='hidden' name='inventory_type' value='{$row['inventory_type']}'>
                                             <button type='submit'>Modify</button>
                                         </form>
                                         </td>";
-                                if ($row['in_use'] == 0) {
+                                if ($row['status'] == 0) {
                                     echo "<td><form method='POST' action='delete_item.php' onsubmit='return confirmDelete()'>
                                             <input type='hidden' name='inventory_no' value='{$row['inventory_no']}'>
                                             <input type='hidden' name='inventory_type' value='{$row['inventory_type']}'>

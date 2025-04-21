@@ -14,7 +14,7 @@ class LoginController {
             $password = $_POST['password'] ?? null;
 
             if ($username && $password) {
-                $database = new Database(); // Ensure the database connection is created here
+                $database = new Database(); 
                 $userModel = new UserModel($database);
                 $eventModel = new EventModel($database);
                 $userData = $userModel->getUserData($username, $database);
@@ -40,6 +40,7 @@ class LoginController {
                         $_SESSION['username'] = $username;
                         $_SESSION['no'] = $userData['no'];
                         $_SESSION['upevent'] = $upevents;
+                        $_SESSION['profile_picture'] = $userData['profile_picture'];
 
                         switch ($userData['role_name']) {
                             case 'Student':

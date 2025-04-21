@@ -37,11 +37,6 @@
                         <p class="event-description">
                             <?php if($userType=='organizer'){ echo '<a href="createform?no=' . $event['no'] . '">Edit Event</a>';} ?>
                         </p>
-                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="inquiry">Inquries</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="enrollment">Enrollment</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="review">Review</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="statistics">Statistics</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='support'){ echo '<a href="report">Report</a>';} ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -50,7 +45,7 @@
         <?php endif; ?>
         <?php 
         $userType = $userData['usertype'];
-        if ($userType == 'organizer'){?>
+        if ($userType == '3'){?>
         <div class="create-event">
             <a href="createform"><button type="button" class="btn primary">Create Event</button></a>
         </div>

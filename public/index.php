@@ -326,6 +326,13 @@ switch ($url) {
     case 'deletetoindex':
         $hcontroller->render();
         $econtroller->deletetoindex();
+    case 'adminviewevent':
+        $hcontroller->render();
+        $alcontroller->adminviewevent();
+        break;
+    case 'handleinventory':
+        $hcontroller->render();
+        $alcontroller->handleinventory();
         break;
     default:
         $hcontroller->render();

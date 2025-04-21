@@ -49,7 +49,7 @@
                     </tr>";
                 }
             } else {
-                echo "<tr><td colspan='7'>No role requests found.</td></tr>";
+                echo "<tr><td colspan='7'>No Disable Account complaints found.</td></tr>";
             }
             ?>
         </table>
@@ -61,7 +61,7 @@
     <div class="popup-content">
         <span class="close" onclick="closePopup()">&times;</span>
         <div class="container">
-            <form action="role_requests.php" method="post">
+            <form action="disableacc.php" method="post">
                 <h2>Disable Account Complaints</h2>
                 <input type="hidden" id="rejectNo" name="no">
                 <div class="form-group">

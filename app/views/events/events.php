@@ -15,7 +15,7 @@
         <label for="event_type">Event Type</label>
         <select name="event_type" id="event_type">
             <option value="">All</option>
-            <?php foreach ($events as $type): ?>
+            <?php foreach ($eventtype as $type): ?>
                 <option value="<?php echo htmlspecialchars($type['event_type']); ?>">
                     <?php echo htmlspecialchars($type['event_type']); ?>
                 </option>
@@ -30,7 +30,6 @@
                 <th>No</th>
                 <th>Event Name</th>
                 <th>View Inventory Requested</th>
-                <th>Action</th>
             </tr>
         </thead>
       
@@ -41,11 +40,11 @@
                     <td><?php echo htmlspecialchars($event['no']); ?></td>
                     <td><?php echo htmlspecialchars($event['name']); ?></td>
                     <td>
-                        <button onclick="viewEvent('<?php echo $event['no']; ?>')">View</button>
-                    </td>
-                    <td>
-                        <button>Approve</button> 
-                        <button>Reject</button>
+                        <form action="adminviewevent" method="post">
+                            <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event['event_id']); ?>">
+                            <input type="hidden" name="inventory_item" value="<?php echo htmlspecialchars($event['inventory_item']); ?>">
+                            <button type="submit">View Inventory</button>
+                        </form>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -73,11 +72,6 @@
             }
         });
     });
-
-    // Redirect to view event
-    function viewEvent(eventNo) {
-        window.location.href = "viewevent.php?event_no=" + encodeURIComponent(eventNo);
-    }
     </script>
 
 </body>
