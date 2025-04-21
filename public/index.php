@@ -239,10 +239,10 @@ switch ($url) {
         $hcontroller->render();
         $cucontroller->contactus();
         break;
-    case 'createform':
+   /* case 'createform':
         $hcontroller->render();
         $cucontroller->createform();
-        break;
+        break;*/
     case 'createevent':
         $hcontroller->render();
         $eocontroller->createevent();
@@ -279,10 +279,10 @@ switch ($url) {
         $hcontroller->render();
         $upcontroller->stat();
         break;
-    case 'acaform':
+    /*case 'acaform':
         $hcontroller->render();
         $stfcontroller->aca();
-        break;
+        break;*/
 
     case 'changestatus':
         $hcontroller->render();
