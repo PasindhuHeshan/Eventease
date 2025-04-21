@@ -15,7 +15,7 @@
         <label for="event_type">Event Type</label>
         <select name="event_type" id="event_type">
             <option value="">All</option>
-            <?php foreach ($events as $type): ?>
+            <?php foreach ($eventtype as $type): ?>
                 <option value="<?php echo htmlspecialchars($type['event_type']); ?>">
                     <?php echo htmlspecialchars($type['event_type']); ?>
                 </option>

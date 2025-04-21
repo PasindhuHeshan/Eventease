@@ -132,26 +132,7 @@ class Dashboard {
     
         return $result;
     }
-
-    // public function check_item_usage($inventory_no){
-    //     $query = "SELECT * FROM inventory WHERE inventory_no = ? AND in_use = 0 ";
-    //     $stmt = $this->conn->prepare($query);
-    //     $stmt->bind_param("s", $inventory_no);
-    
-    //     if($stmt->execute()){
-    //         $result = $stmt->get_result(); // Get the result set from the query
-    //         if($result->num_rows > 0) { // Check if there are any rows returned
-    //             return true;
-    //         } else {
-    //             return false;
-    //         }
-    //     } else {
-    //         return false;
-    //     }
-    // }
-    
-    
-    
+ 
     public function getItemByInventoryNo($id) {
         $sql = "SELECT inventory.*, IFNULL(SUM(event_inventory.quantity), 0) as in_use 
             FROM inventory 

@@ -184,6 +184,21 @@ class EventModel {
         }
     }
 
+    public function geteventtypes(Database $database){
+        //table is event_inventory
+        $query = "SELECT DISTINCT event.event_type from events event group by event.event_type";
+        $result = $this->conn->query($query);
+        if ($result === false) {
+            return null;
+        }
+        if ($result->num_rows > 0) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return null;
+        }
+    }
+
+
     public function getoneeventinventory($event_id, $inventory_item, Database $database){
         $query = "SELECT ei.*, e.*, inventory.*, users.*, ei.quantity as Qty FROM event_inventory ei JOIN events e ON ei.event_id = e.no  
         JOIN inventory ON ei.inventory_item=inventory.id 

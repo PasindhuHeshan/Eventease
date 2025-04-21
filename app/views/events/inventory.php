@@ -44,18 +44,6 @@ $parameter='inventory';
                 <tbody>
                     <?php
 
-                        use App\Models\Dashboard;
-                        use App\Database;
-
-                        $database = new Database();
-                        $dashboard = new Dashboard($database);
-
-                        // Check if 'inventory_type' is set, otherwise default to 'Appliances'
-                        $inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances';
-
-                        // Fetch inventory data
-                        $result = $dashboard->getInventoryByType($inventory_type);
-
                         // Check if any rows were returned
                         if ($result->num_rows > 0) {
                             $no = 1;

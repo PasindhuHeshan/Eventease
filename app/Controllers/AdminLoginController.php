@@ -12,38 +12,13 @@ use App\Database;
 class AdminLoginController {
     private $userModel; 
     
-    // public function processSendEmail() {
-    //     if (isset($_POST['send_email'])) {
-    //         $recipient = $_POST['recipient_email'];
-    //         $subject = $_POST['email_subject'];
-    //         $body = $_POST['email_body'];
-
-    //         $this->emailModel = new EmailModel(); // Initialize emailModel
-    //         $success = $this->emailModel->sendEmail($recipient, $subject, $body);
-
-    //         if ($success) {
-    //             $_SESSION['email_message'] = "Email sent successfully to " . htmlspecialchars($recipient);
-    //             $_SESSION['email_success'] = true;
-    //         } else {
-    //             $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
-    //             $_SESSION['email_success'] = false;
-    //         }
-    //         header('Location: index.php?url=manage_users.php'); // Redirect back to manage users page
-    //         exit();
-    //     } else {
-    //         // Handle cases where the form wasn't submitted correctly
-    //         header('Location: index.php?url=manage_users.php'); // Redirect back
-    //         exit();
-    //     }
-    // }
-
     public function processLogin() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['name'] ?? null;
             $password = $_POST['password'] ?? null;
 
             if ($username && $password) {
-                $database = new Database(); // Ensure the database connection is created here
+                $database = new Database(); 
                 $userModel = new UserModel();
                 $isValidUser = $userModel->validateUser($username, $password, $database);
 
@@ -94,7 +69,6 @@ class AdminLoginController {
         $user_count = $dashboard->getUserCount('user_type');
         $newuser_count = $dashboard->getNewUsersByType();
         $event_count = $dashboard->getEventCount('event_type');
-        // $inventory_count = $dashboard->getInventoryCount('inventory_type');
         $disableacccount = count($usermodel->getdisableaccComplaints($database));
         $feedbackcount = count($usermodel->getnormalfeedbacks($database)) + count($usermodel->getregfeedbacks($database));
 
@@ -144,9 +118,10 @@ class AdminLoginController {
 
 
     public function useradd() {
+        $database = new Database();
         $userModel = new UserModel();
         $emailModel = new EmailModel();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userModel->getUserDatabyemail($_POST['email'], $database)==null) {
             $username = $_POST['email'];
             $email = $_POST['email'];
             $usertype = 5;
@@ -201,6 +176,11 @@ class AdminLoginController {
                 header('Location: index.php?url=manage_users.php');
                 exit();
             }
+        }else{
+            $_SESSION['error'] = "Email already exists.";
+            $_SESSION['ac_createerror'] = true;
+            header('Location: index.php?url=manage_users.php');
+            exit();
         }
     }
 
@@ -247,6 +227,7 @@ class AdminLoginController {
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
         $events = $eventmodel->geteventinventory($database);
+        $eventtype = $eventmodel->geteventtypes($database);
 
         include __DIR__ . '/../Views/events/manageevent.php';
     }
@@ -488,7 +469,8 @@ class AdminLoginController {
             $row_id = $_POST['row_id'] ?? null;
             $usermodel->feedbackdone($row_id, $database);
             $_SESSION['success'] = 'Complaint deleted successfully!';
-            $complaints = $usermodel->getfeedbacks($database);
+            $complaints = $usermodel->getnormalfeedbacks($database);
+            $regcomplaints = $usermodel->getregfeedbacks($database);
             include __DIR__ . '/../Views/events/feedback.php';
         }
     }
