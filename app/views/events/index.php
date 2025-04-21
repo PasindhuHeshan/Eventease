@@ -18,6 +18,12 @@ if ($upevent === null) {
     <title>EMS System</title>
 </head>
 <body>
+<?php if($deletemessage != ""){ ?>
+    <div class="banner-message">
+        <p><?php echo $deletemessage; ?></p>
+    </div>
+<?php } ?>
+
     <div class="box">
         <div class="sliding-panel">
             <div class="panel-content">

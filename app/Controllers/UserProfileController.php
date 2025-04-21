@@ -106,4 +106,14 @@ class UserProfileController
     public function inquiry(){
         require __DIR__ . '/../Views/EventSup/inquiry.php';
     }
+    public function deleteAccount()
+    {
+        $database = new Database();
+        $userModel = new UserModel($database);
+        $username = $_SESSION['username'];
+        $userModel->deleteUser($username, $database);
+        session_unset();
+        session_destroy();
+        header("Location: deletetoindex");
+    }
 }

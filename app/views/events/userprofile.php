@@ -125,6 +125,17 @@
         </div>
     </div>
 
+    <div id="deleteAccountModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeDeleteModal">&times;</span>
+            <p id="delete-modal-message">Are you sure you want to permanently delete your account?</p>
+            <div class="modal-buttons">
+                <button id="confirm-delete-button" class="button delete-account-btn">Confirm Delete</button>
+                <button id="cancel-delete-button" class="button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function showSaveButton() {
             document.getElementById('save-button').style.display = 'block';
@@ -138,14 +149,35 @@
             window.location.href = "RoleRequest.php";
         }
         function confirmDelete() {
-            var result = confirm("Are you sure you want to delete this account?");
-            if (result) {
-                // In a real application, you would trigger the delete action here (e.g., an AJAX request)
-                alert("Account deletion initiated (functionality not fully implemented in this example).");
-                return true;
-            } else {
-                return false;
-            }
+            var deleteModal = document.getElementById("deleteAccountModal");
+            var closeDeleteModal = document.getElementById("closeDeleteModal");
+            var confirmDeleteButton = document.getElementById("confirm-delete-button");
+            var cancelDeleteButton = document.getElementById("cancel-delete-button");
+
+            deleteModal.style.display = "block";
+
+            closeDeleteModal.onclick = function() {
+                deleteModal.style.display = "none";
+            };
+
+            cancelDeleteButton.onclick = function() {
+                deleteModal.style.display = "none";
+            };
+
+            confirmDeleteButton.onclick = function() {
+                deleteModal.style.display = "none";
+                const form = document.getElementById("profileForm");
+                form.action = "deleteAccount";
+                form.submit();
+            };
+
+            window.onclick = function(event) {
+                if (event.target == deleteModal) {
+                    deleteModal.style.display = "none";
+                }
+            };
+
+            return false;
         }
 
         document.addEventListener('DOMContentLoaded', function() {

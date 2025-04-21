@@ -319,6 +319,13 @@ switch ($url) {
     case 'process_send_email':
         $alcontroller->processSendEmail();
         break;
+    case 'deleteAccount':
+        $hcontroller->render();
+        $upcontroller->deleteAccount();
+        break;
+    case 'deletetoindex':
+        $hcontroller->render();
+        $econtroller->deletetoindex();
     case 'adminviewevent':
         $hcontroller->render();
         $alcontroller->adminviewevent();

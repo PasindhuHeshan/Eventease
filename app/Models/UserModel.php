@@ -459,5 +459,15 @@ class UserModel {
         $stmt->close();
         return true;
     }
+
+    public function deleteUser($username, Database $database) {
+        $conn = $database->getConnection();
+        $sql = "UPDATE users SET status = -1 where username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
 }
 ?>
