@@ -38,7 +38,7 @@ class EventsController {
         $eventno = isset($_GET['no']) ? htmlspecialchars($_GET['no']) : null;
         $eventData = null;
 
-        // $supervisors = $this->eventModel->getsupervisors();
+        $supervisors = $this->eventModel->getsupervisors();
         if ($eventno) {
             $eventData = $this->eventModel->getEvent($eventno);
             // Check if event was found
