@@ -10,6 +10,7 @@
             <div class="header">
                 <h1>Chat with Admin</h1>
             </div>
+            <?php print_r($chats); ?>
             <div class="chat-container">
                 <div class="messages-container">
                     <?php if (!empty($chats)): ?>
