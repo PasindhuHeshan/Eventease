@@ -8,6 +8,36 @@
         padding: 20px;
         margin-bottom: 0px;
     }
+    /* Management Staff Search Styles */
+    .management-staff-search-container {
+        position: relative;
+        width: 100%;
+    }
+
+    #userSearch {
+        width: 80%;
+    }
+
+    .management-staff-results {
+        position: absolute;
+        width: 80%;
+        max-height: 200px;
+        overflow-y: auto;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        z-index: 1000;
+        display: none;
+    }
+
+    .management-staff-result-item {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    .management-staff-result-item:hover {
+        background-color: #f0f0f0;
+    }
 </style>
 <h2 id="special">Edit Event</h2>
 <div class="page">
@@ -65,7 +95,11 @@
                                 <option value="Manager">Manager</option>
                             </select>
                             <label for="name_1">Name</label>
-                            <input type="text" name="name_1" id="name_1" class="form-control" value="Auto-loaded Name" readonly>
+                            <div class="management-staff-search-container">
+                                <input type="text" id="userSearch_1" class="form-control" placeholder="Search Staff..." autocomplete="off">
+                                <input type="hidden" name="staff_id_1" id="selectedStaffId_1">
+                                <div id="staffResults_1" class="management-staff-results"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="button-row">
@@ -119,6 +153,7 @@
     </div>
 </div>
 
+<!-- Add this right before the closing </body> tag -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const sidebarItems = document.querySelectorAll(".sidebar li");
@@ -129,6 +164,15 @@
         let inventoryCount = 1; // Initial inventory item
         const maxStaff = 10; // Maximum staff members allowed
         const maxInventory = 10; // Maximum inventory items allowed
+
+        // Sample staff data (replace with your actual PHP data)
+        const staffMembers = [
+            <?php foreach ($staffMembers as $staff): ?> {
+                id: "<?php echo $staff['No']; ?>",
+                name: "<?php echo $staff['fname'] . ' ' . $staff['lname']; ?>"
+            },
+            <?php endforeach; ?>
+        ];
 
         function showSection(id) {
             sections.forEach(section => {
@@ -146,6 +190,58 @@
             });
         });
 
+        // Function to initialize search for a staff member
+        function initStaffSearch(index) {
+            const userSearch = document.getElementById(`userSearch_${index}`);
+            const staffResults = document.getElementById(`staffResults_${index}`);
+            const selectedStaffId = document.getElementById(`selectedStaffId_${index}`);
+
+            function searchStaff(query) {
+                staffResults.innerHTML = '';
+                
+                if (query.length < 2) {
+                    staffResults.style.display = 'none';
+                    return;
+                }
+                
+                const filtered = staffMembers.filter(staff => 
+                    staff.name.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                if (filtered.length === 0) {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'management-staff-result-item';
+                    noResults.textContent = 'No staff members found';
+                    staffResults.appendChild(noResults);
+                } else {
+                    filtered.forEach(staff => {
+                        const item = document.createElement('div');
+                        item.className = 'management-staff-result-item';
+                        item.textContent = staff.name;
+                        item.dataset.id = staff.id;
+                        item.addEventListener('click', function() {
+                            userSearch.value = staff.name;
+                            selectedStaffId.value = staff.id;
+                            staffResults.style.display = 'none';
+                        });
+                        staffResults.appendChild(item);
+                    });
+                }
+                
+                staffResults.style.display = 'block';
+            }
+
+            userSearch.addEventListener('input', function() {
+                searchStaff(this.value);
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!userSearch.contains(e.target) && !staffResults.contains(e.target)) {
+                    staffResults.style.display = 'none';
+                }
+            });
+        }
+
         window.addStaff = function () {
             if (staffCount >= maxStaff) {
                 alert("You can only add up to 10 staff members.");
@@ -161,11 +257,18 @@
                         <option value="Manager">Manager</option>
                     </select>
                     <label for="name_${staffCount}">Name</label>
-                    <input type="text" name="name_${staffCount}" id="name_${staffCount}" class="form-control" required>
+                    <div class="management-staff-search-container">
+                        <input type="text" id="userSearch_${staffCount}" class="form-control" placeholder="Search Staff..." autocomplete="off">
+                        <input type="hidden" name="staff_id_${staffCount}" id="selectedStaffId_${staffCount}">
+                        <div id="staffResults_${staffCount}" class="management-staff-results"></div>
+                    </div>
                     <button type="button" class="btn danger" onclick="removeStaff(${staffCount})">Remove</button>
                 </div>
             `;
             staffContainer.insertAdjacentHTML("beforeend", staffHtml);
+            
+            // Initialize search for the new staff member
+            initStaffSearch(staffCount);
         };
 
         window.removeStaff = function (id) {
@@ -207,6 +310,9 @@
                 inventoryCount--;
             }
         };
+
+        // Initialize search for the first staff member
+        initStaffSearch(1);
     });
 </script>
 

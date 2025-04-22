@@ -30,6 +30,13 @@ class EventsController {
     }
 
     public function addmore() {
+        $eventno = isset($_GET['no']) ? htmlspecialchars($_GET['no']) : null;
+        $eventData = null;
+    
+        $staffMembers = $this->eventModel->getStaffMembers();
+        $eventData = $this->eventModel->getEvent($eventno);
+    
+        // Pass both variables to the view
         include __DIR__ . '/../Views/EventOrg/edit.php';
     }
 

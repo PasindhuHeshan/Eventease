@@ -292,4 +292,10 @@ class EventModel {
         $result = $this->conn->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getStaffMembers() {
+        $query = "SELECT * FROM users WHERE usertype = 1";
+        $result = $this->conn->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
