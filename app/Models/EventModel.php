@@ -170,6 +170,16 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC); 
     }
 
+    public function getEventsByStaff($staff) { 
+        $query = "SELECT * FROM events WHERE organizer = ?"; 
+        $stmt = $this->conn->prepare($query); 
+        $stmt->bind_param("s", $staff); 
+        $stmt->execute(); 
+        $result = $stmt->get_result(); 
+        $stmt->close(); 
+        return $result->fetch_all(MYSQLI_ASSOC); 
+    }
+
     public function geteventinventory(Database $database){
         //table is event_inventory
         $query = "SELECT ei.*, e.* FROM event_inventory ei JOIN events e ON ei.event_id = e.no WHERE ei.status = 0";
@@ -275,5 +285,11 @@ class EventModel {
         $stmt->close();
 
         return $result;
+    }
+
+    public function getsupervisors() {
+        $query = "SELECT * FROM users WHERE usertype = 5";
+        $result = $this->conn->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }

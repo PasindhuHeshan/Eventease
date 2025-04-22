@@ -45,9 +45,11 @@
                 <label for="supervisor">Supervisor</label>
                 <select name="supervisor" id="supervisor" class="form-control" required>
                     <option value="">Select Supervisor</option>
-                    <option value="Supervisor1" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor1') ? 'selected' : ''; ?>>Supervisor1</option>
-                    <option value="Supervisor2" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor2') ? 'selected' : ''; ?>>Supervisor2</option>
-                    <option value="Supervisor3" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor3') ? 'selected' : ''; ?>>Supervisor3</option>
+                    <?php foreach ($supervisors as $sup): ?>
+                        <option value="<?php echo $sup['No']; ?>" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == $sup['No']) ? 'selected' : ''; ?>><?php echo $sup['fname']." ".$sup['lname']; ?></option>
+                    <?php endforeach; ?>
+
+                    
                 </select>
             </div>
             <div class="form-group">
