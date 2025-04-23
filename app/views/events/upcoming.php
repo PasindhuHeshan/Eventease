@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="./css/upcomingstyle.css">
 </head>
 <body class="mainbody2">
-    <div class="topics2">Registed Events</div>
+    <div class="topics2">Registered Events</div>
     <div class="card-container2">
         <?php if (!empty($upevents)): ?>
             <?php foreach ($upevents as $data): ?>

@@ -69,6 +69,7 @@
                 <?php foreach ($organization as $org) { ?>
                     <option value="<?php echo $org['orgno']; ?>" <?php if($roleData!= null && $roleData['organization']==$org['orgno']){ echo "selected";}?>><?php echo $org['orgname']; ?></option>
                 <?php } ?>
+                
             </select>
 
             <label for="role">Role</label>
@@ -96,7 +97,7 @@
                 }
                 ?>
             </div><br><br>
-              <?php }  ?>
+            <?php }  ?>
                 <center>
                     <?php if (!$roleData) { ?>
                         <button type="submit" name="submit">Submit</button>
