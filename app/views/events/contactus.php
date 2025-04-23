@@ -13,6 +13,7 @@
 </head>
 <body>
     <div class="main">
+        
         <div class="main_box">
             <h2>Contact Support</h2>
             <form name="contactsupport" action="contactus" method="post" onsubmit="return confirmSubmission();">
@@ -84,7 +85,7 @@
 
                     <tr>
                         <td><label for="feedback">Feedback</label></td>
-                        <td><textarea class="myTextarea" name="feedback" rows="4" placeholder="Enter your feedback"></textarea></td>
+                        <td><textarea class="myTextarea" name="feedback" rows="4" placeholder="Enter your feedback" ></textarea></td>
                     </tr>
                     <tr class="button">
                         <td colspan="2"><button type="submit">Send</button></td>
@@ -93,6 +94,7 @@
                 <p>For the Questions,<br>our contact support will get in touch with you as soon as possible</p>
             </form>
         </div>
+        
     </div>
 </body>
 </html>
