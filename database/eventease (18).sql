@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2025 at 06:11 PM
+-- Generation Time: Apr 23, 2025 at 07:10 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -81,10 +81,12 @@ CREATE TABLE `contact_numbers` (
 INSERT INTO `contact_numbers` (`Cnt_No`, `Cnt_num`) VALUES
 (63, '0452896578'),
 (63, '0526998574'),
-(17, '0718596880'),
-(17, '0748596327'),
 (94, '0711320220'),
-(16, '0125478569');
+(16, '0125478569'),
+(96, '0723456789'),
+(97, '0784565895'),
+(17, '0718596870'),
+(17, '0125465896');
 
 -- --------------------------------------------------------
 
@@ -108,10 +110,11 @@ CREATE TABLE `contact_support` (
 
 INSERT INTO `contact_support` (`no`, `name`, `id`, `email`, `contact_no`, `open_time`, `reply_time`) VALUES
 (23, 'sdsa', '3', 'ss@gmail.com', '0125478969', '2025-04-16 06:38:04', NULL),
-(25, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596859', '2025-04-16 15:59:43', '2025-04-16 15:17:02'),
+(25, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596859', '2025-04-22 09:51:39', '2025-04-16 15:17:02'),
 (26, 'asd', '1', 'asd@stu.ucsc.cmb.ac.lk', '0715286555', '2025-04-19 08:02:22', '2025-04-19 08:05:28'),
 (27, 'asd', '3', 'asd@stu.ucsc.cmb.ac.lk', '0715286555', '2025-04-19 08:03:35', NULL),
-(29, 'san', '1', 'san@gmail.com', '0715286550', '2025-04-19 08:24:44', NULL);
+(29, 'san', '1', 'san@gmail.com', '0715286550', '2025-04-19 08:24:44', NULL),
+(30, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596870', '2025-04-23 08:42:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -138,7 +141,11 @@ INSERT INTO `contact_support_data` (`row_no`, `no`, `user_msg`, `admin_msg`) VAL
 (54, 26, 'hi ', ''),
 (55, 27, 'whyy', ''),
 (56, 26, '', 'hi'),
-(65, 29, 'hi i want to know about events', '');
+(65, 29, 'hi i want to know about events', ''),
+(66, 25, 'yby', ''),
+(67, 25, 'hihu', ''),
+(68, 25, 'hihu', ''),
+(69, 30, '', '');
 
 -- --------------------------------------------------------
 
@@ -168,7 +175,8 @@ INSERT INTO `enroll` (`username`, `eventno`) VALUES
 ('seniru', 3),
 ('asdw', 3),
 ('asdw', 4),
-('seniru', 4);
+('seniru', 4),
+('sanduni', 5);
 
 -- --------------------------------------------------------
 
@@ -179,7 +187,7 @@ INSERT INTO `enroll` (`username`, `eventno`) VALUES
 CREATE TABLE `events` (
   `no` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `short_dis` varchar(200) NOT NULL,
+  `short_dis` varchar(200) DEFAULT NULL,
   `long_dis` varchar(2000) NOT NULL,
   `flag` tinyint(1) NOT NULL,
   `time` time NOT NULL,
@@ -212,7 +220,8 @@ INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `fi
 (9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '17:30:00', '2025-09-12', 'Fashion Avenue', 150, 'Charity', 0, 'nope', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
 (10, 'Social Gathering', 'Community social event.', 'Join us for a community social gathering where neighbors can connect, share stories, and enjoy a variety of activities. The event will feature live music, food stalls, games, and a talent show. It’s a perfect opportunity to meet new people and strengthen community bonds.', 1, '00:00:00', '00:00:00', '2025-10-10', 'Community Center', 100, 'Social', 0, '', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
 (11, 'Educational Workshop', 'Interactive learning experience.', 'Participate in an interactive educational workshop designed to enhance your skills and knowledge. This workshop covers a range of topics including technology, science, and arts. Expert instructors will guide you through hands-on activities and provide valuable insights.', 1, '10:00:00', '00:00:00', '2025-11-15', 'Education Hall', 50, 'Educational', 0, '', 20, '0', 16, 0),
-(12, 'Entertainment Night', 'Fun-filled entertainment event.', 'Enjoy a night of entertainment with live performances, comedy acts, and dance shows. This event promises to be a fun-filled evening for all ages. Don’t miss out on the exciting lineup of entertainers and the chance to win prizes in various contests.', 1, '15:40:00', '16:00:00', '2025-09-12', 'Entertainment Arena', 300, 'Entertainment', 0, '', 20, '0', 16, 0);
+(12, 'Entertainment Night', 'Fun-filled entertainment event.', 'Enjoy a night of entertainment with live performances, comedy acts, and dance shows. This event promises to be a fun-filled evening for all ages. Don’t miss out on the exciting lineup of entertainers and the chance to win prizes in various contests.', 1, '15:40:00', '18:00:00', '2025-09-12', 'Entertainment Arena', 300, 'Entertainment', 0, '', 19, '0', 16, 0),
+(19, 'Awurudu2', '', 'asdadasdasdasdasdasdw', 0, '09:32:00', '11:32:00', '2025-05-08', 'NAT', 1000, 'Educational', 1, '', 94, 'images/events/Gemini_Generated_Image_paf4tgpaf4tgpaf4.jpeg', 17, 0);
 
 -- --------------------------------------------------------
 
@@ -233,8 +242,50 @@ CREATE TABLE `event_inventory` (
 
 INSERT INTO `event_inventory` (`event_id`, `inventory_item`, `quantity`, `status`) VALUES
 (9, 15, 2, 1),
-(9, 17, 1, 1),
-(12, 15, 2, 2);
+(9, 17, 2, 1),
+(12, 17, 2, 1),
+(19, 3, 2, 0),
+(19, 18, 5, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_members`
+--
+
+CREATE TABLE `event_members` (
+  `event_no` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `event_role_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `event_members`
+--
+
+INSERT INTO `event_members` (`event_no`, `member_id`, `event_role_id`) VALUES
+(19, 97, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_role`
+--
+
+CREATE TABLE `event_role` (
+  `event_role` varchar(50) NOT NULL,
+  `event_role_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `event_role`
+--
+
+INSERT INTO `event_role` (`event_role`, `event_role_id`) VALUES
+('Coordinator', 0),
+('Volunteer', 1),
+('Manager', 2),
+('Treasurer', 3);
 
 -- --------------------------------------------------------
 
@@ -287,9 +338,9 @@ INSERT INTO `inventory` (`id`, `item`, `inventory_no`, `quantity`, `inventory_ty
 (12, 'Stapler', 'INV-012', 1000, 'Stationery'),
 (13, 'Office Chair', 'INV-013', 25, 'Furniture'),
 (14, 'Projector Lamp', 'INV-014', 18, 'Electronics'),
-(15, 'Dryer', 'INV-015', 4, 'Appliances'),
+(15, 'Dryer', 'INV-015', 8, 'Appliances'),
 (16, 'Pen', 'INV-016', 1000, 'Stationery'),
-(17, 'File Cabinet', 'INV-017', 1, 'Furniture'),
+(17, 'File Cabinet', 'INV-017', 7, 'Furniture'),
 (18, 'Tablet', 'INV-018', 32, 'Electronics'),
 (19, 'Refrigerator', 'INV-019', 5, 'Appliances'),
 (20, 'Notebook', 'INV-020', 300, 'Stationery'),
@@ -413,7 +464,7 @@ INSERT INTO `users` (`No`, `username`, `password`, `fname`, `lname`, `email`, `u
 (10, 'sanduni', '$2y$10$VB/Zi7XXE/gFY.64z8o7a.jric8faY3mLJwBCXynOtpP1SNSIgGBq', 'Sanduni', '', 'saduni@stu.ucsc.cmb.lk', '0', 'ucsc', '2', '2', 'images/profiles/BlackRock-windows10Wallpapers.jpg', 1, '2024-11-28 13:00:52', '2025-04-14 09:56:42'),
 (11, 'navindu', '$2y$10$gLOWumpp8eS6JnsCrLrK.uJP4y9hr/wNfQ5tM/TlkSnh9ScaPFfGq', 'Navindu', 'Thilakshana', 'se@gmail.com', '2', '200234600111', 'asd', 'asd', NULL, 1, '2024-11-28 13:27:11', '2025-04-07 08:01:08'),
 (16, 'pasindu', '$2y$10$.6eQk7X78Q.s2vhu3IG77uPC9YH5/3JKzVZ.mutH0Z0EkGP6z3YUa', 'Pasindu', 'Heshan', 'seniru@stu.ucsc.cmb.lk', '3', '22020782', 'Sama Mawatha', 'Kottawa', 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', 1, '2024-11-28 14:55:07', '2025-04-07 06:44:36'),
-(17, 'seniru', '$2y$10$OKNPBhPharr9wqV2FS1MPONXDVA2gVqOcgAM1TiBqA3OgVE/xqvnW', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.ac.lk', '3', '22020782', 'Sama Mawatha', 'Homagama', 'images/profiles/Screenshot (3).png', 1, '2024-11-28 15:02:04', '2025-04-16 15:39:11'),
+(17, 'seniru', '$2y$10$OKNPBhPharr9wqV2FS1MPONXDVA2gVqOcgAM1TiBqA3OgVE/xqvnW', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.ac.lk', '3', '22020782', 'Sama Mawatha', 'Homagama', 'images/profiles/Screenshot (3).png', 1, '2024-11-28 15:02:04', '2025-04-23 08:46:28'),
 (19, 'pasindu2', '$2y$10$tYxF4J6sEY6EYZdwf6RodOSSFmOkyaym3FgHLN51xaDqyJoevdm/O', 'Pasindu', 'aa', 'aa@gmail.com', '4', '0', '12', '`12', NULL, 1, '2024-11-29 04:55:05', '2025-04-07 06:44:37'),
 (20, 'navindu2', '$2y$10$tyZ0/xUexSm8mGn8WT9WHe9AaHcjrmusKBLLV6soRYc/UQ0ZY446C', 'Navindu', 'T', 'se@gmail.com', '5', '0', '12', '12', NULL, 1, '2024-11-29 05:01:30', '2025-04-07 06:44:37'),
 (51, 'aaaa', '$2y$10$dAcHXcRFqhUExqHjnXC2EemXfy0uF/QPY9yJB7G8RpytFVDnBFHlO', 'as', 'asd', 'asd@gmail.com', '2', '200234600222', '45', '5', NULL, 1, '2025-04-07 08:05:54', '2025-04-14 11:57:21'),
@@ -423,7 +474,9 @@ INSERT INTO `users` (`No`, `username`, `password`, `fname`, `lname`, `email`, `u
 (55, 'asdasdf', '$2y$10$NI3lDVxH.XIpVHF17ssmkeMxDqCihM2QXApR.5IuwQDtqC9NjCKKi', 'asd', 'asd', 'asd@stu.ucsc.cmb.ac.lk', '1', '22020782', '22', '22', NULL, 0, '2025-04-07 08:20:02', '2025-04-19 07:55:39'),
 (56, 'asdasdfg', '$2y$10$7GMBqafL3MwgnyxUBW0LNOg2XMxzX2xr4xa3T6UgaweQ9.IU9MrKO', 'asd', 'asd', 'asd@gmail.com', '2', '200234655555', '123', '123', NULL, 1, '2025-04-07 08:21:20', '2025-04-07 08:21:20'),
 (63, 'qqqq', '$2y$10$rgWvw0e4SB37ZgmHhXybPedBHEkZroYPywdA3pNUMgg7W40IhWTSm', 'asd', 'asa', 'asd@stu.ucsc.cmb.ac.lk', '1', '22020258', 'asd', 'asd', NULL, 1, '2025-04-09 15:29:05', '2025-04-19 07:55:34'),
-(94, 'Kaushi', '$2y$10$EzRS8fiKrzhS4RwhK1zJWuQFdHKvjklz4mcaAlPO1C1j58RVfVmWm', 'Kaushi', 'Wijewardhana', 'sanduniwijewardhane@gmail.com', '5', '22021180', 'colombo', 'colombo7', NULL, 1, '2025-04-19 07:49:08', '2025-04-19 07:51:45');
+(94, 'Kaushi', '$2y$10$EzRS8fiKrzhS4RwhK1zJWuQFdHKvjklz4mcaAlPO1C1j58RVfVmWm', 'Kaushi', 'Wijewardhana', 'sanduniwijewardhane@gmail.com', '5', '22021180', 'colombo', 'colombo7', NULL, 1, '2025-04-19 07:49:08', '2025-04-19 07:51:45'),
+(96, 'seniru3', '$2y$10$9ID9VBJEypR6HnzA9EaF3eEqlKahIIMPtuTXTtat3NWlP7DhNU9Aa', 'asd', 'asd', '2202is078@stu.ucsc.cmb.ac.lk', '1', '22020782', 'asdasdadasd', 'asd', NULL, 1, '2025-04-23 06:51:51', '2025-04-23 06:51:51'),
+(97, 'seniru7', '$2y$10$3k9Id5d5ugjxE0lRTwRiAeoft.ChH5CRhgnuF7gFLBm0bjQYu3Q4G', 'asd', 'asd', '22020782@stu.ucsc.cmb.ac.lk', '2', '200234600527', 'dasdasasdasdsad', 'asd', NULL, 1, '2025-04-23 07:16:39', '2025-04-23 07:17:57');
 
 --
 -- Indexes for dumped tables
@@ -474,8 +527,23 @@ ALTER TABLE `events`
 -- Indexes for table `event_inventory`
 --
 ALTER TABLE `event_inventory`
+  ADD PRIMARY KEY (`event_id`,`inventory_item`),
   ADD KEY `eventno` (`event_id`),
   ADD KEY `inventory_requested` (`inventory_item`);
+
+--
+-- Indexes for table `event_members`
+--
+ALTER TABLE `event_members`
+  ADD PRIMARY KEY (`event_no`,`member_id`),
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `event_role_id` (`event_role_id`);
+
+--
+-- Indexes for table `event_role`
+--
+ALTER TABLE `event_role`
+  ADD PRIMARY KEY (`event_role_id`);
 
 --
 -- Indexes for table `id_numbers`
@@ -536,19 +604,19 @@ ALTER TABLE `admin_support`
 -- AUTO_INCREMENT for table `contact_support`
 --
 ALTER TABLE `contact_support`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `contact_support_data`
 --
 ALTER TABLE `contact_support_data`
-  MODIFY `row_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `row_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -566,7 +634,7 @@ ALTER TABLE `organizations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- Constraints for dumped tables
@@ -604,6 +672,14 @@ ALTER TABLE `events`
 ALTER TABLE `event_inventory`
   ADD CONSTRAINT `event_inventory_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`no`),
   ADD CONSTRAINT `event_inventory_ibfk_2` FOREIGN KEY (`inventory_item`) REFERENCES `inventory` (`id`);
+
+--
+-- Constraints for table `event_members`
+--
+ALTER TABLE `event_members`
+  ADD CONSTRAINT `event_members_ibfk_1` FOREIGN KEY (`event_no`) REFERENCES `events` (`no`),
+  ADD CONSTRAINT `event_members_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `users` (`No`),
+  ADD CONSTRAINT `event_members_ibfk_3` FOREIGN KEY (`event_role_id`) REFERENCES `event_role` (`event_role_id`);
 
 --
 -- Constraints for table `id_numbers`
