@@ -22,9 +22,7 @@ class ReqController{
             $userData = $this->usermodel->getUserData($username,$database);
             if ($username !== null) {
                 $roleData = $this->usermodel->getRoleRequest($database, $userData['No']);
-            } else {
-                $roleData = null; // Handle the case where $no is null
-            }
+            } 
             $organization = $this->usermodel->getorganizations($database);
             require __DIR__ . '/../views/events/RoleRequest.php';
         }

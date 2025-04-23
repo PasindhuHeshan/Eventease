@@ -29,15 +29,15 @@ class ContactusController{
     $errors = [];
 
     if ($type === null || $email === null || $contact_no === null || $feedback === null) {
-        $errors[] = "Error: Missing required fields";
+        $errors[] = "Missing required fields";
     }
 
     if (strlen($contact_no) != 10 || !ctype_digit($contact_no)) {
-        $errors['contact_no'] = "Error: Contact number must be exactly 10 digits.";
+        $errors['contact_no'] = "Contact number must be exactly 10 digits.";
     }
 
     if ($type=='2' && strpos($email, '@stu.ucsc.cmb.ac.lk') === false) {
-        $errors['email'] = "Error: Email must be a valid address";
+        $errors['email'] = "Email must be a valid address";
     }
 
     if (!empty($errors)) {
