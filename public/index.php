@@ -239,11 +239,8 @@ switch ($url) {
         $hcontroller->render();
         $cucontroller->contactus();
         break;
-   /* case 'createform':
         $hcontroller->render();
 
-        $cucontroller->createform();
-        break;*/
 
     case 'createevent':
         $hcontroller->render();

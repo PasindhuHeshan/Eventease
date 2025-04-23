@@ -13,6 +13,7 @@
 </head>
 <body>
     <div class="main">
+        
         <div class="main_box">
             <h2>Contact Support</h2>
             <form name="contactsupport" action="contactus" method="post" onsubmit="return confirmSubmission();">
@@ -90,6 +91,7 @@
                 <p>For the Questions,<br>our contact support will get in touch with you as soon as possible</p>
             </form>
         </div>
+        
     </div>
 </body>
 </html>

@@ -40,7 +40,6 @@
         <h2><?php echo isset($eventData) ? 'Edit Event' : 'Create Event'; ?></h2>
         <form action="<?php echo !$eventData ? 'createevent' : 'processEvent'; ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="eventno" value="<?php echo isset($eventData['no']) ? $eventData['no'] : ''; ?>">
-
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" class="form-control" value="<?php echo isset($eventData['name']) ? $eventData['name'] : ''; ?>" required>
@@ -50,8 +49,12 @@
                 <input type="date" name="date" id="date" class="form-control" value="<?php echo isset($eventData['date']) ? $eventData['date'] : ''; ?>" required>
             </div>
             <div class="form-group">
-                <label for="time">Time</label>
+                <label for="time">Starting Time</label>
                 <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($eventData['time']) ? $eventData['time'] : ''; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Finishing Time</label>
+                <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($eventData['finish_time']) ? $eventData['finish_time'] : ''; ?>" required>
             </div>
             <div class="form-group">
                 <label for="venue">Venue</label>
@@ -70,7 +73,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="long_dis">Long Description</label>
+                <label for="long_dis">Description</label>
                 <textarea name="long_dis" id="long_dis" class="form-control" required><?php echo isset($eventData['long_dis']) ? $eventData['long_dis'] : ''; ?></textarea>
             </div>
             <div class="form-group">

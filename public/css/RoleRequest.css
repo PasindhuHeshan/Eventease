@@ -1,59 +1,36 @@
 body {
     margin: 0;
-    background-color: #f5f7fa;
-
+    background-color: #f5f7fa;    
 }
 
-.main {
-    width: 100%;
-    padding: 20px;
-    justify-items: center;
-}
-
-.main_box {
+.form-container {
     border-radius: 12px;
     background-color: white;
     padding: 30px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     border: none;
-    width: fit-content;
-    
+    max-width: 600px;
+    margin: 50px auto;
 }
 
-.main_box h2 {
-   
+.form-container h2 {
     margin-bottom: 25px;
     color: #2c3e50;
     font-size: 24px;
     text-align: center;
-    
 }
 
-table {
-    width: 100%;
-    background-color: transparent;
-    border-spacing: 0 15px;
-    margin-bottom: 20px;
-}
-
-tr td {
-    text-align: left;
-    vertical-align: top;
-    padding: 5px 0;
-}
-
-td:first-child {
-    width: 30%;
-    padding: 12px 26px 12px 12px;
-}
-
-label {
+.form-container label {
     font-size: 16px;
     font-weight: 500;
     color: #4a5568;
+    display: block;
+    margin-bottom: 10px;
 }
 
-input, select, .myTextarea {
+.form-container input,
+.form-container textarea,
+.form-container select {
     width: 100%;
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -61,25 +38,21 @@ input, select, .myTextarea {
     font-size: 15px;
     transition: border-color 0.3s, box-shadow 0.3s;
     box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
-
-select {
+.form-container select {
+    padding-right: 30px;
     cursor: pointer;
     height: 45px;
 }
 
-.myTextarea {
+.form-container textarea {
     min-height: 100px;
     resize: vertical;
 }
 
-.button {
-    text-align: center;
-    margin-top: 10px;
-}
-
-button {
+.form-container [type="submit"], .form-container [type="button"] {
     background-color: #3498db;
     color: white;
     border: none;
@@ -92,28 +65,16 @@ button {
     transition: background-color 0.3s, transform 0.1s;
 }
 
-button:hover {
+.form-container [type="submit"]:hover, .form-container [type="button"]:hover {
     background-color: #2980b9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-.error {
-    color: #e74c3c;
-    font-size: 14px;
-    margin-top: 5px;
-    font-weight: 400;
+a {
+    color: white;
+    text-decoration: none;
 }
 
-p {
-    color: #7f8c8d;
-    font-size: 14px;
-    margin-top: 20px;
-    line-height: 1.6;
-    text-align: center;
-}
-
-/* For readonly fields */
-input[readonly] {    
+input[readonly] {
     cursor: not-allowed;
 }

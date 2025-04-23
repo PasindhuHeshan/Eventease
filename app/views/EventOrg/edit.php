@@ -51,35 +51,67 @@
     </div>
     <div class="content">
         <div class="event">
-            <form action="" method="post">
+            <form action="processEvent" method="post" enctype="multipart/form-data" id="eventForm">
                 <!-- General Details Section -->
                 <div id="general-details" class="content-section active">
                     <h3>General Details</h3>
+                    <input type="hidden" name="eventno" value="<?php echo isset($eventData['no']) ? $eventData['no'] : ''; ?>">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" class="form-control" required>
+                        <input type="text" name="name" id="name" class="form-control" value="<?php echo isset($eventData['name']) ? $eventData['name'] : ''; ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="date">Date</label>
-                        <input type="date" name="date" id="date" class="form-control" required>
+                        <input type="date" name="date" id="date" class="form-control" value="<?php echo isset($eventData['date']) ? $eventData['date'] : ''; ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="time">Time</label>
-                        <input type="time" name="time" id="time" class="form-control" required>
+                        <label for="time">Starting Time</label>
+                        <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($eventData['time']) ? $eventData['time'] : ''; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Finishing Time</label>
+                        <input type="time" name="finish_time" id="finish_time" class="form-control" value="<?php echo isset($eventData['finish_time']) ? $eventData['finish_time'] : ''; ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="venue">Venue</label>
-                        <input type="text" name="venue" id="venue" class="form-control" required>
+                        <input type="text" name="location" id="venue" class="form-control" value="<?php echo isset($eventData['location']) ? $eventData['location'] : ''; ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="type">Type</label>
-                        <input type="text" name="type" id="type" class="form-control" required>
+                        <label for="event_type">Type</label>
+                        <select name="event_type" id="event_type" class="form-control" required>
+                            <option value="">Select Type</option>
+                            <option value="Social" <?php echo (isset($eventData['event_type']) && $eventData['event_type'] == 'Social') ? 'selected' : ''; ?>>Social</option>
+                            <option value="Educational" <?php echo (isset($eventData['event_type']) && $eventData['event_type'] == 'Educational') ? 'selected' : ''; ?>>Educational</option>
+                            <option value="Entertainment" <?php echo (isset($eventData['event_type']) && $eventData['event_type'] == 'Entertainment') ? 'selected' : ''; ?>>Entertainment</option>
+                            <option value="Culture" <?php echo (isset($eventData['event_type']) && $eventData['event_type'] == 'Culture') ? 'selected' : ''; ?>>Culture</option>
+                            <option value="Charity" <?php echo (isset($eventData['event_type']) && $eventData['event_type'] == 'Charity') ? 'selected' : ''; ?>>Charity</option>
+                            <option value="Music" <?php echo (isset($eventData['event_type']) && $eventData['event_type'] == 'Music') ? 'selected' : ''; ?>>Music</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea name="description" id="description" class="form-control" required></textarea>
+                        <label for="long_dis">Description</label>
+                        <textarea rows="5" name="long_dis" id="long_dis" class="form-control" required><?php echo isset($eventData['long_dis']) ? $eventData['long_dis'] : ''; ?></textarea>
                     </div>
-                    <button type="submit" class="btn primary">Update</button>
+                    <div class="form-group">
+                        <label for="participant_cap">Participant Cap</label>
+                        <input type="number" name="people_limit" id="participant_cap" class="form-control" value="<?php echo isset($eventData['people_limit']) ? $eventData['people_limit'] : ''; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="target_audience">Target Audience</label>
+                        <select name="flag" id="target_audience" class="form-select" required>
+                            <option value="0" <?php echo (isset($eventData['flag']) && $eventData['flag'] == '0') ? 'selected' : ''; ?>>Students</option>
+                            <option value="1" <?php echo (isset($eventData['flag']) && $eventData['flag'] == '1') ? 'selected' : ''; ?>>All</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="event_banner">Event Banner</label>
+                        <input type="file" name="event_banner" id="event_banner" class="form-control">
+                    </div>
+                    <?php if (isset($eventData['event_banner'])): ?>
+                        <input type="hidden" name="existing_event_banner" value="<?php echo $eventData['event_banner']; ?>">
+                        <p>Current Event Banner - <?php echo basename($eventData['event_banner']); ?></p>
+                    <?php endif; ?>
+                    <button type="submit" name="update_details" class="btn primary">Update</button>
                 </div>
 
                 <!-- Management Staff Details Section -->
@@ -93,6 +125,7 @@
                                 <option value="Coordinator">Coordinator</option>
                                 <option value="Volunteer">Volunteer</option>
                                 <option value="Manager">Manager</option>
+                                <option value="Treasurer">Treasurer</option>
                             </select>
                             <label for="name_1">Name</label>
                             <div class="management-staff-search-container">
@@ -104,7 +137,7 @@
                     </div>
                     <div class="button-row">
                         <button type="button" class="btn secondary" onclick="addStaff()">Add Staff</button>
-                        <button type="submit" class="btn primary">Update</button>
+                        <button type="submit" name="update_staff" class="btn primary">Update</button>
                     </div>
                 </div>
 
@@ -123,7 +156,7 @@
                         <label for="notification_receivers">Receivers</label>
                         <input type="text" name="notification_receivers" id="notification_receivers" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn primary">Send Notification</button>
+                    <button type="submit" name="send_notification" class="btn primary">Send Notification</button>
                 </div>
 
                 <!-- Inventory Management Section -->
@@ -131,13 +164,12 @@
                     <h3>Inventory Management</h3>
                     <div id="inventory-container">
                         <div class="form-group" id="inventory_1">
-                            <label for="inventory_name_1">Item</label>
+                            <label for="inventory_name_1">Item Type</label>
                             <select name="inventory_name_1" id="inventory_name_1" class="form-control" required>
-                                <option value="Chairs">Chairs</option>
-                                <option value="Tables">Tables</option>
-                                <option value="Projector">Projector</option>
-                                <option value="Microphone">Microphone</option>
-                                <option value="Speakers">Speakers</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Appliances">Appliances</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Stationery">Stationery</option>
                             </select>
                             <label for="inventory_quantity_1">Quantity</label>
                             <input type="number" name="inventory_quantity_1" id="inventory_quantity_1" class="form-control" required>
@@ -145,7 +177,7 @@
                     </div>
                     <div class="button-row">
                         <button type="button" class="btn secondary" onclick="addInventory()">Add Item</button>
-                        <button type="submit" class="btn primary">Request</button>
+                        <button type="submit" name="request_inventory" class="btn primary">Request</button>
                     </div>
                 </div>
             </form>
@@ -153,7 +185,6 @@
     </div>
 </div>
 
-<!-- Add this right before the closing </body> tag -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const sidebarItems = document.querySelectorAll(".sidebar li");
@@ -173,6 +204,18 @@
             },
             <?php endforeach; ?>
         ];
+
+        // Add this to your script section in edit.php
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            const submitButton = e.submitter;
+            if (submitButton.name === 'update_details' || 
+                submitButton.name === 'update_staff' || 
+                submitButton.name === 'send_notification' || 
+                submitButton.name === 'request_inventory') {
+                return true; // Allow form submission
+            }
+            e.preventDefault(); // Prevent form submission for other buttons
+        });
 
         function showSection(id) {
             sections.forEach(section => {
@@ -255,6 +298,7 @@
                         <option value="Coordinator">Coordinator</option>
                         <option value="Volunteer">Volunteer</option>
                         <option value="Manager">Manager</option>
+                        <option value="Treasurer">Treasurer</option>
                     </select>
                     <label for="name_${staffCount}">Name</label>
                     <div class="management-staff-search-container">
@@ -287,13 +331,12 @@
             inventoryCount++;
             const inventoryHtml = `
                 <div class="form-group" id="inventory_${inventoryCount}">
-                    <label for="inventory_name_${inventoryCount}">Item</label>
+                    <label for="inventory_name_${inventoryCount}">Item Type</label>
                     <select name="inventory_name_${inventoryCount}" id="inventory_name_${inventoryCount}" class="form-control" required>
-                        <option value="Chairs">Chairs</option>
-                        <option value="Tables">Tables</option>
-                        <option value="Projector">Projector</option>
-                        <option value="Microphone">Microphone</option>
-                        <option value="Speakers">Speakers</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Appliances">Appliances</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Stationery">Stationery</option>
                     </select>
                     <label for="inventory_quantity_${inventoryCount}">Quantity</label>
                     <input type="number" name="inventory_quantity_${inventoryCount}" id="inventory_quantity_${inventoryCount}" class="form-control" required>
