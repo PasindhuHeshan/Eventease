@@ -66,9 +66,6 @@
                                 <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($userData['fname'] ?? ''); ?>" readonly>
                             </td>
                         </tr>
-                        <?php if($userData['usertype']==3):?>
-                            <p>hello</p>
-                        <?php endif;?>
                         <tr>
                             <td><label for="email">Email</label></td>
                             <td>
@@ -85,7 +82,7 @@
 
                     <tr>
                         <td><label for="feedback">Feedback</label></td>
-                        <td><textarea class="myTextarea" name="feedback" rows="4" placeholder="Enter your feedback" ></textarea></td>
+                        <td><textarea class="myTextarea" name="feedback" rows="4" placeholder="Enter your feedback" required></textarea></td>
                     </tr>
                     <tr class="button">
                         <td colspan="2"><button type="submit">Send</button></td>
