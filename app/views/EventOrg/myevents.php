@@ -35,6 +35,7 @@
                         <?php if($event['approvedstatus']==2){ echo '<p class="event-description" style="color:red; font-weight:bold;">Event Rejected</p>';} ?>
                         <hr>
                         <p class="event-description">
+                            <?php if($userType=='3'){ echo '<a href="addmore?no=' . $event['no'] . '">Edit Event</a>';} ?>
                         </p>
                         <p class="event-description"><?php if($userType=='4'){ echo '<a href="inquiry">Inquries</a>';} ?></p>
                         <p class="event-description"><?php if($userType=='4'){ echo '<a href="enrollment">Enrollment</a>';} ?></p>

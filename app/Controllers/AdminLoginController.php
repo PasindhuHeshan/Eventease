@@ -252,7 +252,7 @@ class AdminLoginController {
         $eventmodel = new EventModel($database);
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
-        $events = $eventmodel->geteventinventory($database);
+        $events = $eventmodel->getadmineventinventory($database);
         $eventtype = $eventmodel->geteventtypes($database);
 
         include __DIR__ . '/../Views/events/manageevent.php';
