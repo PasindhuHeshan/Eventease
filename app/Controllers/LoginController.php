@@ -14,7 +14,7 @@ class LoginController {
             $password = $_POST['password'] ?? null;
 
             if ($username && $password) {
-                $database = new Database(); // Ensure the database connection is created here
+                $database = new Database(); 
                 $userModel = new UserModel($database);
                 $eventModel = new EventModel($database);
                 $userData = $userModel->getUserData($username, $database);
@@ -30,12 +30,17 @@ class LoginController {
                             header("Location: ../public/index.php?url=login.php");
                             exit();
                         }
+                    } elseif ($userData['status'] == -1) {
+                        $_SESSION['error']='This account is Deleted!<br>Contact administration!';
+                        header("Location: ../public/index.php?url=login.php");
+                        exit();
                     }
 
                     if (password_verify($password, $userData['password'])) {
                         $_SESSION['username'] = $username;
                         $_SESSION['no'] = $userData['no'];
                         $_SESSION['upevent'] = $upevents;
+                        $_SESSION['profile_picture'] = $userData['profile_picture'];
 
                         switch ($userData['role_name']) {
                             case 'Student':

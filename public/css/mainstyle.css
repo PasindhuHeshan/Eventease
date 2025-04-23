@@ -148,9 +148,11 @@ html, body {
 
 .panel-content {
     display: flex;
+
     gap: 20px;
     padding: 20px;
     animation: scroll 30s linear infinite;
+
 }
 
 @keyframes scroll {
@@ -158,7 +160,7 @@ html, body {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-28%);
+        transform: translateX(-20%);
     }
 }
 

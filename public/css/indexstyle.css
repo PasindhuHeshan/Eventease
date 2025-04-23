@@ -59,6 +59,26 @@ body {
     border-radius: 4px;
 }
 
+
 ::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }
+
+.sliding-panel .panel-content{
+    float: none;
+}
+
+.banner-message {
+    width: 100%;
+    background-color: yellow;
+    color: #b95050;
+    text-align: center;
+    font-size: 14px;
+    padding: 5px 0;
+    font-weight: bold;
+    margin: 0;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
