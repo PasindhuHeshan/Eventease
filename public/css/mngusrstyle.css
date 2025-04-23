@@ -137,3 +137,11 @@
         background-color: #f8f8f8;
         cursor: pointer;
     }
+    #tableSelect{
+        padding: 10px 20px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #f8f8f8;
+        cursor: pointer;
+    }

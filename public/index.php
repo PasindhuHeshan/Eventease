@@ -241,8 +241,10 @@ switch ($url) {
         break;
    /* case 'createform':
         $hcontroller->render();
+
         $cucontroller->createform();
         break;*/
+
     case 'createevent':
         $hcontroller->render();
         $eocontroller->createevent();
@@ -318,6 +320,21 @@ switch ($url) {
         break;
     case 'process_send_email':
         $alcontroller->processSendEmail();
+        break;
+    case 'deleteAccount':
+        $hcontroller->render();
+        $upcontroller->deleteAccount();
+        break;
+    case 'deletetoindex':
+        $hcontroller->render();
+        $econtroller->deletetoindex();
+    case 'adminviewevent':
+        $hcontroller->render();
+        $alcontroller->adminviewevent();
+        break;
+    case 'handleinventory':
+        $hcontroller->render();
+        $alcontroller->handleinventory();
         break;
     default:
         $hcontroller->render();

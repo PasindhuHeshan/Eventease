@@ -22,10 +22,15 @@ if ($itemData) {
 
         <label for="inventory_no">Inventory No</label>
         <input type="text" id="inventory_no" name="inventory_no" value="<?php echo htmlspecialchars($itemData['inventory_no']); ?>" readonly><br>
-        
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="error-message" style="color: red; font-size: small;"><?php echo $_SESSION['error']; ?></div>
+        <?php endif; ?>
+        <?php unset($_SESSION['error']); ?>
         <label for="quantity">Quantity</label>
-        <input type="number" id="quantity" name="quantity" value="<?php echo htmlspecialchars($itemData['quantity']); ?>" placeholder="25"><br>
-        <h6 style="margin: 0px;"><?php echo $itemData['in_use']; ?> items in use.</h6>
+        <input type="number" id="quantity" name="quantity" value="<?php echo htmlspecialchars($itemData['quantity']); ?>" placeholder="25" min="1"><br>
+        <h6 style="margin: 0px;"><?php echo $itemData['in_use']; ?> items in USE.</h6>
+        <input type="hidden" id="in_use" name="in_use" value="<?php echo htmlspecialchars($itemData['in_use']); ?>" readonly><br>
+
         <br>
         <label for="inventory_type">Inventory Type</label>
         <select name="inventory_type" id="inventory_type">

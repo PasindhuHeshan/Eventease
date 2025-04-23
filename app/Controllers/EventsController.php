@@ -20,12 +20,23 @@ class EventsController {
         $database = new Database();
         $username = $_SESSION['username'];
         $userData = $this->userModel->getUserData($username,$database);
+        if($userData['usertype']==3){
         $events = $this->eventModel->getEventsByOrganizer($userData['No']);
+        }else{
+            $events = $this->eventModel->getEventsByStaff($userData['No']);
+        }
         
         include __DIR__ . '/../Views/EventOrg/myevents.php';
     }
 
     public function addmore() {
+        $eventno = isset($_GET['no']) ? htmlspecialchars($_GET['no']) : null;
+        $eventData = null;
+    
+        $staffMembers = $this->eventModel->getStaffMembers();
+        $eventData = $this->eventModel->getEvent($eventno);
+    
+        // Pass both variables to the view
         include __DIR__ . '/../Views/EventOrg/edit.php';
     }
 
@@ -34,6 +45,7 @@ class EventsController {
         $eventno = isset($_GET['no']) ? htmlspecialchars($_GET['no']) : null;
         $eventData = null;
 
+        $supervisors = $this->eventModel->getsupervisors();
         if ($eventno) {
             $eventData = $this->eventModel->getEvent($eventno);
             // Check if event was found
@@ -191,6 +203,4 @@ class EventsController {
             include __DIR__ . '/../Views/EventOrg/edit.php';
         }
     }
-    
-    
 }
