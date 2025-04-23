@@ -128,20 +128,20 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createEvent($name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
+    public function createEvent($name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
         $approvedstatus = 0; // Ensure new events are pending by default
-        $query = "INSERT INTO events (name, short_dis, long_dis, flag, time, date, location, people_limit, event_type, approvedstatus, supervisor, event_banner, organizer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+        $query = "INSERT INTO events (name, short_dis, long_dis, flag, time, finish_time, date, location, people_limit, event_type, approvedstatus, supervisor, event_banner, organizer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
         $stmt = $this->conn->prepare($query); 
-        $stmt->bind_param("sssisssisisss", $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer);
+        $stmt->bind_param("sssissssisisss", $name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer);
         $result = $stmt->execute(); 
         $stmt->close(); 
         return $result; 
     }
 
-    public function updateEvent($eventno, $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
-        $query = "UPDATE events SET name = ?, short_dis = ?, long_dis = ?, flag = ?, time = ?, date = ?, location = ?, people_limit = ?, event_type = ?, approvedstatus = ?, supervisor = ?, event_banner = ?, organizer = ? WHERE no = ?";
+    public function updateEvent($eventno, $name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
+        $query = "UPDATE events SET name = ?, short_dis = ?, long_dis = ?, flag = ?, time = ?, finish_time = ?, date = ?, location = ?, people_limit = ?, event_type = ?, approvedstatus = ?, supervisor = ?, event_banner = ?, organizer = ? WHERE no = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("sssisssisisssi", $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer, $eventno);
+        $stmt->bind_param("sssissssisisssi", $name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer, $eventno);
         $result = $stmt->execute();
         $stmt->close();
     
