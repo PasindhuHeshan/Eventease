@@ -116,7 +116,7 @@ class EventController
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
         $userData= $this->UserModel->getUserData($username,$database);
         $events = $this->eventModel->getNotApprovedEvents($userData['No']);
-        include __DIR__ . '/../Views/events/staff.php';
+        include __DIR__ . '/../Views/AcademicStaff/staff.php';
     }
 
     public function acceptevent() {
@@ -134,7 +134,7 @@ class EventController
                 $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
                 $userData= $this->UserModel->getUserData($username,$database);
                 $events = $this->eventModel->getNotApprovedEvents($userData['No']);
-                include __DIR__ . '/../Views/events/staff.php';
+                include __DIR__ . '/../Views/AcademicStaff/staff.php';
                 exit();
             } else {
                 // Handle error: failed to approve event
@@ -164,7 +164,7 @@ class EventController
                 $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
                 $userData= $this->UserModel->getUserData($username,$database);
                 $events = $this->eventModel->getNotApprovedEvents($userData['No']);
-                include __DIR__ . '/../Views/events/staff.php';
+                include __DIR__ . '/../Views/AcademicStaff/staff.php';
                 exit();
             } else {
                 // Handle error: failed to reject event
