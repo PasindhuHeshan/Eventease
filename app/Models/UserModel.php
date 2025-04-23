@@ -469,5 +469,41 @@ class UserModel {
         $stmt->close();
         return true;
     }
+
+    public function getusernames(Database $database) {
+        $conn = $database->getConnection();
+        $sql = "SELECT username FROM users";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $usernames = [];
+            while ($row = $result->fetch_assoc()) {
+                $usernames[] = $row['username'];
+            }
+            return $usernames;
+        } else {
+            return [];
+        }
+    }
+
+    public function getemails(Database $database) {
+        $conn = $database->getConnection();
+        $sql = "SELECT email FROM users";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $emails = [];
+            while ($row = $result->fetch_assoc()) {
+                $emails[] = $row['email'];
+            }
+            return $emails;
+        } else {
+            return [];
+        }
+    }
 }
 ?>

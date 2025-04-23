@@ -5,6 +5,118 @@
     <script type="text/javascript" src="./js/payment.js"></script>
     <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 </head>
+<script>
+    function showNextStep(currentStep, nextStep, validate = false) {
+        if (validate && !validateStep(currentStep)) {
+            return; // Stop if validation fails
+        }
+        document.getElementById(currentStep).style.display = 'none';
+        document.getElementById(nextStep).style.display = 'block';
+    }
+
+    // Existing usernames and emails passed from PHP
+    var existingUsernames = <?php echo json_encode($usernames); ?>;
+    var existingEmails = <?php echo json_encode($emails); ?>;
+
+    function validateStep(step) {
+    var inputs = document.querySelectorAll('#' + step + ' input[required]');
+    var valid = true;
+    for (var i = 0; i < inputs.length; i++) {
+        var errorDiv = document.getElementById(inputs[i].id + '_error');
+        if (inputs[i].value.trim() === '') {
+            errorDiv.textContent = "This field is required.";
+            valid = false;
+        } else {
+            errorDiv.textContent = "";
+        }
+
+        if (inputs[i].type === 'email' && !validateEmail(inputs[i].value)) {
+            errorDiv.textContent = "Please enter a valid email address.";
+            valid = false;
+        } else if (inputs[i].id === 'id' && !validateNIC(inputs[i].value)) {
+            errorDiv.textContent = "Please enter a valid NIC.";
+            valid = false;
+        } else if (inputs[i].id === 'contactno1' && !validatePhoneNumber(inputs[i].value)) {
+            errorDiv.textContent = "Please enter a valid contact number.";
+            valid = false;
+        } else if (inputs[i].id === 'address' && !validateAddress(inputs[i].value)) {
+            errorDiv.textContent = "Address must be at least 10 characters long.";
+        } else if (inputs[i].id === 'email' && existingEmails.includes(inputs[i].value)) {
+            errorDiv.textContent = "This email is already registered.";
+            valid = false;
+        } else if (inputs[i].id === 'username') { // Add username validation here
+            if (inputs[i].value.length < 4) {
+                errorDiv.textContent = "Username must be at least 4 characters long.";
+                valid = false;
+            } else if (existingUsernames.includes(inputs[i].value)) {
+                errorDiv.textContent = "This username is already taken.";
+                valid = false;
+            } else {
+                errorDiv.textContent = "";
+            }
+        } else {
+            errorDiv.textContent = "";
+        }
+    }
+    return valid;
+}
+    function validatePasswords(event) {
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirm_password').value;
+    var valid = true;
+
+    var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+    if (!passwordPattern.test(password)) {
+        document.getElementById('password_error').textContent = "Password must contain at least one uppercase letter, one lowercase letter, and one number.";
+        valid = false;
+    } else {
+        document.getElementById('password_error').textContent = "";
+    }
+
+    if (password !== confirmPassword) {
+        document.getElementById('confirm_password_error').textContent = "Passwords do not match. Please try again.";
+        valid = false;
+    } else {
+        document.getElementById('confirm_password_error').textContent = "";
+    }
+
+    if (!valid) {
+        event.preventDefault(); // Prevent form submission
+    }
+}
+
+    function validateEmail(email) {
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+
+    function validateNIC(nic) {
+        var nicPattern = /^[0-9]{9}[vVxX]$/;
+        var nicPattern2 = /^[0-9]{12}$/;
+        return nicPattern.test(nic) || nicPattern2.test(nic);
+    }
+
+    function validatePhoneNumber(phoneNumber) {
+        var phonePattern = /^07\d{8}$/; // Adjust this pattern based on your requirements
+        return phonePattern.test(phoneNumber);
+    }
+
+    function validateAddress(address) {
+        return address.length >= 10; // Adjust the minimum length as needed
+    }
+</script>
+<style>
+    label {
+        text-align: left;
+        display: block;
+        margin-right: 10px;
+    }
+    .error {
+        color: red;
+        font-size: 0.9em;
+    }
+</style>
+
 <body>
     <div class="main">
         <div class="main_box">
@@ -166,3 +278,4 @@
     </div>
 </body>
 </html>
+<!-- 4916217501611292 -->
