@@ -5,6 +5,13 @@
     <title>EMS System</title>
 </head>
 <body>
+    <?php if(isset($userData) && $userData!=null && isset($userData['role_name']) && $userData['role_name']=='Admin'): ?>
+        <style>
+            .container{
+                width: max-content;
+            }
+        </style>
+    <?php endif; ?>
     <div class="headerbody">
         <a style="margin-left:10px;" href="index.php" target="_parent"><img src="./images/logo.png" alt="logo" width="150px"></a>
         <div>

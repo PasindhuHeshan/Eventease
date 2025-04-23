@@ -128,10 +128,12 @@ class UserModel {
     public function getUserData($username, Database $database) {
         $conn = $database->getConnection();
     
-        $sql = "SELECT u.*, r.role_name, c.Cnt_num
+        $sql = "SELECT u.*, r.role_name, c.Cnt_num, os.*, o.*
                 FROM users u
                 JOIN roles r ON u.usertype = r.role_id
                 LEFT JOIN contact_numbers c ON u.No = c.Cnt_no
+                LEFT JOIN organizer_society as os ON u.No=os.organizer_no
+                LEFT JOIN organizations as o ON os.organization_no=o.orgno
                 WHERE u.username = ?";
     
         $stmt = $conn->prepare($sql);

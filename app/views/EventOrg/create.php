@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label for="time">Finishing Time</label>
-                <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($eventData['finish_time']) ? $eventData['finish_time'] : ''; ?>" required>
+                <input type="time" name="finish_time" id="finish_time" class="form-control" value="<?php echo isset($eventData['finish_time']) ? $eventData['finish_time'] : ''; ?>" required>
             </div>
             <div class="form-group">
                 <label for="venue">Venue</label>
