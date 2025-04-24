@@ -95,6 +95,13 @@ class EventModel {
     
         return true;
     }
+
+    public function changeacceptEvent($no) {
+        $query = "UPDATE events set approvedstatus = 1 where no = $no";
+        $result = $this->conn->query($query);
+    
+        return true;
+    }
     
     public function rejectEvent($no, $reason) {
         $query = "UPDATE events SET approvedstatus = 2, reason = ? WHERE no = ?";

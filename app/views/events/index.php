@@ -18,6 +18,7 @@ if ($upevent === null) {
     <title>EMS System</title>
 </head>
 <body>
+<?php $deletemessage = isset($_GET['deletemessage']) ? $_GET['deletemessage'] : ""; ?>
 <?php if($deletemessage != ""){ ?>
     <div class="banner-message">
         <p><?php echo $deletemessage; ?></p>

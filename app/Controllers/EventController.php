@@ -31,11 +31,7 @@ class EventController
     public function deletetoindex()
     {
         $deletemessage = "Your account has been successfully deleted. Thank you for being a part of our community.";
-        $username = null;
-        $events = $this->eventModel->getAllEvents();
-        $upevents = $this->eventModel->getAllupcomingEvents($username);
-        $_SESSION['upevent'] = $upevents;
-        include __DIR__ . '/../Views/events/index.php';
+        header("Location: index.php?deletemessage=" . urlencode($deletemessage));
     }
    
 
