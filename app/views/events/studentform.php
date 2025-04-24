@@ -4,15 +4,26 @@
     <link rel="stylesheet" type="text/css" href="./css/loginformstyle.css">
     <script>
         function showNextStep(currentStep, nextStep) {
-            if (validateStep(currentStep)) {
+            if (nextStep.startsWith('step') && parseInt(nextStep.slice(4)) < parseInt(currentStep.slice(4))) {
+                // Moving backward, no validation needed for the *next* step (which is the current one)
                 document.getElementById(currentStep).style.display = 'none';
                 document.getElementById(nextStep).style.display = 'block';
+            } else {
+                // Moving forward, validate the current step
+                if (validateStep(currentStep)) {
+                    document.getElementById(currentStep).style.display = 'none';
+                    document.getElementById(nextStep).style.display = 'block';
 
-                if (nextStep === 'step3') {
-                    document.getElementById('register').action = "index.php?url=processsignin";
+                    if (nextStep === 'step3') {
+                        document.getElementById('register').action = "index.php?url=processsignin";
+                    }
                 }
             }
         }
+
+        // Existing usernames and emails passed from PHP
+        var existingUsernames = <?php echo json_encode($usernames); ?>;
+        var existingEmails = <?php echo json_encode($emails); ?>;
 
         function validateStep(step) {
             var inputs = document.querySelectorAll('#' + step + ' input[required]');
@@ -29,15 +40,23 @@
                 if (inputs[i].type === 'email' && !validateEmail(inputs[i].value)) {
                     errorDiv.textContent = "Please enter a valid email address ending with @stu.ucsc.cmb.ac.lk.";
                     valid = false;
+                } else if (inputs[i].id === 'id' && !validateID(inputs[i].value)) {
+                    errorDiv.textContent = "Please enter a valid University ID.";
+                    valid = false;
+                } else if (inputs[i].id === 'contactno1' && !validatePhoneNumber(inputs[i].value)) {
+                    errorDiv.textContent = "Please enter a valid contact number.";
+                    valid = false;
+                } else if (inputs[i].id === 'address' && !validateAddress(inputs[i].value)) {
+                    errorDiv.textContent = "Address must be at least 10 characters long.";
+                    valid = false;
+                } else if (inputs[i].id === 'email' && existingEmails.includes(inputs[i].value)) {
+                    errorDiv.textContent = "This email is already registered.";
+                    valid = false;
+                } else {
+                    errorDiv.textContent = "";
                 }
             }
             return valid;
-        }
-
-        function validateEmail(email) {
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            var domainPattern = /@stu\.ucsc\.cmb\.ac\.lk$/;
-            return emailPattern.test(email) && domainPattern.test(email);
         }
 
         function validatePasswords(event) {
@@ -48,6 +67,9 @@
 
             if (username.length < 4) {
                 document.getElementById('username_error').textContent = "Username must be at least 4 characters long.";
+                valid = false;
+            } else if (existingUsernames.includes(username)) {
+                document.getElementById('username_error').textContent = "This username is already taken.";
                 valid = false;
             } else {
                 document.getElementById('username_error').textContent = "";
@@ -68,19 +90,32 @@
                 document.getElementById('confirm_password_error').textContent = "";
             }
 
-            function validatePhoneNumber(phoneNumber) { 
-                var phonePattern = /^07\d{8}$/; // Adjust this pattern based on your requirements 
-                return phonePattern.test(phoneNumber); 
-            } 
-            
-            function validateAddress(address) {
-                 return address.length >= 10; // Adjust the minimum length as needed 
-            }
-
             if (!valid) {
                 event.preventDefault(); // Prevent form submission
             }
         }
+
+
+        function validateEmail(email) {
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var domainPattern = /@stu\.ucsc\.cmb\.ac\.lk$/;
+            return emailPattern.test(email) && domainPattern.test(email);
+        }
+
+        function validateID(id){
+            var idPattern = /^(2202|2203|2204|2205|2206|2207|2208|2209)[0-9]{4}$/;
+            return idPattern.test(id);
+        }
+
+        function validatePhoneNumber(phoneNumber) { 
+            var phonePattern = /^07\d{8}$/; // Adjust this pattern based on your requirements 
+            return phonePattern.test(phoneNumber); 
+        } 
+        
+        function validateAddress(address) {
+            return address.length >= 10; // Adjust the minimum length as needed 
+        }
+
     </script>
     <style>
         label {
@@ -119,12 +154,11 @@
                         </tr>
                         <tr>
                             <td><label for="email">Email Address <span class="star">*</span></label></td>
-                            <td colspan="2"><input type="email" id="email" name="email" placeholder="navindu@stu.ucsc.cmb.ac.lk" required></td>
+                            <td colspan="2"><input type="email" id="email" name="email" placeholder="2202is078@stu.ucsc.cmb.ac.lk" required></td>
                         </tr>
                         <tr>
                             <td colspan="3"><div id="email_error" class="error"></div></td>
                         </tr>
-                        <!-- New rows for University ID -->
                         <tr>
                             <td><label for="id">University ID <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="id" name="id" placeholder="2202XXXX" required></td>

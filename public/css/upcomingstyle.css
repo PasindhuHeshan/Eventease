@@ -24,20 +24,54 @@ html, body {
     color: black;
 }
 
-.card2{
-    height: 130px;
-    background-color:white;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    padding: 15px;
-    text-align: justify;
+.card2 {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    transition: var(--transition);
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    border: none;
 }
 
-.card2:hover{
-    border-color: skyblue;
-    border-inline-width: 3px;
+.card2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 ul{
     list-style-type: none;
+}
+.card-container2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card2 h2 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    color: var(--primary-color);
+}
+
+.card2 hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--light-gray);
+    margin: 10px 0;
+}
+
+.card2 p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: var(--dark-gray);
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card2 p strong {
+    color: var(--primary-color);
 }

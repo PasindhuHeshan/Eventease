@@ -22,32 +22,12 @@ class ReqController{
             $userData = $this->usermodel->getUserData($username,$database);
             if ($username !== null) {
                 $roleData = $this->usermodel->getRoleRequest($database, $userData['No']);
-            } else {
-                $roleData = null; // Handle the case where $no is null
-            }
+            } 
             $organization = $this->usermodel->getorganizations($database);
             require __DIR__ . '/../views/events/RoleRequest.php';
         }
         
-        /*public function processreq(){
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-                echo "<script> alert('data giya'); </script>";
-                $database = new Database(); // Ensure the database connection is created here
-                $username = isset($_POST['name']) ? $_POST['name'] : null;
-                $email = isset($_POST['email']) ? $_POST['email'] : null;
-                $role = isset($_POST['role']) ? $_POST['role'] : null;
-                $reason = isset($_POST['reason']) ? $_POST['reason'] : null;
-                $status = 'Pending';
-                $userModel->insertRoleRequest($username, $email, $role, $reason, $status, $database);
-                $userData = $this->usermodel->getUserData($username,$database);
-                require __DIR__ . '/../Views/events/userprofile.php';
-            }
-            else{
-                $userData = $this->usermodel->getUserData($username,$database);
-                require __DIR__ . '/../Views/events/userprofile.php';
-            }
-
-        }*/
+    
 
         public function processreq(){
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
@@ -59,12 +39,7 @@ class ReqController{
                 $status = isset($_POST['status']) ? $_POST['status'] : 'Pending'; // Default status if not provided
                 $database = new Database(); // Ensure the database connection is created here
 
-                if (isset($_GET['type']) && $_GET['type'] == "update") { 
-                    $userModel = new UserModel(); 
-                    $userModel->updateRoleRequest($no, $role, $organization, $reason, $status, $database); 
-                    header('Location: userprofile.php'); 
-                    exit(); 
-                } else { 
+                if (isset($_GET['type']) && $_GET['type'] == "create") { 
                     $userModel = new UserModel(); 
                     $userModel->insertRoleRequest($no, $role, $organization, $reason, $status, $database); 
                     header('Location: userprofile.php'); 
@@ -72,7 +47,7 @@ class ReqController{
                 }
                
                 // Redirect or load a confirmation page
-                $userData = $this->usermodel->getUserData($username, $database);
+                //$userData = $this->usermodel->getUserData($username, $database);
                 //require __DIR__ . '/../Views/events/userprofile.php';
             
             }

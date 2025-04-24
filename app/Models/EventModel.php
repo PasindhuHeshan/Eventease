@@ -95,6 +95,13 @@ class EventModel {
     
         return true;
     }
+
+    public function changeacceptEvent($no) {
+        $query = "UPDATE events set approvedstatus = 1 where no = $no";
+        $result = $this->conn->query($query);
+    
+        return true;
+    }
     
     public function rejectEvent($no, $reason) {
         $query = "UPDATE events SET approvedstatus = 2, reason = ? WHERE no = ?";
@@ -128,24 +135,70 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createEvent($name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
-        $approvedstatus = 0; // Ensure new events are pending by default
-        $query = "INSERT INTO events (name, short_dis, long_dis, flag, time, date, location, people_limit, event_type, approvedstatus, supervisor, event_banner, organizer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+    public function createEvent($name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
+        $query = "INSERT INTO events (name, short_dis, long_dis, flag, time, finish_time, date, location, people_limit, event_type, approvedstatus, supervisor, event_banner, organizer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
         $stmt = $this->conn->prepare($query); 
-        $stmt->bind_param("sssisssisisss", $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer);
+        $stmt->bind_param("sssissssisisss", $name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer);
         $result = $stmt->execute(); 
         $stmt->close(); 
         return $result; 
     }
 
-    public function updateEvent($eventno, $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
-        $query = "UPDATE events SET name = ?, short_dis = ?, long_dis = ?, flag = ?, time = ?, date = ?, location = ?, people_limit = ?, event_type = ?, approvedstatus = ?, supervisor = ?, event_banner = ?, organizer = ? WHERE no = ?";
+    public function updateEvent($eventno, $name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
+        $query = "UPDATE events SET name = ?, short_dis = ?, long_dis = ?, flag = ?, time = ?, finish_time = ?, date = ?, location = ?, people_limit = ?, event_type = ?, approvedstatus = ?, supervisor = ?, event_banner = ?, organizer = ? WHERE no = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("sssisssisisssi", $name, $short_dis, $long_dis, $flag, $time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer, $eventno);
+        $stmt->bind_param("sssissssisisssi", $name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer, $eventno);
         $result = $stmt->execute();
         $stmt->close();
     
         return $result;
+    }
+
+    public function getEventStaffMembers($eventno) {
+        $query = "SELECT event_members.*, er.event_role FROM event_members JOIN event_role as er ON er.event_role_id=event_members.event_role_id WHERE event_no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventno);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getEventInventory($eventno) {
+        $query = "SELECT event_inventory.*, inventory.* FROM event_inventory JOIN inventory ON event_inventory.inventory_item = inventory.id WHERE event_id = ? AND event_inventory.status = 0";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventno);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    //admin 
+    public function getadmineventinventory(Database $database){
+        $query = "SELECT ei.*, e.* FROM event_inventory ei JOIN events e ON ei.event_id = e.no WHERE ei.status = 0";
+        $result = $this->conn->query($query);
+        if ($result === false) {
+            return null;
+        }
+        if ($result->num_rows > 0) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return null;
+        }
+    }
+
+    public function getEventlistforDates($start_date, $end_date) {
+        $query = "SELECT * FROM events WHERE date BETWEEN ? AND ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ss", $start_date, $end_date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
     
     
@@ -170,18 +223,33 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC); 
     }
 
-    public function geteventinventory(Database $database){
-        //table is event_inventory
-        $query = "SELECT ei.*, e.* FROM event_inventory ei JOIN events e ON ei.event_id = e.no WHERE ei.status = 0";
-        $result = $this->conn->query($query);
-        if ($result === false) {
-            return null;
-        }
-        if ($result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return null;
-        }
+    public function getEventsByStaff($staff) { 
+        $query = "SELECT * FROM events WHERE organizer = ?"; 
+        $stmt = $this->conn->prepare($query); 
+        $stmt->bind_param("s", $staff); 
+        $stmt->execute(); 
+        $result = $stmt->get_result(); 
+        $stmt->close(); 
+        return $result->fetch_all(MYSQLI_ASSOC); 
+    }
+
+    public function geteventsinventory($eventstart, $eventfinish, $date, Database $database) {
+        $query = "SELECT inventory.id, inventory.item,
+                         inventory.quantity AS total_quantity,
+                         inventory.quantity - IFNULL(SUM(event_inventory.quantity), 0) AS available_quantity
+                  FROM inventory
+                  LEFT JOIN event_inventory ON inventory.id = event_inventory.inventory_item
+                  LEFT JOIN events ON event_inventory.event_id = events.no
+                  WHERE (events.date != ? OR (events.time NOT BETWEEN ? AND ? AND events.finish_time NOT BETWEEN ? AND ?))
+                     OR events.no IS NULL
+                  GROUP BY inventory.id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("sssss", $date, $eventstart, $eventfinish, $eventstart, $eventfinish);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function geteventtypes(Database $database){
@@ -275,5 +343,52 @@ class EventModel {
         $stmt->close();
 
         return $result;
+    }
+
+    public function getsupervisors() {
+        $query = "SELECT * FROM users WHERE usertype = 5";
+        $result = $this->conn->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getStaffMembers() {
+        $query = "SELECT * FROM users WHERE usertype = 1";
+        $result = $this->conn->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function insertInventoryRequest($eventno, $item, $quantity){
+        $query = "INSERT INTO event_inventory (event_id, inventory_item, quantity, status) VALUES (?, ?, ?, 0)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iii", $eventno, $item, $quantity);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function getInventorybyitem($item) {
+        $query = "SELECT id FROM inventory WHERE  item = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $item);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc()['id'];
+        } else {
+            return null;
+        }
+    }
+
+    public function getInventoryRequested($eventno) {
+        $query = "SELECT ei.*, i.item, i.id FROM event_inventory ei JOIN inventory i ON ei.inventory_item = i.id WHERE ei.event_id = ? AND ei.status = 0";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventno);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }

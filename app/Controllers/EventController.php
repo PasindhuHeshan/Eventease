@@ -31,11 +31,7 @@ class EventController
     public function deletetoindex()
     {
         $deletemessage = "Your account has been successfully deleted. Thank you for being a part of our community.";
-        $username = null;
-        $events = $this->eventModel->getAllEvents();
-        $upevents = $this->eventModel->getAllupcomingEvents($username);
-        $_SESSION['upevent'] = $upevents;
-        include __DIR__ . '/../Views/events/index.php';
+        header("Location: index.php?deletemessage=" . urlencode($deletemessage));
     }
    
 
@@ -116,7 +112,7 @@ class EventController
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
         $userData= $this->UserModel->getUserData($username,$database);
         $events = $this->eventModel->getNotApprovedEvents($userData['No']);
-        include __DIR__ . '/../Views/events/staff.php';
+        include __DIR__ . '/../Views/AcademicStaff/staff.php';
     }
 
     public function acceptevent() {
@@ -134,7 +130,7 @@ class EventController
                 $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
                 $userData= $this->UserModel->getUserData($username,$database);
                 $events = $this->eventModel->getNotApprovedEvents($userData['No']);
-                include __DIR__ . '/../Views/events/staff.php';
+                include __DIR__ . '/../Views/AcademicStaff/staff.php';
                 exit();
             } else {
                 // Handle error: failed to approve event
@@ -164,7 +160,7 @@ class EventController
                 $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
                 $userData= $this->UserModel->getUserData($username,$database);
                 $events = $this->eventModel->getNotApprovedEvents($userData['No']);
-                include __DIR__ . '/../Views/events/staff.php';
+                include __DIR__ . '/../Views/AcademicStaff/staff.php';
                 exit();
             } else {
                 // Handle error: failed to reject event

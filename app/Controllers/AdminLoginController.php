@@ -11,7 +11,33 @@ use App\Database;
 
 class AdminLoginController {
     private $userModel; 
+    private $emailModel; // Declare the emailModel property
     
+    public function processSendEmail() {
+        if (isset($_POST['send_email'])) {
+            $recipient = $_POST['recipient_email'];
+            $subject = $_POST['email_subject'];
+            $body = $_POST['email_body'];
+
+            $this->emailModel = new EmailModel(); // Initialize emailModel
+            $success = $this->emailModel->sendEmail($recipient, $subject, $body);
+
+            if ($success) {
+                $_SESSION['email_message'] = "Email sent successfully to " . htmlspecialchars($recipient);
+                $_SESSION['email_success'] = true;
+            } else {
+                $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
+                $_SESSION['email_success'] = false;
+            }
+            header('Location: index.php?url=manage_users.php'); // Redirect back to manage users page
+            exit();
+        } else {
+            // Handle cases where the form wasn't submitted correctly
+            header('Location: index.php?url=manage_users.php'); // Redirect back
+            exit();
+        }
+    }
+
     public function processLogin() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['name'] ?? null;
@@ -226,7 +252,7 @@ class AdminLoginController {
         $eventmodel = new EventModel($database);
         $usermodel = new UserModel();
         $adminData = $usermodel->getUserData($_SESSION['username'], $database);
-        $events = $eventmodel->geteventinventory($database);
+        $events = $eventmodel->getadmineventinventory($database);
         $eventtype = $eventmodel->geteventtypes($database);
 
         include __DIR__ . '/../Views/events/manageevent.php';

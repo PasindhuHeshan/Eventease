@@ -75,12 +75,23 @@ class SigninController {
     public function studentform() {
         $error = $_SESSION['error'] ?? null;
 
+        $usermodel = new UserModel();
+        $database = new Database();
+
+        $usernames = $usermodel->getusernames($database);
+        $emails = $usermodel->getemails($database);
+
+
         include __DIR__ . '/../Views/events/studentform.php';
     }
 
     public function guestform() {
         $error = $_SESSION['error'] ?? null;
 
+        $usermodel = new UserModel();
+        $database = new Database();
+        $usernames = $usermodel->getusernames($database);
+        $emails = $usermodel->getemails($database);
         include __DIR__ . '/../Views/events/guestform.php';
     }
 }

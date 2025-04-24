@@ -128,10 +128,12 @@ class UserModel {
     public function getUserData($username, Database $database) {
         $conn = $database->getConnection();
     
-        $sql = "SELECT u.*, r.role_name, c.Cnt_num
+        $sql = "SELECT u.*, r.role_name, c.Cnt_num, os.*, o.*
                 FROM users u
                 JOIN roles r ON u.usertype = r.role_id
                 LEFT JOIN contact_numbers c ON u.No = c.Cnt_no
+                LEFT JOIN organizer_society as os ON u.No=os.organizer_no
+                LEFT JOIN organizations as o ON os.organization_no=o.orgno
                 WHERE u.username = ?";
     
         $stmt = $conn->prepare($sql);
@@ -468,6 +470,42 @@ class UserModel {
         $stmt->execute();
         $stmt->close();
         return true;
+    }
+
+    public function getusernames(Database $database) {
+        $conn = $database->getConnection();
+        $sql = "SELECT username FROM users";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $usernames = [];
+            while ($row = $result->fetch_assoc()) {
+                $usernames[] = $row['username'];
+            }
+            return $usernames;
+        } else {
+            return [];
+        }
+    }
+
+    public function getemails(Database $database) {
+        $conn = $database->getConnection();
+        $sql = "SELECT email FROM users";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $emails = [];
+            while ($row = $result->fetch_assoc()) {
+                $emails[] = $row['email'];
+            }
+            return $emails;
+        } else {
+            return [];
+        }
     }
 }
 ?>

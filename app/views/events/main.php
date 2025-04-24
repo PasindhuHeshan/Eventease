@@ -43,9 +43,11 @@
                     <div class="card">
                         <h2><?php echo $data['name']; ?></h2>
                         <hr>
-                        <p class="description"><?php echo $data['short_dis']; ?></p> <!-- this description is for js to search -->
+                        <p class="description"><?php echo substr($data['long_dis'], 0, 100) . (strlen($data['long_dis']) > 100 ? '...' : ''); ?></p>
                         <p>
-                            Time: <?php echo $data['time']; ?>
+                            Start Time: <?php echo $data['time']; ?>
+                            <br>
+                            Finish Time: <?php echo $data['finish_time']; ?>
                             <br>
                             Date: <?php echo $data['date']; ?>
                             <br>

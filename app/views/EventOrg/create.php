@@ -1,10 +1,45 @@
 <link rel="stylesheet" type="text/css" href="./css/global.css">
+<style>
+    /* Add styles for supervisor search */
+    #supervisor {
+        margin-left: 100px;
+    }
+
+    .supervisor-search-container {
+        position: relative;
+        width: 100%; /* Ensure the container takes full width */
+    }
+
+    #supervisorSearch {
+        width: 80%; /* Ensure the input takes full width */
+    }
+
+    .supervisor-results {
+        position: absolute;
+        width: 80%; /* Match the width of the input */
+        max-height: 200px;
+        overflow-y: auto;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        z-index: 1000;
+        display: none;
+    }
+
+    .supervisor-result-item {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    .supervisor-result-item:hover {
+        background-color: #f0f0f0;
+    }
+</style>
 <div class="page">
     <div class="event">
         <h2><?php echo isset($eventData) ? 'Edit Event' : 'Create Event'; ?></h2>
         <form action="<?php echo !$eventData ? 'createevent' : 'processEvent'; ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="eventno" value="<?php echo isset($eventData['no']) ? $eventData['no'] : ''; ?>">
-
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" class="form-control" value="<?php echo isset($eventData['name']) ? $eventData['name'] : ''; ?>" required>
@@ -14,8 +49,12 @@
                 <input type="date" name="date" id="date" class="form-control" value="<?php echo isset($eventData['date']) ? $eventData['date'] : ''; ?>" required>
             </div>
             <div class="form-group">
-                <label for="time">Time</label>
+                <label for="time">Starting Time</label>
                 <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($eventData['time']) ? $eventData['time'] : ''; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Finishing Time</label>
+                <input type="time" name="finish_time" id="finish_time" class="form-control" value="<?php echo isset($eventData['finish_time']) ? $eventData['finish_time'] : ''; ?>" required>
             </div>
             <div class="form-group">
                 <label for="venue">Venue</label>
@@ -33,22 +72,17 @@
                     <option value="Music" <?php echo (isset($eventData['event_type']) && $eventData['event_type'] == 'Music') ? 'selected' : ''; ?>>Music</option>
                 </select>
             </div>
-            <!-- <div class="form-group">
-                <label for="short_dis">Short Description</label>
-                <textarea name="short_dis" id="short_dis" class="form-control" required><?php echo isset($eventData['short_dis']) ? $eventData['short_dis'] : ''; ?></textarea>
-            </div> -->
             <div class="form-group">
-                <label for="long_dis">Long Description</label>
+                <label for="long_dis">Description</label>
                 <textarea name="long_dis" id="long_dis" class="form-control" required><?php echo isset($eventData['long_dis']) ? $eventData['long_dis'] : ''; ?></textarea>
             </div>
             <div class="form-group">
-                <label for="supervisor">Supervisor</label>
-                <select name="supervisor" id="supervisor" class="form-control" required>
-                    <option value="">Select Supervisor</option>
-                    <option value="Supervisor1" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor1') ? 'selected' : ''; ?>>Supervisor1</option>
-                    <option value="Supervisor2" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor2') ? 'selected' : ''; ?>>Supervisor2</option>
-                    <option value="Supervisor3" <?php echo (isset($eventData['supervisor']) && $eventData['supervisor'] == 'Supervisor3') ? 'selected' : ''; ?>>Supervisor3</option>
-                </select>
+                <label id ="supervisor"for="supervisor">Supervisor</label>
+                <div class="supervisor-search-container">
+                    <input type="text" id="supervisorSearch" class="form-control" placeholder="Search Supervisor..." autocomplete="off">
+                    <input type="hidden" name="supervisor" id="selectedSupervisorId">
+                    <div id="supervisorResults" class="supervisor-results"></div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="participant_cap">Participant Cap</label>
@@ -89,4 +123,77 @@ document.getElementById('event_banner').addEventListener('change', function() {
     var fileName = this.files[0].name;
     document.getElementById('file-name').textContent = fileName;
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const supervisorSearch = document.getElementById('supervisorSearch');
+    const supervisorResults = document.getElementById('supervisorResults');
+    const selectedSupervisorId = document.getElementById('selectedSupervisorId');
+    
+    // Sample supervisor data (replace with your actual PHP data)
+    const supervisors = [
+        <?php foreach ($supervisors as $sup): ?>{
+            id: "<?php echo $sup['No']; ?>",
+            name: "<?php echo $sup['fname'] . ' ' . $sup['lname']; ?>"
+        },
+        <?php endforeach; ?>
+    ];
+
+    // Function to filter and display results
+    function searchSupervisors(query) {
+        supervisorResults.innerHTML = '';
+        
+        if (query.length < 2) {
+            supervisorResults.style.display = 'none';
+            return;
+        }
+        
+        const filtered = supervisors.filter(sup => 
+            sup.name.toLowerCase().includes(query.toLowerCase())
+        );
+        
+        if (filtered.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'supervisor-result-item';
+            noResults.textContent = 'No supervisors found';
+            supervisorResults.appendChild(noResults);
+        } else {
+            filtered.forEach(sup => {
+                const item = document.createElement('div');
+                item.className = 'supervisor-result-item';
+                item.textContent = sup.name;
+                item.dataset.id = sup.id;
+                item.addEventListener('click', function() {
+                    supervisorSearch.value = sup.name;
+                    selectedSupervisorId.value = sup.id;
+                    supervisorResults.style.display = 'none';
+                });
+                supervisorResults.appendChild(item);
+            });
+        }
+        
+        supervisorResults.style.display = 'block';
+    }
+
+    // Event listeners
+    supervisorSearch.addEventListener('input', function() {
+        searchSupervisors(this.value);
+    });
+    
+    // Hide results when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!supervisorSearch.contains(e.target) && !supervisorResults.contains(e.target)) {
+            supervisorResults.style.display = 'none';
+        }
+    });
+    
+    // If editing an event with existing supervisor, pre-fill the field
+    <?php if (isset($eventData['supervisor']) && $eventData['supervisor']): ?>
+        const existingSup = supervisors.find(sup => sup.id == "<?php echo $eventData['supervisor']; ?>");
+        if (existingSup) {
+            supervisorSearch.value = existingSup.name;
+            selectedSupervisorId.value = existingSup.id;
+        }
+    <?php endif; ?>
+});
 </script>
+

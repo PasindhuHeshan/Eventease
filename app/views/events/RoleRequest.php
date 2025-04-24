@@ -2,69 +2,15 @@
 <html lang="en">
 <head>
     <title>Role Request Form</title>
-    <style>
-        .form-container {
-            background-color: #d8f2f2;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-top: 50px;
-        }
-
-        .form-container h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        .form-container label {
-            display: block;
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .form-container input,
-        .form-container textarea,
-        .form-container select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-
-        .form-container [type="submit"], .form-container [type="button"] {
-            background-color: #008CBA;
-            color: white;
-            cursor: pointer;
-            border: none;
-            padding: 10px 15px;
-            font-size: 16px;
-            transition: background-color 0.4s ease, transform 0.4s ease;
-            border-radius: 3px;
-        }
-
-        .form-container [type="submit"]:hover, .form-container [type="button"]:hover {
-            background-color: #005f8b;
-            transform: scale(1.05);
-        }
-
+    <link rel="stylesheet" type="text/css" href="./css/RoleRequest.css">     
     
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
     <div class="form-container">
         <h2>Role Request Form</h2>
         <form action="<?php echo 'index.php?url=processreq&' . (($roleData) ? 'type=update' : 'type=create') ?>" onsubmit="return confirmAction(event)" method="POST">
             <input type="hidden" name="No" value="<?php echo $userData['No']; ?>">
-            <lable for="organization">Organization</label>
+            <label for="organization">Organization</label>
             <select id="organization" name="organization" required>
                 <?php foreach ($organization as $org) { ?>
                     <option value="<?php echo $org['orgno']; ?>" <?php if($roleData!= null && $roleData['organization']==$org['orgno']){ echo "selected";}?>><?php echo $org['orgname']; ?></option>
@@ -96,7 +42,7 @@
                 }
                 ?>
             </div><br><br>
-              <?php }  ?>
+            <?php }  ?>
                 <center>
                     <?php if (!$roleData) { ?>
                         <button type="submit" name="submit">Submit</button>

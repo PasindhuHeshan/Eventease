@@ -305,3 +305,12 @@ input[type=number] {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.error-message {
+    display: block;
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}

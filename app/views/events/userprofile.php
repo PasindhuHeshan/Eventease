@@ -59,6 +59,22 @@
                                     uploadButton.style.display = 'none';
                                 }
                             }
+                            function openchat(){
+                                window.location.href = "chat.php";
+                            }
+
+                            function redirectToRoleRequest() {
+                                window.location.href = "RoleRequest.php";
+                            }
+                            function confirmDelete() {
+                                var result = confirm("Are you sure you want to delete this account?");
+                                if (result) {
+                                    window.location.href = "deleteAccount";
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
                         </script>
                     </div>
                 </div>
@@ -68,9 +84,15 @@
                         <table>
                             <tr class="name-row">
                                 <th><label for="fname">First Name</label></th>
-                                <td><input type="text" id="fname" name="fname" value="<?php if ($userData) echo $userData['fname']; ?>" oninput="showSaveButton()" required></td>
+                                <td>
+                                    <input type="text" id="fname" name="fname" value="<?php if ($userData) echo $userData['fname']; ?>" oninput="showSaveButton()" required>
+                                    <span id="fname-error" class="error-message"></span>
+                                </td>
                                 <th><label for="lname">Last Name</label></th>
-                                <td><input type="text" id="lname" name="lname" value="<?php if ($userData) echo $userData['lname']; ?>" oninput="showSaveButton()" required></td>
+                                <td>
+                                    <input type="text" id="lname" name="lname" value="<?php if ($userData) echo $userData['lname']; ?>" oninput="showSaveButton()" required>
+                                    <span id="lname-error" class="error-message"></span>
+                                </td>
                             </tr>
                             <tr>
                                 <th><label for="email">Email</label></th>
@@ -78,7 +100,10 @@
                             </tr>
                             <tr>
                                 <th><label for="address">Address</label></th>
-                                <td colspan="3"><input type="text" id="address" name="address" value="<?php if ($userData) echo $userData['address']; ?>" oninput="showSaveButton()"></td>
+                                <td colspan="3">
+                                    <input type="text" id="address" name="address" value="<?php if ($userData) echo $userData['address']; ?>" oninput="showSaveButton()">
+                                    <span id="address-error" class="error-message"></span>
+                                </td>
                             </tr>
                             <tr>
                                 <th><label for="city">City</label></th>
@@ -86,9 +111,15 @@
                             </tr>
                             <tr>
                                 <th><label for="contactno1">Primary Contact No</label></th>
-                                <td><input type="number" id="contactno1" name="contactno1" value="<?php if ($userData && isset($userData['contact_numbers'][0])) echo $userData['contact_numbers'][0]; ?>" oninput="showSaveButton()" required></td>
+                                <td>
+                                    <input type="number" id="contactno1" name="contactno1" value="<?php if ($userData && isset($userData['contact_numbers'][0])) echo $userData['contact_numbers'][0]; ?>" oninput="showSaveButton()" required>
+                                    <span id="contactno1-error" class="error-message"></span>
+                                </td>
                                 <th><label for="contactno2">Secondary Contact No</label></th>
-                                <td><input type="number" id="contactno2" name="contactno2" value="<?php if ($userData && isset($userData['contact_numbers'][1])) echo $userData['contact_numbers'][1]; ?>" oninput="showSaveButton()"></td>
+                                <td>
+                                    <input type="number" id="contactno2" name="contactno2" value="<?php if ($userData && isset($userData['contact_numbers'][1])) echo $userData['contact_numbers'][1]; ?>" oninput="showSaveButton()">
+                                    <span id="contactno2-error" class="error-message"></span>
+                                </td>
                             </tr>
                             <?php if ($userData && $userData['role_name'] !== 'Guest') : ?>
                                 <tr>
@@ -137,60 +168,65 @@
     </div>
 
     <script>
-        function showSaveButton() {
-            document.getElementById('save-button').style.display = 'block';
+    function validateAndSubmit() {
+        const contactNo1 = document.getElementById('contactno1').value.trim();
+        const contactNo2 = document.getElementById('contactno2').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const contactNumberRegex = /^[0-9]{10}$/;
+
+        let isValid = true;
+
+        // Clear previous error messages
+        document.getElementById('contactno1-error').textContent = '';
+        document.getElementById('contactno2-error').textContent = '';
+        document.getElementById('address-error').textContent = '';
+
+        if (!contactNumberRegex.test(contactNo1)) {
+            document.getElementById('contactno1-error').textContent = 'Please enter a valid 10-digit primary contact number.';
+            isValid = false;
         }
 
-        function openchat(){
-            window.location.href = "chat.php";
+        if (contactNo2 && !contactNumberRegex.test(contactNo2)) {
+            document.getElementById('contactno2-error').textContent = 'Please enter a valid 10-digit secondary contact number.';
+            isValid = false;
         }
 
-        function redirectToRoleRequest() {
-            window.location.href = "RoleRequest.php";
-        }
-        function confirmDelete() {
-            var deleteModal = document.getElementById("deleteAccountModal");
-            var closeDeleteModal = document.getElementById("closeDeleteModal");
-            var confirmDeleteButton = document.getElementById("confirm-delete-button");
-            var cancelDeleteButton = document.getElementById("cancel-delete-button");
-
-            deleteModal.style.display = "block";
-
-            closeDeleteModal.onclick = function() {
-                deleteModal.style.display = "none";
-            };
-
-            cancelDeleteButton.onclick = function() {
-                deleteModal.style.display = "none";
-            };
-
-            confirmDeleteButton.onclick = function() {
-                deleteModal.style.display = "none";
-                const form = document.getElementById("profileForm");
-                form.action = "deleteAccount";
-                form.submit();
-            };
-
-            window.onclick = function(event) {
-                if (event.target == deleteModal) {
-                    deleteModal.style.display = "none";
-                }
-            };
-
-            return false;
+        if (address.length < 10) {
+            document.getElementById('address-error').textContent = 'Address must be at least 10 characters long.';
+            isValid = false;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('.profile-details input');
-            const saveButton = document.querySelector('.save-btn');
-            saveButton.style.display = 'none';
+        // If all validations pass, submit the form
+        if (isValid) {
+            document.getElementById('profileForm').submit();
+        }
 
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    saveButton.style.display = 'block';
-                });
+        return isValid; // Return validation status
+    }
+
+    function showSaveButton() {
+        document.getElementById('save-button').style.display = 'block';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('.profile-details input');
+        const saveButton = document.querySelector('.save-btn');
+        saveButton.style.display = 'none';
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                showSaveButton();
             });
         });
+
+        // Modify the Save Changes button to call the validation function
+        saveButton.addEventListener('click', function(event) {
+            if (!validateAndSubmit()) {
+                event.preventDefault(); // Prevent default form submission if validation fails
+            }
+        });
+    });
+
     </script>
 </body>
 </html>
