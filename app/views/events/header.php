@@ -66,11 +66,13 @@
                             <a href="myevents" target="_self">Assigned Events</a>
                         </li>
                     <?php } ?>
-                    <?php if($userData['usertype']==='admin'){?>
+                    <?php if($userData['usertype']==='0'){?>
                         <li><a href="dashboard.php" target="_self">Switch to Admin</a></li>
                     <?php } ?>
                     <li><a href="logout.php" target="_self">Logout</a></li>
-                    <li><a href="contactus.php" target="rside">Contact us</a></li>
+                    <?php if($userData['usertype']!='0'){?>
+                        <li><a href="contactus.php" target="rside">Contact us</a></li>
+                    <?php } ?>
                 </ul>
             <?php } else { ?>
                 <ul>

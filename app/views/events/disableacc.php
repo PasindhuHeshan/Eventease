@@ -61,19 +61,21 @@
     <div class="popup-content">
         <span class="close" onclick="closePopup()">&times;</span>
         <div class="container">
-            <form action="disableacc.php" method="post">
+            <form action="process_send_email" method="post">
                 <h2>Disable Account Complaints</h2>
                 <input type="hidden" id="rejectNo" name="no">
                 <div class="form-group">
                     <label for="fname">User</label>
-                    <input type="text" value="<?php echo htmlspecialchars($row['fname']); ?>" readonly>
+                    <input type="text" name="name" value="<?php echo htmlspecialchars($row['fname']); ?>" readonly>
                 </div>
                 <div class="form-group">
                     <label for="reply">Reply</label>
-                    <textarea id="reply" name="reply" rows="4" required></textarea>
+                    <textarea id="reply" name="email_body" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="submit">Send</button>
+                    <input type="hidden" name="subject" value="About your EventEase Account Banned!">
+                    <input type="email" name="recipient_email" value="<?php echo htmlspecialchars($row['email']); ?>" hidden>
+                    <button type="submit" name="send_email">Send</button>
                 </div>
             </form>
         </div>

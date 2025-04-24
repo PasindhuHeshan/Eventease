@@ -16,8 +16,15 @@ class AdminLoginController {
     public function processSendEmail() {
         if (isset($_POST['send_email'])) {
             $recipient = $_POST['recipient_email'];
-            $subject = $_POST['email_subject'];
-            $body = $_POST['email_body'];
+            $emailbody = $_POST['email_body'];
+            $name = $_POST['name'];
+            $subject = $_POST['subject'];
+
+            $body = "Dear " . htmlspecialchars($name) . ",<br><br>" . 
+                    htmlspecialchars($emailbody) . "<br><br>" . 
+                    "Best regards,<br>" . 
+                    "The EventEase Team";
+                    nl2br(htmlspecialchars($body));
 
             $this->emailModel = new EmailModel(); // Initialize emailModel
             $success = $this->emailModel->sendEmail($recipient, $subject, $body);
@@ -29,11 +36,11 @@ class AdminLoginController {
                 $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
                 $_SESSION['email_success'] = false;
             }
-            header('Location: index.php?url=manage_users.php'); // Redirect back to manage users page
+            header('Location: index.php?url=disableacc.php'); // Redirect back to manage users page
             exit();
         } else {
             // Handle cases where the form wasn't submitted correctly
-            header('Location: index.php?url=manage_users.php'); // Redirect back
+            header('Location: index.php?url=disableacc.php'); // Redirect back
             exit();
         }
     }
