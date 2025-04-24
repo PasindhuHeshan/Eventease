@@ -285,6 +285,8 @@ class EventsController {
                         $request['quantity']
                     );
                 }
+
+                $this->eventModel->changeacceptEvent($eventno);
             }
             
 
