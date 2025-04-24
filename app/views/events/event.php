@@ -98,7 +98,7 @@
             <?php if ($event): ?>
                 <div>
                     <h1><?php echo $event['name']; ?></h1><h5>Organized by <?php echo $event['orgname'];?></h5>
-                    <?php if ($event['flag'] == 0 && $userdata['usertype'] == "guest"): ?>
+                    <?php if ($event['flag'] == 0 && $userdata['usertype'] == "2"): ?>
                         <p style="font-weight: bold; font-size: smaller; color:red;">*This Event is Only Available for <u>University Students</u></p>
                     <?php endif; ?>
                     <hr>
@@ -117,7 +117,7 @@
                     $daysUntilEvent = $interval->days;
                     ?>
                     <?php if (!$isEnrolled): ?>
-                        <?php if ($event['flag'] == 0 && $userdata['usertype'] == "guest"): ?>
+                        <?php if ($event['flag'] == 0 && $userdata['usertype'] == "2"): ?>
                             <!-- Do not show enroll button for guests if flag is 0 -->
                         <?php else: ?>
                             <form action="enroll.php" method="POST"> 

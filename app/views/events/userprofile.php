@@ -59,6 +59,22 @@
                                     uploadButton.style.display = 'none';
                                 }
                             }
+                            function openchat(){
+                                window.location.href = "chat.php";
+                            }
+
+                            function redirectToRoleRequest() {
+                                window.location.href = "RoleRequest.php";
+                            }
+                            function confirmDelete() {
+                                var result = confirm("Are you sure you want to delete this account?");
+                                if (result) {
+                                    window.location.href = "deleteAccount";
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
                         </script>
                     </div>
                 </div>
