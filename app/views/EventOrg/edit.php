@@ -8,25 +8,304 @@
     <link rel="stylesheet" type="text/css" href="./css/global.css">
     <link rel="stylesheet" type="text/css" href="./css/editstyles.css">
     <style>
-        .staff-fields-hidden,
-        .inventory-fields-hidden {
-            display: none;
+    .staff-fields-hidden,
+    .inventory-fields-hidden {
+        display: none;
+    }
+
+    .page .event .form-group select {
+        padding: 10px;
+        font-size: 16px;
+        width: 70%;
+        box-sizing: border-box;
+        justify-content: right;
+        margin-right: 0px;
+    }
+    .page .event .form-group input {
+        padding: 10px;
+        font-size: 16px;
+        width: 70%;
+        box-sizing: border-box;
+        justify-content: right;
+        margin-right: 10px;
+    }
+    
+    .sidebar {
+        margin-left: 0;
+        background-color: #87cefa;
+        padding: 20px;
+        border-radius: 10px;
+        width: 200px;
+    }
+
+    .sidebar-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .sidebar-menu li {
+        list-style: none;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+    .sidebar-menu li:hover,
+    .sidebar-menu li.active {
+        background-color: #0056b3;
+    }
+
+    #content {
+        margin-left: 20px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Main Content Container Styles */
+    #content {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Content Section Styles */
+    .content-section {
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .content-section.active {
+        display: block;
+    }
+
+    .content-section h3 {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    /* Form Group Styles */
+    .content-section .form-group {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+    .content-section .form-group label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #34495e;
+        text-align: right;
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+
+    .content-section .form-control {
+        flex: 1;
+        padding: 12px 15px;
+        font-size: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        background-color: #f9f9f9;
+    }
+
+    .content-section .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        background-color: white;
+        outline: none;
+    }
+
+    /* Select Dropdown Styles */
+    .content-section select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Button Styles */
+    .button-row {
+        display: flex;
+        justify-content: flex-start;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+    .btn.primary {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .btn.primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(41, 128, 185, 0.2);
+    }
+
+    .btn.secondary {
+        background-color: #f8f9fa;
+        color: #34495e;
+        border: 1px solid #e0e0e0;
+    }
+
+    .btn.secondary:hover {
+        background-color: #e9ecef;
+        border-color: #dae0e5;
+    }
+
+    .btn.danger {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .btn.danger:hover {
+        background-color: #c0392b;
+    }
+
+    /* Staff Search Container Styles */
+    .management-staff-search-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .management-staff-results {
+        position: absolute;
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        z-index: 1000;
+        display: none;
+        top: 100%;
+        left: 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .management-staff-result-item {
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .management-staff-result-item:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Inventory Item Styles */
+    .inventory-item {
+        margin-bottom: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+    }
+
+    /* Animation for section transitions */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .content-section .form-group {
+            flex-direction: column;
+            align-items: flex-start;
         }
-    </style>
+        
+        .content-section .form-group label {
+            text-align: left;
+            width: 100%;
+            padding-right: 0;
+            margin-bottom: 8px;
+        }
+        
+        .button-row {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+        }
+    }
+
+    #general-details #target_audience {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    margin-right: 100px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+#general-details #target_audience:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    background-color: white;
+    outline: none;
+}
+
+#general-details #target_audience option {
+    padding: 10px 15px;
+    background: white;
+    color: #34495e;
+}
+
+#general-details #target_audience option:hover {
+    background-color: #3498db;
+    color: white;
+}
+</style>
 </head>
 
 <body>
     <h2 id="special">Edit Event</h2>
     <div class="page">
         <div class="sidebar">
-            <ul>
-                <li data-target="general-details">General Details</li>
-                <li data-target="management-staff-details">Management Staff Details</li>
-                <li data-target="notification-management">Notification Management</li>
-                <li data-target="inventory-management">Inventory Management</li>
-            </ul>
+            <div class="sidebar-menu">
+                <li class="nav" data-target="general-details">General Details</li>
+                <li class="nav" data-target="management-staff-details">Support Staff Details</li>
+                <li class="nav" data-target="notification-management">Notification Management</li>
+                <li class="nav" data-target="inventory-management">Inventory Management</li>
+            </div>
         </div>
-        <div class="content">
+        <div class="content" id="content">
             <div class="event">
                 <!-- General Details Form -->
                 <form action="processEvent" method="post" enctype="multipart/form-data" id="generalDetailsForm">
@@ -123,7 +402,7 @@
 
                 <form action="processEvent" method="post" id="managementStaffForm">
                     <div id="management-staff-details" class="content-section">
-                        <h3>Management Staff Details</h3>
+                        <h3>Support Staff Details</h3>
                             <div id="staff-container">
                                 <div class="form-group" id="staff_owner">
                                     <label for="role_owner">Role</label>
@@ -143,7 +422,7 @@
                                                 value="<?php echo $staff['event_role']; ?>" readonly>
                                             <label for="name_<?php echo $index + 1; ?>">Name</label>
                                             <input type="text" id="name_<?php echo $index + 1; ?>" class="form-control" 
-                                                value="<?php echo $staff['fname']." ".$staff['lname']; ?>" readonly>
+                                                value="<?php echo isset($staff['fname']) && isset($staff['lname']) ? $staff['fname'] . ' ' . $staff['lname'] : $staff['fname']; ?>" readonly>
                                             <input type="hidden" name="staff_id_<?php echo $index + 1; ?>" 
                                                 value="<?php echo $staff['member_id']; ?>">
                                         </div>
@@ -344,6 +623,7 @@
                     <label for="inventory_quantity_${inventoryCount}">Quantity</label>
                     <input type="number" name="inventory_quantity_${inventoryCount}" id="inventory_quantity_${inventoryCount}" class="form-control" min="1" required>
                     <input type="hidden" name="inventory_id_${inventoryCount}" id="inventory_id_${inventoryCount}" value="">
+                    <button type="button" class="btn danger delete-inventory-btn" data-id="${inventoryCount}">Delete</button>
                 `;
                 
                 document.getElementById(`inventory_item_${inventoryCount}`).addEventListener('change', function () {
@@ -352,7 +632,23 @@
                     inventoryIdField.value = selectedOption.getAttribute('data-id');
                 });
                 inventoryContainer.appendChild(newInventoryDiv);
+
+                // Attach delete functionality to the new delete button
+                attachDeleteInventoryButton(inventoryCount);
             });
+        }
+
+        function attachDeleteInventoryButton(index) {
+            const deleteBtn = document.querySelector(`#inventory_${index} .delete-inventory-btn`);
+            if (deleteBtn) {
+                deleteBtn.addEventListener("click", function () {
+                    const inventoryDiv = document.getElementById(`inventory_${index}`);
+                    if (inventoryDiv) {
+                        inventoryDiv.remove();
+                        inventoryCount--;
+                    }
+                });
+            }
         }
 
     // Sample staff data (replace with your actual PHP data)
@@ -446,12 +742,41 @@
                 return;
             }
             staffCount++;
-            const nextStaffField = document.getElementById(`staff_${staffCount}`);
-            if (nextStaffField) {
-                nextStaffField.classList.remove('staff-fields-hidden');
-                initStaffSearch(staffCount); // Initialize search for the new row
-            }
+            const newStaffDiv = document.createElement("div");
+            newStaffDiv.className = "form-group";
+            newStaffDiv.id = `staff_${staffCount}`;
+            newStaffDiv.innerHTML = `
+                <label for="role_${staffCount}">Role</label>
+                <select name="role_${staffCount}" id="role_${staffCount}" class="form-control">
+                    <option value="">Select Role</option>
+                    <option value="Coordinator">Coordinator</option>
+                    <option value="Volunteer">Volunteer</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Treasurer">Treasurer</option>
+                </select>
+                <label for="name_${staffCount}">Name</label>
+                <input type="text" id="name_${staffCount}" class="form-control" placeholder="Enter Name">
+                <input type="hidden" name="staff_id_${staffCount}" id="staff_id_${staffCount}">
+                <button type="button" class="btn danger delete-staff-btn" data-id="${staffCount}">Delete</button>
+            `;
+            staffContainer.appendChild(newStaffDiv);
+
+            // Attach delete functionality to the new delete button
+            attachDeleteStaffButton(staffCount);
         });
+    }
+
+    function attachDeleteStaffButton(index) {
+        const deleteBtn = document.querySelector(`#staff_${index} .delete-staff-btn`);
+        if (deleteBtn) {
+            deleteBtn.addEventListener("click", function () {
+                const staffDiv = document.getElementById(`staff_${index}`);
+                if (staffDiv) {
+                    staffDiv.remove();
+                    staffCount--;
+                }
+            });
+        }
     }
 });
 </script>
@@ -485,6 +810,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <label for="inventory_quantity_${inventoryCount}">Quantity</label>
             <input type="number" name="inventory_quantity_${inventoryCount}" id="inventory_quantity_${inventoryCount}" class="form-control" min="1" required>
             <input type="hidden" name="inventory_id_${inventoryCount}" id="inventory_id_${inventoryCount}" value="">
+            <button type="button" class="btn danger delete-inventory-btn" data-id="${inventoryCount}">Delete</button>
         `;
         inventoryContainer.appendChild(newInventoryDiv);
 
@@ -495,7 +821,23 @@ document.addEventListener("DOMContentLoaded", function () {
             const selectedOption = this.options[this.selectedIndex];
             newHiddenId.value = selectedOption.getAttribute('data-id');
         });
+
+        // Attach delete functionality to the new delete button
+        attachDeleteInventoryButton(inventoryCount);
     });
+
+    function attachDeleteInventoryButton(index) {
+        const deleteBtn = document.querySelector(`#inventory_${index} .delete-inventory-btn`);
+        if (deleteBtn) {
+            deleteBtn.addEventListener("click", function () {
+                const inventoryDiv = document.getElementById(`inventory_${index}`);
+                if (inventoryDiv) {
+                    inventoryDiv.remove();
+                    inventoryCount--;
+                }
+            });
+        }
+    }
 
     // Set ID on first inventory field
     const firstInventorySelect = document.getElementById("inventory_item_1");

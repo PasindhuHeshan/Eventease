@@ -1,22 +1,44 @@
 <link rel="stylesheet" type="text/css" href="./css/global.css">
+
 <style>
-    /* Add styles for supervisor search */
-    #supervisor {
-        margin-left: 100px;
+    /* Supervisor Search Styles - Perfectly aligned with other form fields */
+    .form-group {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 15px;
+        align-items: center;
     }
 
+    .form-group label {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: right;
+        width: 150px;
+        padding-right: 20px;
+        margin-left: auto; /* Pushes label to right */
+    }
+
+    .form-group .form-control,
+    .form-group .supervisor-search-container {
+        width: 70%;
+        margin-right: 100px;
+    }
+
+    /* Supervisor-specific styles */
     .supervisor-search-container {
         position: relative;
-        width: 100%; /* Ensure the container takes full width */
     }
 
     #supervisorSearch {
-        width: 80%; /* Ensure the input takes full width */
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
     }
 
     .supervisor-results {
         position: absolute;
-        width: 80%; /* Match the width of the input */
+        width: 100%;
         max-height: 200px;
         overflow-y: auto;
         background: white;
@@ -24,6 +46,8 @@
         border-radius: 4px;
         z-index: 1000;
         display: none;
+        top: 100%;
+        left: 0;
     }
 
     .supervisor-result-item {
@@ -34,8 +58,178 @@
     .supervisor-result-item:hover {
         background-color: #f0f0f0;
     }
+
+    #createEventPage {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+#createEventPage h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eaeaea;
+    text-align: center;
+}
+
+#createEventPage .event {
+    padding: 0;
+}
+
+#createEventPage form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#createEventPage .form-group {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+#createEventPage .form-group label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #34495e;
+    text-align: right;
+    width: 180px;
+    padding-right: 25px;
+    margin-left: auto;
+}
+
+#createEventPage .form-control {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    margin-right: 100px;
+}
+
+#createEventPage .form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    background-color: white;
+    outline: none;
+}
+
+#createEventPage textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+#createEventPage select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+}
+
+#createEventPage .btn {
+    align-self: center;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+#createEventPage .btn.primary {
+    background-color: #3498db;
+    color: white;
+    border: none;
+}
+
+#createEventPage .btn.primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(41, 128, 185, 0.2);
+}
+
+#createEventPage .downbuttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+#createEventPage .btn.danger {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+
+#createEventPage .btn.danger:hover {
+    background-color: #c0392b;
+}
+
+#createEventPage input[type="file"] {
+    padding: 10px;
+    background: white;
+}
+
+#createEventPage .supervisor-search-container {
+    position: relative;
+    flex: 1;
+    margin-right: 100px;
+}
+
+/* Target Audience Select Styles */
+#createEventPage #target_audience {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    margin-right: 100px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+#createEventPage #target_audience:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    background-color: white;
+    outline: none;
+}
+
+#createEventPage #target_audience option {
+    padding: 10px 15px;
+    background: white;
+    color: #34495e;
+}
+
+#createEventPage #target_audience option:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* For the form-group container specifically for target audience */
+#createEventPage .form-group:has(#target_audience) {
+    align-items: center;
+}
+
 </style>
-<div class="page">
+
+<div class="page"id="createEventPage">
     <div class="event">
         <h2><?php echo isset($eventData) ? 'Edit Event' : 'Create Event'; ?></h2>
         <form action="<?php echo !$eventData ? 'createevent' : 'processEvent'; ?>" method="post" enctype="multipart/form-data">
@@ -77,10 +271,9 @@
                 <textarea name="long_dis" id="long_dis" class="form-control" required><?php echo isset($eventData['long_dis']) ? $eventData['long_dis'] : ''; ?></textarea>
             </div>
             <div class="form-group">
-                <label id ="supervisor"for="supervisor">Supervisor</label>
+                <label for="supervisorSearch">Supervisor</label>
                 <div class="supervisor-search-container">
-                    <input type="text" id="supervisorSearch" class="form-control" placeholder="Search Supervisor..." autocomplete="off">
-                    <input type="hidden" name="supervisor" id="selectedSupervisorId">
+                    <input type="text" id="supervisorSearch" name="supervisor" class="form-control" autocomplete="off">
                     <div id="supervisorResults" class="supervisor-results"></div>
                 </div>
             </div>
