@@ -394,23 +394,23 @@ class UserModel {
         return true;
     }
 
-    // public function getfeedbacks(Database $database) {
-    //     $conn = $database->getConnection();
-    //     $sql = "SELECT * FROM admin_support AS a JOIN users AS u ON a.no = u.No WHERE a.id = 1; ";
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
+    public function getfeedbacks(Database $database) {
+        $conn = $database->getConnection();
+        $sql = "SELECT * FROM admin_support AS a JOIN users AS u ON a.no = u.No WHERE a.id = 1; ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
     
-    //     if ($result->num_rows > 0) {
-    //         $rows = [];
-    //         while ($row = $result->fetch_assoc()) {
-    //             $rows[] = $row;
-    //         }
-    //         return $rows;
-    //     } else {
-    //         return [];
-    //     }
-    // }
+        if ($result->num_rows > 0) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return [];
+        }
+    }
 
     public function getnormalfeedbacks(Database $database) {
         $conn = $database->getConnection();
