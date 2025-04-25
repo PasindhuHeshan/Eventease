@@ -35,13 +35,21 @@
                         <td><?php echo htmlspecialchars($row["id"]); ?></td>
                         <td><?php echo htmlspecialchars($row["details"]); ?></td>
                         <td>
-                            <button onclick="openPopup(<?php echo htmlspecialchars($row['no']); ?>, '<?php echo htmlspecialchars($row['fname']); ?>', '<?php echo htmlspecialchars($row['email']); ?>','<?php echo $row['row_id'];?>')">Send</button>
+                            <?php if($row['email_status']==0){ ?>
+                                <button onclick="openPopup(<?php echo htmlspecialchars($row['no']); ?>, '<?php echo htmlspecialchars($row['fname']); ?>', '<?php echo htmlspecialchars($row['email']); ?>')">Send</button>
+                            <?php }else{ ?>
+                                <p>Email Thread Started.</p>
+                            <?php } ?> 
                         </td>
                         <td>
                             <form method="POST" action="activeacc">
                                 <input type="hidden" name="no" value="<?php echo htmlspecialchars($row['no']); ?>">
                                 <button type="submit" name="approve">Active</button>
                             </form>
+                            <!-- <form method="POST" action="rejectcomplaint">
+                                <input type="hidden" name="row_id" value="php echo htmlspecialchars($row['row_id']); ?>">
+                                <button type="submit" name="reject">Reject</button>
+                            </form> -->
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -73,6 +81,7 @@
                 <div class="form-group">
                     <input type="hidden" name="subject" value="About your EventEase Account Banned!">
                     <input type="email" name="recipient_email" value="<?php echo htmlspecialchars($row['email']); ?>" hidden>
+                    <!-- <input type="text" name="row_id" value="php echo ($row['row_id']); ?>" hidden> -->
                     <button type="submit" name="send_email">Send</button>
                 </div>
             </form>
@@ -81,10 +90,11 @@
 </div>
 
 <script>
-    function openPopup(no, fname, email,row_id) {
+    function openPopup(no, fname, email) {
         document.getElementById('rejectNo').value = no;
         document.querySelector('input[name="name"]').value = fname;
         document.querySelector('input[name="recipient_email"]').value = email;
+        // document.querySelector('input[name="row_id"]').value = row_id;
         document.getElementById('popupForm').style.display = 'flex';
     }
 

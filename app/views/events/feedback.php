@@ -97,7 +97,7 @@
 
 <div id="popupForm" class="popup-form">
     <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
+        <span class="close" onclick="closePopup()">x;</span>
         <div class="container">
             <form action="process_send_email" method="post">
                 <h2>General Complaints</h2>

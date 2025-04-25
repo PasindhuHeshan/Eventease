@@ -11,7 +11,7 @@ use App\Database;
 
 class AdminLoginController {
     private $userModel; 
-    private $emailModel; // Declare the emailModel property
+    private $emailModel; 
     
     public function processSendEmail() {
         if (isset($_POST['send_email'])) {
@@ -19,7 +19,7 @@ class AdminLoginController {
             $emailbody = $_POST['email_body'];
             $name = $_POST['name'];
             $subject = $_POST['subject'];
-            $row_id = $_POST['row_id'];
+            // $row_id = $_POST['row_id'];
 
             $body = "Dear " . htmlspecialchars($name) . ",<br><br>" . 
                     htmlspecialchars($emailbody) . "<br><br>" . 
@@ -27,7 +27,7 @@ class AdminLoginController {
                     "The EventEase Team";
                     nl2br(htmlspecialchars($body));
 
-            $this->emailModel = new EmailModel(); // Initialize emailModel
+            $this->emailModel = new EmailModel(); 
             $success = $this->emailModel->sendEmail($recipient, $subject, $body);
 
             if ($success) {
@@ -37,6 +37,10 @@ class AdminLoginController {
                 $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
                 $_SESSION['email_success'] = false;
             }
+
+            // $userModel = new UserModel();
+            // $database = new Database();
+            // $userModel->changedisableaccstatus($row_id,$database);
 
             header('Location: index.php?url=disableacc.php'); // Redirect back to manage users page
             exit();
@@ -118,10 +122,6 @@ class AdminLoginController {
 
         $result = $dashboard->getUsers();
         include __DIR__ . '/../Views/events/manage_users.php';
-    }
-
-    public function users(){
-        include __DIR__ . '/../Views/events/users.php';
     }
 
     public function role_requests() {
@@ -483,7 +483,7 @@ class AdminLoginController {
             $adminData = $usermodel->getUserData($_SESSION['username'], $database);
             $usermodel->deleteComplaint($no, $database);
             $_SESSION['success'] = 'Complaint deleted successfully!';
-            include __DIR__ . '/../Views/events/disableacc.php';
+            $this->disableacc();
         }
     }
 
@@ -560,4 +560,16 @@ class AdminLoginController {
             exit();
         }
     }
+
+    // public function rejectcomplaint(){
+    //     $database = new Database();
+    //     $usermodel = new UserModel();
+    //     $adminData = $usermodel->getUserData($_SESSION['username'], $database);
+
+    //     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    //         $row_id = $_POST['row_id'] ?? null;
+    //         $usermodel->deleterejectComplaint($row_id, $database);
+    //         $this->disableacc();
+    //     }
+    // }
 }
