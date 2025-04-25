@@ -4,29 +4,6 @@ body {
     padding: 0;
     background-color: #f4f4f4;
 }
-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: skyblue;
-    border-bottom: 1px solid #ddd;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-}
-
-.logout-button {
-    background-color: #535e94;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 10px;
-}
 
 .form{
     margin-bottom: 0px;
@@ -36,50 +13,11 @@ header {
     min-height: 100vh;
 }
 
-.sidebar {
-    width: 200px;
-    background-color: #e4eaee;
-    padding-top: 20px;
-    border-right: 1px solid #ddd;
-}
-
-.profile-section {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-}
-
-.sidebar {
-    width: 200px;
-    background-color: #e4eaee;
-    padding-top: 20px;
-    border-right: 1px solid #ddd;
-}
-
-.profile-section {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-}
-
-.profile-icon img {
-    width: 84px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-
 .content {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    /* gap: 20px; */
 }
 
 h2 {

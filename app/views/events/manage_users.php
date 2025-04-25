@@ -151,6 +151,7 @@
                         </p>
                     <?php endif; ?>
                         <form action="index.php?url=useradd.php" method="post">
+                        <!-- <form action="manage_users.php" method="post"> -->
                             <h2>New Staff Member</h2>
                             <?php if (!empty($_SESSION['error'])): ?>
                                 <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['ac_createerror']); ?></p>

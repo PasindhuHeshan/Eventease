@@ -63,7 +63,7 @@
 <!-- Popup Form -->
 <div id="popupForm" class="popup-form">
     <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
+        <span class="close" onclick="closePopup()">x;</span>
         <div class="container">
             <form action="role_requests.php" method="post">
                 <h2>Reject Role Request</h2>

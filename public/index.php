@@ -153,10 +153,6 @@ switch ($url) {
         $hcontroller->render();
         $alcontroller->manageusers();
         break; 
-    case 'users.php':
-        $hcontroller->render();
-        $alcontroller->users();
-        break; 
     case 'role_requests.php':
         $hcontroller->render();
         $alcontroller->role_requests();
@@ -334,6 +330,11 @@ switch ($url) {
         $hcontroller->render();
         $alcontroller->handleinventory();
         break;
+
+    // case 'rejectcomplaint':
+    //     $hcontroller->render();
+    //     $alcontroller->rejectcomplaint();
+    //     break;
     default:
         $hcontroller->render();
         $econtroller->index();
