@@ -12,7 +12,7 @@
     </script>
 </head>
 <body>
-    <div class="main">
+    <div class="contact_main">
         
         <div class="main_box">
             <h2>Contact Support</h2>
