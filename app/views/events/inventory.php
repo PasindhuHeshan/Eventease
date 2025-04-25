@@ -87,14 +87,10 @@ $parameter='inventory';
 </html>
 <script>
     function confirmDelete() {
-        // Display a confirmation dialog
         var result = confirm("Are you sure you want to delete this item?");
-        
-        // If the user clicks 'OK', return true to allow the form submission
         if (result) {
             return true;
         }
-        // If the user clicks 'Cancel', prevent the form submission
         else {
             return false;
         }

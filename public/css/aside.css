@@ -37,3 +37,24 @@
     text-decoration: none; 
     border-radius: 10px; 
 }
+.sidebar {
+    width: 200px;
+    background-color: #e4eaee;
+    padding-top: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.profile-icon img {
+    width: 84px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
