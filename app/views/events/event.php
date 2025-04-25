@@ -5,92 +5,6 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="./css/event.css">
-    <style>
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .enroll-button {
-            background-color: #007bff;
-            color: white;
-        }
-        .enroll-button.disabled {
-            background-color: #6c757d;
-            cursor: not-allowed;
-        }
-        .remove-enroll-button {
-            background-color: #28a745;
-            color: white;
-        }
-        .remove-enroll-button.disabled {
-            background-color: #6c757d;
-            cursor: not-allowed;
-        }
-        .main {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .event-details {
-            flex: 1;
-            margin-right: 20px;
-        }
-
-        .event-details h1{
-            margin-bottom: 0;
-        }
-
-        .event-details h5{
-            margin: 2px;
-        }
-        .cover {
-            flex: 0 0 500px;
-        }
-        .cover-img {
-            max-width: 100%;
-            height: auto;
-        }
-        .notice {
-            color: red;
-            font-size: smaller;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-            align-content: space-evenly;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            padding: 20px;
-            border-radius: 20px;
-            justify-self: center;
-            border: 1px solid #888;
-            width: max-content;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
     <main class="main">
@@ -104,7 +18,9 @@
                     <hr>
                     <p class="details"><?php echo $event['long_dis']; ?></p>
                     <p><b>
-                        Time: <?php echo $event['time']; ?>
+                        Start Time: <?php echo $event['time']; ?>
+                        <br>
+                        Finish Time: <?php echo $event['time']; ?>
                         <br>
                         Date: <?php echo $event['date']; ?>
                         <br>
