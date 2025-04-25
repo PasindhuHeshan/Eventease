@@ -1,11 +1,9 @@
 <html>
     <head>
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="./css/loginstyle.css">
+        <link rel="stylesheet" type="text/css" href="./css/loginstsyle.css">
     </head>
     <body>
-    <main>
         <?php include 'changepasswordform.php'; ?>
-    </main>
     </body>
 </html>

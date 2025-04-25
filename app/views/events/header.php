@@ -13,22 +13,22 @@
         </style>
     <?php endif; ?>
     <div class="headerbody">
-        <a style="margin-left:10px;" href="index.php" target="_parent"><img src="./images/logo.png" alt="logo" width="150px"></a>
+        <a style="margin-left:10px;" href="index.php" target="_parent"><img class="img-header" src="./images/logo.png" alt="logo" width="150px"></a>
         <div>
             <?php if ($username !== 'Guest') { ?>
-                <ul class="nothingul">
+                <ul>
                     <?php
                         date_default_timezone_set('Asia/Colombo');
                         $hour = date('H');
                         $greeting = ($hour < 12) ? 'Good Morning!' : (($hour < 18) ? 'Good Afternoon!' : 'Good Evening!');
                     ?>
                     <li><?php echo $greeting ." ". $fname; ?></li>
-                    <li><a href="userprofile.php" target="_self" class="nothing"><img src="<?php echo $profilePicture; ?>" alt="Profile Picture" width="50px"></a></li>
+                    <li class="removepadding"><a href="userprofile.php" target="_self" class="nothing"><img src="<?php echo $profilePicture; ?>" alt="Profile Picture" width="50px"></a></li>
                     <li class="dropdown">
                         <?php if(($newchat==true && $userData['usertype']=='1')||($newchatadmin==true && $userData['usertype']=='0')){?>
-                            <a class="nothing"><img src="./images/bell-red.png" alt="Chat" width="50px"></a>
+                            <a class="nothing"><img  src="./images/bell-red.png" alt="Chat" width="50px"></a>
                         <?php }else{?>
-                            <a class="nothing"><img src="./images/bell.png" alt="Notifications" width="50px"></a>
+                            <a class="nothing"><img  src="./images/bell.png" alt="Notifications" width="50px"></a>
                         <?php }?>
                         <div class="dropdown-content">
                             <p style="text-align: center;">Upcoming Events</p>
@@ -66,7 +66,7 @@
                             <a href="myevents" target="_self">Assigned Events</a>
                         </li>
                     <?php } ?>
-                    <?php if($userData['usertype']==='admin'){?>
+                    <?php if($userData['usertype']==='0'){?>
                         <li><a href="dashboard.php" target="_self">Switch to Admin</a></li>
                     <?php } ?>
                     <li><a href="logout.php" target="_self">Logout</a></li>
@@ -79,9 +79,9 @@
                         $hour = date('H');
                         $greeting = ($hour < 12) ? 'Good Morning!' : (($hour < 18) ? 'Good Afternoon!' : 'Good Evening!');
                     ?>
-                    <li><?php echo $greeting; ?></li>
-                    <li><a href="login.php" target="_self">Login</a></li>
-                    <li><a href="contactus.php" target="rside">Contact us</a></li>
+                    <li class="addpadding"><?php echo $greeting; ?></li>
+                    <li class="addpadding"><a href="login.php" target="_self">Login</a></li>
+                    <li class="addpadding"><a href="contactus.php" target="rside">Contact us</a></li>
                 </ul>
             <?php } ?>
         </div>

@@ -6,13 +6,13 @@ body {
 
 .headerbody {
     background-color: lightskyblue;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     margin: 0px;
-    padding-top: 2px;
+    /* padding-top: 2px; */
     padding: 10 0 10 0px;
 }
 
-div img {
+div .img-header {
     margin: 10px;
 }
 
@@ -29,7 +29,7 @@ li a img {
 
 div ul:not(.nothingul) {
     display: inline-block;
-    margin-top: 23px;
+    /* margin-top: 23px; */
     margin-right: 5px;
 }
 
@@ -43,6 +43,10 @@ div ul:not(.nothingul) {
     display: inline-block;
     margin: 0 8px;
     position: relative;
+    /* padding: 8px 0; */
+}
+
+.addpadding{
     padding: 8px 0;
 }
 

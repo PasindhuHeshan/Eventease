@@ -104,7 +104,9 @@
                     <hr>
                     <p class="details"><?php echo $event['long_dis']; ?></p>
                     <p><b>
-                        Time: <?php echo $event['time']; ?>
+                        Start Time: <?php echo $event['time']; ?>
+                        <br>
+                        Finish Time: <?php echo $event['time']; ?>
                         <br>
                         Date: <?php echo $event['date']; ?>
                         <br>
