@@ -369,7 +369,7 @@ class UserModel {
     
     public function getdisableaccComplaints(Database $database) {
         $conn = $database->getConnection();
-        $sql = "SELECT * FROM admin_support AS a JOIN users AS u ON a.no = u.No WHERE a.id = 2; ";
+        $sql = "SELECT a.*, u.*, a.status as a_status FROM admin_support AS a JOIN users AS u ON a.no = u.No WHERE a.id = 2; ";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -19,6 +19,7 @@ class AdminLoginController {
             $emailbody = $_POST['email_body'];
             $name = $_POST['name'];
             $subject = $_POST['subject'];
+            $row_id = $_POST['row_id'];
 
             $body = "Dear " . htmlspecialchars($name) . ",<br><br>" . 
                     htmlspecialchars($emailbody) . "<br><br>" . 
@@ -36,6 +37,7 @@ class AdminLoginController {
                 $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
                 $_SESSION['email_success'] = false;
             }
+
             header('Location: index.php?url=disableacc.php'); // Redirect back to manage users page
             exit();
         } else {

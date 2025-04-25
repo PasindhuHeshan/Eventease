@@ -28,30 +28,28 @@
                 <th>Send Mail</th>
                 <th>Approve</th>
             </tr>
-
-            <?php
-            if (!empty($complaints)) {
-                foreach ($complaints as $row) {
-                    echo "<tr>
-                        <td>" . htmlspecialchars($row["fname"]) . "</td>
-                        <td>" . htmlspecialchars($row["id"]) . "</td>
-                        <td>" . htmlspecialchars($row["details"]) . "</td>
+            <?php if (!empty($complaints)): ?>
+                <?php foreach ($complaints as $row): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($row["fname"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["id"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["details"]); ?></td>
                         <td>
-                            <button onclick='openPopup(" . htmlspecialchars($row["no"]) . ")'>Send</button>
+                            <button onclick="openPopup(<?php echo htmlspecialchars($row['no']); ?>, '<?php echo htmlspecialchars($row['fname']); ?>', '<?php echo htmlspecialchars($row['email']); ?>','<?php echo $row['row_id'];?>')">Send</button>
                         </td>
                         <td>
-                            <form method='POST' action='activeacc'>
-                                <input type='hidden' name='no' value='" . htmlspecialchars($row["no"]) . "'>
-                                <button type='submit' name='approve'>Active</button>
+                            <form method="POST" action="activeacc">
+                                <input type="hidden" name="no" value="<?php echo htmlspecialchars($row['no']); ?>">
+                                <button type="submit" name="approve">Active</button>
                             </form>
                         </td>
-                        
-                    </tr>";
-                }
-            } else {
-                echo "<tr><td colspan='7'>No Disable Account complaints found.</td></tr>";
-            }
-            ?>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7">No Disable Account complaints found.</td>
+                </tr>
+            <?php endif; ?>
         </table>
     </div>
 </div>
@@ -59,11 +57,11 @@
 <!-- Popup Form -->
 <div id="popupForm" class="popup-form">
     <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
+        <span class="close" onclick="closePopup()">x</span>
         <div class="container">
             <form action="process_send_email" method="post">
                 <h2>Disable Account Complaints</h2>
-                <input type="hidden" id="rejectNo" name="no">
+                <input type="hidden" id="rejectNo" name="no" value="<?php echo $row['no']; ?>">
                 <div class="form-group">
                     <label for="fname">User</label>
                     <input type="text" name="name" value="<?php echo htmlspecialchars($row['fname']); ?>" readonly>
@@ -83,8 +81,10 @@
 </div>
 
 <script>
-    function openPopup(no) {
+    function openPopup(no, fname, email,row_id) {
         document.getElementById('rejectNo').value = no;
+        document.querySelector('input[name="name"]').value = fname;
+        document.querySelector('input[name="recipient_email"]').value = email;
         document.getElementById('popupForm').style.display = 'flex';
     }
 
