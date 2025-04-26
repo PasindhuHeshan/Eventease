@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="./css/itemstyles.css">
 </head>
 <body>
-    <div style="display: flex; justify-content: space-between; gap: 20px;">
-        <div style="flex: 1;">
+    <div style="justify-content: space-between; gap: 20px;">
+        <div>
             <h2>Add New Item</h2>
             <form method="POST" action="save_item.php" id="addItemForm" enctype="multipart/form-data">
                 <label for="item">Item</label>
@@ -39,14 +39,14 @@
             </form>
         </div>
 
-        <div style="flex: 1;">
+        <!-- <div style="flex: 1;">
             <h2>Import Items from Excel</h2>
             <form method="POST" action="import_excel.php" id="importExcelForm" enctype="multipart/form-data">
                 <label for="excel_file">Excel File</label>
                 <input type="file" name="excel_file" id="excel_file" accept=".xlsx, .xls"><br>
                 <button type="submit" name="import">Import Excel</button>
             </form>
-        </div>
+        </div> -->
     </div>
 
     <script>

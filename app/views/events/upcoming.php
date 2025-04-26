@@ -12,9 +12,11 @@
                         <h3><?php echo $data['name']; ?></h3>
                         <hr>
                         <p>
-                            Time: <?php echo $data['time']; ?>
+                            Start Time: <?php echo $data['time']; ?>
                             <br>
                             Date: <?php echo $data['date']; ?>
+                            <br>
+                            Venue: <?php echo $data['location']; ?>
                             <br>
                         </p>
                     </div>

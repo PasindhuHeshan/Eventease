@@ -146,7 +146,7 @@
                 </div>
             </div>
 
-            <div class="additional-buttons">
+            <div class="buttons">
                 <button type="button" class="chat-btn" onclick="openchat()">Chats</button>
                 <?php if($userData['usertype']=='1'):?>
                     <button type="button" class="request-role-btn" onclick="redirectToRoleRequest()">Request Role</button>

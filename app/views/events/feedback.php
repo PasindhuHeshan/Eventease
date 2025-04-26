@@ -97,22 +97,23 @@
 
 <div id="popupForm" class="popup-form">
     <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
+        <span class="close" onclick="closePopup()">x;</span>
         <div class="container">
-            <form action="replyfeedback" method="post">
+            <form action="process_send_email" method="post">
                 <h2>General Complaints</h2>
                 <input type="hidden" id="row_no" name="row_no">
                 <div class="form-group">
                     <label for="fname">Name</label>
-                    <input type="text" id="name" readonly>
+                    <input type="text" id="name" name="name" readonly>
                 </div>
-                <input type="hidden" id="email" readonly>
+                <input type="hidden" id="email" name="recipient_email" value="<?php echo htmlspecialchars($row['email']); ?>">
                 <div class="form-group">
                     <label for="reply">Reply</label>
-                    <textarea id="reply" name="reply" rows="4" required></textarea>
+                    <textarea id="reply" name="email_body" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="submit">Submit</button>
+                <input type="hidden" name="subject" value="Thank you for your valuable feedback!">
+                    <button type="submit" name="send_email">Submit</button>
                 </div>
             </form>
         </div>

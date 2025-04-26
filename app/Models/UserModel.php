@@ -369,7 +369,7 @@ class UserModel {
     
     public function getdisableaccComplaints(Database $database) {
         $conn = $database->getConnection();
-        $sql = "SELECT * FROM admin_support AS a JOIN users AS u ON a.no = u.No WHERE a.id = 2; ";
+        $sql = "SELECT a.*, u.*, a.status as a_status FROM admin_support AS a JOIN users AS u ON a.no = u.No WHERE a.id = 2; ";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -393,6 +393,26 @@ class UserModel {
         $stmt->close();
         return true;
     }
+
+    // public function deleterejectComplaint($row_id, Database $database) {
+    //     $conn = $database->getConnection();
+    //     $sql = "DELETE FROM admin_support WHERE row_id = $row_id";
+    //     $stmt = $conn->prepare($sql);
+    //     $stmt->execute();
+    //     $stmt->close();
+    //     return true;
+    // }
+
+    
+
+    // public function changedisableaccstatus($row_id,Database $database){/// 
+    //     $conn = $database->getConnection();
+    //     $sql = "UPDATE admin_support SET email_status = 1 WHERE row_id =?"; 
+    //     $stmt = $conn->prepare($sql); 
+    //     $stmt->bind_param("i", $row_id); 
+    //     $stmt->execute(); 
+    //     $stmt->close();
+    // }
 
     public function getfeedbacks(Database $database) {
         $conn = $database->getConnection();

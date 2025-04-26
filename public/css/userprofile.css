@@ -1,229 +1,129 @@
-*{
-    box-sizing: border-box;
-}
-body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body {
     margin: 0;
-    padding: 0;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f4f4;
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.container{
-    padding: 40px 60px;
-    border-radius: 8px;
-    margin: 20px;
+
+.container {
+    padding: 30px 80px;
+    border-radius: 12px;
+    margin: 20px auto;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: max-content;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    width: fit-content;
 }
+
+.container h2 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-size: 24px;
+    text-align: center;
+}
+
 .profile {
     display: flex;
     gap: 40px;
     margin-top: 50px;
 }
+
 .profile-image {
     width: 180px;
     height: 180px;
-    display: flex;
-    margin-top: 20px;
-    justify-content: center;
-    flex-direction: column; /*changed*/
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-}
-
-/*added*/
-.image{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    margin: 0px; /* Adjusted */
-    display: flex; /* Added */
-    justify-content: center; /* Added */
-    align-items: center; /* Added */
-}
-.image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-button {
-    padding: 10px;
-    background-color: aliceblue;
-    border-radius: 10px;
-    font-weight: bold;
-    border-width: 1px;
-    cursor: pointer; /* Added for better UX */
-}
-
-.button-div{
-    display: flex;
-    flex-direction: row;
-    column-gap: inherit;
-}
-/*added*/
-
-.delete-btn{
-    color: red;
-}
-
-.imgbuttons{
-    column-gap: inherit;
-    margin-top: 10px; /* Added some space below the image */
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
+    background-color: #f5f7fa;
 }
 
 .profile-image img {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
     object-fit: cover;
-    margin:0px;
-}
-.profile-details {
-    flex:1;
-    justify-items: center;
-}
-.profile-details h2 {
-    display: flex;
-    margin-top: 0px; /* Adjusted */
-    font-size: 20px;
-    margin-bottom: 20px; /* Added some space below the title */
-}
-/*.label{
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}*/
-
-/*changed*/
-.profile-details .details {
-    display: flex;
-}
-
-label{
-    font-weight: bold;
-}
-/*added*/
-.labels{
-    margin-left: 20px;
-    margin-right: 10px;
-    display: flex;
-    flex-direction: column;
-    width: 235px;
-}
-
-.inputs{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-/*added*/
-.details label {
-    padding: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    gap: 10px;
-    font-weight: bold;
-    font-size: small;
-}
-
-.box{
-    justify-items: center;
-}
-
-.profile-details input {
-    padding: 8px; /* Adjusted padding */
-    margin: 2px 2px 2px 0px; /* Adjusted margin */
-    gap: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width : 100%; /* Adjusted width to fill table cell */
-    box-sizing: border-box; /* Added to include padding and border in width */
-}
-.buttons{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 3px;
-    gap: 10px;
-    margin-top: 20px;
-}
-.custom-file-input {
-    padding: 5px;
     border-radius: 10px;
 }
 
-.request-section{
-    justify-items: center;
-    margin-top: 30px;
+.profile-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.request-para{
-    margin-top: 20px;
-    margin-bottom: 10px;
+.profile-details h2 {
+    font-size: 20px;
+    margin: 0;
+    color: #2c3e50;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+input, select, textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 15px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 20px;
+    cursor: pointer;
+    /* width: 60%; */
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #2980b9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 5px;
+}
+
+table {
+    width: 100%;
+    background-color: transparent;
+    border-spacing: 0 15px;
 }
 
 th, td {
-    padding: 8px;
     text-align: left;
+    padding: 8px 10px;
     border-bottom: 1px solid #ddd;
 }
 
 th {
     font-weight: bold;
+    color: #2c3e50;
 }
 
-.container h2{
-    text-align: center;
-    margin-bottom: 30px; /* Added space below the main title */
+td:first-child {
+    width: 30%;
+    padding: 12px 26px;
 }
 
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-.profile-details table {
-    width: 100%;
-}
-
-.profile-details th, .profile-details td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.profile-details th {
-    font-weight: bold;
-    width: 150px; /* Adjust width as needed */
-}
-
-.profile-details .name-row td {
-    display: flex;
-    gap: 20px; /* Adjust gap between first and last name fields */
-}
-
-.buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Additional Buttons Section */
 .additional-buttons {
     display: flex;
     gap: 10px;
@@ -232,30 +132,17 @@ input[type=number] {
 }
 
 .additional-buttons button {
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
     background-color: #f9f9f9;
-    font-weight: bold;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .additional-buttons button:hover {
     background-color: #e0e0e0;
-}
-
-.chat-btn {
-    /* Add specific styling for the Chats button if needed */
-}
-
-.request-role-btn {
-    /* Add specific styling for the Request Role button if needed */
-}
-
-.delete-account-btn {
-    color: red;
-    /* Add specific styling for the Delete Account button if needed */
 }
 
 .modal {
@@ -267,50 +154,38 @@ input[type=number] {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
+
 .modal-content {
     background-color: #fefefe;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 12px;
     border: 1px solid #888;
-    width: max-content;
-    margin: 15% auto; /* Center vertically */
+    width: fit-content;
+    margin: 15% auto;
 }
+
 .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
+
 .close:hover,
 .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-.modal-buttons button {
-    margin-left: 10px;
-}
-.button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+
+.imgbuttons{
+    text-align: -webkit-center;
+    padding-top: 10px;
 }
 
-.error-message {
-    display: block;
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-    width: 100%;
-    box-sizing: border-box;
+.buttons{
+    text-align: -webkit-center;
+    padding-top: 20px
 }
