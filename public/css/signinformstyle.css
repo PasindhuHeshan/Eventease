@@ -1,72 +1,115 @@
-body{
-    overflow: hidden;
+body {
+    margin: 0;
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 100px 0px 0px 0px;
+}
+
+.headerbody {
+    position: fixed;
 }
 
 .largebox {
-    margin: 0;
-    overflow: hidden;
+    padding: 30px;
+    border-radius: 12px;
+    margin: 0px 80px;
+    background-color: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     display: flex;
-    justify-content: space-between; /* Ensures space between the elements */
-    padding: 15px; /* Adds padding around the body */
-    height: 100vh; /* Ensures the body takes up the full viewport height */
-    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .lside, .rside {
-    border-radius: 25px;
-    border-style: solid;
-    height: calc(100vh - 100px);
-    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    flex: 1;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.lside:last-child {
+    margin-right: 0;
 }
 
 .lside {
-    flex: 1; /* Takes up one part of the available space */
-    margin-right: 20px; /* Adds a fixed margin between the elements */
-    display: flex;
-    flex-direction: column; /* Aligns children vertically */
+    max-width: 23%;
 }
 
 .rside {
-    flex: 2; /* Takes up two parts of the available space */
     text-align: center;
-    align-items: center;
-    justify-items: center;
-
+    margin: 64px 50px;
 }
 
-.lup {
-    margin: 10px;
+.lup, .ldown {
     padding: 20px;
-    border-style: solid;
-    border-radius: 20px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.ldown {
-    margin: 10px;
-    padding: 20px;
-    border-style: solid;
-    border-radius: 20px;
-    flex-grow: 1; /* Takes up the remaining space */
+.lup h4, .ldown p {
+    margin: 0;
+    color: #2c3e50;
 }
 
-a{
-    text-decoration: none;
-    color: black;
+.rside h2, .rside h3 {
+    color: #2c3e50;
+    margin: 0;
 }
 
-ul {
+.rside ul {
     list-style-type: none;
     padding: 0;
-    margin: 0; 
+    margin: 0;
+    text-align: center;
 }
 
-ul li {
-    list-style-position: inside;
-    padding: 5px; 
+.rside ul li {
+    margin: 10px 0;
 }
 
-label{
-    font-size:medium;
-    padding-right: 20px;
-    margin: 0 20 0 20px;
+.rside ul li a {
+    text-decoration: none;
+}
+
+.rside p {
+    color: #4a5568;
+    font-size: 14px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #3498db;
+}
+
+a:hover {
+    color: #2980b9;
+}
+
+.rside .formbuttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.formbuttons a {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 20px;
+    cursor: pointer;
+    width: 60%;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.formbuttons a:hover {
+    background-color: #2980b9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
