@@ -4,12 +4,16 @@ body {
     background-color: #f5f7fa;
 }
 
+.headerbody {
+    position: fixed;
+}
+
 .main {
     text-align: center;
     display: flex;
     overflow: hidden;
     height: 100vh;
-    margin-top: 80px;
+    margin-top: 30px;
     width: 100%;
     place-items: center;
     align-content: center;
