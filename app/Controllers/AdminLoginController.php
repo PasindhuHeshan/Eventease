@@ -14,6 +14,8 @@ class AdminLoginController {
     private $emailModel; 
     
     public function processSendEmail() {
+        $purpose = $_POST['purpose'] ?? null;
+
         if (isset($_POST['send_email'])) {
             $recipient = $_POST['recipient_email'];
             $emailbody = $_POST['email_body'];
@@ -38,9 +40,14 @@ class AdminLoginController {
                 $_SESSION['email_success'] = false;
             }
 
-            // $userModel = new UserModel();
-            // $database = new Database();
-            // $userModel->changedisableaccstatus($row_id,$database);
+            if($purpose == null){
+                // $userModel = new UserModel();
+                // $database = new Database();
+                // $userModel->changedisableaccstatus($row_id,$database);
+            }else{
+                header('Location: index.php?url=feedback.php');
+                exit();
+            }
 
             header('Location: index.php?url=disableacc.php'); // Redirect back to manage users page
             exit();
