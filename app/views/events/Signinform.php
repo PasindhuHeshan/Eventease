@@ -11,9 +11,7 @@
                 <p>For University Students
                     <br>
                     Students can join the university EMS system for free.
-                <br>
-                <br>
-                <br>
+                <br><br>
                     For Guest (Non-Internal University Students)
                     <br>
                     Guests need to pay Rs.500 upon completing the registration form.
@@ -22,8 +20,7 @@
             <div class="ldown">
                 <p>
                     Contact Details
-                    <br>
-                    <br>
+                    <br><br>
                     Phone: 070 XXX XXXX
                     <br>
                     Email: <a href="mailto:eventeasecmb@gmail.com">eventeasecmb@gmail.com</a>
@@ -31,17 +28,14 @@
             </div>
         </div>
         <div class="rside">
-            <br>
-            <br>    
             <h2>Registration Form</h2>
-            <br><br><br><br><h3>Who are you?</h3>
-                <ul style="text-align: center;">
-                    <li><a style="color: lightskyblue;" href="studentform.php" target="_self">Student</a></li>
-                    <li><a style="color: lightskyblue;" href="guestform.php" target="_self">Guest</a></li>
-                    
-                </ul>
-            <br><br><br><br><br><br>
-            <p style="margin:20px;">Please note that 'Guest' refers to non-internal university student and individuals who are interested in participating in 'guest' allowed university events.</p>
+            <br><br>
+            <h3>Who are you?</h3>
+            <ul class="formbuttons">
+                <li><a href="studentform.php" target="_self">Student</a></li>
+                <li><a href="guestform.php" target="_self">Guest</a></li>
+            </ul>
+            <p>Please note that 'Guest' refers to non-internal university students and individuals who are interested in participating in 'guest' allowed university events.</p>
         </div>
     </div>
 </body>
