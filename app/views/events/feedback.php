@@ -113,6 +113,7 @@
                 </div>
                 <div class="form-group">
                 <input type="hidden" name="subject" value="Thank you for your valuable feedback!">
+                <input type="text" name="purpose" value="00" hidden>
                     <button type="submit" name="send_email">Submit</button>
                 </div>
             </form>
