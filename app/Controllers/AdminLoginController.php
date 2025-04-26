@@ -32,14 +32,6 @@ class AdminLoginController {
             $this->emailModel = new EmailModel(); 
             $success = $this->emailModel->sendEmail($recipient, $subject, $body);
 
-            if ($success) {
-                $_SESSION['email_message'] = "Email sent successfully to " . htmlspecialchars($recipient);
-                $_SESSION['email_success'] = true;
-            } else {
-                $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
-                $_SESSION['email_success'] = false;
-            }
-
             if($purpose == null){
                 // $userModel = new UserModel();
                 // $database = new Database();
