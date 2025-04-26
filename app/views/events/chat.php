@@ -29,8 +29,7 @@
                         <p>No chats available.</p>
                     <?php endif; ?>
                 </div>
-            </div>
-
+            </div>                     
             <div class="typing-area">
                 <form method="POST" action="">
                     <table class="typing-table">
