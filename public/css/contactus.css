@@ -161,3 +161,8 @@ input[readonly] {
 .two-column .form-field.full-width {
     grid-column: span 2;
 }
+
+.success{
+    justify-items: center;
+    color: limegreen;
+}
