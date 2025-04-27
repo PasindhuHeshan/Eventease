@@ -161,6 +161,37 @@ switch ($url) {
         $hcontroller->render();
         $alcontroller->useradd();
         break;
+    case 'changestatus':
+            $hcontroller->render();
+            $alcontroller->changestatus();
+            break;
+    case 'disableacc.php':
+            $hcontroller->render();
+            $alcontroller->disableacc();
+            break;
+    case 'feedback.php':
+            $hcontroller->render();
+            $alcontroller->getfeedbacks();
+            break;
+    case 'feedbackdone':
+            $hcontroller->render();
+            $alcontroller->feedbackdone();
+            break;
+    case 'activeacc':
+            $hcontroller->render();
+            $alcontroller->activeacc();
+            break;
+    case 'replyfeedback':
+            $hcontroller->render();
+            $alcontroller->replyfeedback();
+            break;
+    case 'send_email_form':
+            $hcontroller->render();
+            $alcontroller->showSendEmailForm();
+            break;
+    case 'process_send_email':
+            $alcontroller->processSendEmail();
+            break;
     case 'manageevent.php':
         $hcontroller->render();
         $alcontroller->manageevent();
@@ -280,41 +311,12 @@ switch ($url) {
         $stfcontroller->aca();
         break;*/
 
-    case 'changestatus':
-        $hcontroller->render();
-        $alcontroller->changestatus();
-        break;
-    case 'disableacc.php':
-        $hcontroller->render();
-        $alcontroller->disableacc();
-        break;
-    case 'feedback.php':
-        $hcontroller->render();
-        $alcontroller->getfeedbacks();
-        break;
-    case 'feedbackdone':
-        $hcontroller->render();
-        $alcontroller->feedbackdone();
-        break;
-    case 'activeacc':
-        $hcontroller->render();
-        $alcontroller->activeacc();
-        break;
-    case 'replyfeedback':
-        $hcontroller->render();
-        $alcontroller->replyfeedback();
-        break;
+  
     case 'chat.php':
         $hcontroller->render();
         $cucontroller->chat();
         break;
-    case 'send_email_form':
-        $hcontroller->render();
-        $alcontroller->showSendEmailForm();
-        break;
-    case 'process_send_email':
-        $alcontroller->processSendEmail();
-        break;
+  
     case 'deleteAccount':
         $hcontroller->render();
         $upcontroller->deleteAccount();
