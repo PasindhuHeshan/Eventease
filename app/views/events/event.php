@@ -32,6 +32,7 @@
                     $interval = $currentDate->diff($eventDate);
                     $daysUntilEvent = $interval->days;
                     ?>
+                    <?php if($event['date']>= date('Y-m-d')):?>
                     <?php if (!$isEnrolled): ?>
                         <?php if ($event['flag'] == 0 && $userdata['usertype'] == "2"): ?>
                             <!-- Do not show enroll button for guests if flag is 0 -->
@@ -60,6 +61,7 @@
                             <p class="notice">*You can unenroll from this event only before the last 7 days.</p>
                         <?php endif; ?>
                     <?php endif; ?>
+                    <?php endif;?>
                 </div>
             <?php endif; ?>
         </div>

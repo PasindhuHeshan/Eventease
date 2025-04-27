@@ -17,12 +17,14 @@ main {
 .rside {
     width: 27%;
     float: right;
-    height: calc(100vh - 40px);
+    height: max-content;
     padding: 20px;
     box-sizing: border-box;
+    border-radius: 0px 0px 20px 20px;
     background-color: var(--light-gray);
     border-left: 1px solid #ddd;
-    overflow-y: auto;
+    overflow-y: unset;
+    scroll-behavior: unset;
 }
 
 body {

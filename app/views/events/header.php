@@ -25,7 +25,7 @@
                     <li><?php echo $greeting ." ". $fname; ?></li>
                     <li class="removepadding"><a href="userprofile.php" target="_self" class="nothing"><img src="<?php echo $profilePicture; ?>" alt="Profile Picture" width="50px"></a></li>
                     <li class="dropdown">
-                        <?php if(($newchat==true && $userData['usertype']=='1')||($newchatadmin==true && $userData['usertype']=='0')){?>
+                        <?php if(($newchat==true && $userData['usertype']!='0')||($newchatadmin==true && $userData['usertype']=='0')){?>
                             <a class="nothing"><img  src="./images/bell-red.png" alt="Chat" width="50px"></a>
                         <?php }else{?>
                             <a class="nothing"><img  src="./images/bell.png" alt="Notifications" width="50px"></a>
@@ -44,7 +44,7 @@
                                 <p>No upcoming events for next 2 weeks</p>
                             <?php endif; ?>
 
-                            <?php if ($newchat==true && $userData['usertype']=='1'): ?>
+                            <?php if ($newchat==true && $userData['usertype']!='0'): ?>
                                 <p style="text-align: center;">Chat</p>
                                 <hr>
                                     <a href="chat.php" target="_self">New Chat Available!</a>
