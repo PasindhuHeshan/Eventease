@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\EventModel;
 use App\Database;
 
 class UserProfileController
@@ -87,12 +88,26 @@ class UserProfileController
         require __DIR__ . '/../Views/EventSup/inquiry.php';
     }
 
-    public function enrollstd(){
+    public function enrollstd() {
+        $database = new Database();
+        $eventModel = new EventModel($database);
+        $username = $_SESSION['username'];
+        $no = isset($_GET['no']) ? $_GET['no'] : null;
+        $enrolled_people = $eventModel->getEnrolledPeople($no, $database);
         require __DIR__ . '/../Views/EventSup/enrollment.php';
     }
-
     public function report(){
+        $database = new Database();
+        $eventModel = new EventModel($database);
+        $username = $_SESSION['username'];
+        $no = isset($_GET['no']) ? $_GET['no'] : null;
+        $event = $eventModel->getEventDetails($no);
+        $managementStaff = $eventModel->getManagementStaff($no);
+        $data = $eventModel->getEventStatistics($no);
+        $org = $eventModel->getManagementOrg($no);
+        $remarks = $eventModel->getEventRemarks($no);
         require __DIR__ . '/../Views/EventSup/report.php';
+        
     }
 
     public function review(){
@@ -100,6 +115,11 @@ class UserProfileController
     }
 
     public function stat(){
+        $database = new Database();
+        $eventModel = new EventModel($database);
+        $username = $_SESSION['username']; 
+        $no = isset($_GET['no']) ? $_GET['no'] : null;
+        $data = $eventModel->getEventStatistics($no);
         require __DIR__ . '/../Views/EventSup/statistics.php';
     }
 
@@ -121,4 +141,5 @@ class UserProfileController
         session_destroy();
         header("Location: deletetoindex");
     }
+
 }
