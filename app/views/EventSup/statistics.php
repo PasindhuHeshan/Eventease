@@ -27,7 +27,7 @@
 <div class="page">
     <div class="event-sup-container">
         <!-- Include Sidebar -->
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/Eventease/app/views/partials/sidebar.php'; ?>
+        <?php include '../app/views/partials/sidebar.php'; ?>
 
         <!-- Main Content -->
         <div class="event-sup-content">
