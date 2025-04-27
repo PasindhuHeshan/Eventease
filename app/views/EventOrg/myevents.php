@@ -35,13 +35,13 @@
                         <?php if($event['approvedstatus']==2){ echo '<p class="event-description" style="color:red; font-weight:bold;">Event Rejected</p>';} ?>
                         <hr>
                         <p class="event-description">
-                            <?php if($userType=='3'&& $event['approvedstatus']!=1){ echo '<a href="addmore?no=' . $event['no'] . '">Edit Event</a>';} ?>
+                            <?php if($userType=='3'&& $event['approvedstatus']!=1 && ($event['organizer']==$userData['No'])){ echo '<a href="addmore?no=' . $event['no'] . '">Edit Event</a>';} ?>
                         </p>
-                        <p class="event-description"><?php if($userType=='4'){ echo '<a href="inquiry">Inquries</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='4'){ echo '<a href="enrollment">Enrollment</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='4'){ echo '<a href="review">Review</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='4'){ echo '<a href="statistics">Statistics</a>';} ?></p>
-                        <p class="event-description"><?php if($userType=='4'){ echo '<a href="report">Report</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="inquiry">Inquries</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="enrollment">Enrollment</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="review">Review</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="statistics">Statistics</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="report">Report</a>';} ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
