@@ -11,6 +11,31 @@ class EventModel {
         $this->conn = $database->getConnection();
     }
 
+    public function getEnrolledPeople($eventNo) {
+        $enrolled = [];
+        
+        $query = "SELECT u.No, u.username, u.fname, u.lname, e.attendance_status
+                  FROM enroll e 
+                  JOIN users u ON e.username = u.username 
+                  WHERE e.eventno = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventNo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $name = trim($row['fname'] . ' ' . $row['lname']);
+            if (empty($name)) $name = $row['username'];
+            $enrolled[] = [
+                'id' => $row['No'],
+                'name' => $name,
+                'username' => $row['username'],
+                'attendance_status' => $row['attendance_status']
+            ];
+        }
+        
+        return $enrolled;
+    }
+
     public function addEnrollment($username, $eventno) {
         $query = "INSERT INTO enroll (username, eventno) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
@@ -78,7 +103,12 @@ class EventModel {
     }
 
     public function getNotApprovedEvents($no) {
-        $query = "SELECT events.*, users.*, organizations.*, event_inventory.* FROM events JOIN users ON events.organizer = users.no JOIN organizations ON events.orgno = organizations.orgno LEFT JOIN event_inventory ON events.no = event_inventory.event_id WHERE events.approvedstatus = 1 AND (event_inventory.event_id IS NULL OR event_inventory.status = 1) AND events.supervisor = $no AND events.date >= CURDATE() GROUP BY events.no ORDER BY events.date ASC";
+        $query = "SELECT events.*, users.*, organizations.*, event_inventory.* 
+        FROM events 
+        JOIN users ON events.organizer = users.no 
+        JOIN organizations ON events.orgno = organizations.orgno 
+        LEFT JOIN event_inventory ON events.no = event_inventory.event_id 
+        WHERE events.approvedstatus = 1 AND (event_inventory.event_id IS NULL OR event_inventory.status = 1) AND events.supervisor = $no AND events.date >= CURDATE() GROUP BY events.no ORDER BY events.date ASC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -401,7 +431,7 @@ class EventModel {
 
         return $result;
     }   
-
+  
     public function changereviewStatus($review_no,$database) {
         $query = "UPDATE event_review SET reviewed = 1 WHERE review_no = ?";
         $stmt = $this->conn->prepare($query);
@@ -422,4 +452,111 @@ class EventModel {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+  
+    public function getEventStatistics($eventNo) {
+        $stats = [];
+
+        // Get enrollment and participation
+        $query = "SELECT 
+                    COUNT(*) as enrolled,
+                    SUM(CASE WHEN attendance_status = 1 THEN 1 ELSE 0 END) as participated
+                  FROM enroll 
+                  WHERE eventno = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventNo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $stats['enrolled'] = $row['enrolled'];
+        $stats['participated'] = $row['participated'];
+        $stats['participation_percentage'] = $row['enrolled'] > 0 ? ($row['participated'] / $row['enrolled']) * 100 : 0;
+
+        // Get average rating from event_review
+        $query = "SELECT AVG(rating) as avg_rating ,
+                         COUNT(rating) as reviews_count
+                  FROM event_review 
+                  WHERE event_no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventNo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stats['total_rating'] = $row['avg_rating'] ? round($row['avg_rating'], 1) : 0;
+        $stats['reviews_count'] = $row['reviews_count'];
+
+        // Get reach statistics
+        $query = "SELECT people_limit FROM events WHERE no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventNo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $stats['target_audience'] = $row['people_limit'];
+        $stats['reached_audience'] = $stats['enrolled'];
+        $stats['reach_percentage'] = $row['people_limit'] > 0 ? ($stats['enrolled'] / $row['people_limit']) * 100 : 0;
+
+        $stmt->close();
+
+        return $stats;
+    }
+
+    public function getEventDetails($eventNo) {
+        $query = "SELECT e.*, u.fname, u.lname 
+                  FROM events e 
+                  LEFT JOIN users u ON e.supervisor = u.No 
+                  WHERE e.no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventNo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_object();
+    }
+
+    public function getManagementStaff($eventNo) {
+        $staff = [];
+        $query = "SELECT u.fname, u.lname, er.event_role
+                  FROM event_members em 
+                  JOIN users u ON em.member_id = u.No 
+                  JOIN event_role er ON em.event_role_id = er.event_role_id 
+                  WHERE em.event_no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventNo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+  
+    public function getManagementOrg($eventNo) {
+        $staff = [];
+        $query = "SELECT u.fname, u.lname FROM users u
+                  JOIN events e ON u.No = e.organizer 
+                  WHERE e.no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventNo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_assoc();
+    }
+
+    public function getEventRemarks($eventNo) {
+        $staff = [];
+        $query = "SELECT u.fname, u.lname, r.remark FROM users u join remarks r on u.No = r.user_id where r.event_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventNo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_assoc();
+    }
+    
 }
+

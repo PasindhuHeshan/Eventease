@@ -14,16 +14,16 @@
                 <div class="messages-container">
                     <?php if (!empty($chats)): ?>
                         <?php foreach ($chats as $message): ?>
-                            <?php if (!empty($message['user_msg'])): ?>
-                                <div class="user-message">
-                                    <?php echo htmlspecialchars($message['user_msg']); ?>
-                                </div>
-                            <?php endif; ?>
-                            <?php if (!empty($message['admin_msg'])): ?>
-                                <div class="admin-reply">
-                                    <?php echo htmlspecialchars($message['admin_msg']); ?>
-                                </div>
-                            <?php endif; ?>
+                        <?php if (!empty($message['user_msg'])): ?>
+                            <div class="<?php echo $userData['usertype'] == 0 ? 'user-message' : 'admin-reply'; ?>">
+                                <?php echo htmlspecialchars($message['user_msg']); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!empty($message['admin_msg'])): ?>
+                            <div class="<?php echo $userData['usertype'] == 0 ? 'admin-reply' : 'user-message'; ?>">
+                                <?php echo htmlspecialchars($message['admin_msg']); ?>
+                            </div>
+                        <?php endif; ?>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>No chats available.</p>
@@ -51,6 +51,7 @@
                                 <?php else:?>
                                     <a href="userprofile.php" class="button-link">Close</a>
                                 <?php endif;?>
+                                <?php print_r($chats); ?>
                             </td>
                         </tr>
                     </table>

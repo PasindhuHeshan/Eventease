@@ -1,17 +1,9 @@
 <link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
-    <?php 
-    $data['enrolled'] = 100;
-    $data['participated'] = 80;
-    $data['participation_percentage'] = ($data['participated'] / $data['enrolled']) * 100;
-    $data['total_rating'] = 4.5;
-    $data['target_audience'] = 200;
-    $data['reached_audience'] = 150;
-    $data['reach_percentage'] = ($data['reached_audience'] / $data['target_audience']) * 100;
-    ?>
+    
     <h2>Event Statistics</h2>
     <div class="statistics">
-        <form action="" method="post">
+        <form>
             <div class="statistics-container">
                 <div class="stat-item">
                     <label>Total Enrolled:</label>
@@ -41,7 +33,6 @@
                     <label>Total Reach Percentage:</label>
                     <span><?= number_format($data['reach_percentage'], 2) ?>%</span>
                 </div>
-                <button type="submit" class="btn primary">Forward</button>
             </div>
         </form>
     </div>

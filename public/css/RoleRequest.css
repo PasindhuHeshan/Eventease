@@ -41,18 +41,8 @@ body {
     margin-bottom: 10px;
 }
 
-.form-container select {
-    padding-right: 30px;
-    cursor: pointer;
-    height: 45px;
-}
-
-.form-container textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
 .form-container [type="submit"], .form-container [type="button"] {
+    margin-top: 20px;
     background-color: #3498db;
     color: white;
     border: none;

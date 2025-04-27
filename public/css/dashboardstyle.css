@@ -132,6 +132,7 @@ header {
 
 .container {
     display: flex;
+    width: unset;
 }
 .main-content {
     flex: 1;

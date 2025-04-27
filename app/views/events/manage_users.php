@@ -113,21 +113,21 @@
                 }
 
                 function saveFilterState() {
-                    var userTypeFilter = document.getElementById('userTypeFilter').value;
+                    // var userTypeFilter = document.getElementById('userTypeFilter').value;
                     var statusFilter = document.getElementById('statusFilter').value;
                     var search = document.getElementById('nameSearch').value;
-                    localStorage.setItem('userTypeFilter', userTypeFilter);
+                    // localStorage.setItem('userTypeFilter', userTypeFilter);
                     localStorage.setItem('statusFilter', statusFilter);
                     localStorage.setItem('nameSearch', search);
                 }
 
                 function loadFilterState() {
-                    var userTypeFilter = localStorage.getItem('userTypeFilter');
+                    // var userTypeFilter = localStorage.getItem('userTypeFilter');
                     var statusFilter = localStorage.getItem('statusFilter');
                     var search = localStorage.getItem('nameSearch');
-                    if (userTypeFilter) {
-                        document.getElementById('userTypeFilter').value = userTypeFilter;
-                    }
+                    // if (userTypeFilter) {
+                    //     document.getElementById('userTypeFilter').value = userTypeFilter;
+                    // }
                     if (statusFilter) {
                         document.getElementById('statusFilter').value = statusFilter;
                     }
@@ -154,7 +154,7 @@
                         <!-- <form action="manage_users.php" method="post"> -->
                             <h2>New Staff Member</h2>
                             <?php if (!empty($_SESSION['error'])): ?>
-                                <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['ac_createerror']); ?></p>
+                                <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['ac_createerror']);unset($_SESSION['error']); ?></p>
                             <?php endif; ?>
                             <div class="form-group">
                                 <label for="fname">First Name</label>

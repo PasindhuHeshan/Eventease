@@ -406,7 +406,7 @@ class UserModel {
 
     
 
-    // public function changedisableaccstatus($row_id,Database $database){/// 
+    // public function changedisableaccstatus($row_id,Database $database){ 
     //     $conn = $database->getConnection();
     //     $sql = "UPDATE admin_support SET email_status = 1 WHERE row_id =?"; 
     //     $stmt = $conn->prepare($sql); 
