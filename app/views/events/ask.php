@@ -26,7 +26,7 @@
                         <td>
                             <select name="type">
                                 <option value="1">Feedback</option>
-                                <option value="4">Inquery</option>
+                                <option value="2">Inquery</option>
                             </select>
                         </td>
                     </tr>

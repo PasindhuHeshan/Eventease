@@ -45,10 +45,15 @@ class ContactusController{
         $userData = $usermodel->getUserData($user_no, $database);
         $eventmodel = new EventModel($database);
         $eventData = $eventmodel->getEvent($event_no);
-        $contactus->insertask($event_no, $user_no, $type, $message, $database);
-
-        $success = "Your message has been sent successfully!";
-        require __DIR__ . '/../Views/events/ask.php';
+        if($type==1){
+            $contactus->insertask($event_no, $user_no, $message, $database);
+            $success = "Your message has been sent successfully!";
+            require __DIR__ . '/../Views/events/ask.php';
+        }else{
+            $contactus->insertreview($event_no, $user_no, $message, $database);
+            $success = "Your message has been sent successfully!";
+            require __DIR__ . '/../Views/events/ask.php';
+        }
     }
 
     public function contactus(){
