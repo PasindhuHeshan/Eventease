@@ -1,106 +1,61 @@
 <link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
-    <h2>Event Inquiries</h2>
+    <h2>Event Inqueries</h2>
+    <form action="" method="get" class="search-form">
+        <div class="form-group">
+            <label for="search">Search Event</label>
+            <input type="text" name="search" id="search" class="form-control" placeholder="Enter event name" onkeyup="filterNames()">
+        </div>
+        <button type="submit" class="btn primary">Search</button>
+    </form>
     <div class="events">
-        <div class="event">
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" required value="Alice">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required value="alice@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="event">Event</label>
-                    <input type="text" name="event" id="event" class="form-control" required value="Tech Symposium">
-                </div>
-                <div class="form-group">
-                    <label for="inquiry">Inquiry</label>
-                    <textarea name="inquiry" id="inquiry" class="form-control" required>When is the keynote speaker session?</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="reply">Reply</label>
-                    <textarea name="reply" id="reply" class="form-control" required>The keynote speaker session is at 10 AM on the first day.</textarea>
-                </div>
-                <button type="submit" class="btn primary">Send Reply</button>
-            </form>
-        </div>
-        <div class="event">
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" required value="Bob">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required value="bob@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="event">Event</label>
-                    <input type="text" name="event" id="event" class="form-control" required value="Hackathon">
-                </div>
-                <div class="form-group">
-                    <label for="inquiry">Inquiry</label>
-                    <textarea name="inquiry" id="inquiry" class="form-control" required>Can I participate in a team of two?</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="reply">Reply</label>
-                    <textarea name="reply" id="reply" class="form-control" required>Yes, you can participate in a team of two.</textarea>
-                </div>
-                <button type="submit" class="btn primary">Send Reply</button>
-            </form>
-        </div>
-        <div class="event">
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" required value="Charlie">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required value="charlie@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="event">Event</label>
-                    <input type="text" name="event" id="event" class="form-control" required value="Career Fair">
-                </div>
-                <div class="form-group">
-                    <label for="inquiry">Inquiry</label>
-                    <textarea name="inquiry" id="inquiry" class="form-control" required>What companies will be attending the fair?</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="reply">Reply</label>
-                    <textarea name="reply" id="reply" class="form-control" required>A list of participating companies is available on the event website.</textarea>
-                </div>
-                <button type="submit" class="btn primary">Send Reply</button>
-            </form>
-        </div>
-        <div class="event">
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control" required value="Daisy">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required value="daisy@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="event">Event</label>
-                    <input type="text" name="event" id="event" class="form-control" required value="Cultural Festival">
-                </div>
-                <div class="form-group">
-                    <label for="inquiry">Inquiry</label>
-                    <textarea name="inquiry" id="inquiry" class="form-control" required>What are the timings for the cultural performances?</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="reply">Reply</label>
-                    <textarea name="reply" id="reply" class="form-control" required>The cultural performances will start at 5 PM.</textarea>
-                </div>
-                <button type="submit" class="btn primary">Send Reply</button>
-            </form>
-        </div>
+        <?php foreach ($eventreviews as $review) { ?>
+            <div class="event">
+                <form action="process_send_email" method="post">
+                    <div class="form-group">
+                        <label for="event">Event</label>
+                        <input type="text" name="event" id="event" class="form-control" required value="<?php echo $review['name']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required value="<?php echo $review['fname']." ".$review['lname']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry">Inqueries</label>
+                        <textarea name="inquiry" id="inquiry" class="form-control" required><?php echo $review['message']; ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry">Message</label>
+                        <textarea name="email_body" id="message" class="form-control" required rows=4></textarea>
+                    </div>
+                    <input type="hidden" id="inq_no" name="inq_no" value="<?php echo $review['inq_no']; ?>">
+                    <input type="hidden" id="event_no" name="event_no" value="<?php echo $review['event_no']; ?>">
+                    <input type="hidden" id="name" name="name" value="<?php echo htmlspecialchars($review['fname']); ?>">
+                    <input type="hidden" id="email" name="recipient_email" value="<?php echo htmlspecialchars($review['email']); ?>">
+                    <input type="hidden" name="subject" value="About your Inquiry!">
+                    <input type="text" name="purpose" value="01" hidden>
+                    <button type="submit" class="btn primary" name="send_email">Reviewed</button>
+                </form>
+            </div>
+        <?php } ?>
     </div>
 </div>
+
+<script>
+    function filterNames() {
+        var input, filter, events, event, label, i, txtValue;
+        input = document.getElementById('search');
+        filter = input.value.toUpperCase();
+        events = document.getElementsByClassName('event');
+        for (i = 0; i < events.length; i++) {
+            event = events[i];
+            label = event.querySelector('input[name="event"]');
+            txtValue = label.value || label.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                event.style.display = "";
+            } else {
+                event.style.display = "none";
+            }
+        }
+    }
+</script>

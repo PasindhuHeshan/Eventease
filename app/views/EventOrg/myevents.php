@@ -37,11 +37,11 @@
                         <p class="event-description">
                             <?php if($userType=='3'&& $event['approvedstatus']!=1 && ($event['organizer']==$userData['No'])){ echo '<a href="addmore?no=' . $event['no'] . '">Edit Event</a>';} ?>
                         </p>
-                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="inquiry">Inquries</a>';} ?></p>
-                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="enrollment">Enrollment</a>';} ?></p>
-                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="review">Review</a>';} ?></p>
-                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="statistics">Statistics</a>';} ?></p>
-                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="report">Report</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="inquiry?no=' . $event['no'] . '">Inquiries</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="enrollment?no=' . $event['no'] . '">Enrollment</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="review?no=' . $event['no'] . '">Review</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="statistics?no=' . $event['no'] . '">Statistics</a>';} ?></p>
+                        <p class="event-description"><?php if(($userType=='1')||($userType=='3')){ echo '<a href="report?no=' . $event['no'] . '">Report</a>';} ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
