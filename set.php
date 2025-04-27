@@ -1,5 +1,6 @@
 <!-- manage users -->
-make table and  colomns for year and no,add filter for year in dropdown
+make table and  colomns for year and no,add
+ filter for year in dropdown
     <th>year</th>
     <td>" . htmlspecialchars($row['year'] ?? '') . "</td>
     <label for="statusFilter1">year</label>
@@ -21,7 +22,7 @@ make table and  colomns for year and no,add filter for year in dropdown
 <th>year</th>
 echo "<td>" . htmlspecialchars($row['year'] ?? '') . "</td>";
 
-script->
+<script>
 filter
 var statusFilter1 = document.getElementById('statusFilter1').value;
 if (statusFilter1 === 'all' || city === statusFilter1) && 
@@ -33,6 +34,7 @@ var statusFilter1 = localStorage.getItem('statusFilter1');
 if (statusFilter1) {
                         document.getElementById('statusFilter1').value = statusFilter1;
                     }
+                    </script>
 
 Dashboard.php->
 $sql = "SELECT users.No, year.age, users.fname, users.lname, users.email, users.usertype, users.status FROM users JOIN year ON users.NO= year.no ";
@@ -48,31 +50,32 @@ $sql = "SELECT users.No, year.age, users.fname, users.lname, users.email, users.
  Popup Form
   <input type="text" name="row_id" value="<?php echo ($row['row_id']); ?>" hidden> 
   
-  script->
+ <script>
   function openPopup(no, fname, email,row_id)
-   document.querySelector('input[name="row_id"]').value = row_id;       
+   document.querySelector('input[name="row_id"]').value = row_id;      
+   </script> 
 
 AdminLoginController->
 public function processSendEmail() 
 // $row_id = $_POST['row_id'];
 
+purpose== null
 // $userModel = new UserModel();
 // $database = new Database();
 // $userModel->changedisableaccstatus($row_id,$database);
 
 
 UserModel-> 
-// public function changedisableaccstatus($row_id,Database $database){
-    //     $conn = $database->getConnection();
-    //     $sql = "UPDATE admin_support SET email_status = 1 WHERE row_id =?"; 
-    //     $stmt = $conn->prepare($sql); 
-    //     $stmt->bind_param("i", $row_id); 
-    //     $stmt->execute(); 
-    //     $stmt->close();
-    // }
+ public function changedisableaccstatus($row_id,Database $database){
+         $conn = $database->getConnection();
+         $sql = "UPDATE admin_support SET email_status = 1 WHERE row_id =?"; 
+         $stmt = $conn->prepare($sql); 
+         $stmt->bind_param("i", $row_id); 
+         $stmt->execute(); 
+        $stmt->close();
+     }
 
-
-    2)create reject button and row delete
+create reject button and row delete
 
     // case 'rejectcomplaint':
     //     $hcontroller->render();
@@ -120,7 +123,7 @@ UserModel->
 
 
     echo "<tr data-organization='" . htmlspecialchars($row['orgname'] ?? '') . "' >
-    script->
+    <script>
     
                 function filterUsers() {
                     var search = document.getElementById('nameSearch').value.toLowerCase();
@@ -162,6 +165,7 @@ UserModel->
                 }
 
                 window.onload = loadFilterState;
+            </script>
 
  <!-- feedback.php -->
 

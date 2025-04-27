@@ -26,7 +26,7 @@
     
         <?php include 'aside.php'; ?>
 
-        <!-- Content -->
+       
         <div class="content">
             <h2>Users</h2>
             <p>This section allows you to manage the users of the application. You can disable any user accounts or add new staff accounts.</p>
@@ -113,21 +113,21 @@
                 }
 
                 function saveFilterState() {
-                    // var userTypeFilter = document.getElementById('userTypeFilter').value;
+                    var userTypeFilter = document.getElementById('userTypeFilter').value;
                     var statusFilter = document.getElementById('statusFilter').value;
                     var search = document.getElementById('nameSearch').value;
-                    // localStorage.setItem('userTypeFilter', userTypeFilter);
+                    localStorage.setItem('userTypeFilter', userTypeFilter);
                     localStorage.setItem('statusFilter', statusFilter);
                     localStorage.setItem('nameSearch', search);
                 }
 
                 function loadFilterState() {
-                    // var userTypeFilter = localStorage.getItem('userTypeFilter');
+                    var userTypeFilter = localStorage.getItem('userTypeFilter');
                     var statusFilter = localStorage.getItem('statusFilter');
                     var search = localStorage.getItem('nameSearch');
-                    // if (userTypeFilter) {
-                    //     document.getElementById('userTypeFilter').value = userTypeFilter;
-                    // }
+                    if (userTypeFilter) {
+                        document.getElementById('userTypeFilter').value = userTypeFilter;
+                    }
                     if (statusFilter) {
                         document.getElementById('statusFilter').value = statusFilter;
                     }
@@ -140,7 +140,7 @@
                 window.onload = loadFilterState;
             </script>
 
-            <!-- Popup form -->
+           
             <div id="popupForm" class="popup-form" style="display: <?php echo !empty($_SESSION['ac_createerror']) ? 'block' : 'none'; ?>;">
                 <div class="popup-content">
                     <span class="close" onclick="closePopup()">&times;</span>
@@ -151,7 +151,6 @@
                         </p>
                     <?php endif; ?>
                         <form action="index.php?url=useradd.php" method="post">
-                        <!-- <form action="manage_users.php" method="post"> -->
                             <h2>New Staff Member</h2>
                             <?php if (!empty($_SESSION['error'])): ?>
                                 <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['ac_createerror']);unset($_SESSION['error']); ?></p>

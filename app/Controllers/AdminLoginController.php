@@ -22,7 +22,7 @@ class AdminLoginController {
             $emailbody = $_POST['email_body'];
             $name = $_POST['name'];
             $subject = $_POST['subject'];
-            // $row_id = $_POST['row_id'];
+            
 
             $body = "Dear " . htmlspecialchars($name) . ",<br><br>" . 
                     htmlspecialchars($emailbody) . "<br><br>" . 
@@ -34,9 +34,7 @@ class AdminLoginController {
             $success = $this->emailModel->sendEmail($recipient, $subject, $body);
 
             if($purpose == null){
-                // $userModel = new UserModel();
-                // $database = new Database();
-                // $userModel->changedisableaccstatus($row_id,$database);
+                
             }else if($purpose == 01){
                 $database = new Database();
                 $eventModel = new EventModel($database);
@@ -51,11 +49,11 @@ class AdminLoginController {
                 exit();
             }
 
-            header('Location: index.php?url=disableacc.php'); // Redirect back to manage users page
+            header('Location: index.php?url=disableacc.php');
             exit();
         } else {
-            // Handle cases where the form wasn't submitted correctly
-            header('Location: index.php?url=disableacc.php'); // Redirect back
+            
+            header('Location: index.php?url=disableacc.php');
             exit();
         }
     }
@@ -95,7 +93,7 @@ class AdminLoginController {
     }
 
     public function logout(){
-        //session_start();
+        
         session_destroy();
         header("Location: index.php");
         exit();
@@ -171,7 +169,7 @@ class AdminLoginController {
             $usertype = 5;
             $defaultPassword = $this->generateDefaultPassword();
 
-            // Basic validation
+           
             if (empty($email) || empty($usertype)) {
                 $_SESSION['error'] = "All fields are required.";
                 $_SESSION['ac_createerror'] = true;
@@ -193,7 +191,7 @@ class AdminLoginController {
                 $username, $hashedPassword, $fname, $lname, $email, 
                 $usertype, $id, $address, $city, $profile_picture, $status, $database
             )) {
-                // Send the welcome email
+               
                 $subject = 'Your Eventease Account Created';
                 $body = "Dear User,\r\n\r\n" .
                         "Your account on Eventease has been created.\r\n" .
@@ -203,7 +201,7 @@ class AdminLoginController {
                         "We recommend you change your password after your first login.\r\n\r\n" .
                         "Welcome to Eventease!\r\n";
 
-                $body = nl2br($body); // Convert line breaks to HTML <br> tags
+                $body = nl2br($body); 
 
                 $emailSent = $emailModel->sendEmail($email, $subject, $body);
 
@@ -346,13 +344,13 @@ class AdminLoginController {
             $dashboard = new Dashboard($database);
             
             if($dashboard->delete_item($inventory_no)){
-                //header("Location: inventory.php");
+                
                 include __DIR__ . '/../views/events/inventory.php';
                 exit();
             }else{
-                //echo "Item is in use. Cannot delete.";
+              
                 $_SESSION['delete_error'] = "Item Cannot Delete!";
-                    //header("Location: ../public/index.php?url=login.php")
+                    
                 include __DIR__ . '/../views/events/inventory.php';
                 exit();
             }
@@ -366,7 +364,7 @@ class AdminLoginController {
         $dashboard = new Dashboard($database);
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Handle POST data here
+           
             $inventoryNo = $_POST['inventory_no'] ?? null;
             $item = $_POST['item'] ?? null;
             $quantity = $_POST['quantity'] ?? null;
@@ -394,14 +392,14 @@ class AdminLoginController {
                 include __DIR__ . '/../views/events/modify_item.php';
             }
         } else {
-            // Check if inventory_no is provided via GET
+            
             $inventoryNo = $_GET['inventory_no'] ?? null;
     
             if ($inventoryNo) {
                 $itemData = $dashboard->getItemByInventoryNo($inventoryNo);
     
                 if ($itemData) {
-                    // Pass item data to the view
+                   
                     include __DIR__ . '/../views/events/modify_item.php';
                 } else {
                     echo "Item not found.";
@@ -423,7 +421,7 @@ class AdminLoginController {
                 $itemData = $dashboard->getItemByInventoryNo($id);
     
                 if ($itemData) {
-                    // Redirect to the edit item view, passing the item data
+                    
                     $_SESSION['itemData'] = $itemData;
                     include __DIR__ . '/../Views/events/modify_item.php';
                     exit;
@@ -439,7 +437,7 @@ class AdminLoginController {
     public function importExcel()
     {
         if (isset($_POST['import'])) {
-            // Check if a file is uploaded
+            
             if (isset($_FILES['excel_file']) && $_FILES['excel_file']['error'] == 0) {
                 $file = $_FILES['excel_file']['tmp_name'];
                 $this->processExcel($file);
@@ -459,7 +457,7 @@ class AdminLoginController {
         $worksheet = $spreadsheet->getActiveSheet();
 
         $rows = $worksheet->toArray();
-        array_shift($rows); // Remove the first row (header)
+        array_shift($rows); 
 
         foreach ($rows as $row) {
             $item = $row[1];
@@ -467,7 +465,7 @@ class AdminLoginController {
             $quantity = $row[3];
             $inventory_type = $row[4];
 
-            // Insert data into the database
+          
             $dashboard = new Dashboard(new Database());
             $dashboard->insertItem($item, $inventory_no, $quantity, $inventory_type);
         }
@@ -570,15 +568,4 @@ class AdminLoginController {
         }
     }
 
-    // public function rejectcomplaint(){
-    //     $database = new Database();
-    //     $usermodel = new UserModel();
-    //     $adminData = $usermodel->getUserData($_SESSION['username'], $database);
-
-    //     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    //         $row_id = $_POST['row_id'] ?? null;
-    //         $usermodel->deleterejectComplaint($row_id, $database);
-    //         $this->disableacc();
-    //     }
-    // }
 }

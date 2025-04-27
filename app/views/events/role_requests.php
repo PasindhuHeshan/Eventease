@@ -17,7 +17,7 @@
 
     <?php include 'aside.php'; ?>
 
-    <!-- Content -->
+ 
     <div class="content">
         <h2>User Role Requests for Event Organizer</h2>
         <p>This page allows the admin to review and manage user role requests. Admins can approve or reject requests based on the provided information.</p>
@@ -60,10 +60,10 @@
     </div>
 </div>
 
-<!-- Popup Form -->
+
 <div id="popupForm" class="popup-form">
     <div class="popup-content">
-        <span class="close" onclick="closePopup()">x;</span>
+        <span class="close" onclick="closePopup()">x</span>
         <div class="container">
             <form action="role_requests.php" method="post">
                 <h2>Reject Role Request</h2>

@@ -263,7 +263,7 @@ class UserModel {
     public function admin_updateRoleRequests($no,$orgno,$new_role,$reply, Database $database) {
         $conn = $database->getConnection();
         
-        // Fetch the requested role details from the 'rolereq' table
+        
         $sql = "SELECT * FROM rolereq WHERE no = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $no);
@@ -275,7 +275,7 @@ class UserModel {
             $role = $row['role'];
 
             if ($new_role === 'rejected') {
-                // Update the status of the role request to -1 (rejected)
+                
                 $updateRolereq = "UPDATE rolereq SET status = -1, reply = ? WHERE no = ?";
                 $stmt2 = $conn->prepare($updateRolereq);
                 $stmt2->bind_param("si", $reply, $no);
@@ -287,13 +287,13 @@ class UserModel {
                 // $stmt3->bind_param("s", $email);
                 // $stmt3->execute();
             } else {
-                // Update the status of the role request to 1 (approved)
+                
                 $updateRolereq = "UPDATE rolereq SET status = 1 WHERE no = ?";
                 $stmt2 = $conn->prepare($updateRolereq);
                 $stmt2->bind_param("i", $no);
                 $stmt2->execute();
 
-                // Update the user's role in the 'users' table
+                
                 $updateUser = "UPDATE users SET usertype = ? WHERE no=?";
                 $stmt3 = $conn->prepare($updateUser);
                 $stmt3->bind_param("ss", $role, $no);
@@ -395,25 +395,6 @@ class UserModel {
         return true;
     }
 
-    // public function deleterejectComplaint($row_id, Database $database) {
-    //     $conn = $database->getConnection();
-    //     $sql = "DELETE FROM admin_support WHERE row_id = $row_id";
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->execute();
-    //     $stmt->close();
-    //     return true;
-    // }
-
-    
-
-    // public function changedisableaccstatus($row_id,Database $database){ 
-    //     $conn = $database->getConnection();
-    //     $sql = "UPDATE admin_support SET email_status = 1 WHERE row_id =?"; 
-    //     $stmt = $conn->prepare($sql); 
-    //     $stmt->bind_param("i", $row_id); 
-    //     $stmt->execute(); 
-    //     $stmt->close();
-    // }
 
     public function getfeedbacks(Database $database) {
         $conn = $database->getConnection();

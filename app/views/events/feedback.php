@@ -128,9 +128,7 @@
         document.getElementById('registeredTable').style.display = selectedValue === 'registered' ? 'block' : 'none';
     }
 
-    // function openchat(){
-    //     window.location.href = "chat.php";
-    // }
+   
 
     function openPopup(row) {
         document.getElementById('row_no').value = row.row_no;

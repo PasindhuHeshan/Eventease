@@ -16,7 +16,7 @@
 
     <?php include 'aside.php'; ?>
 
-    <!-- Content -->
+   
     <div class="content">
         <h2>Disable Account Complaints</h2>
         <p>This page allows the admin to review and manage Disable Account Complaints. Admins can approve or send reply based on the provided information.</p>
@@ -46,10 +46,7 @@
                                 <input type="hidden" name="no" value="<?php echo htmlspecialchars($row['no']); ?>">
                                 <button type="submit" name="approve">Active</button>
                             </form>
-                            <!-- <form method="POST" action="rejectcomplaint">
-                                <input type="hidden" name="row_id" value="php echo htmlspecialchars($row['row_id']); ?>">
-                                <button type="submit" name="reject">Reject</button>
-                            </form> -->
+                        
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -62,7 +59,7 @@
     </div>
 </div>
 
-<!-- Popup Form -->
+
 <div id="popupForm" class="popup-form">
     <div class="popup-content">
         <span class="close" onclick="closePopup()">x</span>
@@ -81,7 +78,7 @@
                 <div class="form-group">
                     <input type="hidden" name="subject" value="About your EventEase Account Banned!">
                     <input type="email" name="recipient_email" value="<?php echo htmlspecialchars($row['email']); ?>" hidden>
-                    <!-- <input type="text" name="row_id" value="php echo ($row['row_id']); ?>" hidden> -->
+                   
                     <button type="submit" name="send_email">Send</button>
                 </div>
             </form>
@@ -94,7 +91,7 @@
         document.getElementById('rejectNo').value = no;
         document.querySelector('input[name="name"]').value = fname;
         document.querySelector('input[name="recipient_email"]').value = email;
-        // document.querySelector('input[name="row_id"]').value = row_id;
+   
         document.getElementById('popupForm').style.display = 'flex';
     }
 

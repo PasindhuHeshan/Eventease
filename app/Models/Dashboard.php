@@ -148,12 +148,12 @@ class Dashboard {
                 $result = $stmt->get_result();
                 return $result->fetch_assoc();
             } else {
-                return false; // Error fetching item
+                return false;
             }
     
             $stmt->close();
         } else {
-            return false; // Error preparing statement
+            return false; 
         }
     }
     
@@ -171,12 +171,12 @@ class Dashboard {
                 $result = $stmt->get_result();
                 return $result->fetch_assoc();
             } else {
-                return false; // Error fetching item
+                return false; 
             }
     
             $stmt->close();
         } else {
-            return false; // Error preparing statement
+            return false; 
         }
     }
 
