@@ -49,6 +49,11 @@
                             <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
                             <button type="submit" class="button remove-enroll-button<?php echo ($daysUntilEvent <= 7) ? ' disabled' : ''; ?>" <?php echo ($daysUntilEvent <= 7) ? 'disabled' : ''; ?>>Enrolled</button> 
                         </form>
+                        <br/>
+                        <form action="ask.php" method="POST"> 
+                            <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
+                            <button type="submit" class="button remove-enroll-button" <?php echo ($daysUntilEvent <= 7) ? 'disabled' : ''; ?>>Inquiries</button> 
+                        </form>
                         <?php if ($daysUntilEvent <= 7): ?>
                             <p class="notice">*You cannot unenroll from this event as it is within the next 7 days.</p>
                         <?php else: ?>
