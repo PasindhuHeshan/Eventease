@@ -224,7 +224,7 @@ class EventModel {
     }
 
     public function getEventsByStaff($staff) { 
-        $query = "SELECT * FROM events WHERE organizer = ?"; 
+        $query = "SELECT * FROM events join event_members as em on em.event_no=events.no WHERE em.member_id = ? "; 
         $stmt = $this->conn->prepare($query); 
         $stmt->bind_param("s", $staff); 
         $stmt->execute(); 
