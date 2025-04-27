@@ -96,6 +96,11 @@ class UserProfileController
     }
 
     public function review(){
+        $database = new Database();
+        $userModel = new UserModel($database);
+        $username = $_SESSION['username'];
+        $no = isset($_GET['no']) ? $_GET['no'] : null;
+        $eventinq = $userModel->getrev($no,$database);
         require __DIR__ . '/../Views/EventSup/review.php';
     }
 
@@ -108,7 +113,7 @@ class UserProfileController
         $userModel = new UserModel($database);
         $username = $_SESSION['username'];
         $no = isset($_GET['no']) ? $_GET['no'] : null;
-        $eventreviews = $userModel->getreviews($no,$database);
+        $eventreviews = $userModel->getinq($no,$database);
         require __DIR__ . '/../Views/EventSup/inquiry.php';
     }
     public function deleteAccount()

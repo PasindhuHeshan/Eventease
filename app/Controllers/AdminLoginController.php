@@ -18,26 +18,41 @@ class AdminLoginController {
         $purpose = $_POST['purpose'] ?? null;
 
         if (isset($_POST['send_email'])) {
-            $recipient = $_POST['recipient_email'];
+            $recipient_string = $_POST['recipient_email'] ?? null;
             $emailbody = $_POST['email_body'];
             $name = $_POST['name'];
             $subject = $_POST['subject'];
             // $row_id = $_POST['row_id'];
 
-            $body = "Dear " . htmlspecialchars($name) . ",<br><br>" . 
-                    htmlspecialchars($emailbody) . "<br><br>" . 
-                    "Best regards,<br>" . 
+            $body = "Dear " . htmlspecialchars($name) . ",<br><br>" .
+                    htmlspecialchars($emailbody) . "<br><br>" .
+                    "Best regards,<br>" .
                     "The EventEase Team";
-                    nl2br(htmlspecialchars($body));
+            $body = nl2br(htmlspecialchars($body)); // Corrected nl2br placement
 
-            $this->emailModel = new EmailModel(); 
-            $success = $this->emailModel->sendEmail($recipient, $subject, $body);
+            if($purpose == "03"){
+                $this->emailModel = new EmailModel();
+                $recipients_array = array_map(function($email) {
+                    $trimmed_email = trim($email);
+                    if (str_starts_with($trimmed_email, '(') && str_ends_with($trimmed_email, ')')) {
+                        return substr($trimmed_email, 1, -1);
+                    }
+                    return $trimmed_email;
+                }, explode(',', $recipient_string));
 
-            if ($success) {
-                $_SESSION['email_message'] = "Email sent successfully to " . htmlspecialchars($recipient);
+                $success = $this->emailModel->sendBulkEmail($recipients_array, $subject, $body);
+                $recipient_display = htmlspecialchars($recipient_string);
+            } else {
+                $this->emailModel = new EmailModel();
+                $success = $this->emailModel->sendEmail($recipient_string, $subject, $body);
+                $recipient_display = htmlspecialchars($recipient_string);
+            }
+
+            if ($success[0]) {
+                $_SESSION['email_message'] = "Email sent successfully to " . $recipient_display;
                 $_SESSION['email_success'] = true;
             } else {
-                $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
+                $_SESSION['email_message'] = "Error sending email to " . $recipient_display . ": " . $this->emailModel->getErrorInfo();
                 $_SESSION['email_success'] = false;
             }
 
@@ -45,7 +60,7 @@ class AdminLoginController {
                 // $userModel = new UserModel();
                 // $database = new Database();
                 // $userModel->changedisableaccstatus($row_id,$database);
-            }else if($purpose == 01){
+            } else if($purpose == "01"){
                 $database = new Database();
                 $eventModel = new EventModel($database);
                 $row_id = $_POST['inq_no'] ?? null;
@@ -54,7 +69,20 @@ class AdminLoginController {
                 $upcontroller = new UserProfileController($database);
                 header('Location: inquiry?no=' . $event_no);
                 exit();
-            }else{
+            } else if($purpose == "02"){
+                $database = new Database();
+                $eventModel = new EventModel($database);
+                $rev_id = $_POST['rev_no'] ?? null;
+                $event_no = $_POST['event_no'] ?? null;
+                $eventModel->changereviewStatus($rev_id,$database);
+                $upcontroller = new UserProfileController($database);
+                header('Location: review?no=' . $event_no);
+                exit();
+            } else if($purpose == "03"){
+                $event_no = $_POST['event_no'] ?? null;
+                header('Location: addmore?no=' . $event_no);
+                exit();
+            } else {
                 header('Location: index.php?url=feedback.php');
                 exit();
             }

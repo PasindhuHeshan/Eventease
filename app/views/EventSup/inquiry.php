@@ -1,13 +1,6 @@
 <link rel="stylesheet" type="text/css" href="./css/global.css">
 <div class="page">
     <h2>Event Inqueries</h2>
-    <form action="" method="get" class="search-form">
-        <div class="form-group">
-            <label for="search">Search Event</label>
-            <input type="text" name="search" id="search" class="form-control" placeholder="Enter event name" onkeyup="filterNames()">
-        </div>
-        <button type="submit" class="btn primary">Search</button>
-    </form>
     <div class="events">
         <?php foreach ($eventreviews as $review) { ?>
             <div class="event">
@@ -41,21 +34,3 @@
     </div>
 </div>
 
-<script>
-    function filterNames() {
-        var input, filter, events, event, label, i, txtValue;
-        input = document.getElementById('search');
-        filter = input.value.toUpperCase();
-        events = document.getElementsByClassName('event');
-        for (i = 0; i < events.length; i++) {
-            event = events[i];
-            label = event.querySelector('input[name="event"]');
-            txtValue = label.value || label.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                event.style.display = "";
-            } else {
-                event.style.display = "none";
-            }
-        }
-    }
-</script>
