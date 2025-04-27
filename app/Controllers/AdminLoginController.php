@@ -8,6 +8,7 @@ use App\Models\Dashboard;
 use App\Models\Contactus;
 use App\Models\EmailModel;
 use App\Database;
+use App\Controllers\UserProfileController;
 
 class AdminLoginController {
     private $userModel; 
@@ -36,6 +37,15 @@ class AdminLoginController {
                 // $userModel = new UserModel();
                 // $database = new Database();
                 // $userModel->changedisableaccstatus($row_id,$database);
+            }else if($purpose == 01){
+                $database = new Database();
+                $eventModel = new EventModel($database);
+                $row_id = $_POST['inq_no'] ?? null;
+                $event_no = $_POST['event_no'] ?? null;
+                $eventModel->changeinquiryStatus($row_id,$database);
+                $upcontroller = new UserProfileController($database);
+                header('Location: inquiry?no=' . $event_no);
+                exit();
             }else{
                 header('Location: index.php?url=feedback.php');
                 exit();

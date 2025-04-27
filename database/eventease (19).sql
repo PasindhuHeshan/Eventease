@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2025 at 07:10 PM
+-- Generation Time: Apr 27, 2025 at 09:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,15 +33,16 @@ CREATE TABLE `admin_support` (
   `id` int(11) NOT NULL,
   `details` varchar(4000) NOT NULL,
   `contact_no` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `email_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin_support`
 --
 
-INSERT INTO `admin_support` (`no`, `row_id`, `id`, `details`, `contact_no`, `status`) VALUES
-(55, 8, 2, 'account has been blocked', 715286555, 0);
+INSERT INTO `admin_support` (`no`, `row_id`, `id`, `details`, `contact_no`, `status`, `email_status`) VALUES
+(55, 8, 2, 'account has been blocked', 715286555, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,8 @@ CREATE TABLE `admin_support_id` (
 INSERT INTO `admin_support_id` (`id`, `type`) VALUES
 (1, 'Feedback'),
 (2, 'Disable Account'),
-(3, 'Complaint');
+(3, 'Complaint'),
+(4, 'Inquery');
 
 -- --------------------------------------------------------
 
@@ -83,10 +85,16 @@ INSERT INTO `contact_numbers` (`Cnt_No`, `Cnt_num`) VALUES
 (63, '0526998574'),
 (94, '0711320220'),
 (16, '0125478569'),
-(96, '0723456789'),
-(97, '0784565895'),
-(17, '0718596870'),
-(17, '0125465896');
+(11, '0714528965'),
+(100, '0714526589'),
+(101, '0715246555'),
+(103, '0715426556'),
+(17, '0718596877'),
+(17, '0125465896'),
+(53, '0125478569'),
+(104, '0741254788'),
+(105, '0741254788'),
+(106, '0725478596');
 
 -- --------------------------------------------------------
 
@@ -110,11 +118,14 @@ CREATE TABLE `contact_support` (
 
 INSERT INTO `contact_support` (`no`, `name`, `id`, `email`, `contact_no`, `open_time`, `reply_time`) VALUES
 (23, 'sdsa', '3', 'ss@gmail.com', '0125478969', '2025-04-16 06:38:04', NULL),
-(25, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596859', '2025-04-22 09:51:39', '2025-04-16 15:17:02'),
-(26, 'asd', '1', 'asd@stu.ucsc.cmb.ac.lk', '0715286555', '2025-04-19 08:02:22', '2025-04-19 08:05:28'),
-(27, 'asd', '3', 'asd@stu.ucsc.cmb.ac.lk', '0715286555', '2025-04-19 08:03:35', NULL),
-(29, 'san', '1', 'san@gmail.com', '0715286550', '2025-04-19 08:24:44', NULL),
-(30, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596870', '2025-04-23 08:42:48', NULL);
+(25, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596859', '2025-04-26 17:38:05', '2025-04-16 15:17:02'),
+(26, 'asd', '1', 'asd@stu.ucsc.cmb.ac.lk', '0715286555', '2025-04-26 15:45:57', '2025-04-19 08:05:28'),
+(27, 'asd', '3', 'asd@stu.ucsc.cmb.ac.lk', '0715286555', '2025-04-26 15:45:57', NULL),
+(29, 'san', '1', 'san@gmail.com', '0715286550', '2025-04-19 08:24:44', '2025-04-26 08:08:25'),
+(30, 'Seniru', '1', 'seniru@stu.ucsc.cmb.ac.lk', '0718596870', '2025-04-26 17:38:05', NULL),
+(31, 'Navindu', '1', 'se@gmail.com', '0714528965', '2025-04-26 15:33:01', NULL),
+(32, 'navindu', '3', 'navindu9@gmail.com', '0715426556', '2025-04-24 05:30:08', NULL),
+(33, 'aa', '1', 'aa@stu.ucsc.cmb.ac.lk', '0125478569', '2025-04-25 05:57:10', '2025-04-25 05:56:01');
 
 -- --------------------------------------------------------
 
@@ -141,11 +152,16 @@ INSERT INTO `contact_support_data` (`row_no`, `no`, `user_msg`, `admin_msg`) VAL
 (54, 26, 'hi ', ''),
 (55, 27, 'whyy', ''),
 (56, 26, '', 'hi'),
-(65, 29, 'hi i want to know about events', ''),
+(65, 29, 'hi i want to know about events', 'asd'),
 (66, 25, 'yby', ''),
 (67, 25, 'hihu', ''),
 (68, 25, 'hihu', ''),
-(69, 30, '', '');
+(69, 30, '', ''),
+(70, 31, 'i have a problem', ''),
+(71, 31, 'Why this?', ''),
+(72, 32, 'Question', ''),
+(73, 32, 'this is it', ''),
+(79, 31, '', '');
 
 -- --------------------------------------------------------
 
@@ -155,28 +171,27 @@ INSERT INTO `contact_support_data` (`row_no`, `no`, `user_msg`, `admin_msg`) VAL
 
 CREATE TABLE `enroll` (
   `username` varchar(100) NOT NULL,
-  `eventno` int(11) NOT NULL
+  `eventno` int(11) NOT NULL,
+  `attendance_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `enroll`
 --
 
-INSERT INTO `enroll` (`username`, `eventno`) VALUES
-('Seniru', 26),
-('Seniru', 27),
-('ssss', 2),
-('seniru0', 3),
-('Sanduni', 1),
-('seniru', 8),
-('seniru', 1),
-('navindu', 5),
-('seniru', 2),
-('seniru', 3),
-('asdw', 3),
-('asdw', 4),
-('seniru', 4),
-('sanduni', 5);
+INSERT INTO `enroll` (`username`, `eventno`, `attendance_status`) VALUES
+('Seniru', 26, 0),
+('Seniru', 27, 0),
+('ssss', 2, 0),
+('seniru0', 3, 0),
+('Sanduni', 1, 0),
+('asdw', 3, 0),
+('asdw', 4, 0),
+('sanduni', 5, 0),
+('navindu9', 4, 0),
+('aaaa', 4, 0),
+('aaaa', 2, 0),
+('seniru', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -209,19 +224,42 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`no`, `name`, `short_dis`, `long_dis`, `flag`, `time`, `finish_time`, `date`, `location`, `people_limit`, `event_type`, `approvedstatus`, `reason`, `supervisor`, `event_banner`, `organizer`, `orgno`) VALUES
-(1, 'Art Exhibition', 'Futuristic art showcase from renowned artists.', 'Step into a world where imagination meets reality in this cutting-edge art exhibition. Featuring over 50 renowned contemporary artists, \"Visions of the Future\" explores the infinite possibilities of tomorrow through various mediums including paintings, sculptures, digital art, and installations. Each piece challenges conventional perceptions and invites viewers to ponder the future of technology, society, and the environment. Special guided tours and interactive sessions with the artists will provide deeper insights into their visionary creations.', 0, '09:00:00', '00:00:00', '2025-01-15', 'Art Gallery', 150, 'Exhibition', 0, '', 20, 'images/events/banner1.jpeg', 16, 2),
-(2, 'Music Festival', 'Relaxing music in a picturesque park.', 'Experience the perfect blend of music and nature at the \"Sounds of Serenity\" music festival. Set in a picturesque park, this event features acoustic performances, ambient soundscapes, and nature-inspired compositions from world-class musicians. Guests can participate in guided meditation sessions, yoga classes, and mindfulness workshops, all designed to enhance the healing power of music and nature. Enjoy evening bonfires, storytelling sessions, and serene boat rides on the park’s tranquil lake.', 1, '10:00:00', '00:00:00', '2025-02-11', 'City Park', 200, 'Festival', 0, '', 20, 'images/events/banner2.jpeg', 16, 0),
-(3, 'Tech Conference', 'Premier event for tech enthusiasts.', 'Join industry leaders and innovators at \"Innovate 2025,\" the foremost tech conference of the year. This three-day event includes keynote speeches from top tech CEOs, panel discussions on emerging trends, hands-on workshops, and a showcase of the latest gadgets and technologies. Attendees will have the opportunity to network with experts, learn about the future of AI, blockchain, cybersecurity, and more. The conference will also feature innovation challenges, hackathons, and startup pitches, providing a platform for the next generation of tech entrepreneurs.', 1, '08:00:00', '00:00:00', '2025-02-20', 'Convention Center', 300, 'Conference', 0, '', 20, 'images/events/banner3.jpeg', 16, 0),
-(4, 'Film Festival', 'Celebration of international films.', 'Embark on a cinematic journey at \"Cinema Paradiso,\" a festival dedicated to the art of filmmaking. Featuring screenings of over 100 films from around the globe, this event highlights the diversity of storytelling through cinema. Meet acclaimed directors, participate in Q&A sessions, and enjoy special premieres of groundbreaking films. Workshops and masterclasses on screenwriting, directing, and editing are also available for aspiring filmmakers. The festival will also include a special section for independent films and documentaries, providing a platform for emerging voices in cinema.', 1, '11:00:00', '00:00:00', '2025-04-10', 'Film Theater', 250, 'Festival', 0, '', 20, 'images/events/banner1.jpeg', 16, 0),
+(1, 'Art Exhibition', 'Futuristic art showcase from renowned artists.', 'Step into a world where imagination meets reality in this cutting-edge art exhibition. Featuring over 50 renowned contemporary artists, \"Visions of the Future\" explores the infinite possibilities of tomorrow through various mediums including paintings, sculptures, digital art, and installations. Each piece challenges conventional perceptions and invites viewers to ponder the future of technology, society, and the environment. Special guided tours and interactive sessions with the artists will provide deeper insights into their visionary creations.', 0, '09:00:00', '00:00:00', '2025-07-15', 'Art Gallery', 150, 'Exhibition', 1, '', 20, 'images/events/banner1.jpeg', 16, 2),
+(2, 'Music Festival', 'Relaxing music in a picturesque park.', 'Experience the perfect blend of music and nature at the \"Sounds of Serenity\" music festival. Set in a picturesque park, this event features acoustic performances, ambient soundscapes, and nature-inspired compositions from world-class musicians. Guests can participate in guided meditation sessions, yoga classes, and mindfulness workshops, all designed to enhance the healing power of music and nature. Enjoy evening bonfires, storytelling sessions, and serene boat rides on the park’s tranquil lake.', 1, '10:00:00', '00:00:00', '2025-06-11', 'City Park', 200, 'Festival', 0, '', 20, 'images/events/banner2.jpeg', 16, 0),
+(3, 'Tech Conference', 'Premier event for tech enthusiasts.', 'Join industry leaders and innovators at \"Innovate 2025,\" the foremost tech conference of the year. This three-day event includes keynote speeches from top tech CEOs, panel discussions on emerging trends, hands-on workshops, and a showcase of the latest gadgets and technologies. Attendees will have the opportunity to network with experts, learn about the future of AI, blockchain, cybersecurity, and more. The conference will also feature innovation challenges, hackathons, and startup pitches, providing a platform for the next generation of tech entrepreneurs.', 1, '08:00:00', '00:00:00', '2025-05-20', 'Convention Center', 300, 'Conference', 0, '', 20, 'images/events/banner3.jpeg', 16, 0),
+(4, 'Film Festival', 'Celebration of international films.', 'Embark on a cinematic journey at \"Cinema Paradiso,\" a festival dedicated to the art of filmmaking. Featuring screenings of over 100 films from around the globe, this event highlights the diversity of storytelling through cinema. Meet acclaimed directors, participate in Q&A sessions, and enjoy special premieres of groundbreaking films. Workshops and masterclasses on screenwriting, directing, and editing are also available for aspiring filmmakers. The festival will also include a special section for independent films and documentaries, providing a platform for emerging voices in cinema.', 1, '11:00:00', '00:00:00', '2025-05-10', 'Film Theater', 250, 'Festival', 0, '', 20, 'images/events/banner1.jpeg', 16, 0),
 (5, 'Culinary Event', 'Global culinary experience.', 'Indulge in a gastronomic adventure at \"Flavors of the World,\" where chefs from around the globe come together to showcase their culinary artistry. Taste exotic dishes, attend cooking demonstrations, and learn about the cultural significance of various cuisines. This event also features food-related workshops, such as wine pairing, chocolate making, and sustainable cooking practices. A must-attend for food lovers and culinary professionals alike, the event will also host a special farm-to-table dinner under the stars.', 1, '12:00:00', '00:00:00', '2025-05-18', 'Gourmet Hall', 180, 'Event', 0, '', 20, 'images/events/banner4.jpeg', 16, 0),
 (6, 'Literary Festival', 'World of literature and storytelling.', 'Dive into the world of words at the \"Books and Beyond\" literary festival. Featuring renowned authors, poets, and storytellers, this event offers a variety of literary activities including book readings, signings, and panel discussions. Explore the world of publishing, participate in writing workshops, and discover new literary talents. With a dedicated area for children’s literature, the festival is a family-friendly event promoting the joy of reading. Special sessions on digital publishing, e-books, and interactive storytelling will also be part of the festival.', 1, '13:00:00', '00:00:00', '2025-06-22', 'Library Plaza', 200, 'Festival', 0, '', 20, 'images/events/banner5.jpeg', 16, 2),
 (7, 'Wellness Expo', 'Health and wellness expo.', 'Transform your lifestyle at the \"Live Well\" Health and Wellness Expo. This comprehensive event focuses on physical, mental, and emotional well-being, featuring health screenings, fitness classes, and nutrition seminars. Connect with wellness experts, participate in mindfulness sessions, and explore holistic health products. Workshops on stress management, mental health awareness, and alternative therapies provide valuable insights for a balanced life. Additionally, the expo will offer personalized wellness plans and one-on-one consultations with health professionals.', 1, '09:30:00', '00:00:00', '2025-07-15', 'Health Center', 220, 'Expo', 0, '', 20, 'images/events/banner2.jpeg', 16, 0),
 (8, 'Environmental Summit', 'Addressing environmental challenges.', 'Join environmental activists, scientists, and policymakers at the \"Green Future\" summit to tackle pressing ecological issues. This event includes keynote speeches on climate change, biodiversity, and sustainable practices. Participate in roundtable discussions, attend green technology exhibitions, and network with like-minded individuals committed to environmental preservation. Workshops on renewable energy, conservation strategies, and eco-friendly living offer practical solutions for a sustainable future. The summit will also host a special youth forum to engage the next generation in environmental activism.', 1, '14:00:00', '00:00:00', '2025-08-09', 'Eco Center', 300, 'Summit', 0, '', 20, 'images/events/banner1.jpeg', 16, 0),
-(9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '17:30:00', '2025-09-12', 'Fashion Avenue', 150, 'Charity', 0, 'nope', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
+(9, 'Fashion Show', 'Latest trends in fashion.', 'Discover the future of fashion at the \"Runway Revolution\" fashion show. Featuring collections from top designers and emerging talents, this event showcases innovative designs, sustainable fashion, and avant-garde styles. Enjoy live runway shows, fashion exhibitions, and styling workshops. Attendees can also participate in panel discussions on the impact of fashion on society and the environment, and explore the intersection of technology and fashion. Special backstage tours and meet-and-greet sessions with designers will provide an exclusive look into the world of fashion.', 1, '15:30:00', '17:30:00', '2025-09-12', 'Fashion Avenue', 150, 'Charity', 2, 'nope', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
 (10, 'Social Gathering', 'Community social event.', 'Join us for a community social gathering where neighbors can connect, share stories, and enjoy a variety of activities. The event will feature live music, food stalls, games, and a talent show. It’s a perfect opportunity to meet new people and strengthen community bonds.', 1, '00:00:00', '00:00:00', '2025-10-10', 'Community Center', 100, 'Social', 0, '', 20, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 16, 0),
-(11, 'Educational Workshop', 'Interactive learning experience.', 'Participate in an interactive educational workshop designed to enhance your skills and knowledge. This workshop covers a range of topics including technology, science, and arts. Expert instructors will guide you through hands-on activities and provide valuable insights.', 1, '10:00:00', '00:00:00', '2025-11-15', 'Education Hall', 50, 'Educational', 0, '', 20, '0', 16, 0),
-(12, 'Entertainment Night', 'Fun-filled entertainment event.', 'Enjoy a night of entertainment with live performances, comedy acts, and dance shows. This event promises to be a fun-filled evening for all ages. Don’t miss out on the exciting lineup of entertainers and the chance to win prizes in various contests.', 1, '15:40:00', '18:00:00', '2025-09-12', 'Entertainment Arena', 300, 'Entertainment', 0, '', 19, '0', 16, 0),
-(19, 'Awurudu2', '', 'asdadasdasdasdasdasdw', 0, '09:32:00', '11:32:00', '2025-05-08', 'NAT', 1000, 'Educational', 1, '', 94, 'images/events/Gemini_Generated_Image_paf4tgpaf4tgpaf4.jpeg', 17, 0);
+(11, 'Educational Workshop', 'Interactive learning experience.', 'Participate in an interactive educational workshop designed to enhance your skills and knowledge. This workshop covers a range of topics including technology, science, and arts. Expert instructors will guide you through hands-on activities and provide valuable insights.', 1, '10:00:00', '00:00:00', '2025-11-15', 'Education Hall', 50, 'Educational', 1, '', 20, 'images/events/Gemini_Generated_Image_paf4tgpaf4tgpaf4.jpeg', 16, 0),
+(12, 'Entertainment Night', 'Fun-filled entertainment event.', 'Enjoy a night of entertainment with live performances, comedy acts, and dance shows. This event promises to be a fun-filled evening for all ages. Don’t miss out on the exciting lineup of entertainers and the chance to win prizes in various contests.', 1, '15:40:00', '18:00:00', '2025-09-12', 'Entertainment Arena', 300, 'Entertainment', 1, '', 19, 'images/events/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 19, 0),
+(19, 'Awurudu2', '', 'asdadasdasdasdasdasdw', 0, '09:32:00', '11:32:00', '2025-05-08', 'NAT', 1000, 'Educational', 0, '', 94, 'images/events/Gemini_Generated_Image_paf4tgpaf4tgpaf4.jpeg', 17, 0),
+(21, 'awurudu', NULL, 'dis', 0, '10:43:00', '16:43:00', '2025-04-30', 'Ground', 1000, 'Culture', 0, '', 94, 'images/events/event.png', 16, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_ask`
+--
+
+CREATE TABLE `event_ask` (
+  `inq_no` int(11) NOT NULL,
+  `event_no` int(11) NOT NULL,
+  `user_no` int(11) NOT NULL,
+  `message` varchar(1000) NOT NULL,
+  `answered` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `event_ask`
+--
+
+INSERT INTO `event_ask` (`inq_no`, `event_no`, `user_no`, `message`, `answered`) VALUES
+(1, 12, 17, '54646', 1),
+(2, 12, 103, 'efwef', 0);
 
 -- --------------------------------------------------------
 
@@ -241,9 +279,13 @@ CREATE TABLE `event_inventory` (
 --
 
 INSERT INTO `event_inventory` (`event_id`, `inventory_item`, `quantity`, `status`) VALUES
+(1, 14, 12, 0),
+(5, 1, 2, 1),
+(5, 18, 3, 1),
 (9, 15, 2, 1),
 (9, 17, 2, 1),
-(12, 17, 2, 1),
+(12, 3, 1, 0),
+(12, 18, 5, 0),
 (19, 3, 2, 0),
 (19, 18, 5, 0);
 
@@ -264,7 +306,23 @@ CREATE TABLE `event_members` (
 --
 
 INSERT INTO `event_members` (`event_no`, `member_id`, `event_role_id`) VALUES
-(19, 97, 0);
+(12, 17, 1),
+(4, 17, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_review`
+--
+
+CREATE TABLE `event_review` (
+  `review_no` int(11) NOT NULL,
+  `event_no` int(11) NOT NULL,
+  `user_no` int(11) NOT NULL,
+  `review` varchar(1000) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `reviewed` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -408,7 +466,8 @@ CREATE TABLE `rolereq` (
 
 INSERT INTO `rolereq` (`no`, `role`, `organization`, `status`, `reason`, `reply`) VALUES
 (17, '3', 2, 1, 'asd', ''),
-(63, '3', 0, 0, 'i want to be an event organizer', '');
+(63, '3', 0, 0, 'pls i want to be an event organizer', 'asdadasdada'),
+(100, '3', 0, 0, 'reason for that', '');
 
 -- --------------------------------------------------------
 
@@ -462,21 +521,25 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`No`, `username`, `password`, `fname`, `lname`, `email`, `usertype`, `id`, `address`, `city`, `profile_picture`, `status`, `created_at`, `updated_at`) VALUES
 (10, 'sanduni', '$2y$10$VB/Zi7XXE/gFY.64z8o7a.jric8faY3mLJwBCXynOtpP1SNSIgGBq', 'Sanduni', '', 'saduni@stu.ucsc.cmb.lk', '0', 'ucsc', '2', '2', 'images/profiles/BlackRock-windows10Wallpapers.jpg', 1, '2024-11-28 13:00:52', '2025-04-14 09:56:42'),
-(11, 'navindu', '$2y$10$gLOWumpp8eS6JnsCrLrK.uJP4y9hr/wNfQ5tM/TlkSnh9ScaPFfGq', 'Navindu', 'Thilakshana', 'se@gmail.com', '2', '200234600111', 'asd', 'asd', NULL, 1, '2024-11-28 13:27:11', '2025-04-07 08:01:08'),
+(11, 'navindu', '$2y$10$gLOWumpp8eS6JnsCrLrK.uJP4y9hr/wNfQ5tM/TlkSnh9ScaPFfGq', 'Navindu', 'Thilakshana', 'se@gmail.com', '2', '200234600111', 'asdasdasdadsa', 'asd', NULL, 1, '2024-11-28 13:27:11', '2025-04-24 04:54:35'),
 (16, 'pasindu', '$2y$10$.6eQk7X78Q.s2vhu3IG77uPC9YH5/3JKzVZ.mutH0Z0EkGP6z3YUa', 'Pasindu', 'Heshan', 'seniru@stu.ucsc.cmb.lk', '3', '22020782', 'Sama Mawatha', 'Kottawa', 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', 1, '2024-11-28 14:55:07', '2025-04-07 06:44:36'),
-(17, 'seniru', '$2y$10$OKNPBhPharr9wqV2FS1MPONXDVA2gVqOcgAM1TiBqA3OgVE/xqvnW', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.ac.lk', '3', '22020782', 'Sama Mawatha', 'Homagama', 'images/profiles/Screenshot (3).png', 1, '2024-11-28 15:02:04', '2025-04-23 08:46:28'),
+(17, 'seniru', '$2y$10$OKNPBhPharr9wqV2FS1MPONXDVA2gVqOcgAM1TiBqA3OgVE/xqvnW', 'Seniru', 'Ranasinghe', 'seniru@stu.ucsc.cmb.ac.lk', '3', '22020782', 'Sama Mawatha', 'Homagama', 'images/profiles/Gemini_Generated_Image_qe545jqe545jqe54.jpeg', 1, '2024-11-28 15:02:04', '2025-04-27 05:02:48'),
 (19, 'pasindu2', '$2y$10$tYxF4J6sEY6EYZdwf6RodOSSFmOkyaym3FgHLN51xaDqyJoevdm/O', 'Pasindu', 'aa', 'aa@gmail.com', '4', '0', '12', '`12', NULL, 1, '2024-11-29 04:55:05', '2025-04-07 06:44:37'),
 (20, 'navindu2', '$2y$10$tyZ0/xUexSm8mGn8WT9WHe9AaHcjrmusKBLLV6soRYc/UQ0ZY446C', 'Navindu', 'T', 'se@gmail.com', '5', '0', '12', '12', NULL, 1, '2024-11-29 05:01:30', '2025-04-07 06:44:37'),
 (51, 'aaaa', '$2y$10$dAcHXcRFqhUExqHjnXC2EemXfy0uF/QPY9yJB7G8RpytFVDnBFHlO', 'as', 'asd', 'asd@gmail.com', '2', '200234600222', '45', '5', NULL, 1, '2025-04-07 08:05:54', '2025-04-14 11:57:21'),
 (52, 'wwww', '$2y$10$zeZWyCGr5MUQ.4NB698tROQerAAveVQ5k40aO7Br0Tw2PbGNwO7ne', 'aaaa', 'aaaa', 'aaa@stu.ucsc.cmb.ac.lk', '1', '22020782', '12', '12', NULL, 1, '2025-04-07 08:07:12', '2025-04-07 08:07:26'),
-(53, 'asds', '$2y$10$N5W8aWgM9VVABlaAmHA.YuLID3ql/9R9y54I4dp0VWHdL4GeVsPuy', 'aa', 'aa', 'aa@stu.ucsc.cmb.ac.lk', '1', '00', 'a', 'd', NULL, 1, '2025-04-07 08:16:19', '2025-04-07 08:16:19'),
+(53, 'asds', '$2y$10$N5W8aWgM9VVABlaAmHA.YuLID3ql/9R9y54I4dp0VWHdL4GeVsPuy', 'aa', 'aa', 'aa@stu.ucsc.cmb.ac.lk', '1', '00', 'tydytdtydtydty', 'd', 'images/profiles/banner1.jpeg', -1, '2025-04-07 08:16:19', '2025-04-25 12:55:23'),
 (54, 'asdasd', '$2y$10$6wM7eI4KOdRRKTiEFKBJQ.5xeBUk8CtwXdY60JZE1lV67DJlDQlwC', 'ss', 'ss', 'ss@stu.ucsc.cmb.ac.lk', '1', '00', '22', '22', NULL, 1, '2025-04-07 08:18:29', '2025-04-07 08:18:29'),
 (55, 'asdasdf', '$2y$10$NI3lDVxH.XIpVHF17ssmkeMxDqCihM2QXApR.5IuwQDtqC9NjCKKi', 'asd', 'asd', 'asd@stu.ucsc.cmb.ac.lk', '1', '22020782', '22', '22', NULL, 0, '2025-04-07 08:20:02', '2025-04-19 07:55:39'),
 (56, 'asdasdfg', '$2y$10$7GMBqafL3MwgnyxUBW0LNOg2XMxzX2xr4xa3T6UgaweQ9.IU9MrKO', 'asd', 'asd', 'asd@gmail.com', '2', '200234655555', '123', '123', NULL, 1, '2025-04-07 08:21:20', '2025-04-07 08:21:20'),
 (63, 'qqqq', '$2y$10$rgWvw0e4SB37ZgmHhXybPedBHEkZroYPywdA3pNUMgg7W40IhWTSm', 'asd', 'asa', 'asd@stu.ucsc.cmb.ac.lk', '1', '22020258', 'asd', 'asd', NULL, 1, '2025-04-09 15:29:05', '2025-04-19 07:55:34'),
-(94, 'Kaushi', '$2y$10$EzRS8fiKrzhS4RwhK1zJWuQFdHKvjklz4mcaAlPO1C1j58RVfVmWm', 'Kaushi', 'Wijewardhana', 'sanduniwijewardhane@gmail.com', '5', '22021180', 'colombo', 'colombo7', NULL, 1, '2025-04-19 07:49:08', '2025-04-19 07:51:45'),
-(96, 'seniru3', '$2y$10$9ID9VBJEypR6HnzA9EaF3eEqlKahIIMPtuTXTtat3NWlP7DhNU9Aa', 'asd', 'asd', '2202is078@stu.ucsc.cmb.ac.lk', '1', '22020782', 'asdasdadasd', 'asd', NULL, 1, '2025-04-23 06:51:51', '2025-04-23 06:51:51'),
-(97, 'seniru7', '$2y$10$3k9Id5d5ugjxE0lRTwRiAeoft.ChH5CRhgnuF7gFLBm0bjQYu3Q4G', 'asd', 'asd', '22020782@stu.ucsc.cmb.ac.lk', '2', '200234600527', 'dasdasasdasdsad', 'asd', NULL, 1, '2025-04-23 07:16:39', '2025-04-23 07:17:57');
+(94, 'Kaushi', '$2y$10$EzRS8fiKrzhS4RwhK1zJWuQFdHKvjklz4mcaAlPO1C1j58RVfVmWm', 'Kaushi', 'Wijewardhana', '2022is079@gmail.com', '5', '22021180', 'colombo', 'colombo7', NULL, 1, '2025-04-19 07:49:08', '2025-04-24 04:30:31'),
+(100, 'seniru5', '$2y$10$q4ZWVM0E8vFtKXPy4jWsd.chwOMgiFeE/QGjErhiAwW1D6bx5.Rdu', 'Seniru', 'Ranasinghe', '2022is077@stu.ucsc.cmb.ac.lk', '1', '22020782', 'No12, sama mawath', 'Colombo', 'images/profiles/WP_20190224_13_38_15_Pro_LI.jpg', 1, '2025-04-24 05:12:22', '2025-04-24 05:18:07'),
+(101, 'seniru8', '$2y$10$ET7iKWSXGlB.XQgxpniWcOUTNYa156NPGJhd132.ZctIy1VEQPNQO', 'Seniru', 'Ranasinghe', '2022is078@stu.ucsc.cmb.ac.lk', '5', '22020782', 'no1,sama mawatha', 'colombo', NULL, 1, '2025-04-24 05:18:20', '2025-04-24 05:21:21'),
+(103, 'navindu9', '$2y$10$yw7FJMyId8W5f5T6SQ.PjeVKYj3tFfA7H9DoW0JUs5iyJ8l4rS4dm', 'navindu', 'perera', 'navindu9@gmail.com', '2', '200234600524', 'No,1,sama mawatha', 'colombo', NULL, -1, '2025-04-24 05:28:50', '2025-04-24 05:30:23'),
+(104, 'senirur', '$2y$10$k/WZZiKke5BkHXVW2oXXPOzriPfY4WMqxKcQdOC3.t5CAUaH3UVjG', 'asd', 'asd', '2022is178@stu.ucsc.cmb.ac.lk', '1', '22020782', 'No.22,Sumangala Mawatha', 'Colombo', NULL, 1, '2025-04-26 20:28:36', '2025-04-26 20:28:36'),
+(105, 'senirurr', '$2y$10$buHBO.8jpHQpmUPJZgGPdu0/x8CWfc00BYGmP/Npq8X9R9nPJaSNO', 'asd', 'asd', '2022is177@stu.ucsc.cmb.ac.lk', '1', '22020782', 'No.22,Sumangala Mawatha', 'Colombo', NULL, 1, '2025-04-26 20:36:55', '2025-04-26 20:36:55'),
+(106, 'seniru22', '$2y$10$ydsqyciCZune/2Cz1ib00OWl1HK5xnZwhoDNy.BUU1NOW2XFO9gfa', 'seniru', 'Sr', 'asd1@gmail.com', '2', '200234600527', 'asdasdadasasd', 'asdasd', NULL, 1, '2025-04-26 21:16:42', '2025-04-26 21:16:42');
 
 --
 -- Indexes for dumped tables
@@ -524,6 +587,14 @@ ALTER TABLE `events`
   ADD KEY `supervisor` (`supervisor`);
 
 --
+-- Indexes for table `event_ask`
+--
+ALTER TABLE `event_ask`
+  ADD PRIMARY KEY (`inq_no`),
+  ADD KEY `event_no` (`event_no`),
+  ADD KEY `user_no` (`user_no`);
+
+--
 -- Indexes for table `event_inventory`
 --
 ALTER TABLE `event_inventory`
@@ -538,6 +609,12 @@ ALTER TABLE `event_members`
   ADD PRIMARY KEY (`event_no`,`member_id`),
   ADD KEY `member_id` (`member_id`),
   ADD KEY `event_role_id` (`event_role_id`);
+
+--
+-- Indexes for table `event_review`
+--
+ALTER TABLE `event_review`
+  ADD PRIMARY KEY (`review_no`);
 
 --
 -- Indexes for table `event_role`
@@ -604,19 +681,31 @@ ALTER TABLE `admin_support`
 -- AUTO_INCREMENT for table `contact_support`
 --
 ALTER TABLE `contact_support`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `contact_support_data`
 --
 ALTER TABLE `contact_support_data`
-  MODIFY `row_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `row_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `event_ask`
+--
+ALTER TABLE `event_ask`
+  MODIFY `inq_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `event_review`
+--
+ALTER TABLE `event_review`
+  MODIFY `review_no` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -634,7 +723,7 @@ ALTER TABLE `organizations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- Constraints for dumped tables
@@ -665,6 +754,13 @@ ALTER TABLE `contact_support_data`
 ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`orgno`) REFERENCES `organizations` (`orgno`),
   ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`supervisor`) REFERENCES `users` (`No`);
+
+--
+-- Constraints for table `event_ask`
+--
+ALTER TABLE `event_ask`
+  ADD CONSTRAINT `event_ask_ibfk_1` FOREIGN KEY (`event_no`) REFERENCES `events` (`no`),
+  ADD CONSTRAINT `event_ask_ibfk_2` FOREIGN KEY (`user_no`) REFERENCES `users` (`No`);
 
 --
 -- Constraints for table `event_inventory`
