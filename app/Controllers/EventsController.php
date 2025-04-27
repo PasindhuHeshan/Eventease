@@ -21,6 +21,7 @@ class EventsController {
         $username = $_SESSION['username'];
         $userData = $this->userModel->getUserData($username,$database);
         $events = $this->eventModel->getEventsByStaff($userData['No']);
+        $orgevents = $this->eventModel->getEventsByOrganizer($userData['No']);
         
         include __DIR__ . '/../Views/EventOrg/myevents.php';
     }
@@ -33,6 +34,7 @@ class EventsController {
         $staffMembers = $this->eventModel->getStaffMembers();
         $geteventstaffmembers = $this->eventModel->getEventStaffMembers($eventno);
         $eventData = $this->eventModel->getEvent($eventno);
+        $recipientemails  = $this->eventModel->getEventEnrollPeople($eventno);
         $eventsinventory = $this->eventModel->geteventsinventory($eventData['date'], $eventData['finish_time'], $eventData['date'], new Database());
         $getthiseventinventory = $this->eventModel->getInventoryRequested($eventno);
 

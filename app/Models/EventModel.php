@@ -431,7 +431,28 @@ class EventModel {
 
         return $result;
     }   
+  
+    public function changereviewStatus($review_no,$database) {
+        $query = "UPDATE event_review SET reviewed = 1 WHERE review_no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $review_no);
+        $result = $stmt->execute();
+        $stmt->close();
 
+        return $result;
+    }  
+
+    public function getEventEnrollPeople($eventno){
+        $query = "SELECT u.email FROM enroll e JOIN users u ON e.username = u.username WHERE e.eventno = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $eventno);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+  
     public function getEventStatistics($eventNo) {
         $stats = [];
 
@@ -510,6 +531,7 @@ class EventModel {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+  
     public function getManagementOrg($eventNo) {
         $staff = [];
         $query = "SELECT u.fname, u.lname FROM users u
@@ -537,3 +559,4 @@ class EventModel {
     }
     
 }
+

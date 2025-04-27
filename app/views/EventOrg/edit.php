@@ -503,25 +503,23 @@
                 </form>
 
                 <!-- Notification Management Form -->
-                <form action="processEvent" method="post" id="notificationManagementForm">
+                <form action="process_send_email" method="post" id="notificationManagementForm">
                     <div id="notification-management" class="content-section">
                         <h3>Notification Management</h3>
+                        <?php print_r($recipientemails) ?>
                         <div class="form-group">
                             <label for="notification_title">Title</label>
-                            <input type="text" name="notification_title" id="notification_title" class="form-control"
-                                required>
+                            <input type="text" name="subject" id="subject" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="notification_description">Description</label>
-                            <textarea name="notification_description" id="notification_description" class="form-control"
-                                required></textarea>
+                            <textarea name="email_body" id="email_body" class="form-control" required></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="notification_receivers">Receivers</label>
-                            <input type="text" name="notification_receivers" id="notification_receivers"
-                                class="form-control" required>
-                        </div>
-                        <button type="submit" name="send_notification" class="btn primary">Send
+                        <input type="text" name="purpose" value="03" hidden>
+                        <input type="hidden" name="name" value="User">
+                        <input type="hidden" name="recipient_email" value="<?php echo $recipientemails; ?>">
+                        <input type="hidden" name="event_no" value="<?php echo isset($eventData['no']) ? $eventData['no'] : ''; ?>">
+                        <button type="submit" name="send_email" class="btn primary">Send
                             Notification</button>
                     </div>
                 </form>

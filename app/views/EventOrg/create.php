@@ -309,9 +309,7 @@
             <?php } ?>
         </form>
     </div>
-</div>
-
-<script>
+</div><script>
 document.getElementById('event_banner').addEventListener('change', function() {
     var fileName = this.files[0].name;
     document.getElementById('file-name').textContent = fileName;
@@ -320,8 +318,8 @@ document.getElementById('event_banner').addEventListener('change', function() {
 document.addEventListener("DOMContentLoaded", function() {
     const supervisorSearch = document.getElementById('supervisorSearch');
     const supervisorResults = document.getElementById('supervisorResults');
-    const selectedSupervisorId = document.getElementById('selectedSupervisorId');
-    
+    const supervisorInput = document.querySelector('input[name="supervisor"]'); // The text input itself
+
     // Sample supervisor data (replace with your actual PHP data)
     const supervisors = [
         <?php foreach ($supervisors as $sup): ?>{
@@ -334,16 +332,16 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to filter and display results
     function searchSupervisors(query) {
         supervisorResults.innerHTML = '';
-        
+
         if (query.length < 2) {
             supervisorResults.style.display = 'none';
             return;
         }
-        
-        const filtered = supervisors.filter(sup => 
+
+        const filtered = supervisors.filter(sup =>
             sup.name.toLowerCase().includes(query.toLowerCase())
         );
-        
+
         if (filtered.length === 0) {
             const noResults = document.createElement('div');
             noResults.className = 'supervisor-result-item';
@@ -354,39 +352,48 @@ document.addEventListener("DOMContentLoaded", function() {
                 const item = document.createElement('div');
                 item.className = 'supervisor-result-item';
                 item.textContent = sup.name;
-                item.dataset.id = sup.id;
+                item.dataset.id = sup.id; // Store the ID
                 item.addEventListener('click', function() {
-                    supervisorSearch.value = sup.name;
-                    selectedSupervisorId.value = sup.id;
+                    supervisorSearch.value = sup.name; // Set the name in the input field
+                    supervisorInput.dataset.selectedId = sup.id; // Store the ID in a data attribute
                     supervisorResults.style.display = 'none';
                 });
                 supervisorResults.appendChild(item);
             });
         }
-        
+
         supervisorResults.style.display = 'block';
     }
 
-    // Event listeners
+    // Event listener for input
     supervisorSearch.addEventListener('input', function() {
         searchSupervisors(this.value);
+        // Remove the stored ID when the user types again
+        delete supervisorInput.dataset.selectedId;
     });
-    
+
+    // Before form submission, set the actual value of the supervisor input to the selected ID
+    const eventForm = document.querySelector('form');
+    eventForm.addEventListener('submit', function() {
+        if (supervisorInput.dataset.selectedId) {
+            supervisorInput.value = supervisorInput.dataset.selectedId;
+        }
+    });
+
     // Hide results when clicking outside
     document.addEventListener('click', function(e) {
         if (!supervisorSearch.contains(e.target) && !supervisorResults.contains(e.target)) {
             supervisorResults.style.display = 'none';
         }
     });
-    
-    // If editing an event with existing supervisor, pre-fill the field
+
+    // If editing, pre-fill the search field (we'll rely on the server to know the ID)
     <?php if (isset($eventData['supervisor']) && $eventData['supervisor']): ?>
         const existingSup = supervisors.find(sup => sup.id == "<?php echo $eventData['supervisor']; ?>");
         if (existingSup) {
             supervisorSearch.value = existingSup.name;
-            selectedSupervisorId.value = existingSup.id;
+            supervisorInput.dataset.selectedId = existingSup.id; // Store the ID
         }
     <?php endif; ?>
 });
 </script>
-

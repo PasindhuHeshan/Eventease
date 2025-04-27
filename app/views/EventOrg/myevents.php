@@ -7,8 +7,8 @@
 <div class="page">
     <h2>My Events</h2>
     <div class="events">
-        <?php if (!empty($events)): ?>
-            <?php foreach ($events as $event): ?>
+        <?php if (!empty($orgevents)): ?>
+            <?php foreach ($orgevents as $event): ?>
                 <?php
                     $userType = $userData['usertype']; // Assuming userData contains the user type
                     $eventLink = '';
