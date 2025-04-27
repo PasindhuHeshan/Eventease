@@ -44,7 +44,7 @@
                         <tr>
                             <td><label for="email">Email</label></td>
                             <td>
-                                <input type="email" id="email" name="email" placeholder="Enter your Email">
+                                <input type="email" id="email" name="email" placeholder="Enter your Email" required>
                                 <?php if (isset($_SESSION['errors']['email'])): ?>
                                     <div class="error"><?php echo $_SESSION['errors']['email']; ?></div>
                                 <?php endif; ?>

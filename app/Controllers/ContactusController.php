@@ -35,10 +35,7 @@ class ContactusController{
     if (strlen($contact_no) != 10 || !ctype_digit($contact_no)) {
         $errors['contact_no'] = "Contact number must be exactly 10 digits.";
     }
-
-    if ($type=='2' && strpos($email, '@stu.ucsc.cmb.ac.lk') === false) {
-        $errors['email'] = "Email must be a valid address";
-    }
+    
 
     if (!empty($errors)) {
         $_SESSION['errors'] = $errors;
@@ -53,11 +50,11 @@ class ContactusController{
     if($type === '2'){
         $userData = $usermodel->getUserDatabyemail($email, $database);
 
-        if($userData){
+        if($userData && $userData['status']==0 ){
             $contactus->disableacc($userData['No'], $type, $contact_no, $feedback, $database);
             unset($_SESSION['errors']);
         }else{
-            $errors['email'] = "Email not found in the database.";
+            $errors['email'] = "Email not found in the database or account is not disabled.";
             $_SESSION['errors'] = $errors;
         }
         include __DIR__ . '/../Views/events/contactus.php';
@@ -99,7 +96,7 @@ class ContactusController{
             }
         }
         
-        $email = isset($_POST['email']) ? $_POST['email'] : null;
+        $email = isset($_POST['email']) ? $_POST['email'] : null;//admin
         
         if (!$userData) {
             $_SESSION['errors'] = ["Error: User not found."];
@@ -111,7 +108,7 @@ class ContactusController{
             $contactus = new contactus();
             $chats = $contactus->getChatDetails($email, $database);
             require __DIR__ . '/../Views/events/chat.php';
-        }else{
+        }else{//mine
             $contactus = new contactus();
             $contactus->updateopentime($userData['email'], $database);
             $chats = $contactus->getChatDetails($userData['email'], $database);
