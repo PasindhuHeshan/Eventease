@@ -26,9 +26,12 @@
     <!-- Event Table -->
     <table>
         <thead>
+            <!-- php print_r($events); -->
             <tr>
                 <th>No</th>
                 <th>Event Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
                 <th>View Inventory Requested</th>
             </tr>
         </thead>
@@ -39,6 +42,8 @@
                 <tr class="event_row" data-event-type="<?php echo htmlspecialchars($event['event_type']); ?>">
                     <td><?php echo htmlspecialchars($event['no']); ?></td>
                     <td><?php echo htmlspecialchars($event['name']); ?></td>
+                    <td><?php echo htmlspecialchars($event['time']); ?></td>
+                    <td><?php echo htmlspecialchars($event['finish_time']); ?></td>
                     <td>
                         <form action="adminviewevent" method="post">
                             <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event['event_id']); ?>">
