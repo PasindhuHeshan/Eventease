@@ -335,6 +335,15 @@ switch ($url) {
     //     $hcontroller->render();
     //     $alcontroller->rejectcomplaint();
     //     break;
+
+    case 'ask.php':
+        $hcontroller->render();
+        $cucontroller->ask();
+        break;
+    case 'submitask':
+        $hcontroller->render();
+        $cucontroller->submitask();
+        break;
     default:
         $hcontroller->render();
         $econtroller->index();

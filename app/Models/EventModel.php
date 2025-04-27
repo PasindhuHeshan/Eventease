@@ -391,4 +391,14 @@ class EventModel {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function changeinquiryStatus($review_no,$database) {
+        $query = "UPDATE event_ask SET answered = 1 WHERE inq_no = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $review_no);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }   
 }

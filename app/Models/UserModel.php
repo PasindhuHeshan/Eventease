@@ -528,5 +528,24 @@ class UserModel {
             return [];
         }
     }
+
+    public function getreviews($eventno, Database $database){
+        $conn = $database->getConnection();
+        $sql = "SELECT * FROM event_ask join events on events.no = event_ask.event_no join users on users.No = event_ask.user_no WHERE event_no = ? and event_ask.answered = 0";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $eventno);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $reviews = [];
+            while ($row = $result->fetch_assoc()) {
+                $reviews[] = $row;
+            }
+            return $reviews;
+        } else {
+            return [];
+        }
+    }
 }
 ?>
