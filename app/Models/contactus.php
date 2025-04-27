@@ -151,11 +151,23 @@ class contactus {
         return $success;
     }
     
-    public function insertask($event_no, $user_no, $type, $message, Database $database) {
+    public function insertask($event_no, $user_no, $message, Database $database) {
         $conn = $database->getConnection();
-        $query = "INSERT INTO event_ask (event_no, user_no, type, message) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO event_ask (event_no, user_no, message) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssss", $event_no, $user_no, $type, $message);
+        $stmt->bind_param("sss", $event_no, $user_no, $message);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function insertreview($event_no, $user_no, $message, Database $database) {
+        $conn = $database->getConnection();
+        $query = "INSERT INTO event_review (event_no, user_no,review) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("sss", $event_no, $user_no, $message);
         if ($stmt->execute()) {
             return true;
         } else {
