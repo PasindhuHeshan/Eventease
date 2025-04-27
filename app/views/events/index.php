@@ -52,7 +52,7 @@ if ($upevent === null) {
         <?php include 'main.php'; ?>
     </main>
 
-    <?php if($username != "Guest" && $upevent != "NO"){ ?>
+    <?php if($username != "Guest" && ($upevent != "NO" || $uppastevents != null)){ ?>
         <aside class="rside" id="rside">
             <?php include 'upcoming.php'; ?>
         </aside>

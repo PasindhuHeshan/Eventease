@@ -165,6 +165,20 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAllUpcomingpastEvents($username) {
+        $query = "SELECT * FROM events INNER JOIN enroll ON events.no = enroll.eventno WHERE enroll.username = ? AND date < CURDATE() order by date asc";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows === 0) {
+            return null;
+        }
+    
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function createEvent($name, $short_dis, $long_dis, $flag, $time, $finish_time, $date, $location, $people_limit, $event_type, $approvedstatus, $supervisor, $target_file, $organizer) {
         $query = "INSERT INTO events (name, short_dis, long_dis, flag, time, finish_time, date, location, people_limit, event_type, approvedstatus, supervisor, event_banner, organizer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
         $stmt = $this->conn->prepare($query); 

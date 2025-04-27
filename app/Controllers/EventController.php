@@ -23,6 +23,7 @@ class EventController
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
         $events = $this->eventModel->getAllEvents();
         $upevents = $this->eventModel->getAllupcomingEvents($username);
+        $uppastevents = $this->eventModel->getAllupcomingpastEvents($username);
         $_SESSION['upevent'] = $upevents;
         $deletemessage = null;
         include __DIR__ . '/../Views/events/index.php';
