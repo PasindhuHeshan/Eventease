@@ -97,7 +97,7 @@
 
 <div id="popupForm" class="popup-form">
     <div class="popup-content">
-        <span class="close" onclick="closePopup()">x;</span>
+        <span class="close" onclick="closePopup()">x</span>
         <div class="container">
             <form action="process_send_email" method="post">
                 <h2>General Complaints</h2>
@@ -113,6 +113,7 @@
                 </div>
                 <div class="form-group">
                 <input type="hidden" name="subject" value="Thank you for your valuable feedback!">
+                <input type="text" name="purpose" value="00" hidden>
                     <button type="submit" name="send_email">Submit</button>
                 </div>
             </form>
@@ -127,9 +128,9 @@
         document.getElementById('registeredTable').style.display = selectedValue === 'registered' ? 'block' : 'none';
     }
 
-    function openchat(){
-        window.location.href = "chat.php";
-    }
+    // function openchat(){
+    //     window.location.href = "chat.php";
+    // }
 
     function openPopup(row) {
         document.getElementById('row_no').value = row.row_no;

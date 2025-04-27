@@ -50,8 +50,13 @@ class SigninController {
                         $userModel->createContactNumber($userId, $contactno2, $database);
                     }
     
-                    header("Location: ../public/login.php?payment=success");
-                    exit();
+                    if(isset($_POST['formname'])){
+                        header("Location: ../public/login.php?message=1");    
+                        exit();
+                    }else{
+                        header("Location: ../public/login.php?message=2");
+                        exit();
+                    }
                 } else {
                     $_SESSION['error'] = 'User creation failed!';
                     header("Location: ../public/index.php?url=signin.php");

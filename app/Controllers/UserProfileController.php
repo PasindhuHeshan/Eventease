@@ -104,6 +104,11 @@ class UserProfileController
     }
 
     public function inquiry(){
+        $database = new Database();
+        $userModel = new UserModel($database);
+        $username = $_SESSION['username'];
+        $no = isset($_GET['no']) ? $_GET['no'] : null;
+        $eventreviews = $userModel->getreviews($no,$database);
         require __DIR__ . '/../Views/EventSup/inquiry.php';
     }
     public function deleteAccount()

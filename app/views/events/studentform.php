@@ -5,11 +5,9 @@
     <script>
         function showNextStep(currentStep, nextStep) {
             if (nextStep.startsWith('step') && parseInt(nextStep.slice(4)) < parseInt(currentStep.slice(4))) {
-                // Moving backward, no validation needed for the *next* step (which is the current one)
                 document.getElementById(currentStep).style.display = 'none';
                 document.getElementById(nextStep).style.display = 'block';
             } else {
-                // Moving forward, validate the current step
                 if (validateStep(currentStep)) {
                     document.getElementById(currentStep).style.display = 'none';
                     document.getElementById(nextStep).style.display = 'block';
@@ -21,7 +19,6 @@
             }
         }
 
-        // Existing usernames and emails passed from PHP
         var existingUsernames = <?php echo json_encode($usernames); ?>;
         var existingEmails = <?php echo json_encode($emails); ?>;
 
@@ -30,30 +27,39 @@
             var valid = true;
             for (var i = 0; i < inputs.length; i++) {
                 var errorDiv = document.getElementById(inputs[i].id + '_error');
+                var errorRow = errorDiv.closest('tr');
                 if (inputs[i].value.trim() === '') {
                     errorDiv.textContent = "This field is required.";
+                    errorRow.style.display = 'table-row';
                     valid = false;
                 } else {
                     errorDiv.textContent = "";
+                    errorRow.style.display = 'none';
                 }
 
                 if (inputs[i].type === 'email' && !validateEmail(inputs[i].value)) {
                     errorDiv.textContent = "Please enter a valid email address ending with @stu.ucsc.cmb.ac.lk.";
+                    errorRow.style.display = 'table-row';
                     valid = false;
                 } else if (inputs[i].id === 'id' && !validateID(inputs[i].value)) {
                     errorDiv.textContent = "Please enter a valid University ID.";
+                    errorRow.style.display = 'table-row';
                     valid = false;
                 } else if (inputs[i].id === 'contactno1' && !validatePhoneNumber(inputs[i].value)) {
                     errorDiv.textContent = "Please enter a valid contact number.";
+                    errorRow.style.display = 'table-row';
                     valid = false;
                 } else if (inputs[i].id === 'address' && !validateAddress(inputs[i].value)) {
                     errorDiv.textContent = "Address must be at least 10 characters long.";
+                    errorRow.style.display = 'table-row';
                     valid = false;
                 } else if (inputs[i].id === 'email' && existingEmails.includes(inputs[i].value)) {
                     errorDiv.textContent = "This email is already registered.";
+                    errorRow.style.display = 'table-row';
                     valid = false;
                 } else {
                     errorDiv.textContent = "";
+                    errorRow.style.display = 'none';
                 }
             }
             return valid;
@@ -64,6 +70,10 @@
             var confirmPassword = document.getElementById('confirm_password').value;
             var username = document.getElementById('username').value;
             var valid = true;
+
+            var usernameErrorRow = document.getElementById('username_error').closest('tr');
+            var passwordErrorRow = document.getElementById('password_error').closest('tr');
+            var confirmPasswordErrorRow = document.getElementById('confirm_password_error').closest('tr');
 
             if (username.length < 4) {
                 document.getElementById('username_error').textContent = "Username must be at least 4 characters long.";
@@ -78,23 +88,26 @@
             var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
             if (!passwordPattern.test(password)) {
                 document.getElementById('password_error').textContent = "Password must contain at least one uppercase letter, one lowercase letter, and one number.";
+                passwordErrorRow.style.display = 'table-row';
                 valid = false;
             } else {
                 document.getElementById('password_error').textContent = "";
+                passwordErrorRow.style.display = 'none';
             }
 
             if (password !== confirmPassword) {
                 document.getElementById('confirm_password_error').textContent = "Passwords do not match. Please try again.";
+                confirmPasswordErrorRow.style.display = 'table-row';
                 valid = false;
             } else {
                 document.getElementById('confirm_password_error').textContent = "";
+                confirmPasswordErrorRow.style.display = 'none';
             }
 
             if (!valid) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault();
             }
         }
-
 
         function validateEmail(email) {
             var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -102,20 +115,19 @@
             return emailPattern.test(email) && domainPattern.test(email);
         }
 
-        function validateID(id){
+        function validateID(id) {
             var idPattern = /^(2202|2203|2204|2205|2206|2207|2208|2209)[0-9]{4}$/;
             return idPattern.test(id);
         }
 
-        function validatePhoneNumber(phoneNumber) { 
-            var phonePattern = /^07\d{8}$/; // Adjust this pattern based on your requirements 
-            return phonePattern.test(phoneNumber); 
-        } 
-        
-        function validateAddress(address) {
-            return address.length >= 10; // Adjust the minimum length as needed 
+        function validatePhoneNumber(phoneNumber) {
+            var phonePattern = /^07\d{8}$/;
+            return phonePattern.test(phoneNumber);
         }
 
+        function validateAddress(address) {
+            return address.length >= 10;
+        }
     </script>
     <style>
         label {
@@ -127,9 +139,11 @@
             color: red;
             font-size: 0.9em;
         }
+        .error-row {
+            display: none; /* Hide error rows by default */
+        }
     </style>
 </head>
-<body>
     <div class="main">
         <div class="main_box">
             <h2>Registration Form</h2>
@@ -142,28 +156,28 @@
                             <td><label for="fname">First Name <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="fname" name="fname" placeholder="Navindu" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="fname_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="lname">Last Name <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="lname" name="lname" placeholder="Perera" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="lname_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="email">Email Address <span class="star">*</span></label></td>
                             <td colspan="2"><input type="email" id="email" name="email" placeholder="2202is078@stu.ucsc.cmb.ac.lk" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="email_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="id">University ID <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="id" name="id" placeholder="2202XXXX" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="id_error" class="error"></div></td>
                         </tr>
                     </table>
@@ -180,28 +194,28 @@
                             <td><label for="contactno1">Primary Contact Number <span class="star">*</span></label></td>
                             <td colspan="2"><input type="number" id="contactno1" name="contactno1" placeholder="07XXXXXXXX" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="contactno1_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="contactno2">Secondary Contact Number</label></td>
                             <td colspan="2"><input type="number" id="contactno2" name="contactno2" placeholder="07XXXXXXXX(Optional)"></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="contactno2_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="address">Address <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="address" name="address" placeholder="123 Main St" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="address_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="city">City <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="city" name="city" placeholder="Colombo" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="city_error" class="error"></div></td>
                         </tr>
                     </table>
@@ -218,26 +232,27 @@
                             <td><label for="username">Username <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="username" name="username" placeholder="pasindu" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="username_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="password">Password <span class="star">*</span></label></td>
                             <td colspan="2"><input type="password" id="password" name="password" placeholder="********" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="password_error" class="error"></div></td>
                         </tr>
                         <tr>
                             <td><label for="confirm_password">Confirm Password <span class="star">*</span></label></td>
                             <td colspan="2"><input type="password" id="confirm_password" name="confirm_password" placeholder="********" required></td>
                         </tr>
-                        <tr>
+                        <tr class="error-row">
                             <td colspan="3"><div id="confirm_password_error" class="error"></div></td>
                         </tr>
                     </table>
                     <input type="text" id="usertype" name="usertype" value="1" hidden>
-                    <div class="button-container"> 
+                    <div class="button-container">
+                        <input type="hidden" name="formname" value="studentform">
                         <button type="button" onclick="showNextStep('step3', 'step2')">Back</button>
                         <button type="submit">Submit</button>
                     </div>
@@ -245,7 +260,7 @@
             </form>
         </div>
     </div>
-</body>
+
 </html>
 <style>
     .main_box table input[type="text"],
@@ -253,10 +268,9 @@
     .main_box table input[type="number"] {
         width: 100%;
         box-sizing: border-box;
-        margin-bottom: 5px; /* Add space between inputs */
+        margin-bottom: 5px;
         margin-top: 5px;
     }
-    /* Hide the number input scrolls */
     input[type=number]::-webkit-outer-spin-button,
     input[type=number]::-webkit-inner-spin-button {
         -webkit-appearance: none;

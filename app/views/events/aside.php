@@ -4,7 +4,7 @@
         <div class="profile-icon">
             <img src="<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>" alt="Profile Picture">
         </div>
-        <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>
+        <span><?php echo htmlspecialchars($adminData['fname']. " ".$adminData['lname']); ?></span>
     </div>
     <ul>
         <li class="<?php echo ($parameter == 'dashboard') ? 'active' : ''; ?>"><a href="dashboard.php">Dashboard</a></li>

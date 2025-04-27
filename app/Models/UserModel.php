@@ -128,12 +128,13 @@ class UserModel {
     public function getUserData($username, Database $database) {
         $conn = $database->getConnection();
     
-        $sql = "SELECT u.*, r.role_name, c.Cnt_num, os.*, o.*
+        $sql = "SELECT u.*, r.role_name, c.Cnt_num, os.*, o.*,em.*
                 FROM users u
                 JOIN roles r ON u.usertype = r.role_id
                 LEFT JOIN contact_numbers c ON u.No = c.Cnt_no
                 LEFT JOIN organizer_society as os ON u.No=os.organizer_no
                 LEFT JOIN organizations as o ON os.organization_no=o.orgno
+                Left join event_members as em ON u.No=em.member_id
                 WHERE u.username = ?";
     
         $stmt = $conn->prepare($sql);
@@ -405,7 +406,7 @@ class UserModel {
 
     
 
-    // public function changedisableaccstatus($row_id,Database $database){/// 
+    // public function changedisableaccstatus($row_id,Database $database){ 
     //     $conn = $database->getConnection();
     //     $sql = "UPDATE admin_support SET email_status = 1 WHERE row_id =?"; 
     //     $stmt = $conn->prepare($sql); 
@@ -523,6 +524,25 @@ class UserModel {
                 $emails[] = $row['email'];
             }
             return $emails;
+        } else {
+            return [];
+        }
+    }
+
+    public function getreviews($eventno, Database $database){
+        $conn = $database->getConnection();
+        $sql = "SELECT * FROM event_ask join events on events.no = event_ask.event_no join users on users.No = event_ask.user_no WHERE event_no = ? and event_ask.answered = 0";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $eventno);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $reviews = [];
+            while ($row = $result->fetch_assoc()) {
+                $reviews[] = $row;
+            }
+            return $reviews;
         } else {
             return [];
         }

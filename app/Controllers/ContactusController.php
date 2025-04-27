@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\contactus;
 use App\Models\UserModel;
+use App\Models\EventModel;
+
 use App\Database;
 
 class ContactusController{
@@ -16,6 +18,37 @@ class ContactusController{
         $usermodel = new UserModel();
         $userData = $usermodel->getUserData($username, $database);
         require __DIR__ . '/../Views/events/contactus.php';
+    }
+
+    public function ask() {
+        unset($_SESSION['errors']);
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+        $database = new Database();
+        $usermodel = new UserModel();
+        $eventmodel = new EventModel($database);
+        $eventno = $_POST['event_no'] ?? null;
+        $userData = $usermodel->getUserData($username, $database);
+        $eventData = $eventmodel->getEvent($eventno);
+        $success = null;
+        require __DIR__ . '/../Views/events/ask.php';
+    }
+
+    public function submitask(){
+        $event_no = $_POST['event_no'] ?? null;
+        $type = $_POST['type'] ?? null;
+        $user_no = $_POST['user_no'] ?? null;
+        $message = $_POST['message'] ?? null;
+
+        $database = new Database();
+        $contactus = new contactus();
+        $usermodel = new UserModel();
+        $userData = $usermodel->getUserData($user_no, $database);
+        $eventmodel = new EventModel($database);
+        $eventData = $eventmodel->getEvent($event_no);
+        $contactus->insertask($event_no, $user_no, $type, $message, $database);
+
+        $success = "Your message has been sent successfully!";
+        require __DIR__ . '/../Views/events/ask.php';
     }
 
     public function contactus(){

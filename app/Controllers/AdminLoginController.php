@@ -8,12 +8,15 @@ use App\Models\Dashboard;
 use App\Models\Contactus;
 use App\Models\EmailModel;
 use App\Database;
+use App\Controllers\UserProfileController;
 
 class AdminLoginController {
     private $userModel; 
     private $emailModel; 
     
     public function processSendEmail() {
+        $purpose = $_POST['purpose'] ?? null;
+
         if (isset($_POST['send_email'])) {
             $recipient = $_POST['recipient_email'];
             $emailbody = $_POST['email_body'];
@@ -30,17 +33,23 @@ class AdminLoginController {
             $this->emailModel = new EmailModel(); 
             $success = $this->emailModel->sendEmail($recipient, $subject, $body);
 
-            if ($success) {
-                $_SESSION['email_message'] = "Email sent successfully to " . htmlspecialchars($recipient);
-                $_SESSION['email_success'] = true;
-            } else {
-                $_SESSION['email_message'] = "Error sending email to " . htmlspecialchars($recipient) . ": " . $this->emailModel->getErrorInfo();
-                $_SESSION['email_success'] = false;
+            if($purpose == null){
+                // $userModel = new UserModel();
+                // $database = new Database();
+                // $userModel->changedisableaccstatus($row_id,$database);
+            }else if($purpose == 01){
+                $database = new Database();
+                $eventModel = new EventModel($database);
+                $row_id = $_POST['inq_no'] ?? null;
+                $event_no = $_POST['event_no'] ?? null;
+                $eventModel->changeinquiryStatus($row_id,$database);
+                $upcontroller = new UserProfileController($database);
+                header('Location: inquiry?no=' . $event_no);
+                exit();
+            }else{
+                header('Location: index.php?url=feedback.php');
+                exit();
             }
-
-            // $userModel = new UserModel();
-            // $database = new Database();
-            // $userModel->changedisableaccstatus($row_id,$database);
 
             header('Location: index.php?url=disableacc.php'); // Redirect back to manage users page
             exit();

@@ -39,6 +39,7 @@
                     echo 'Approved';
                 }else{
                     echo 'Rejected';
+                    echo '<br>Reason - '.$roleData['reply'];
                 }
                 ?>
             </div><br><br>

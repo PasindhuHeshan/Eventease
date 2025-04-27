@@ -4,8 +4,10 @@
 <div class="main">
     <div class="main_box">
         <h2>Login</h2>
-        <?php if (isset($_GET['payment']) && $_GET['payment'] === 'success'): ?>
-            <div class="success">Payment Successful and Account Created! <br/>You need to log in to the system.<br/><br/></div>
+        <?php if (isset($_GET['message']) && $_GET['message'] === '2'): ?>
+            <div class="success">Payment Successful and Account Created! <div>You need to log in to the system.</div><br/></div>
+        <?php elseif(isset($_GET['message']) && $_GET['message'] === '1'): ?>
+            <div class="success">Account Created! <div> You need to log in to the system.</div><br/></div>
         <?php endif; ?>
         <form name="login" action="index.php?url=processlogin" method="post">
             <table>
