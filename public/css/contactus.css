@@ -141,12 +141,12 @@ p {
     text-align: center;
 }
 
-/* For readonly fields */
+
 input[readonly] {    
     cursor: not-allowed;
 }
 
-/* New styles for two-column layout */
+
 .two-column .form-group {
     display: grid;
     grid-template-columns: 1fr 1fr;

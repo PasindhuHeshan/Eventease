@@ -44,10 +44,10 @@ $parameter='inventory';
                 <tbody>
                     <?php
 
-                        // Check if any rows were returned
+                        
                         if ($result->num_rows > 0) {
                             $no = 1;
-                            // Fetch and display each row
+                            
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>
                                         <td>$no</td>
