@@ -140,7 +140,7 @@
             font-size: 0.9em;
         }
         .error-row {
-            display: none; /* Hide error rows by default */
+            display: none;
         }
     </style>
 </head>
@@ -149,7 +149,7 @@
             <h2>Registration Form</h2>
             <h4>For University Student</h4>
             <form id="register" name="register" action="index.php?url=processsignin" method="post" onsubmit="validatePasswords(event)">
-                <!-- Step 1: Basic Information -->
+               
                 <div id="step1">
                     <table>
                         <tr>
@@ -187,7 +187,7 @@
                     </div>
                 </div>
 
-                <!-- Step 2: Additional Information -->
+              
                 <div id="step2" style="display: none;">
                     <table>
                         <tr>
@@ -225,7 +225,7 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Account Information -->
+            
                 <div id="step3" style="display: none;">
                     <table>
                         <tr>

@@ -5,7 +5,7 @@ include('connection.php');
 $username = $_POST['name'];
 $password = $_POST['password'];
 
-// Prepare statement to get the user data based on the username
+
 $stmt = $con->prepare("SELECT * FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();

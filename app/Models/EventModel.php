@@ -142,7 +142,7 @@ class EventModel {
     
         return $result;
     }
-    //write a function to insert contact us form data into the database
+    
     public function insertContactUs($type, $email, $contact_no, $feedback) {
         $query = "INSERT INTO contact_support (type, email, contact_no, feedback) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
@@ -220,7 +220,7 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    //admin 
+    
     public function getadmineventinventory(Database $database){
         $query = "SELECT ei.*, e.* FROM event_inventory ei JOIN events e ON ei.event_id = e.no WHERE ei.status = 0";
         $result = $this->conn->query($query);
@@ -297,7 +297,7 @@ class EventModel {
     }
 
     public function geteventtypes(Database $database){
-        //table is event_inventory
+        
         $query = "SELECT DISTINCT event.event_type from events event group by event.event_type";
         $result = $this->conn->query($query);
         if ($result === false) {
@@ -347,7 +347,7 @@ class EventModel {
         $stmt->execute();
         $result1 = $stmt->get_result();
 
-        //get sum of all rows quantity column
+        
         $sum = 0;
         while ($row = $result1->fetch_assoc()) {
             $sum += $row['quantity'];
@@ -470,7 +470,7 @@ class EventModel {
     public function getEventStatistics($eventNo) {
         $stats = [];
 
-        // Get enrollment and participation
+        
         $query = "SELECT 
                     COUNT(*) as enrolled,
                     SUM(CASE WHEN attendance_status = 1 THEN 1 ELSE 0 END) as participated
@@ -486,7 +486,7 @@ class EventModel {
         $stats['participated'] = $row['participated'];
         $stats['participation_percentage'] = $row['enrolled'] > 0 ? ($row['participated'] / $row['enrolled']) * 100 : 0;
 
-        // Get average rating from event_review
+        
         $query = "SELECT AVG(rating) as avg_rating ,
                          COUNT(rating) as reviews_count
                   FROM event_review 
@@ -499,7 +499,7 @@ class EventModel {
         $stats['total_rating'] = $row['avg_rating'] ? round($row['avg_rating'], 1) : 0;
         $stats['reviews_count'] = $row['reviews_count'];
 
-        // Get reach statistics
+        
         $query = "SELECT people_limit FROM events WHERE no = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $eventNo);

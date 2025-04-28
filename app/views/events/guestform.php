@@ -8,7 +8,7 @@
 <script>
     function showNextStep(currentStep, nextStep, validate = false) {
         if (validate && !validateStep(currentStep)) {
-            return; // Stop if validation fails
+            return;
         }
         document.getElementById(currentStep).style.display = 'none';
         document.getElementById(nextStep).style.display = 'block';
@@ -22,7 +22,7 @@
     var valid = true;
     for (var i = 0; i < inputs.length; i++) {
         var errorDiv = document.getElementById(inputs[i].id + '_error');
-        var errorRow = errorDiv.parentElement.parentElement; // Get the error row
+        var errorRow = errorDiv.parentElement.parentElement;
         if (inputs[i].value.trim() === '') {
             errorDiv.textContent = "This field is required.";
             errorRow.style.display = 'table-row';
@@ -95,7 +95,7 @@
         }
 
         if (!valid) {
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault();
         }
     }
 
@@ -153,7 +153,6 @@
                 <div class="error">Payment was cancelled.<br/>Account not created!</div>
             <?php endif; ?>
             <form id="register" name="register" action="index.php?url=processsignin" method="post" onsubmit="validatePasswords(event)">
-                <!-- Step 1: Basic Information -->
                 <div id="step1">
                     <table>
                         <tr>
@@ -191,7 +190,6 @@
                     </div>
                 </div>
 
-                <!-- Step 2: Additional Information -->
                 <div id="step2" style="display: none;">
                     <table>
                         <tr>
@@ -229,7 +227,6 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Account Information -->
                 <div id="step3" style="display: none;">
                     <table>
                         <tr>
@@ -259,7 +256,7 @@
                         <button type="button" onclick="showNextStep('step3', 'step4', true)">Next</button>
                     </div>
                 </div>
-                <!-- Step 4: Payment Information -->
+
                 <div id="step4" style="display: none;">
                     <p>You are about to pay Rs. 500 for the registration.</p>
                     <button type="button" onclick="paymentGateWay()">Pay Now</button>

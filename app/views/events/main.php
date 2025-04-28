@@ -77,11 +77,11 @@
 
         cards.forEach(card => {
             const eventName = card.querySelector('h2').textContent.toLowerCase();
-            const eventDescription = card.querySelector('.description').textContent.toLowerCase(); // Get description
-            const eventType = card.parentElement.getAttribute('data-event-type'); // Get event type from data attribute
-            const eventDate = card.parentElement.getAttribute('data-event-date'); // Get event date from data attribute
+            const eventDescription = card.querySelector('.description').textContent.toLowerCase();
+            const eventType = card.parentElement.getAttribute('data-event-type');
+            const eventDate = card.parentElement.getAttribute('data-event-date');
 
-            const matchesSearch = eventName.includes(filter) || eventDescription.includes(filter); // Check description too
+            const matchesSearch = eventName.includes(filter) || eventDescription.includes(filter);
             const matchesType = !selectedType || eventType.includes(selectedType);
             const matchesDate = !selectedDate || eventDate === selectedDate;
 

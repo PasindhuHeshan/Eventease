@@ -35,11 +35,9 @@ use App\Controllers\ReqController;
 use App\Controllers\staffController;
 use App\Controllers\EventsController;
 
-// Initialize the database connection
 $database = new Database();
 $db = $database->getConnection();
 
-// Initialize the controller
 $econtroller = new EventController($database);
 $hcontroller = new HeaderController();
 $lcontroller = new LoginController($database);
@@ -50,7 +48,6 @@ $upcontroller = new UserProfileController($database);
 $reqcontroller = new ReqController($database);
 $stfcontroller = new staffController($database);
 $eocontroller = new EventsController($database);
-// Get the URL parameter
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 
 switch ($url) {
@@ -73,10 +70,6 @@ switch ($url) {
         $hcontroller->render();
         $scontroller->processsignin();
         break;
-    // case 'processRegistration':
-    //     $hcontroller->render();
-    //     $hcontroller->processRegistration();
-    //     break;
     case 'logout.php':
         $lcontroller->logout();
         break;
@@ -242,10 +235,6 @@ switch ($url) {
         $hcontroller->render();
         $reqcontroller->processreq();
         break;
-    // case 'approve_events':
-    //     $hcontroller->render();
-    //     $stfcontroller->index();
-    //     break;
     case 'myevents':
         $hcontroller->render();
         $eocontroller->index();
@@ -306,11 +295,6 @@ switch ($url) {
         $hcontroller->render();
         $upcontroller->stat();
         break;
-    /*case 'acaform':
-        $hcontroller->render();
-        $stfcontroller->aca();
-        break;*/
-
   
     case 'chat.php':
         $hcontroller->render();
@@ -332,11 +316,6 @@ switch ($url) {
         $hcontroller->render();
         $alcontroller->handleinventory();
         break;
-
-    // case 'rejectcomplaint':
-    //     $hcontroller->render();
-    //     $alcontroller->rejectcomplaint();
-    //     break;
 
     case 'ask.php':
         $hcontroller->render();

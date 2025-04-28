@@ -31,7 +31,7 @@ class Event {
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
-    //write a function to insert contact us form data into the database
+    
     public function insertContactUs($type, $email, $contact_no, $feedback) {
         $query = "INSERT INTO contact_support (type, email, contact_no, feedback) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);

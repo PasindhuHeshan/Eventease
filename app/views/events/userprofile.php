@@ -178,7 +178,7 @@
 
         let isValid = true;
 
-        // Clear previous error messages
+
         document.getElementById('contactno1-error').textContent = '';
         document.getElementById('contactno2-error').textContent = '';
         document.getElementById('address-error').textContent = '';
@@ -198,12 +198,12 @@
             isValid = false;
         }
 
-        // If all validations pass, submit the form
+
         if (isValid) {
             document.getElementById('profileForm').submit();
         }
 
-        return isValid; // Return validation status
+        return isValid;
     }
 
     function showSaveButton() {
@@ -221,10 +221,10 @@
             });
         });
 
-        // Modify the Save Changes button to call the validation function
+    
         saveButton.addEventListener('click', function(event) {
             if (!validateAndSubmit()) {
-                event.preventDefault(); // Prevent default form submission if validation fails
+                event.preventDefault(); 
             }
         });
     });

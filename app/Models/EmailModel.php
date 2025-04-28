@@ -29,7 +29,7 @@ class EmailModel {
         $mail = new PHPMailer(true);
 
         try {
-            //Server settings
+            
             $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->isSMTP();
             $mail->Host       = $this->smtp_server;
@@ -43,7 +43,7 @@ class EmailModel {
             $mail->setFrom($this->username, 'Eventease Admin');
             $mail->addAddress($recipient_email);
 
-            //Content
+            
             $mail->isHTML(true);
             $mail->Subject = $subject;
             $mail->Body    = $body;
@@ -64,10 +64,10 @@ class EmailModel {
 
     public function sendBulkEmail($recipient_emails, $subject, $body) {
         $mail = new PHPMailer(true);
-        $this->errorInfo = null; // Reset error info
+        $this->errorInfo = null; 
 
         try {
-            // Server settings
+            
             $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->isSMTP();
             $mail->Host       = $this->smtp_server;
@@ -77,13 +77,13 @@ class EmailModel {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port       = $this->port;
 
-            // Recipients
+            
             $mail->setFrom($this->username, 'Eventease Admin');
             foreach ($recipient_emails as $email) {
                 $mail->addBCC($email);
             }
 
-            // Content
+            
             $mail->isHTML(true);
             $mail->Subject = $subject;
             $mail->Body    = $body;

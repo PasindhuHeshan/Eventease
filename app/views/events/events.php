@@ -23,10 +23,8 @@
         </select>
     </div>
 
-    <!-- Event Table -->
     <table>
         <thead>
-            <!-- php print_r($events); -->
             <tr>
                 <th>No</th>
                 <th>Event Name</th>
@@ -61,9 +59,7 @@
         </tbody>
     </table>
 
-    <!-- Script -->
     <script>
-    // Filter events by event type
     document.getElementById('event_type').addEventListener('change', function() {
         var selected = this.value.trim().toLowerCase();
         var rows = document.querySelectorAll('.event_row');

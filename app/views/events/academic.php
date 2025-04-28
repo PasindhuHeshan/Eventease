@@ -69,16 +69,16 @@
             }
 
             function validatePhoneNumber(phoneNumber) { 
-                var phonePattern = /^07\d{8}$/; // Adjust this pattern based on your requirements 
+                var phonePattern = /^07\d{8}$/; 
                 return phonePattern.test(phoneNumber); 
             } 
             
             function validateAddress(address) {
-                 return address.length >= 10; // Adjust the minimum length as needed 
+                 return address.length >= 10; 
             }
 
             if (!valid) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault(); 
             }
         }
     </script>
@@ -100,7 +100,7 @@
             <h2>Registration Form</h2>
             <h4>For University Academic Staff</h4>
             <form id="register" name="register" action="index.php?url=processsignin" method="post" onsubmit="validatePasswords(event)">
-                <!-- Step 1: Basic Information -->
+                
                 <div id="step1">
                     <table>
                         <tr>
@@ -124,7 +124,7 @@
                         <tr>
                             <td colspan="3"><div id="email_error" class="error"></div></td>
                         </tr>
-                        <!-- New rows for University ID and University Registration No -->
+                        
                         <tr>
                             <td><label for="id">University ID <span class="star">*</span></label></td>
                             <td colspan="2"><input type="text" id="id" name="id" placeholder="2202XXXX" required></td>
@@ -139,7 +139,7 @@
                     </div>
                 </div>
 
-                <!-- Step 2: Additional Information -->
+                
                 <div id="step2" style="display: none;">
                     <table>
                         <tr>
@@ -177,7 +177,7 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Account Information -->
+                
                 <div id="step3" style="display: none;">
                     <table>
                         <tr>
@@ -220,10 +220,10 @@
     .main_box table input[type="number"] {
         width: 100%;
         box-sizing: border-box;
-        margin-bottom: 5px; /* Add space between inputs */
+        margin-bottom: 5px; 
         margin-top: 5px;
     }
-    /* Hide the number input scrolls */
+   
     input[type=number]::-webkit-outer-spin-button,
     input[type=number]::-webkit-inner-spin-button {
         -webkit-appearance: none;

@@ -192,7 +192,7 @@
     /* Staff Search Container Styles */
     .management-staff-search-container {
         position: relative;
-        width: 100%;
+        width: 50%;
     }
 
     .management-staff-results {
@@ -506,7 +506,7 @@
                 <form action="process_send_email" method="post" id="notificationManagementForm">
                     <div id="notification-management" class="content-section">
                         <h3>Notification Management</h3>
-                        <?php print_r($recipientemails) ?>
+
                         <div class="form-group">
                             <label for="notification_title">Title</label>
                             <input type="text" name="subject" id="subject" class="form-control" required>

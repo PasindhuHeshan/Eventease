@@ -7,9 +7,6 @@ use App\Database;
 class UserModel {
     private $conn;
 
-    // public function __construct($conn) {
-    //     $this->conn = $conn;
-    // }
 
     public function validateUser($username, $password, Database $database) {
         $conn = $database->getConnection();
@@ -33,11 +30,6 @@ class UserModel {
         $database
     ) {
         $conn = $database->getConnection();
-        // // Check if the user is a guest
-        // if ($usertype === 'guest') {
-        //     $universityid = null;
-        //     $universityregno = null;
-        // }
     
         $sql = "INSERT INTO users (
                     username, password, fname, lname, email,
@@ -148,7 +140,7 @@ class UserModel {
         while ($row = $result->fetch_assoc()) {
             if (!$userData) {
                 $userData = $row;
-                unset($userData['Cnt_num']); // Remove the contact number from the user data
+                unset($userData['Cnt_num']);
             }
             if ($row['Cnt_num']) {
                 $contactNumbers[] = $row['Cnt_num'];
@@ -157,7 +149,7 @@ class UserModel {
     
         if ($userData) {
             $userData['contact_numbers'] = $contactNumbers;
-            return $userData; // Returns user data with role_name and contact numbers
+            return $userData;
         } else {
             return null;
         }
@@ -240,7 +232,6 @@ class UserModel {
         }
     }
 
-    //admin function
     public function getRoleRequests(Database $database){
         $conn = $database->getConnection();
         $sql = "SELECT rolereq.* , users.*, organizations.* FROM rolereq INNER JOIN users ON rolereq.no = users.No INNER JOIN organizations ON rolereq.organization = organizations.orgno WHERE rolereq.status = 0";
@@ -259,11 +250,11 @@ class UserModel {
         }
     }
 
-    //admin function
+    
     public function admin_updateRoleRequests($no,$orgno,$new_role,$reply, Database $database) {
         $conn = $database->getConnection();
         
-        // Fetch the requested role details from the 'rolereq' table
+
         $sql = "SELECT * FROM rolereq WHERE no = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $no);
@@ -275,25 +266,19 @@ class UserModel {
             $role = $row['role'];
 
             if ($new_role === 'rejected') {
-                // Update the status of the role request to -1 (rejected)
+                
                 $updateRolereq = "UPDATE rolereq SET status = -1, reply = ? WHERE no = ?";
                 $stmt2 = $conn->prepare($updateRolereq);
                 $stmt2->bind_param("si", $reply, $no);
                 $stmt2->execute();
 
-                // Update the user's role in the 'users' table to 'student'
-                // $updateUser = "UPDATE users SET usertype = 'student' WHERE email = ?";
-                // $stmt3 = $conn->prepare($updateUser);
-                // $stmt3->bind_param("s", $email);
-                // $stmt3->execute();
             } else {
-                // Update the status of the role request to 1 (approved)
                 $updateRolereq = "UPDATE rolereq SET status = 1 WHERE no = ?";
                 $stmt2 = $conn->prepare($updateRolereq);
                 $stmt2->bind_param("i", $no);
                 $stmt2->execute();
 
-                // Update the user's role in the 'users' table
+                
                 $updateUser = "UPDATE users SET usertype = ? WHERE no=?";
                 $stmt3 = $conn->prepare($updateUser);
                 $stmt3->bind_param("ss", $role, $no);
@@ -311,7 +296,6 @@ class UserModel {
         }
     }
 
-    //normal user function
     public function updateRoleRequest($no, $role, $organization, $reason, $status,Database $database) {
         $conn = $database->getConnection();
         $sql = "UPDATE rolereq set role=?, organization=?,reason=?, status=? where no=?";
@@ -394,26 +378,6 @@ class UserModel {
         $stmt->close();
         return true;
     }
-
-    // public function deleterejectComplaint($row_id, Database $database) {
-    //     $conn = $database->getConnection();
-    //     $sql = "DELETE FROM admin_support WHERE row_id = $row_id";
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->execute();
-    //     $stmt->close();
-    //     return true;
-    // }
-
-    
-
-    // public function changedisableaccstatus($row_id,Database $database){ 
-    //     $conn = $database->getConnection();
-    //     $sql = "UPDATE admin_support SET email_status = 1 WHERE row_id =?"; 
-    //     $stmt = $conn->prepare($sql); 
-    //     $stmt->bind_param("i", $row_id); 
-    //     $stmt->execute(); 
-    //     $stmt->close();
-    // }
 
     public function getfeedbacks(Database $database) {
         $conn = $database->getConnection();

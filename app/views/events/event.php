@@ -35,7 +35,6 @@
                     <?php if($event['date']>= date('Y-m-d')):?>
                     <?php if (!$isEnrolled): ?>
                         <?php if ($event['flag'] == 0 && $userdata['usertype'] == "2"): ?>
-                            <!-- Do not show enroll button for guests if flag is 0 -->
                         <?php else: ?>
                             <form action="enroll.php" method="POST"> 
                                 <input type="hidden" name="event_no" value="<?php echo $event['no']; ?>"> 
@@ -72,7 +71,6 @@
         </div>
     </main>
 
-    <!-- The Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>

@@ -24,7 +24,7 @@
             }
 
             if (!valid) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault();
             }
         }
     </script>
