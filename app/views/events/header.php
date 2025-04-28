@@ -61,7 +61,7 @@
                     <?php if($userData['role_name']==='Organizer'){?>
                         <li><a href="myevents" target="_self">My events</a></li>
                     <?php } ?>
-                    <?php if(($userData['role_name']==='Student' || $userData['role_name']==='Organizer') && $userData['member_id']!==null){?>
+                    <?php if(($userData['role_name']==='Student' || $userData['role_name']==='Support Staff') && $userData['member_id']!==null){?>
                         <li>
                             <a href="myevents" target="_self">Assigned Events</a>
                         </li>
