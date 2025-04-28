@@ -22,7 +22,7 @@
                 <?php unset($_SESSION['error']); ?>
                 <br>
                 <label for="quantity">Quantity</label>
-                <input type="number" name="quantity" id="quantity" placeholder="25"><br>
+                <input type="number" name="quantity" id="quantity" placeholder="25" min=1><br>
 
                 <label for="inventory_type">Inventory Type</label>
                 <select name="inventory_type" id="inventory_type">

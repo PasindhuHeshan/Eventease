@@ -352,11 +352,15 @@ class AdminLoginController {
 
             if($dashboard->check_item($inventory_no)){
                 $_SESSION['error'] = $inventory_no." Inventory Number already exists!";
+                $usermodel = new UserModel();
+                $adminData = $usermodel->getUserData($_SESSION['username'], $database);
                 include __DIR__ . '/../views/events/add_item.php';
                 exit();
             }
 
             if ($dashboard->save_item($item, $inventory_no, $quantity, $inventory_type)) {
+                $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
                 include __DIR__ . '/../views/events/inventory.php';
             } else {
                 echo "Not added.";
@@ -369,6 +373,9 @@ class AdminLoginController {
 
             $database = new Database();
             $dashboard = new Dashboard($database);
+
+            $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
             
             include __DIR__ . '/../views/events/inventory.php';
         }
@@ -380,6 +387,8 @@ class AdminLoginController {
             $inventory_type = $_POST['inventory_type'] ?? 'Appliances';
             $database = new Database();
             $dashboard = new Dashboard($database);
+            $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
             
             if($dashboard->delete_item($inventory_no)){
                 //header("Location: inventory.php");
@@ -400,6 +409,8 @@ class AdminLoginController {
     public function modify_item() {
         $database = new Database();
         $dashboard = new Dashboard($database);
+        $usermodel = new UserModel();
+        $adminData = $usermodel->getUserData($_SESSION['username'], $database);
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Handle POST data here

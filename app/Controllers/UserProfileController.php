@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\EventModel;
+use App\Models\contactus;
 use App\Database;
 
 class UserProfileController
@@ -20,6 +21,8 @@ class UserProfileController
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
         $userData = $this->usermodel->getUserData($username, $database);
         $roleData = $this->usermodel->getRoleRequest($database, $userData['No']);
+        $contactus = new contactus();
+        $chats = $contactus->getChatDetails($userData['email'], $database);
         require __DIR__ . '/../Views/events/userprofile.php';
     }
 
