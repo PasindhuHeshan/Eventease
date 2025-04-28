@@ -105,13 +105,7 @@ class ContactusController{
         $userData = $usermodel->getUserData($username, $database);
         include __DIR__ . '/../Views/events/contactus.php';
     }
-        
-    // if ($this->eventModel->insertContactUs($type, $email, $contact_no, $feedback)) {
-    //     unset($_SESSION['errors']); // Clear errors on successful submission
-    //     include __DIR__ . '/../Views/events/contactus.php';
-    // } else {
-    //     echo "Error submitting feedback";
-    // }
+    
     }
 
     public function chat() {

@@ -13,7 +13,7 @@ class EventsController {
     public function __construct() {
         $database = new Database();
         $this->eventModel = new EventModel($database);
-        $this->userModel = new UserModel($database); // Initialize UserModel
+        $this->userModel = new UserModel($database); 
     }
 
     public function index() {
@@ -38,7 +38,7 @@ class EventsController {
         $eventsinventory = $this->eventModel->geteventsinventory($eventData['date'], $eventData['finish_time'], $eventData['date'], new Database());
         $getthiseventinventory = $this->eventModel->getInventoryRequested($eventno);
 
-        // Pass both variables to the view
+        
         include __DIR__ . '/../Views/EventOrg/edit.php';
     }
 
@@ -49,9 +49,9 @@ class EventsController {
         $supervisors = $this->eventModel->getsupervisors();
         if ($eventno) {
             $eventData = $this->eventModel->getEvent($eventno);
-            // Check if event was found
+            
             if (!$eventData) {
-                // Handle error, e.g., display an error message or redirect to an error page
+                
                 header("Location: /error_page.php?message=Event not found");
                 exit;
             }
@@ -65,8 +65,7 @@ class EventsController {
         $username = $_SESSION['username'];
         $userData = $this->userModel->getUserData($username, $database);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Validate input data (optional but recommended)
-            // ... (implement validation logic based on your requirements)
+           
 
             $name = $_POST['name'];
             $short_dis = null;
@@ -83,20 +82,20 @@ class EventsController {
             $organizer = $userData['No'];
             $organization_no = $userData['organization_no'];
 
-            // Handle file upload
+            
             if (isset($_FILES['event_banner']) && $_FILES['event_banner']['error'] == 0) {
                 $target_dir = "images/events/";
                 $target_file = $target_dir . basename($_FILES["event_banner"]["name"]);
                 $uploadOk = 1;
 
-                // Check if file is an actual image
+            
                 $check = getimagesize($_FILES["event_banner"]["tmp_name"]);
                 if ($check === false) {
                     echo "File is not an image.";
                     $uploadOk = 0;
                 }
 
-                // Allow specific file formats
+               
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
                 if ($imageFileType !== "jpg" && $imageFileType !== "png" && $imageFileType !== "jpeg" && $imageFileType !== "gif") {
                     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
@@ -123,9 +122,9 @@ class EventsController {
                     }
                 }
             } else {
-                // Handle the case where no file is uploaded or there's an error
+                
                 echo "No file was uploaded or there was an error uploading the file.";
-                // You might want to handle this case differently, e.g., by creating the event without an image or redirecting the user to an error page.
+                
             }
         } else {
             include __DIR__ . '/../Views/EventOrg/create.php';
@@ -164,14 +163,12 @@ class EventsController {
         return $stmt->execute();
     }
     
-    /**
-    * Update staff assignments for an event
-    */
+    
     public function updateEventStaff($eventno, $staffUpdates) {
-        // First, clear existing staff for this event
+        
         $this->conn->query("DELETE FROM event_staff WHERE eventno = $eventno");
         
-        // Then insert the new staff assignments
+        
         foreach ($staffUpdates as $staffId => $role) {
             $sql = "INSERT INTO event_staff (eventno, staffno, role) VALUES (?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
@@ -182,9 +179,7 @@ class EventsController {
         return true;
     }
     
-    /**
-    * Create a new notification
-    */
+    
     public function createNotification($eventno, $title, $description, $receivers) {
         $sql = "INSERT INTO notifications 
                 (eventno, title, description, receivers, created_at) 
@@ -196,9 +191,7 @@ class EventsController {
         return $stmt->execute();
     }
     
-    /**
-     * Create an inventory request
-     */
+
     
  
     public function processEvent() {
@@ -210,9 +203,9 @@ class EventsController {
             $eventno = $_POST['eventno'] ?? null;
 
             if (isset($_POST['update_details'])) {
-                // Handle general details update
+                
                 $name = $_POST['name'];
-                $short_dis = $_POST['short_dis'] ?? ''; // Ensure $short_dis is defined
+                $short_dis = $_POST['short_dis'] ?? ''; 
                 $long_dis = $_POST['long_dis'];
                 $flag = (int)$_POST['flag'];
                 $time = $_POST['time'];
@@ -224,7 +217,7 @@ class EventsController {
                 $supervisor = $_POST['supervisor'] ?? null;
                 $organizer = $userData['No'];
 
-                // Handle file upload
+                
                 $event_banner = $_POST['existing_event_banner'] ?? null;
                 if (isset($_FILES['event_banner']) && $_FILES['event_banner']['error'] == 0) {
                     $target_dir = "images/events/";
@@ -239,7 +232,7 @@ class EventsController {
                     $people_limit, $event_type, 1, $supervisor, $event_banner, $organizer
                 );
             } elseif (isset($_POST['update_staff'])) {
-                // Handle staff updates
+                
                 $staffUpdates = [];
                 foreach ($_POST as $key => $value) {
                     if (strpos($key, 'role_') === 0) {
@@ -252,7 +245,7 @@ class EventsController {
                 }
                 $this->updateEventStaff($eventno, $staffUpdates);
             } elseif (isset($_POST['send_notification'])) {
-                // Handle notification
+                
                 $title = $_POST['notification_title'];
                 $description = $_POST['notification_description'];
                 $receivers = $_POST['notification_receivers'];
@@ -261,7 +254,7 @@ class EventsController {
                     $eventno, $title, $description, $receivers
                 );
             } elseif (isset($_POST['request_inventory'])) {
-                // Handle inventory request
+                
                 $inventoryRequests = [];
                 foreach ($_POST as $key => $value) {
                     if (strpos($key, 'inventory_item_') === 0) {
@@ -292,20 +285,20 @@ class EventsController {
             }
             
 
-            // Redirect back to the edit page after processing
+            
             header("Location: addmore?no=" . $eventno);
             exit();
             
         }
 
-        // If not a POST request, show the form
+        
         $eventno = $_GET['no'] ?? null;
         if ($eventno) {
             $eventData = $this->eventModel->getEvent($eventno);
             $staffMembers = $this->eventModel->getStaffMembers();
             include __DIR__ . '/../Views/EventOrg/edit.php';
         } else {
-            // Handle error
+            
             header("Location: myevents");
             exit();
         }

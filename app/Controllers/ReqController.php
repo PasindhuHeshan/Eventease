@@ -31,13 +31,13 @@ class ReqController{
 
         public function processreq(){
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-                // Retrieve data from POST
+                
                 $no = $_POST['No'];
                 $organization = $_POST['organization'];
                 $role = $_POST['role'];
                 $reason = $_POST['reason'];
-                $status = isset($_POST['status']) ? $_POST['status'] : 'Pending'; // Default status if not provided
-                $database = new Database(); // Ensure the database connection is created here
+                $status = isset($_POST['status']) ? $_POST['status'] : 'Pending'; 
+                $database = new Database(); 
 
                 if (isset($_GET['type']) && $_GET['type'] == "create") { 
                     $userModel = new UserModel(); 
@@ -46,9 +46,6 @@ class ReqController{
                     exit();
                 }
                
-                // Redirect or load a confirmation page
-                //$userData = $this->usermodel->getUserData($username, $database);
-                //require __DIR__ . '/../Views/events/userprofile.php';
             
             }
             else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
@@ -57,8 +54,8 @@ class ReqController{
                 $role = $_POST['role'];
                 $role = $_POST['role'];
                 $reason = $_POST['reason'];
-                $status = isset($_POST['status']) ? $_POST['status'] : 'Pending'; // Default status if not provided
-                $database = new Database(); // Ensure the database connection is created here
+                $status = isset($_POST['status']) ? $_POST['status'] : 'Pending';
+                $database = new Database(); 
                 $userModel = new UserModel(); 
                 $userModel->updateRoleRequest($no, $role, $organization, $reason, $status, $database); 
                 header('Location: userprofile.php'); 
@@ -73,7 +70,7 @@ class ReqController{
                 header('Location: userprofile.php');
                 exit();
             } else {
-                // Redirect or load the form again
+                
                 require __DIR__ . '/../views/events/RoleRequest.php';
             }
         }

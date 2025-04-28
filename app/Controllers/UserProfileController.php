@@ -35,19 +35,17 @@ class UserProfileController
         $target_file = $target_dir . basename($_FILES["profile_picture"]["name"]);
         $uploadOk = 1;
 
-        // ... other validation and security checks ...
+        
 
         if ($uploadOk == 0) {
-            // Handle upload errors
-            // Redirect or display an error message
+            
         } else {
             if (move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_file)) {
                 $userModel->updateProfilePicture($_SESSION['username'], $target_file, $database);
                 header("Location: userprofile.php");
                 exit;
             } else {
-                // Handle upload failures
-                // Redirect or display an error message
+                
             }
         }
     }
@@ -77,12 +75,10 @@ class UserProfileController
                     header("Location: userprofile.php");
                     exit;
                 } else {
-                    // Handle update failure
-                    // Redirect or display an error message
+                    
                 }
             } else {
-                // Handle missing required fields
-                // Redirect or display an error message
+                
             }
         }
     }
