@@ -91,11 +91,35 @@ class UserProfileController
     public function enrollstd() {
         $database = new Database();
         $eventModel = new EventModel($database);
-        $username = $_SESSION['username'];
-        $no = isset($_GET['no']) ? $_GET['no'] : null;
+        $no = $_GET['no'] ?? null;
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_attendance'])) {
+            $eventNo = $_POST['eventNo'];
+            $attendance = $_POST['attendance'] ?? [];
+            $allUsernames = $_POST['username'] ?? [];
+    
+            // First reset all attendance to 0
+            foreach ($allUsernames as $username) {
+                $eventModel->submitAttendance($eventNo, $username, 0);
+            }
+    
+            // Then mark only the checked attendees
+            foreach ($attendance as $username) {
+                $eventModel->submitAttendance($eventNo, $username, 1);
+            }
+    
+            $count = count($attendance);
+            $_SESSION['attendance_success'] = "Attendance updated successfully! {$count} participant(s) marked as attended.";
+            
+            // Redirect to prevent form resubmission
+            header("Location: " . $_SERVER['REQUEST_URI']);
+            exit();
+        }
+    
         $enrolled_people = $eventModel->getEnrolledPeople($no, $database);
         require __DIR__ . '/../Views/EventSup/enrollment.php';
     }
+
     public function report(){
         $database = new Database();
         $eventModel = new EventModel($database);

@@ -193,6 +193,7 @@
     .management-staff-search-container {
         position: relative;
         width: 100%;
+        align-self: flex-end;
     }
 
     .management-staff-results {
@@ -406,8 +407,8 @@
                             <div id="staff-container">
                                 <div class="form-group" id="staff_owner">
                                     <label for="role_owner">Role</label>
-                                    <input type="text" id="role_owner" class="form-control" value="Owner" readonly>
-                                    <label for="name_owner">Name (Owner)</label>
+                                    <input type="text" id="role_owner" class="form-control" value="Organizer" readonly>
+                                    <label for="name_owner">Name</label>
                                     <input type="text" id="name_owner" class="form-control"
                                         value="<?php echo $userData['fname'] . ' ' . $userData['lname']; ?>"
                                         readonly>
@@ -453,35 +454,7 @@
                                             class="form-control">
                                         <option value="">Select Role</option>
                                         <option value="Coordinator">Coordinator</option>
-                                                    <button type="button" class="btn secondary" id="addStaffBtn">Add Staff</button>
-                                                    <script>
-                                                        document.getElementById('addStaffBtn').addEventListener('click', function () {
-                                                            const staffContainer = document.getElementById('staff-container');
-                                                            const newStaffIndex = staffContainer.children.length + 1;
-                                                            if (newStaffIndex > 10) {
-                                                                alert('You can only add up to 10 staff members.');
-                                                                return;
-                                                            }
-                                                    
-                                                            const newStaffDiv = document.createElement('div');
-                                                            newStaffDiv.className = 'form-group';
-                                                            newStaffDiv.id = `staff_${newStaffIndex}`;
-                                                            newStaffDiv.innerHTML = `
-                                                                <label for="role_${newStaffIndex}">Role</label>
-                                                                <select name="role_${newStaffIndex}" id="role_${newStaffIndex}" class="form-control">
-                                                                    <option value="">Select Role</option>
-                                                                    <option value="Coordinator">Coordinator</option>
-                                                                    <option value="Volunteer">Volunteer</option>
-                                                                    <option value="Manager">Manager</option>
-                                                                    <option value="Treasurer">Treasurer</option>
-                                                                </select>
-                                                                <label for="name_${newStaffIndex}">Name</label>
-                                                                <input type="text" id="name_${newStaffIndex}" class="form-control" placeholder="Enter Name">
-                                                                <input type="hidden" name="staff_id_${newStaffIndex}" id="staff_id_${newStaffIndex}">
-                                                            `;
-                                                            staffContainer.appendChild(newStaffDiv);
-                                                        });
-                                                    </script>
+                                        <option value="Volunteer">Volunteer</option>
                                         <option value="Manager">Manager</option>
                                         <option value="Treasurer">Treasurer</option>
                                     </select>
@@ -496,7 +469,7 @@
                             <?php endfor; ?>
                         </div>
                         <div class="button-row">
-                            <button type="button" class="btn secondary" id="addStaffBtn">Add Staff</button>
+                            <button type="button" class="btn secondary" id="addStaffBtn" style="display: none;">Add Staff</button>
                             <button type="submit" name="update_staff" class="btn primary">Update</button>
                         </div>
                     </div>
@@ -506,7 +479,6 @@
                 <form action="process_send_email" method="post" id="notificationManagementForm">
                     <div id="notification-management" class="content-section">
                         <h3>Notification Management</h3>
-                        <?php print_r($recipientemails) ?>
                         <div class="form-group">
                             <label for="notification_title">Title</label>
                             <input type="text" name="subject" id="subject" class="form-control" required>

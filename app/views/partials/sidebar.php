@@ -28,10 +28,10 @@
 
 <div class="sidebar">
     <div class="sidebar-menu">
-        <a href="enrollment?no=<?= $no ?>" class="nav <?= basename($_SERVER['PHP_SELF']) == 'enrollment.php' ? 'active' : '' ?>">Enrollment</a>
         <a href="inquiry?no=<?= $no ?>" class="nav <?= basename($_SERVER['PHP_SELF']) == 'inquiry.php' ? 'active' : '' ?>">Inquiry</a>
-        <a href="report?no=<?= $no ?>" class="nav <?= basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : '' ?>">Report</a>
-        <a href="statistics?no=<?= $no ?>" class="nav <?= basename($_SERVER['PHP_SELF']) == 'statistics.php' ? 'active' : '' ?>">Statistics</a>
+        <a href="enrollment?no=<?= $no ?>" class="nav <?= basename($_SERVER['PHP_SELF']) == 'enrollment.php' ? 'active' : '' ?>">Enrollment</a>
         <a href="review?no=<?= $no ?>" class="nav <?= basename($_SERVER['PHP_SELF']) == 'review.php' ? 'active' : '' ?>">Review</a>
+        <a href="statistics?no=<?= $no ?>" class="nav <?= basename($_SERVER['PHP_SELF']) == 'statistics.php' ? 'active' : '' ?>">Statistics</a>
+        <a href="report?no=<?= $no ?>" class="nav <?= basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : '' ?>">Report</a>
     </div>
 </div>

@@ -36,6 +36,15 @@ class EventModel {
         return $enrolled;
     }
 
+    public function submitAttendance($eventNo, $username, $status) {
+        $query = "UPDATE enroll SET attendance_status = ? WHERE username = ? AND eventno = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("isi", $status, $username, $eventNo);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+
     public function addEnrollment($username, $eventno) {
         $query = "INSERT INTO enroll (username, eventno) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);

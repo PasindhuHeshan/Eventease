@@ -41,20 +41,20 @@
                 <?php foreach ($eventreviews as $review) { ?>
                     <div class="event">
                     <form action="process_send_email" method="post">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="event">Event</label>
                         <input type="text" name="event" id="event" class="form-control" required value="<?php echo $review['name']; ?>">
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" name="name" id="name" class="form-control" required value="<?php echo $review['fname']." ".$review['lname']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="inquiry">Inqueries</label>
+                        <label for="inquiry">Inquiry</label>
                         <textarea name="inquiry" id="inquiry" class="form-control" required><?php echo $review['message']; ?></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="inquiry">Message</label>
+                        <label for="inquiry">Reply</label>
                         <textarea name="email_body" id="message" class="form-control" required rows=4></textarea>
                     </div>
                     <input type="hidden" id="inq_no" name="inq_no" value="<?php echo $review['inq_no']; ?>">
