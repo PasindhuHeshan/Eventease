@@ -551,7 +551,7 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
 
-                        <!-- Add new inventory items -->
+                        
                         <div class="form-group inventory-item" id="inventory_1">
                             <label for="inventory_item_1">Select Item</label>
                             <select name="inventory_item_1" id="inventory_item_1" class="form-control" required>
@@ -587,15 +587,15 @@
         const sidebarItems = document.querySelectorAll(".sidebar li");
         const sections = document.querySelectorAll(".content-section");
         const staffContainer = document.getElementById("staff-container");
-        let staffCount = 1; // Start count from 1 (only the first add staff row visible initially)
+        let staffCount = 1;
         const maxStaff = 10;
         const staffFields = document.querySelectorAll(".staff-fields-hidden");
         const addStaffBtn = document.getElementById("addStaffBtn");
     
-        // Inventory Management
+        
         const inventoryContainer = document.getElementById("inventory-container");
         const addInventoryBtn = document.getElementById("addInventoryBtn");
-        let inventoryCount = 1; // Start count for inventory items
+        let inventoryCount = 1; 
         const maxInventory = 10;
     
         if (addInventoryBtn) {
@@ -631,7 +631,7 @@
                 });
                 inventoryContainer.appendChild(newInventoryDiv);
 
-                // Attach delete functionality to the new delete button
+                
                 attachDeleteInventoryButton(inventoryCount);
             });
         }
@@ -730,7 +730,7 @@
     const firstStaffField = document.getElementById(`staff_1`);
     if (firstStaffField) {
         firstStaffField.classList.remove('staff-fields-hidden');
-        initStaffSearch(1); // Initialize search for the visible row
+        initStaffSearch(1); 
     }
 
     if (addStaffBtn) {
@@ -759,7 +759,7 @@
             `;
             staffContainer.appendChild(newStaffDiv);
 
-            // Attach delete functionality to the new delete button
+            
             attachDeleteStaffButton(staffCount);
         });
     }
@@ -812,7 +812,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         inventoryContainer.appendChild(newInventoryDiv);
 
-        // Attach event listener for the new select field
+        
         const newSelect = document.getElementById(`inventory_item_${inventoryCount}`);
         const newHiddenId = document.getElementById(`inventory_id_${inventoryCount}`);
         newSelect.addEventListener('change', function () {
@@ -820,7 +820,7 @@ document.addEventListener("DOMContentLoaded", function () {
             newHiddenId.value = selectedOption.getAttribute('data-id');
         });
 
-        // Attach delete functionality to the new delete button
+        
         attachDeleteInventoryButton(inventoryCount);
     });
 
@@ -837,7 +837,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Set ID on first inventory field
+    
     const firstInventorySelect = document.getElementById("inventory_item_1");
     const firstInventoryId = document.getElementById("inventory_id_1");
     if (firstInventorySelect && firstInventoryId) {

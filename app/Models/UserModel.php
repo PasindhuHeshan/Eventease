@@ -7,6 +7,18 @@ use App\Database;
 class UserModel {
     private $conn;
 
+    public function getgender($database){
+        $conn= $database->getConnection();
+        $sql = "SELECT * FROM gender";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        // $types = [];
+        // while ($row = $result->fetch_assoc()) {
+        //     $organizations[] = $row;
+        // }
+        return $result;
+    }
 
     public function validateUser($username, $password, Database $database) {
         $conn = $database->getConnection();
@@ -23,22 +35,35 @@ class UserModel {
             return false;
         }
     }
+    
+    public function countgenders(Database $database){
+        $conn= $database->getConnection();
+        $sql = "SELECT  g.gender,count(g.gender) as gender1  FROM users as u join gender as g on u.gender=g.id group by u.gender";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        // $types = [];
+        // while ($row = $result->fetch_assoc()) {
+        //     $organizations[] = $row;
+        // }
+        return $result;
+    }
 
     public function createUser(
         $username, $hashedPassword, $fname, $lname, $email, 
         $usertype, $id, $address, $city, $profile_picture, $status,
-        $database
+        $database,$gender
     ) {
         $conn = $database->getConnection();
     
         $sql = "INSERT INTO users (
                     username, password, fname, lname, email,
-                    usertype, id, address, city, profile_picture, status, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+                    usertype, id, address, city, profile_picture, status, created_at, updated_at,gender
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(),?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssssss", 
+        $stmt->bind_param("ssssssssssss", 
             $username, $hashedPassword, $fname, $lname, $email, 
-            $usertype, $id, $address, $city, $profile_picture, $status
+            $usertype, $id, $address, $city, $profile_picture, $status,$gender
         );
         return $stmt->execute();
     }

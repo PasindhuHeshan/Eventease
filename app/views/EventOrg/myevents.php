@@ -10,7 +10,7 @@
         <?php if (!empty($orgevents)): ?>
             <?php foreach ($orgevents as $event): ?>
                 <?php
-                    $userType = $userData['usertype']; // Assuming userData contains the user type
+                    $userType = $userData['usertype']; 
                     $eventLink = '';
 
                     if ($userType == '3') {
@@ -19,7 +19,6 @@
                         $eventLink = 'enrollmentform';
                     }
                 ?>
-                <!-- <a href="<?php echo $eventLink; ?>"> -->
 
                 <div class="event">
                     <div class="event-image">

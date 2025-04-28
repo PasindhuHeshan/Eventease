@@ -137,6 +137,10 @@
                                 <th><label for="usertype">User Type</label></th>
                                 <td colspan="3"><input type="text" id="usertype" name="usertype" value="<?php if ($userData) echo $userData['role_name']; ?>" readonly></td>
                             </tr>
+                            <tr>
+                                <th><label for="usertype">User Type</label></th>
+                                <td colspan="3"><input type="text" id="usertype" name="usertype" value="<?php if ($userData) echo $userData['gender']; ?>" readonly></td>
+                            </tr>
                         </table>
 
                         <div class="buttons">
@@ -230,5 +234,9 @@
     });
 
     </script>
+
+<?php foreach ($countgenders as $data): ?>
+    <p><?php echo $data['gender'];?> = <?php echo $data['gender1'];?></p>
+<?php endforeach;?>
 </body>
 </html>

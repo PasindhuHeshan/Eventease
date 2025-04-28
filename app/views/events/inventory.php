@@ -1,5 +1,5 @@
 <?php
-$inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances';  // Default to 'Appliances'
+$inventory_type = isset($_POST['inventory_type']) ? $_POST['inventory_type'] : 'Appliances'; 
 $result = $dashboard->getInventoryByType($inventory_type);
 $parameter='inventory';
 ?>

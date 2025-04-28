@@ -23,6 +23,7 @@ class UserProfileController
         $roleData = $this->usermodel->getRoleRequest($database, $userData['No']);
         $contactus = new contactus();
         $chats = $contactus->getChatDetails($userData['email'], $database);
+        $countgenders = $this->usermodel->countgenders($database);
         require __DIR__ . '/../Views/events/userprofile.php';
     }
 

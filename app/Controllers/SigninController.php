@@ -21,6 +21,7 @@ class SigninController {
             $confirm_password = $_POST['confirm_password'] ?? null;
             $usertype = $_POST['usertype'] ?? null;
             $page = $_POST['page'] ?? null;
+            $gender = $_POST['gender'] ?? null;
             $profile_picture = null;
             $status = '1';
     
@@ -36,7 +37,7 @@ class SigninController {
                     $isUserCreated = $userModel->createUser(
                         $username, $hashedPassword, $fname, $lname, $email, 
                         $usertype, $id, $address, $city, $profile_picture, $status,
-                        $database
+                        $database,$gender
                     );
                 }
     
@@ -85,6 +86,7 @@ class SigninController {
 
         $usernames = $usermodel->getusernames($database);
         $emails = $usermodel->getemails($database);
+        $usertypes = $usermodel->getgender($database);
 
 
         include __DIR__ . '/../Views/events/studentform.php';

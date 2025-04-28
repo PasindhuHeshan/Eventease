@@ -218,6 +218,16 @@
                         <tr class="error-row">
                             <td colspan="3"><div id="city_error" class="error"></div></td>
                         </tr>
+                        <tr>
+                            <td><label for="gender">Gender <span class="star">*</span></label></td>
+                            <td colspan="2">
+                                <select id="gender" name="gender">
+                                <?php foreach ($usertypes as $gen): ?>
+                                    <option value="<?php echo $gen['id'];?>"><?php echo $gen['gender'];?></option>
+                                <?php endforeach; ?>
+                                </select>
+                            </td>
+                        </tr>
                     </table>
                     <div class="button-container"> 
                         <button type="button" onclick="showNextStep('step2', 'step1')">Back</button>
