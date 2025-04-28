@@ -318,9 +318,7 @@ document.getElementById('event_banner').addEventListener('change', function() {
 document.addEventListener("DOMContentLoaded", function() {
     const supervisorSearch = document.getElementById('supervisorSearch');
     const supervisorResults = document.getElementById('supervisorResults');
-    const supervisorInput = document.querySelector('input[name="supervisor"]'); // The text input itself
-
-    // Sample supervisor data (replace with your actual PHP data)
+    const supervisorInput = document.querySelector('input[name="supervisor"]'); 
     const supervisors = [
         <?php foreach ($supervisors as $sup): ?>{
             id: "<?php echo $sup['No']; ?>",
@@ -329,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <?php endforeach; ?>
     ];
 
-    // Function to filter and display results
+    
     function searchSupervisors(query) {
         supervisorResults.innerHTML = '';
 
@@ -352,10 +350,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 const item = document.createElement('div');
                 item.className = 'supervisor-result-item';
                 item.textContent = sup.name;
-                item.dataset.id = sup.id; // Store the ID
+                item.dataset.id = sup.id; 
                 item.addEventListener('click', function() {
-                    supervisorSearch.value = sup.name; // Set the name in the input field
-                    supervisorInput.dataset.selectedId = sup.id; // Store the ID in a data attribute
+                    supervisorSearch.value = sup.name; 
+                    supervisorInput.dataset.selectedId = sup.id; 
                     supervisorResults.style.display = 'none';
                 });
                 supervisorResults.appendChild(item);
@@ -365,14 +363,14 @@ document.addEventListener("DOMContentLoaded", function() {
         supervisorResults.style.display = 'block';
     }
 
-    // Event listener for input
+    
     supervisorSearch.addEventListener('input', function() {
         searchSupervisors(this.value);
-        // Remove the stored ID when the user types again
+        
         delete supervisorInput.dataset.selectedId;
     });
 
-    // Before form submission, set the actual value of the supervisor input to the selected ID
+    
     const eventForm = document.querySelector('form');
     eventForm.addEventListener('submit', function() {
         if (supervisorInput.dataset.selectedId) {
@@ -380,14 +378,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Hide results when clicking outside
+    
     document.addEventListener('click', function(e) {
         if (!supervisorSearch.contains(e.target) && !supervisorResults.contains(e.target)) {
             supervisorResults.style.display = 'none';
         }
     });
 
-    // If editing, pre-fill the search field (we'll rely on the server to know the ID)
+    
     <?php if (isset($eventData['supervisor']) && $eventData['supervisor']): ?>
         const existingSup = supervisors.find(sup => sup.id == "<?php echo $eventData['supervisor']; ?>");
         if (existingSup) {

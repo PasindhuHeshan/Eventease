@@ -649,7 +649,7 @@
             }
         }
 
-    // Sample staff data (replace with your actual PHP data)
+    
     const staffMembers = [
         <?php foreach ($staffMembers as $staff): ?> {
             id: "<?php echo $staff['No']; ?>",
@@ -674,7 +674,7 @@
         });
     });
 
-    // Function to initialize search for a staff member
+   
     function initStaffSearch(index) {
         const userSearch = document.getElementById(`userSearch_${index}`);
         const staffResults = document.getElementById(`staffResults_${index}`);
@@ -726,7 +726,7 @@
         });
     }
 
-    // Show only the first "Add Staff" row by default (index 1)
+    
     const firstStaffField = document.getElementById(`staff_1`);
     if (firstStaffField) {
         firstStaffField.classList.remove('staff-fields-hidden');
