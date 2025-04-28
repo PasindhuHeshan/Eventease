@@ -51,7 +51,7 @@
                                 <?php else:?>
                                     <a href="userprofile.php" class="button-link">Close</a>
                                 <?php endif;?>
-                                <?php print_r($chats); ?>
+                                
                             </td>
                         </tr>
                     </table>

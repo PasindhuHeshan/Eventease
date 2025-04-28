@@ -240,7 +240,7 @@ class UserModel {
         }
     }
 
-    //admin function
+
     public function getRoleRequests(Database $database){
         $conn = $database->getConnection();
         $sql = "SELECT rolereq.* , users.*, organizations.* FROM rolereq INNER JOIN users ON rolereq.no = users.No INNER JOIN organizations ON rolereq.organization = organizations.orgno WHERE rolereq.status = 0";
@@ -259,11 +259,11 @@ class UserModel {
         }
     }
 
-    //admin function
+    
     public function admin_updateRoleRequests($no,$orgno,$new_role,$reply, Database $database) {
         $conn = $database->getConnection();
         
-        // Fetch the requested role details from the 'rolereq' table
+        
         $sql = "SELECT * FROM rolereq WHERE no = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $no);
@@ -311,7 +311,7 @@ class UserModel {
         }
     }
 
-    //normal user function
+    
     public function updateRoleRequest($no, $role, $organization, $reason, $status,Database $database) {
         $conn = $database->getConnection();
         $sql = "UPDATE rolereq set role=?, organization=?,reason=?, status=? where no=?";
@@ -395,25 +395,7 @@ class UserModel {
         return true;
     }
 
-    // public function deleterejectComplaint($row_id, Database $database) {
-    //     $conn = $database->getConnection();
-    //     $sql = "DELETE FROM admin_support WHERE row_id = $row_id";
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->execute();
-    //     $stmt->close();
-    //     return true;
-    // }
-
     
-
-    // public function changedisableaccstatus($row_id,Database $database){ 
-    //     $conn = $database->getConnection();
-    //     $sql = "UPDATE admin_support SET email_status = 1 WHERE row_id =?"; 
-    //     $stmt = $conn->prepare($sql); 
-    //     $stmt->bind_param("i", $row_id); 
-    //     $stmt->execute(); 
-    //     $stmt->close();
-    // }
 
     public function getfeedbacks(Database $database) {
         $conn = $database->getConnection();

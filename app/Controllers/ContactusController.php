@@ -129,7 +129,7 @@ class ContactusController{
             }
         }
         
-        $email = isset($_POST['email']) ? $_POST['email'] : null;//admin
+        $email = isset($_POST['email']) ? $_POST['email'] : null;
         
         if (!$userData) {
             $_SESSION['errors'] = ["Error: User not found."];
@@ -141,7 +141,7 @@ class ContactusController{
             $contactus = new contactus();
             $chats = $contactus->getChatDetails($email, $database);
             require __DIR__ . '/../Views/events/chat.php';
-        }else{//mine
+        }else{
             $contactus = new contactus();
             $contactus->updateopentime($userData['email'], $database);
             $chats = $contactus->getChatDetails($userData['email'], $database);

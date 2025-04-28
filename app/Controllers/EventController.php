@@ -41,8 +41,8 @@ class EventController
     $no = isset($_GET['no']) ? $_GET['no'] : null;
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : null; 
 
-    $isEnrolled = false; // Default value when no user is logged in
-    $userdata = ['role_name' => '']; // Default value when no user is logged in
+    $isEnrolled = false; 
+    $userdata = ['role_name' => '']; 
 
     if ($username) {
         $isEnrolled = $this->eventModel->isUserEnrolled($username, $no);
@@ -120,7 +120,7 @@ class EventController
             $no = $_POST['no'] ?? null;
     
             if ($no==null) {
-                // Handle error: invalid event ID
+                
                 echo "Invalid event ID";
                 exit();
             }
@@ -133,7 +133,6 @@ class EventController
                 include __DIR__ . '/../Views/AcademicStaff/staff.php';
                 exit();
             } else {
-                // Handle error: failed to approve event
                 echo "Error approving event";
             }
         }
@@ -145,12 +144,10 @@ class EventController
             $reason = $_POST['reason'] ?? null;
     
             if ($no === null) {
-                // Handle error: invalid event ID
                 echo "Invalid event ID";
                 exit();
             }
             if ($reason === null) {
-                // Handle error: missing rejection reason
                 echo "Missing rejection reason";
                 exit();
             }
@@ -163,7 +160,7 @@ class EventController
                 include __DIR__ . '/../Views/AcademicStaff/staff.php';
                 exit();
             } else {
-                // Handle error: failed to reject event
+                
                 echo "Error rejecting event";
             }
         }
@@ -175,8 +172,8 @@ class EventController
         $no = isset($_GET['no']) ? $_GET['no'] : null;
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : null; 
     
-        $isEnrolled = false; // Default value when no user is logged in
-        $userdata = ['role_name' => '']; // Default value when no user is logged in
+        $isEnrolled = false; 
+        $userdata = ['role_name' => '']; 
     
         if ($username) {
             $isEnrolled = $this->eventModel->isUserEnrolled($username, $no);

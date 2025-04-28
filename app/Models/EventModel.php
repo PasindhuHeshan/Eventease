@@ -117,7 +117,7 @@ class EventModel {
     
         return $result;
     }
-    //write a function to insert contact us form data into the database
+    
     public function insertContactUs($type, $email, $contact_no, $feedback) {
         $query = "INSERT INTO contact_support (type, email, contact_no, feedback) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
@@ -181,7 +181,7 @@ class EventModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    //admin 
+     
     public function getadmineventinventory(Database $database){
         $query = "SELECT ei.*, e.* FROM event_inventory ei JOIN events e ON ei.event_id = e.no WHERE ei.status = 0";
         $result = $this->conn->query($query);
@@ -258,7 +258,7 @@ class EventModel {
     }
 
     public function geteventtypes(Database $database){
-        //table is event_inventory
+        
         $query = "SELECT DISTINCT event.event_type from events event group by event.event_type";
         $result = $this->conn->query($query);
         if ($result === false) {
@@ -308,7 +308,7 @@ class EventModel {
         $stmt->execute();
         $result1 = $stmt->get_result();
 
-        //get sum of all rows quantity column
+        
         $sum = 0;
         while ($row = $result1->fetch_assoc()) {
             $sum += $row['quantity'];
