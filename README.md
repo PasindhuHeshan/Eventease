@@ -1,4 +1,4 @@
-EVENTEASE – University Event Management System 🎉
+#EVENTEASE – University Event Management System 🎉
 
 ## 📌 Introduction
 
