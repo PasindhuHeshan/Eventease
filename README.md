@@ -1,4 +1,4 @@
-## <H2>EVENTEASE – University Event Management System 🎉<H2>
+# EVENTEASE – University Event Management System 🎉
 
 ## 📌 Introduction
 
